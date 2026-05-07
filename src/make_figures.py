@@ -25,13 +25,13 @@ def _save(fig, name):
 
 
 PALETTE = {
-    "baseline":      "#3aa040",   # green:  Cauchy fixed-parameter reference
-    "v2_limit":      "#1f4ea1",   # blue:   noise-shape adaptation only
-    "v3_limit":      "#e07a3a",   # orange: motility adaptation only
-    "full":          "#7a3aa0",   # purple: double-adaptive (proposed model)
-    "vicsek_gauss":  "#444444",   # dark grey: original Vicsek (Gaussian, fixed v)
-    "fixed_v":       "#3aa040",   # alias used by snapshot npz (legacy fixed-v case)
-    "adaptive":      "#7a3aa0",   # alias used by snapshot npz (legacy full case)
+    "vicsek_gauss":  style.WONG["black"],    # original Vicsek reference
+    "baseline":      style.WONG["sky"],      # Cauchy fixed-parameter reference
+    "v2_limit":      style.WONG["green"],    # noise-shape adaptation only
+    "v3_limit":      style.WONG["vermil"],   # motility adaptation only
+    "full":          style.WONG["rpurple"],  # double-adaptive (proposed model)
+    "fixed_v":       style.WONG["sky"],      # alias used by snapshot npz
+    "adaptive":      style.WONG["rpurple"],  # alias used by snapshot npz
 }
 
 LABELS = {
@@ -204,17 +204,18 @@ def fig_double_pilot(npz_path: Path):
     ax.set_xscale("log")
     ax.set_xlabel(r"$\eta$")
     ax.set_ylabel(r"$\langle\varphi\rangle$")
-    ax.set_title(panel_titles[0], fontsize=8)
-    ax.legend(fontsize=6, loc="best")
+    ax.set_title(r"(a)", fontsize=9, loc="left")
 
-    # (b) chi
+    # (b) chi -- log-y so the heavy spread does not flatten everything else.
     ax = axes[0, 1]
     for im, m in enumerate(modes):
-        ax.plot(etas, chi[im, iL], "o-", color=PALETTE[m], lw=1.2, ms=3)
+        chi_pos = np.where(chi[im, iL] > 0, chi[im, iL], np.nan)
+        ax.plot(etas, chi_pos, "o-", color=PALETTE[m], lw=1.2, ms=3)
     ax.set_xscale("log")
+    ax.set_yscale("log")
     ax.set_xlabel(r"$\eta$")
     ax.set_ylabel(r"$\chi$")
-    ax.set_title(panel_titles[1], fontsize=8)
+    ax.set_title(r"(b)", fontsize=9, loc="left")
 
     # (c) s_sep
     ax = axes[0, 2]
@@ -223,36 +224,52 @@ def fig_double_pilot(npz_path: Path):
     ax.set_xscale("log")
     ax.set_xlabel(r"$\eta$")
     ax.set_ylabel(r"$s_{\rm sep}$")
-    ax.set_title(panel_titles[2], fontsize=8)
+    ax.set_title(r"(c)", fontsize=9, loc="left")
 
     # (d) U4
     ax = axes[1, 0]
     for im, m in enumerate(modes):
         ax.plot(etas, U4[im, iL], "o-", color=PALETTE[m], lw=1.2, ms=3)
-    ax.axhline(2.0 / 3.0, ls=":", c="grey", lw=0.6)
+    ax.axhline(2.0 / 3.0, ls="--", c="black", lw=0.5, alpha=0.7)
+    ax.text(etas[-1] * 1.02, 2.0 / 3.0, r"$2/3$",
+             fontsize=7, va="center", ha="left", color="black")
     ax.set_xscale("log")
     ax.set_xlabel(r"$\eta$")
     ax.set_ylabel(r"$U_4$")
-    ax.set_title(panel_titles[3], fontsize=8)
+    ax.set_title(r"(d)", fontsize=9, loc="left")
 
-    # (e) chi_max FSS
+    # (e) chi_max FSS with bootstrap CI on the slope.
     ax = axes[1, 1]
+    rng = np.random.default_rng(0)
     for im, m in enumerate(modes):
         chi_max = chi[im].max(axis=1)
-        ax.plot(Ls, chi_max, "o-", color=PALETTE[m], lw=1.2, ms=4)
-        # log-log slope
+        ax.plot(Ls, chi_max, "o", color=PALETTE[m], ms=5, zorder=3)
         a, b = np.polyfit(np.log(Ls), np.log(chi_max), 1)
-        ax.plot(Ls, np.exp(b) * Ls ** a, "--", color=PALETTE[m],
-                lw=0.7, alpha=0.7)
-        ax.text(0.02, 0.95 - 0.07 * im,
-                fr"{m}: slope $={a:.2f}$",
+        # bootstrap the slope by resampling sizes with replacement
+        boot = []
+        for _ in range(2000):
+            idx = rng.integers(0, len(Ls), len(Ls))
+            try:
+                ai, _ = np.polyfit(np.log(Ls[idx]),
+                                    np.log(chi_max[idx]), 1)
+                boot.append(ai)
+            except (np.linalg.LinAlgError, ValueError):
+                continue
+        a_lo, a_hi = np.percentile(boot, [16, 84])
+        a_err = 0.5 * (a_hi - a_lo)
+        L_grid = np.linspace(Ls.min(), Ls.max(), 50)
+        ax.plot(L_grid, np.exp(b) * L_grid ** a, "-",
+                 color=PALETTE[m], lw=1.0, alpha=0.85, zorder=2)
+        ax.text(1.02, 0.95 - 0.10 * im,
+                fr"$a={a:+.2f}\pm{a_err:.2f}$",
                 transform=ax.transAxes,
-                fontsize=6, color=PALETTE[m])
+                fontsize=7, color=PALETTE[m],
+                ha="left", va="top")
     ax.set_xscale("log")
     ax.set_yscale("log")
     ax.set_xlabel(r"$L$")
     ax.set_ylabel(r"$\chi_{\max}$")
-    ax.set_title(panel_titles[4], fontsize=8)
+    ax.set_title(r"(e)", fontsize=9, loc="left")
 
     # (f) v_pop and a_pop overlay
     ax = axes[1, 2]
@@ -267,9 +284,16 @@ def fig_double_pilot(npz_path: Path):
     ax.set_ylabel(r"$\langle v_i\rangle$  (solid)")
     ax2.set_ylabel(r"$\langle\alpha_i\rangle$  (dotted)")
     ax2.set_ylim(0.95, 2.05)
-    ax.set_title(panel_titles[5], fontsize=8)
+    ax.set_title(r"(f)", fontsize=9, loc="left")
 
-    fig.tight_layout()
+    # Shared legend at the top of the figure, no stack on panel a.
+    handles = [plt.Line2D([0], [0], color=PALETTE[m], marker="o",
+                            ms=4, label=LABELS[m])
+                for m in modes]
+    fig.legend(handles=handles, loc="upper center",
+                 bbox_to_anchor=(0.5, 1.02),
+                 ncol=4, fontsize=8, frameon=False)
+    fig.tight_layout(rect=(0, 0, 1, 0.94))
     _save(fig, "fig_double_pilot.pdf")
 
 
@@ -373,16 +397,46 @@ def fig_double_orderpdf(npz_path: Path):
     phi_traj = z["phi_traj"]
     eta_arr = z["eta"]
 
+    from scipy.stats import skew, kurtosis, gaussian_kde
+
     fig, axes = plt.subplots(1, len(labels),
-                             figsize=(style.DOUBLE_COL[0], 2.4))
+                             figsize=(style.DOUBLE_COL[0], 2.6),
+                             sharey=True)
     if len(labels) == 1:
         axes = [axes]
     bins = np.linspace(0, 1, 60)
+    grid = np.linspace(0, 1, 200)
+    # Determine a common y-limit from the maximum density across
+    # both panels so the visual comparison is honest.
+    y_max = 0.0
+    for ic, lbl in enumerate(labels):
+        h, _ = np.histogram(phi_traj[ic], bins=bins, density=True)
+        y_max = max(y_max, h.max())
     for ic, lbl in enumerate(labels):
         ax = axes[ic]
         c = PALETTE.get(lbl, "#1f4ea1")
         ax.hist(phi_traj[ic], bins=bins, density=True, color=c,
-                alpha=0.78, edgecolor="black", linewidth=0.4)
+                alpha=0.55, edgecolor="black", linewidth=0.3)
+        kde = gaussian_kde(phi_traj[ic], bw_method="scott")
+        ax.plot(grid, kde(grid), "-", color=c, lw=1.4)
+        mu = float(phi_traj[ic].mean())
+        sd = float(phi_traj[ic].std())
+        sk = float(skew(phi_traj[ic]))
+        ku = float(kurtosis(phi_traj[ic]))
+        u4 = 1.0 - (phi_traj[ic] ** 4).mean() / (
+            3.0 * (phi_traj[ic] ** 2).mean() ** 2)
+        ax.axvline(mu, color="black", lw=0.6, ls="--", alpha=0.7)
+        ax.text(0.97, 0.95,
+                fr"$\mu = {mu:.2f}$" "\n"
+                fr"$\sigma = {sd:.2f}$" "\n"
+                fr"skew $= {sk:+.2f}$" "\n"
+                fr"kurt $= {ku:+.2f}$" "\n"
+                fr"$U_4 = {u4:.2f}$",
+                transform=ax.transAxes,
+                ha="right", va="top",
+                fontsize=7,
+                bbox=dict(facecolor="white", alpha=0.85,
+                          edgecolor="none", pad=2))
         ax.set_xlabel(r"$\langle\varphi\rangle$")
         ax.set_xlim(0, 1)
         nice = _disp(lbl)
@@ -393,6 +447,7 @@ def fig_double_orderpdf(npz_path: Path):
         ax.text(-0.18, 1.04, f"({chr(97 + ic)})",
                 transform=ax.transAxes,
                 fontsize=10, fontweight="bold")
+        ax.set_ylim(0, 1.1 * y_max)
     fig.tight_layout()
     _save(fig, "fig_double_orderpdf.pdf")
 
@@ -448,12 +503,17 @@ def fig_double_profile(npz_path: Path):
 
 
 def fig_double_clusters(npz_path: Path):
-    r"""Cluster-size complementary CDF $P(s' \ge s)$ per mode."""
+    r"""Cluster-size complementary CDF $P(s' \ge s)$ per mode.
+    Modes whose dense fluctuations cap at the threshold floor
+    (Cauchy reference, noise-shape only) are still drawn but
+    pushed to the background."""
     z = np.load(npz_path, allow_pickle=True)
     labels = [str(s) if isinstance(s, str) else s.decode()
               for s in z["labels"]]
     fig, ax = plt.subplots(figsize=(style.SINGLE_COL[0] * 1.4,
                                      style.SINGLE_COL[1] * 1.3))
+    # First the reference modes in muted form, then the
+    # phase-separated modes on top.
     for m in labels:
         sizes = np.asarray(z[f"sizes_{m}"], dtype=int)
         if len(sizes) == 0:
@@ -461,27 +521,45 @@ def fig_double_clusters(npz_path: Path):
         sizes = np.sort(sizes)
         ccdf = 1.0 - np.arange(len(sizes)) / len(sizes)
         col = PALETTE.get(m, "#1f4ea1")
-        ax.loglog(sizes, ccdf, lw=1.4, color=col,
+        is_phase_separated = sizes.max() >= 8
+        ax.loglog(sizes, ccdf,
+                   lw=1.5 if is_phase_separated else 0.9,
+                   color=col, alpha=1.0 if is_phase_separated else 0.55,
                    label=_disp(m))
     ax.set_xlabel(r"cluster size $s$ (particles)")
     ax.set_ylabel(r"$P(s' \geq s)$")
-    ax.set_title("Cluster-size CCDF, $L = 30$", fontsize=8)
+    ax.set_title("$L = 30$", fontsize=8, loc="left")
     ax.legend(fontsize=7, loc="lower left", frameon=False)
     fig.tight_layout()
     _save(fig, "fig_double_clusters.pdf")
 
 
 def fig_double_gr(npz_path: Path):
-    """Heading correlation $g(r)$ in dense vs dilute regions."""
+    """Heading correlation $g(r)$ in dense vs dilute regions, with
+    seed-level standard-error bands when per-seed data is
+    available (HS files), or the bare curve otherwise."""
     z = np.load(npz_path, allow_pickle=True)
     labels = [str(s) if isinstance(s, str) else s.decode()
               for s in z["labels"]]
     r_centers = z["r_centers"]
-    gr_dense = z["gr_dense"]
-    gr_dilute = z["gr_dilute"]
+
+    has_per_seed = "gr_dense_per_seed" in z.files
+    if has_per_seed:
+        gd = z["gr_dense_per_seed"]
+        gl = z["gr_dilute_per_seed"]
+        gr_dense = np.nanmean(gd, axis=1)
+        gr_dilute = np.nanmean(gl, axis=1)
+        n_d = np.sum(~np.isnan(gd), axis=1)
+        n_l = np.sum(~np.isnan(gl), axis=1)
+        gr_dense_se = np.nanstd(gd, axis=1, ddof=1) / np.sqrt(np.maximum(n_d, 1))
+        gr_dilute_se = np.nanstd(gl, axis=1, ddof=1) / np.sqrt(np.maximum(n_l, 1))
+    else:
+        gr_dense = z["gr_dense"]
+        gr_dilute = z["gr_dilute"]
+        gr_dense_se = None
 
     fig, axes = plt.subplots(1, 2,
-                              figsize=(style.DOUBLE_COL[0], 2.6),
+                              figsize=(style.DOUBLE_COL[0], 2.8),
                               sharey=True)
     for im, m in enumerate(labels):
         col = PALETTE.get(m, "#1f4ea1")
@@ -489,13 +567,40 @@ def fig_double_gr(npz_path: Path):
                       color=col, label=_disp(m))
         axes[1].plot(r_centers, gr_dilute[im], "-", lw=1.4,
                       color=col, label=_disp(m))
+        if gr_dense_se is not None:
+            axes[0].fill_between(r_centers,
+                                  gr_dense[im] - gr_dense_se[im],
+                                  gr_dense[im] + gr_dense_se[im],
+                                  color=col, alpha=0.18, lw=0)
+            axes[1].fill_between(r_centers,
+                                  gr_dilute[im] - gr_dilute_se[im],
+                                  gr_dilute[im] + gr_dilute_se[im],
+                                  color=col, alpha=0.18, lw=0)
     for ax in axes:
         ax.axhline(0.0, ls=":", color="grey", lw=0.6)
+        ax.axvline(0.7, ls=":", color="grey", lw=0.6)
         ax.set_xlabel(r"distance $r$")
-        ax.set_xlim(0, r_centers[-1])
+        ax.set_xlim(0.5, r_centers[-1])
     axes[0].set_ylabel(r"$g(r) = \langle\cos[\theta_i - \theta_j]\rangle$")
     axes[0].set_title("dense quartile", fontsize=8)
     axes[1].set_title("dilute quartile", fontsize=8)
+    # annotate the dense gap full vs motility at the inner bin.
+    if has_per_seed and "v3_limit" in labels and "full" in labels:
+        i_m = labels.index("v3_limit")
+        i_f = labels.index("full")
+        delta = gr_dense[i_f, 0] - gr_dense[i_m, 0]
+        diff = gd[i_f, :, 0] - gd[i_m, :, 0]
+        ok = np.isfinite(diff)
+        z_score = diff[ok].mean() / (
+            diff[ok].std(ddof=1) / np.sqrt(ok.sum()))
+        axes[0].annotate(
+            fr"$\Delta g = {delta:+.3f}$" "\n"
+            fr"$z = {z_score:+.1f}$",
+            xy=(r_centers[0], gr_dense[i_f, 0]),
+            xytext=(r_centers[0] + 0.6, gr_dense[i_f, 0] + 0.05),
+            fontsize=7, color=PALETTE["full"],
+            arrowprops=dict(arrowstyle="-", lw=0.6,
+                              color=PALETTE["full"]))
     axes[0].legend(fontsize=6, loc="upper right", frameon=False)
     axes[0].text(-0.18, 1.04, "(a)", transform=axes[0].transAxes,
                   fontsize=10, fontweight="bold")
@@ -576,26 +681,64 @@ def fig_double_Lfine_gap(npz_fine, npz_pilot, npz_L64, npz_L90,
     s_mot_arr = np.array(s_mot)
     gap = s_full_arr - s_mot_arr
 
+    # High-statistics 10-seed reference values from
+    # double_L_highstat.npz (overplotted with error bars).
+    hs_path = Path(npz_fine).parent / "double_L_highstat.npz"
+    has_hs = hs_path.exists()
+    if has_hs:
+        hs = np.load(hs_path, allow_pickle=True)
+        hs_modes = [str(s) if isinstance(s, str) else s.decode()
+                    for s in hs["modes"]]
+        i_m_hs = hs_modes.index("motility")
+        i_f_hs = hs_modes.index("full")
+        Ls_hs = hs["Ls"]
+        # Reduce s_sep_per_seed[mode, L, eta, seed] to per-(mode, L)
+        # by taking the max over eta of the seed-mean, then SE over
+        # seeds at that eta.
+        s_per_seed = hs["s_sep_per_seed"]   # (n_mode, n_L, n_eta, n_seed)
+        n_seed = s_per_seed.shape[-1]
+        gap_hs = np.zeros(len(Ls_hs))
+        gap_hs_se = np.zeros(len(Ls_hs))
+        for iL in range(len(Ls_hs)):
+            mean_e_m = s_per_seed[i_m_hs, iL].mean(axis=-1)
+            mean_e_f = s_per_seed[i_f_hs, iL].mean(axis=-1)
+            ie_m = int(np.argmax(mean_e_m))
+            ie_f = int(np.argmax(mean_e_f))
+            diff = (s_per_seed[i_f_hs, iL, ie_f]
+                     - s_per_seed[i_m_hs, iL, ie_m])
+            gap_hs[iL] = diff.mean()
+            gap_hs_se[iL] = diff.std(ddof=1) / np.sqrt(n_seed)
+
     fig, axes = plt.subplots(1, 2,
-                              figsize=(style.DOUBLE_COL[0], 2.6))
+                              figsize=(style.DOUBLE_COL[0], 2.8))
     ax = axes[0]
-    ax.plot(L_arr, s_mot_arr, "o-", color=PALETTE["v3_limit"],
-             label=DISPLAY["v3_limit"], lw=1.2, ms=4)
-    ax.plot(L_arr, s_full_arr, "s-", color=PALETTE["full"],
-             label=DISPLAY["full"], lw=1.2, ms=4)
+    ax.plot(L_arr, s_mot_arr, "o", color=PALETTE["v3_limit"],
+             label=DISPLAY["v3_limit"], ms=4)
+    ax.plot(L_arr, s_full_arr, "s", color=PALETTE["full"],
+             label=DISPLAY["full"], ms=4)
+    ax.axhline(1.73, color="black", ls="--", lw=0.5, alpha=0.6)
+    ax.text(L_arr[-1] * 1.05, 1.73,
+             r"$\simeq 1.73$ plateau",
+             fontsize=7, va="center", ha="left", color="black")
     ax.set_xscale("log")
     ax.set_xlabel(r"$L$")
     ax.set_ylabel(r"$s_{\rm sep}^{\max}$")
-    ax.set_title(r"(a) $s_{\rm sep}^{\max}(L)$", fontsize=8)
+    ax.set_title(r"(a)", fontsize=9, loc="left")
     ax.legend(fontsize=7, loc="lower right", frameon=False)
 
     ax = axes[1]
-    ax.axhline(0.0, color="grey", ls=":", lw=0.6)
-    ax.plot(L_arr, gap, "D-", color="#1f4ea1", lw=1.2, ms=4)
+    ax.axhline(0.0, color="grey", ls="-", lw=0.4)
+    ax.plot(L_arr, gap, "D", color=style.WONG["blue"], ms=4,
+             label="3 to 5 seeds")
+    if has_hs:
+        ax.errorbar(Ls_hs, gap_hs, yerr=gap_hs_se, fmt="o",
+                     color=style.WONG["vermil"], ms=5, capsize=3,
+                     lw=0.8, label="10 seeds")
     ax.set_xscale("log")
     ax.set_xlabel(r"$L$")
     ax.set_ylabel(r"$s_{\rm sep}^{\rm full} - s_{\rm sep}^{\rm motility}$")
-    ax.set_title(r"(b) gap (full $-$ motility)", fontsize=8)
+    ax.set_title(r"(b)", fontsize=9, loc="left")
+    ax.legend(fontsize=7, loc="lower left", frameon=False)
 
     fig.tight_layout()
     _save(fig, "fig_double_Lfine_gap.pdf")
@@ -757,14 +900,23 @@ def fig_double_gr_decay(npz_path: Path):
 
     fig, ax = plt.subplots(figsize=(style.SINGLE_COL[0] * 1.4,
                                       style.SINGLE_COL[1] * 1.3))
-    cmap = plt.get_cmap("viridis")
+    cmap = plt.get_cmap("plasma")
     for iL, L in enumerate(Ls):
-        c = cmap(iL / max(len(Ls) - 1, 1))
+        c = cmap(0.15 + 0.7 * iL / max(len(Ls) - 1, 1))
         ax.fill_between(r, gap[iL] - se[iL], gap[iL] + se[iL],
-                         color=c, alpha=0.18)
+                         color=c, alpha=0.20)
         ax.plot(r, gap[iL], "-", lw=1.4, color=c,
                  label=fr"$L={int(L)}$")
-    ax.axhline(0.0, color="grey", ls=":", lw=0.6)
+    # plateau reference line and metric alignment cutoff
+    plateau = float(np.nanmean(gap))
+    ax.axhline(plateau, color="black", ls="--", lw=0.5, alpha=0.5)
+    ax.text(r[-1] * 0.98, plateau + 0.005,
+             fr"$\Delta g \simeq {plateau:.2f}$",
+             fontsize=7, ha="right", va="bottom", color="black")
+    ax.axhline(0.0, color="grey", ls="-", lw=0.4)
+    ax.axvline(0.7, color="grey", ls=":", lw=0.5)
+    ax.text(0.72, ax.get_ylim()[0] + 0.01, r"$R_a$",
+             fontsize=7, ha="left", va="bottom", color="grey")
     ax.set_xlabel(r"distance $r$")
     ax.set_ylabel(r"$\Delta g(r) = g_{\rm full}(r) - g_{\rm motility}(r)$"
                   r" in dense quartile")
