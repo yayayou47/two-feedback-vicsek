@@ -1,0 +1,7 @@
+clusters:   0%|          | 0/12 [00:00<?, ?it/s]clusters:   8%|▊         | 1/12 [00:07<01:23,  7.59s/it]clusters:  17%|█▋        | 2/12 [00:14<01:14,  7.43s/it]clusters:  25%|██▌       | 3/12 [00:21<01:04,  7.21s/it]clusters:  33%|███▎      | 4/12 [00:28<00:55,  6.99s/it]clusters:  42%|████▏     | 5/12 [00:36<00:52,  7.49s/it]clusters:  50%|█████     | 6/12 [00:45<00:46,  7.80s/it]clusters:  58%|█████▊    | 7/12 [00:52<00:37,  7.58s/it]clusters:  67%|██████▋   | 8/12 [00:59<00:29,  7.40s/it]clusters:  75%|███████▌  | 9/12 [01:06<00:22,  7.36s/it]clusters:  83%|████████▎ | 10/12 [01:14<00:14,  7.43s/it]clusters:  92%|█████████▏| 11/12 [01:21<00:07,  7.46s/it]clusters: 100%|██████████| 12/12 [01:27<00:00,  6.97s/it]clusters: 100%|██████████| 12/12 [01:27<00:00,  7.31s/it]
+
+  baseline    n_clusters=  880  max=   10  median=   5  mean=5.0  giant_frac=0.01
+  v2_limit    n_clusters=  885  max=   10  median=   5  mean=5.0  giant_frac=0.01
+  v3_limit    n_clusters= 1196  max=   15  median=   5  mean=5.1  giant_frac=0.01
+  full        n_clusters=  972  max=   15  median=   5  mean=5.1  giant_frac=0.01
+saved: /home/yaya/Article  SPP Actualise/version4/data/double_clusters.npz

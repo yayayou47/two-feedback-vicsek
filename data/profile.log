@@ -1,0 +1,7 @@
+profile:   0%|          | 0/12 [00:00<?, ?it/s]profile:   8%|▊         | 1/12 [00:05<00:58,  5.34s/it]profile:  17%|█▋        | 2/12 [00:10<00:52,  5.27s/it]profile:  25%|██▌       | 3/12 [00:15<00:47,  5.26s/it]profile:  33%|███▎      | 4/12 [00:21<00:43,  5.45s/it]profile:  42%|████▏     | 5/12 [00:27<00:38,  5.47s/it]profile:  50%|█████     | 6/12 [00:32<00:32,  5.42s/it]profile:  58%|█████▊    | 7/12 [00:37<00:26,  5.30s/it]profile:  67%|██████▋   | 8/12 [00:42<00:20,  5.23s/it]profile:  75%|███████▌  | 9/12 [00:47<00:15,  5.19s/it]profile:  83%|████████▎ | 10/12 [00:52<00:10,  5.23s/it]profile:  92%|█████████▏| 11/12 [00:58<00:05,  5.28s/it]profile: 100%|██████████| 12/12 [01:03<00:00,  5.30s/it]profile: 100%|██████████| 12/12 [01:03<00:00,  5.31s/it]
+
+  baseline    eta=0.035  phi=0.178  band_idx=1.027
+  v2_limit    eta=0.075  phi=0.234  band_idx=1.047
+  v3_limit    eta=0.100  phi=0.342  band_idx=1.020
+  full        eta=0.150  phi=0.482  band_idx=1.086
+saved: /home/yaya/Article  SPP Actualise/version4/data/double_profile.npz

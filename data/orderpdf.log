@@ -1,0 +1,7 @@
+orderpdf:   0%|          | 0/6 [00:00<?, ?it/s]orderpdf:  17%|█▋        | 1/6 [00:07<00:37,  7.48s/it]orderpdf:  33%|███▎      | 2/6 [00:14<00:29,  7.31s/it]orderpdf:  50%|█████     | 3/6 [00:22<00:22,  7.35s/it]orderpdf:  67%|██████▋   | 4/6 [00:29<00:14,  7.46s/it]orderpdf:  83%|████████▎ | 5/6 [00:37<00:07,  7.50s/it]orderpdf: 100%|██████████| 6/6 [00:45<00:00,  7.72s/it]orderpdf: 100%|██████████| 6/6 [00:45<00:00,  7.57s/it]
+
+  v3_limit: eta=0.100  mean=0.346  std=0.082  skew=-0.67  kurt=+0.15  U4=0.608
+  full: eta=0.150  mean=0.497  std=0.087  skew=-1.76  kurt=+4.05  U4=0.638
+saved: /home/yaya/Article  SPP Actualise/version4/data/double_orderpdf.npz
+  saved /home/yaya/Article  SPP Actualise/version4/figures/fig_double_orderpdf.pdf
+  saved /home/yaya/Article  SPP Actualise/version4/figures/fig_double_profile.pdf

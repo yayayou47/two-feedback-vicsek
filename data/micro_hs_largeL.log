@@ -1,0 +1,17 @@
+/home/yaya/Article  SPP Actualise/version4/src/run_double_micro_hs_largeL.py:1: SyntaxWarning: invalid escape sequence '\c'
+  """
+micro_hs_largeL:   0%|          | 0/40 [00:00<?, ?it/s]micro_hs_largeL:   2%|▎         | 1/40 [00:42<27:43, 42.66s/it]micro_hs_largeL:   5%|▌         | 2/40 [01:18<24:39, 38.94s/it]micro_hs_largeL:   8%|▊         | 3/40 [01:56<23:36, 38.28s/it]micro_hs_largeL:  10%|█         | 4/40 [02:33<22:41, 37.82s/it]micro_hs_largeL:  12%|█▎        | 5/40 [03:10<21:50, 37.44s/it]micro_hs_largeL:  15%|█▌        | 6/40 [03:47<21:08, 37.30s/it]micro_hs_largeL:  18%|█▊        | 7/40 [04:25<20:35, 37.43s/it]micro_hs_largeL:  20%|██        | 8/40 [05:01<19:50, 37.20s/it]micro_hs_largeL:  22%|██▎       | 9/40 [05:39<19:13, 37.21s/it]micro_hs_largeL:  25%|██▌       | 10/40 [06:15<18:24, 36.83s/it]micro_hs_largeL:  28%|██▊       | 11/40 [07:57<27:31, 56.94s/it]micro_hs_largeL:  30%|███       | 12/40 [09:42<33:26, 71.66s/it]micro_hs_largeL:  32%|███▎      | 13/40 [11:29<36:57, 82.14s/it]micro_hs_largeL:  35%|███▌      | 14/40 [13:11<38:11, 88.15s/it]micro_hs_largeL:  38%|███▊      | 15/40 [14:52<38:21, 92.05s/it]micro_hs_largeL:  40%|████      | 16/40 [16:36<38:16, 95.67s/it]micro_hs_largeL:  42%|████▎     | 17/40 [18:21<37:45, 98.49s/it]micro_hs_largeL:  45%|████▌     | 18/40 [20:05<36:44, 100.21s/it]micro_hs_largeL:  48%|████▊     | 19/40 [21:49<35:26, 101.28s/it]micro_hs_largeL:  50%|█████     | 20/40 [23:37<34:25, 103.26s/it]micro_hs_largeL:  52%|█████▎    | 21/40 [24:16<26:34, 83.92s/it] micro_hs_largeL:  55%|█████▌    | 22/40 [24:53<20:57, 69.87s/it]micro_hs_largeL:  57%|█████▊    | 23/40 [25:32<17:11, 60.69s/it]micro_hs_largeL:  60%|██████    | 24/40 [26:09<14:19, 53.69s/it]micro_hs_largeL:  62%|██████▎   | 25/40 [26:47<12:13, 48.92s/it]micro_hs_largeL:  65%|██████▌   | 26/40 [27:26<10:42, 45.87s/it]micro_hs_largeL:  68%|██████▊   | 27/40 [28:06<09:33, 44.09s/it]micro_hs_largeL:  70%|███████   | 28/40 [28:44<08:26, 42.24s/it]micro_hs_largeL:  72%|███████▎  | 29/40 [29:22<07:32, 41.16s/it]micro_hs_largeL:  75%|███████▌  | 30/40 [30:02<06:45, 40.57s/it]micro_hs_largeL:  78%|███████▊  | 31/40 [31:42<08:47, 58.64s/it]micro_hs_largeL:  80%|████████  | 32/40 [33:27<09:38, 72.30s/it]micro_hs_largeL:  82%|████████▎ | 33/40 [35:10<09:31, 81.66s/it]micro_hs_largeL:  85%|████████▌ | 34/40 [36:54<08:49, 88.21s/it]micro_hs_largeL:  88%|████████▊ | 35/40 [38:41<07:49, 93.88s/it]micro_hs_largeL:  90%|█████████ | 36/40 [40:20<06:21, 95.42s/it]micro_hs_largeL:  92%|█████████▎| 37/40 [42:13<05:02, 100.82s/it]micro_hs_largeL:  95%|█████████▌| 38/40 [44:05<03:28, 104.03s/it]micro_hs_largeL:  98%|█████████▊| 39/40 [45:52<01:44, 104.99s/it]micro_hs_largeL: 100%|██████████| 40/40 [47:32<00:00, 103.52s/it]micro_hs_largeL: 100%|██████████| 40/40 [47:32<00:00, 71.31s/it] 
+
+runtime: 47.5 min
+
+=== L = 64 ===
+    motility  n_cl= 147.6±10.2  max=249.4±42.6  g_dense(0.6)=+0.464±0.005
+        full  n_cl= 116.7±12.3  max=240.8±46.5  g_dense(0.6)=+0.599±0.006
+  delta(n_cl) = -30.9 +/- 15.2  (z = -2.03)
+  delta(g_dense) at r=0.6 = +0.135 +/- 0.009  (z = +15.00)
+
+=== L = 90 ===
+    motility  n_cl= 196.2±13.3  max=487.5±51.0  g_dense(0.6)=+0.463±0.003
+        full  n_cl= 182.3±12.1  max=601.7±60.7  g_dense(0.6)=+0.600±0.009
+  delta(n_cl) = -13.9 +/- 18.2  (z = -0.77)
+  delta(g_dense) at r=0.6 = +0.137 +/- 0.010  (z = +13.30)

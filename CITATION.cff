@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the manuscript and this code archive."
+title: "A two-feedback Vicsek-Couzin flock: density-stratified heading correlations as the scale-invariant fingerprint of motility-noise coupling"
+authors:
+  - family-names: Yaya
+    given-names: Yaya Youssouf
+    orcid: https://orcid.org/0000-0003-0781-4923
+    affiliation: "Departement de Mathematiques, Ecole Normale Superieure de N'Djamena, Tchad; Cherheur Associe, LMA, Universite Assane Seck de Ziguinchor, Senegal"
+license: MIT
+repository-code: ""   # to be filled with the GitHub URL on release
+type: software
+keywords:
+  - Vicsek model
+  - active matter
+  - motility-induced phase separation
+  - alpha-stable noise
+  - finite-size scaling
+  - heading correlation
