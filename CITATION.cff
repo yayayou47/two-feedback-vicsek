@@ -7,7 +7,7 @@ authors:
     orcid: https://orcid.org/0000-0003-0781-4923
     affiliation: "Departement de Mathematiques, Ecole Normale Superieure de N'Djamena, Tchad; Cherheur Associe, LMA, Universite Assane Seck de Ziguinchor, Senegal"
 license: MIT
-repository-code: ""   # to be filled with the GitHub URL on release
+repository-code: "https://github.com/yayayou47/two-feedback-vicsek"
 type: software
 keywords:
   - Vicsek model
