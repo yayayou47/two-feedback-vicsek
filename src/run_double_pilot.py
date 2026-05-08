@@ -66,12 +66,21 @@ def main():
     ]
 
     n_mode, n_L, n_eta = len(modes), len(Ls), len(etas)
+    n_seeds = len(seeds)
+    # Pooled aggregates (kept for backwards compatibility).
     phi = np.zeros((n_mode, n_L, n_eta))
     chi = np.zeros((n_mode, n_L, n_eta))
     U4 = np.zeros((n_mode, n_L, n_eta))
     s_sep = np.zeros((n_mode, n_L, n_eta))
     v_pop = np.zeros((n_mode, n_L, n_eta))
     a_pop = np.zeros((n_mode, n_L, n_eta))
+    # Per-seed observables, so figure renderers can compute SE.
+    phi_per_seed = np.zeros((n_mode, n_L, n_eta, n_seeds))
+    chi_per_seed = np.zeros((n_mode, n_L, n_eta, n_seeds))
+    U4_per_seed = np.zeros((n_mode, n_L, n_eta, n_seeds))
+    s_sep_per_seed = np.zeros((n_mode, n_L, n_eta, n_seeds))
+    v_pop_per_seed = np.zeros((n_mode, n_L, n_eta, n_seeds))
+    a_pop_per_seed = np.zeros((n_mode, n_L, n_eta, n_seeds))
 
     pbar = tqdm(total=n_mode * n_L * n_eta * len(seeds),
                 desc="double_pilot")
@@ -84,7 +93,7 @@ def main():
                 s_acc = []
                 v_acc = []
                 a_acc = []
-                for seed in seeds:
+                for isd, seed in enumerate(seeds):
                     p = DoubleAdaptiveParams(
                         N=N, L=float(L),
                         v_max=float(vmx), v_min=float(vmn),
@@ -103,6 +112,16 @@ def main():
                     s_acc.append(s_arr)
                     v_acc.append(v_arr)
                     a_acc.append(a_arr)
+                    # Per-seed reductions.
+                    phi_per_seed[im, iL, ie, isd] = p_arr.mean()
+                    chi_per_seed[im, iL, ie, isd] = N * p_arr.var()
+                    U4_per_seed[im, iL, ie, isd] = (
+                        1.0 - np.mean(p_arr ** 4)
+                        / (3.0 * np.mean(p_arr ** 2) ** 2)
+                    )
+                    s_sep_per_seed[im, iL, ie, isd] = s_arr.mean()
+                    v_pop_per_seed[im, iL, ie, isd] = v_arr.mean()
+                    a_pop_per_seed[im, iL, ie, isd] = a_arr.mean()
                     pbar.update(1)
                 phi_all = np.concatenate(phi_acc)
                 phi[im, iL, ie] = phi_all.mean()
@@ -119,9 +138,15 @@ def main():
     np.savez_compressed(
         DATA / "double_pilot.npz",
         modes=np.array([m[0] for m in modes]),
-        Ls=Ls, etas=etas,
+        Ls=Ls, etas=etas, seeds=np.array(seeds),
         phi=phi, chi=chi, U4=U4, s_sep=s_sep,
         v_pop=v_pop, a_pop=a_pop,
+        phi_per_seed=phi_per_seed,
+        chi_per_seed=chi_per_seed,
+        U4_per_seed=U4_per_seed,
+        s_sep_per_seed=s_sep_per_seed,
+        v_pop_per_seed=v_pop_per_seed,
+        a_pop_per_seed=a_pop_per_seed,
         params=np.array([sigma, n_warm, n_meas, len(seeds)]),
     )
 

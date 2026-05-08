@@ -194,13 +194,52 @@ def fig_double_pilot(npz_path: Path):
         r"(e) $\chi_{\max}$ vs $L$ (log-log)",
         r"(f) $\langle v_i\rangle$, $\langle\alpha_i\rangle$ vs $\eta$",
     ]
-    iL = len(Ls) - 1   # use the largest L for panels a..d
+    # Panels (a)-(d) and (f) show one representative L. We pick the
+    # largest L for which per-seed data is available so the SE bands
+    # are drawn; otherwise fall back to the largest L in the merged
+    # array.
+    has_per_seed_pre = "phi_per_seed" in z.files
+    n_pilot_L_pre = (z["phi_per_seed"].shape[1]
+                      if has_per_seed_pre else 0)
+    iL = (n_pilot_L_pre - 1 if has_per_seed_pre and n_pilot_L_pre > 0
+           else len(Ls) - 1)
+    L_panel = float(Ls[iL])
 
     # (a) phi
+    # Per-seed SE bands when available. The pilot file may carry
+    # per-seed for the first n_pilot_L sizes only; later sizes
+    # (merged in from L=64/90/128 files) have no SE so we skip
+    # the bands at those iL.
+    has_per_seed = "phi_per_seed" in z.files
+    n_pilot_L = (z["phi_per_seed"].shape[1] if has_per_seed else 0)
+
+    def _se(arr_per_seed, im, iL):
+        if iL >= arr_per_seed.shape[1]:
+            return None
+        a = arr_per_seed[im, iL]      # (n_eta, n_seed)
+        ok = np.isfinite(a)
+        n = ok.sum(axis=-1)
+        return np.where(n > 1,
+                         np.nanstd(a, axis=-1, ddof=1)
+                         / np.sqrt(np.maximum(n, 1)),
+                         np.nan)
+
+    if has_per_seed:
+        phi_seed = z["phi_per_seed"]
+        chi_seed = z["chi_per_seed"]
+        U4_seed = z["U4_per_seed"]
+        s_sep_seed = z["s_sep_per_seed"]
+
     ax = axes[0, 0]
     for im, m in enumerate(modes):
-        ax.plot(etas, phi[im, iL], "o-", color=PALETTE[m],
-                label=LABELS[m], lw=1.2, ms=3)
+        c = PALETTE[m]
+        ax.plot(etas, phi[im, iL], "o-", color=c, label=LABELS[m],
+                lw=1.2, ms=3)
+        if has_per_seed:
+            se = _se(phi_seed, im, iL)
+            if se is None: continue
+            ax.fill_between(etas, phi[im, iL] - se, phi[im, iL] + se,
+                             color=c, alpha=0.18, lw=0)
     ax.set_xscale("log")
     ax.set_xlabel(r"$\eta$")
     ax.set_ylabel(r"$\langle\varphi\rangle$")
@@ -209,8 +248,15 @@ def fig_double_pilot(npz_path: Path):
     # (b) chi -- log-y so the heavy spread does not flatten everything else.
     ax = axes[0, 1]
     for im, m in enumerate(modes):
+        c = PALETTE[m]
         chi_pos = np.where(chi[im, iL] > 0, chi[im, iL], np.nan)
-        ax.plot(etas, chi_pos, "o-", color=PALETTE[m], lw=1.2, ms=3)
+        ax.plot(etas, chi_pos, "o-", color=c, lw=1.2, ms=3)
+        if has_per_seed:
+            se = _se(chi_seed, im, iL)
+            if se is None: continue
+            lo = np.maximum(chi_pos - se, 1e-3)
+            ax.fill_between(etas, lo, chi_pos + se,
+                             color=c, alpha=0.18, lw=0)
     ax.set_xscale("log")
     ax.set_yscale("log")
     ax.set_xlabel(r"$\eta$")
@@ -220,7 +266,14 @@ def fig_double_pilot(npz_path: Path):
     # (c) s_sep
     ax = axes[0, 2]
     for im, m in enumerate(modes):
-        ax.plot(etas, s_sep[im, iL], "o-", color=PALETTE[m], lw=1.2, ms=3)
+        c = PALETTE[m]
+        ax.plot(etas, s_sep[im, iL], "o-", color=c, lw=1.2, ms=3)
+        if has_per_seed:
+            se = _se(s_sep_seed, im, iL)
+            if se is None: continue
+            ax.fill_between(etas, s_sep[im, iL] - se,
+                             s_sep[im, iL] + se,
+                             color=c, alpha=0.18, lw=0)
     ax.set_xscale("log")
     ax.set_xlabel(r"$\eta$")
     ax.set_ylabel(r"$s_{\rm sep}$")
@@ -229,7 +282,13 @@ def fig_double_pilot(npz_path: Path):
     # (d) U4
     ax = axes[1, 0]
     for im, m in enumerate(modes):
-        ax.plot(etas, U4[im, iL], "o-", color=PALETTE[m], lw=1.2, ms=3)
+        c = PALETTE[m]
+        ax.plot(etas, U4[im, iL], "o-", color=c, lw=1.2, ms=3)
+        if has_per_seed:
+            se = _se(U4_seed, im, iL)
+            if se is None: continue
+            ax.fill_between(etas, U4[im, iL] - se, U4[im, iL] + se,
+                             color=c, alpha=0.18, lw=0)
     ax.axhline(2.0 / 3.0, ls="--", c="black", lw=0.5, alpha=0.7)
     ax.text(etas[-1] * 1.02, 2.0 / 3.0, r"$2/3$",
              fontsize=7, va="center", ha="left", color="black")
