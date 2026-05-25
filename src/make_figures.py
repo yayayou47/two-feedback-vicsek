@@ -992,12 +992,15 @@ def fig_double_3regimes(npz_path: Path):
 
 def fig_double_cluster_map(npz_path: Path):
     """Real-space cluster identification at the near-critical
-    point: motility-only versus double-adaptive. Particles in
-    dense bins (above 1.5x median bin occupancy) are coloured
-    by their connected-component cluster ID; particles in
-    dilute bins are grey. The 10x10 dense grid is overlaid as a
-    light alpha shading."""
+    point: motility-only versus double-adaptive. Snapshot
+    aesthetic (cream BG + v1 quiver geometry + zoom inset
+    centred on the densest cluster); particles in dense bins
+    (above 1.5x median bin occupancy) are coloured by their
+    connected-component cluster ID, particles in dilute bins
+    stay grey, and the 10x10 dense grid is overlaid as a light
+    alpha shading."""
     from scipy.ndimage import label as nd_label
+    from matplotlib.patches import Rectangle
     import matplotlib.colors as mcolors
 
     z = np.load(npz_path, allow_pickle=True)
@@ -1018,15 +1021,14 @@ def fig_double_cluster_map(npz_path: Path):
     ic = case_labels.index("near_critical")
 
     fig, axes = plt.subplots(1, 2,
-                              figsize=(style.DOUBLE_COL[0], 3.4))
+                              figsize=(style.DOUBLE_COL[0], 3.6))
     panel_data = [
         (axes[0], im_mot, "motility adaptive"),
         (axes[1], im_full, "double-adaptive"),
     ]
 
-    rng_palette = np.random.default_rng(0)
-
     for ax, im, mode_title in panel_data:
+        _cream_panel(ax)
         xs = x[im, ic]
         ys = y[im, ic]
         ths = theta[im, ic]
@@ -1053,30 +1055,63 @@ def fig_double_cluster_map(npz_path: Path):
         n_clusters = len(cluster_ids)
         cmap = plt.get_cmap("tab20")
         colours = np.zeros((len(xs), 4))
-        colours[:] = mcolors.to_rgba("#bbbbbb", alpha=0.5)
+        colours[:] = mcolors.to_rgba("#888888", alpha=0.55)
         for k, cid in enumerate(cluster_ids):
             sel = particle_cid == cid
-            base = cmap(k % 20)
-            colours[sel] = base
+            colours[sel] = cmap(k % 20)
 
-        # Light shading of dense bins as a background.
+        # Light shading of dense bins on top of the cream BG.
         ax.imshow(mask.T, extent=[0, L, 0, L], origin="lower",
                   cmap=mcolors.ListedColormap([(0, 0, 0, 0),
-                                                (0.96, 0.86, 0.55,
-                                                 0.18)]),
+                                                (0.85, 0.55, 0.25,
+                                                 0.16)]),
                   aspect="auto", interpolation="nearest")
 
-        ax.scatter(xs, ys, c=colours, s=6, edgecolor="none",
-                    zorder=2)
+        # Snapshot-style colour-coded quivers (cluster colour per
+        # arrow, v1 geometry) so the heading field is readable on
+        # cream without obscuring the cluster identity.
         ax.quiver(xs, ys, np.cos(ths), np.sin(ths),
-                  color="white", alpha=0.55,
+                  color=colours,
                   scale=1.0 / arrow_len, scale_units="xy",
-                  angles="xy", width=0.0025,
-                  headwidth=2.6, headlength=3.0,
+                  angles="xy", width=0.004,
+                  headwidth=3.5, headlength=4.0,
                   zorder=3)
         ax.set_xlim(0, L); ax.set_ylim(0, L)
         ax.set_aspect("equal")
         ax.set_xticks([]); ax.set_yticks([])
+
+        # Zoom inset centred on the densest sub-region: build an
+        # inset_axes manually so the arrows inherit the parent
+        # cluster colours.
+        zoom_size = 5.0
+        Hzoom, xe, ye = np.histogram2d(xs, ys, bins=10,
+                                        range=[[0, L], [0, L]])
+        zix, ziy = np.unravel_index(np.argmax(Hzoom), Hzoom.shape)
+        zcx = 0.5 * (xe[zix] + xe[zix + 1])
+        zcy = 0.5 * (ye[ziy] + ye[ziy + 1])
+        z0x = max(0.0, min(L - zoom_size, zcx - zoom_size / 2))
+        z0y = max(0.0, min(L - zoom_size, zcy - zoom_size / 2))
+        iax = ax.inset_axes((1.0 - 0.38 - 0.005, 1.0 - 0.38 - 0.005,
+                             0.38, 0.38))
+        iax.set_facecolor(style.CREAM)
+        sel = ((xs >= z0x) & (xs <= z0x + zoom_size)
+               & (ys >= z0y) & (ys <= z0y + zoom_size))
+        iax.quiver(xs[sel], ys[sel], np.cos(ths[sel]), np.sin(ths[sel]),
+                   color=colours[sel],
+                   scale=1.0 / arrow_len, scale_units="xy",
+                   angles="xy", width=0.012,
+                   headwidth=3.5, headlength=4.0)
+        iax.set_xlim(z0x, z0x + zoom_size)
+        iax.set_ylim(z0y, z0y + zoom_size)
+        iax.set_aspect("equal")
+        iax.set_xticks([]); iax.set_yticks([])
+        for spine in iax.spines.values():
+            spine.set_edgecolor("#444")
+            spine.set_linewidth(0.6)
+        ax.add_patch(Rectangle((z0x, z0y), zoom_size, zoom_size,
+                               fill=False, edgecolor="#444",
+                               linewidth=0.6))
+
         ax.set_title(
             f"{mode_title}\n"
             fr"$\eta={eta[ic]:g}$, $\langle\varphi\rangle = "
@@ -1085,7 +1120,7 @@ def fig_double_cluster_map(npz_path: Path):
             fontsize=8,
         )
     fig.tight_layout()
-    _save(fig, "fig_double_cluster_map.pdf")
+    _cream_save(fig, "fig_double_cluster_map.pdf")
 
 
 def fig_double_gr_decay(npz_path: Path):
