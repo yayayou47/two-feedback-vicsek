@@ -24,6 +24,21 @@ def _save(fig, name):
     print(f"  saved {out}")
 
 
+def _cream_panel(ax):
+    """v1 snapshot aesthetic: cream face on the panel."""
+    ax.set_facecolor(style.CREAM)
+
+
+def _cream_save(fig, name):
+    """Save a snapshot figure with v1's cream background."""
+    fig.patch.set_facecolor(style.CREAM)
+    out = FIGS / name
+    fig.savefig(out, facecolor=style.CREAM)
+    fig.savefig(out.with_suffix(".png"), facecolor=style.CREAM)
+    plt.close(fig)
+    print(f"  saved {out}")
+
+
 PALETTE = {
     "vicsek_gauss":  style.WONG["black"],    # original Vicsek reference
     "baseline":      style.WONG["sky"],      # Cauchy fixed-parameter reference
@@ -351,36 +366,34 @@ def fig_double_pilot(npz_path: Path):
 
 def fig_double_snapshot(npz_path: Path):
     """Two-row snapshot grid: v3-limit (top) vs full (bottom), three
-    eta values (ordered / near-critical / disordered). Particles
-    coloured by their local speed v_i; in the full mode the local
-    alpha_i correlates with v_i through the shared sigmoid, so the
-    same colour map captures both adaptations."""
+    eta values (ordered / near-critical / disordered). v1-style
+    monochrome quiver on cream: each panel reads as a clean
+    early-Vicsek snapshot, and the mode/eta contrast is carried by
+    the geometry of the dense phase rather than by per-particle
+    colour."""
     z = np.load(npz_path, allow_pickle=True)
     mode_labels = [str(s) if isinstance(s, str) else s.decode()
                    for s in z["mode_labels"]]
     case_labels = [str(s) if isinstance(s, str) else s.decode()
                    for s in z["case_labels"]]
     x = z["x"]; y = z["y"]; theta = z["theta"]
-    v = z["v"]; eta = z["eta"]; phi = z["phi"]
+    eta = z["eta"]; phi = z["phi"]
     L = float(z["params"][1])
 
     nm, nc = len(mode_labels), len(case_labels)
     fig, axes = plt.subplots(nm, nc,
                              figsize=(style.DOUBLE_COL[0], 5.0))
-    arrow_len = 0.5
-    last_sc = None
+    arrow_len = 0.45
     for im in range(nm):
         for ic in range(nc):
             ax = axes[im, ic]
-            sc = ax.scatter(x[im, ic], y[im, ic], c=v[im, ic],
-                            cmap="viridis_r", s=4,
-                            vmin=0.005, vmax=0.05, alpha=0.85)
+            _cream_panel(ax)
             ax.quiver(x[im, ic], y[im, ic],
                       np.cos(theta[im, ic]), np.sin(theta[im, ic]),
-                      color="white", alpha=0.45,
+                      color=style.PARTICLE_BLUE,
                       scale=1.0 / arrow_len, scale_units="xy",
-                      angles="xy", width=0.0015,
-                      headwidth=2.5, headlength=3.0)
+                      angles="xy", width=0.004,
+                      headwidth=3.5, headlength=4.0)
             ax.set_xlim(0, L); ax.set_ylim(0, L)
             ax.set_aspect("equal")
             ax.set_xticks([]); ax.set_yticks([])
@@ -392,12 +405,8 @@ def fig_double_snapshot(npz_path: Path):
                 fr"$\langle\varphi\rangle = {phi[im, ic]:.2f}$",
                 fontsize=7,
             )
-            last_sc = sc
-    cbar = fig.colorbar(last_sc, ax=axes, orientation="vertical",
-                        fraction=0.022, pad=0.02)
-    cbar.set_label(r"local speed $v_i$", fontsize=8)
-    cbar.ax.tick_params(labelsize=7)
-    _save(fig, "fig_double_snapshot.pdf")
+    fig.tight_layout()
+    _cream_save(fig, "fig_double_snapshot.pdf")
 
 
 def fig_double_plane(npz_path: Path):
@@ -865,13 +874,14 @@ def fig_double_3regimes(npz_path: Path):
                               figsize=(style.DOUBLE_COL[0], 2.6))
     arrow_len = 0.45
     for ic, ax in enumerate(axes):
+        _cream_panel(ax)
         u = np.cos(theta[im_full, ic])
         v = np.sin(theta[im_full, ic])
         ax.quiver(
             x[im_full, ic], y[im_full, ic], u, v,
             color=style.PARTICLE_BLUE,
             scale=1.0 / arrow_len, scale_units="xy",
-            angles="xy", width=0.0035,
+            angles="xy", width=0.004,
             headwidth=3.5, headlength=4.0,
         )
         ax.set_xlim(0, L); ax.set_ylim(0, L)
@@ -884,7 +894,7 @@ def fig_double_3regimes(npz_path: Path):
             fontsize=8,
         )
     fig.tight_layout()
-    _save(fig, "fig_double_3regimes.pdf")
+    _cream_save(fig, "fig_double_3regimes.pdf")
 
 
 def fig_double_cluster_map(npz_path: Path):
