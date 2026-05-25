@@ -27,6 +27,22 @@ WONG = {
 
 PARTICLE_BLUE = WONG["blue"]
 
+# Paper-wide mode palette. One saturated, distinctive hue per
+# study mode, reused by every analysis figure (FSS pilot, g(r),
+# autocorr, orderpdf, profile, ...). The same key set is used
+# inside the snapshot npz files via the fixed_v / adaptive
+# aliases. Importing PALETTE from this module is the canonical
+# way to get a mode colour anywhere in the project.
+PALETTE = {
+    "vicsek_gauss":  "#000000",  # original Vicsek (Gaussian)   -- black
+    "baseline":      "#1f4ea1",  # Cauchy fixed-parameter ref    -- blue
+    "v2_limit":      "#2ca02c",  # noise-shape adaptation only  -- green
+    "v3_limit":      "#d62728",  # motility adaptation only     -- red
+    "full":          "#7e2aa0",  # double-adaptive (this work)  -- purple
+    "fixed_v":       "#1f4ea1",  # alias used by snapshot npz
+    "adaptive":      "#7e2aa0",  # alias used by snapshot npz
+}
+
 SINGLE_COL = (3.4, 2.6)
 DOUBLE_COL = (7.0, 3.0)
 SQUARE = (3.4, 3.4)

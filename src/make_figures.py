@@ -112,15 +112,9 @@ def _cream_save(fig, name):
     print(f"  saved {out}")
 
 
-PALETTE = {
-    "vicsek_gauss":  style.WONG["black"],    # original Vicsek reference
-    "baseline":      style.WONG["sky"],      # Cauchy fixed-parameter reference
-    "v2_limit":      style.WONG["green"],    # noise-shape adaptation only
-    "v3_limit":      style.WONG["vermil"],   # motility adaptation only
-    "full":          style.WONG["rpurple"],  # double-adaptive (proposed model)
-    "fixed_v":       style.WONG["sky"],      # alias used by snapshot npz
-    "adaptive":      style.WONG["rpurple"],  # alias used by snapshot npz
-}
+# Paper-wide colour code: imported from style.py so every figure
+# in the project resolves a mode -> colour through the same dict.
+PALETTE = style.PALETTE
 
 LABELS = {
     "baseline":     r"Cauchy ref. ($\alpha\!=\!1$, $v\!=\!v_{\max}$)",
@@ -266,7 +260,7 @@ def fig_double_pilot(npz_path: Path):
             [a_pop, big["a_pop"][idx][:, None, :]], axis=1)
 
     fig, axes = plt.subplots(2, 3,
-                             figsize=(style.DOUBLE_COL[0], 5.6))
+                             figsize=(style.DOUBLE_COL[0] * 1.20, 6.8))
     panel_titles = [
         r"(a) $\langle\varphi\rangle(\eta)$, $L\!=\!L_{\max}$",
         r"(b) $\chi(\eta)$, $L\!=\!L_{\max}$",
