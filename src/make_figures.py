@@ -98,42 +98,35 @@ def fig_double_schematic():
     ax.text(0.5, 1.02, "(a) shared sigmoid", fontsize=8,
             transform=ax.transAxes, ha="center")
 
-    # (b) Couzin zonal cartoon
+    # (b) Couzin zonal cartoon -- omnidirectional vision (no blind sector)
     ax = axes[1]
     ax.set_aspect("equal")
     R_r, R_a = 0.5, 0.7
     cx, cy = 0.0, 0.0
-    ax.add_patch(patches.Wedge((cx, cy), R_a, -150, 150,
-                                width=R_a - R_r,
-                                facecolor="#1f4ea1", alpha=0.15,
-                                edgecolor="#1f4ea1", lw=0.6))
-    ax.add_patch(patches.Wedge((cx, cy), R_r, -150, 150,
-                                facecolor="#e07a3a", alpha=0.18,
-                                edgecolor="#e07a3a", lw=0.6))
-    ax.add_patch(patches.Wedge((cx, cy), R_a, 150, 210,
-                                facecolor="grey", alpha=0.15,
-                                edgecolor="grey", lw=0.4,
-                                linestyle="--"))
+    ax.add_patch(patches.Annulus((cx, cy), R_a, R_a - R_r,
+                                  facecolor="#1f4ea1", alpha=0.15,
+                                  edgecolor="#1f4ea1", lw=0.6))
+    ax.add_patch(patches.Circle((cx, cy), R_r,
+                                 facecolor="#e07a3a", alpha=0.18,
+                                 edgecolor="#e07a3a", lw=0.6))
     ax.arrow(cx, cy, 0.45, 0, head_width=0.07, head_length=0.06,
              fc="black", ec="black", lw=0.8)
     ax.scatter([cx], [cy], c="black", s=14, zorder=5)
     rng = np.random.default_rng(7)
-    for _ in range(10):
+    for _ in range(12):
         r = rng.uniform(R_r, R_a * 0.95)
-        th = rng.uniform(-np.deg2rad(150), np.deg2rad(150))
+        th = rng.uniform(-np.pi, np.pi)
         ax.scatter([r * np.cos(th)], [r * np.sin(th)],
                     c="#1f4ea1", s=12, alpha=0.8, zorder=4)
     for _ in range(2):
         r = rng.uniform(0.05, R_r * 0.9)
-        th = rng.uniform(-np.deg2rad(150), np.deg2rad(150))
+        th = rng.uniform(-np.pi, np.pi)
         ax.scatter([r * np.cos(th)], [r * np.sin(th)],
                     c="#e07a3a", s=12, alpha=0.85, zorder=4)
     ax.text(0.0, R_a * 0.98, "alignment", fontsize=7,
             color="#1f4ea1", ha="center")
     ax.text(0.0, -R_a * 0.5, "repulsion", fontsize=7,
             color="#e07a3a", ha="center")
-    ax.text(-R_a * 0.85, 0.0, "blind\nsector", fontsize=6,
-            color="grey", ha="center", va="center")
     ax.set_xlim(-R_a * 1.15, R_a * 1.15)
     ax.set_ylim(-R_a * 1.15, R_a * 1.15)
     ax.set_xticks([])
@@ -593,6 +586,53 @@ def fig_double_clusters(npz_path: Path):
     _save(fig, "fig_double_clusters.pdf")
 
 
+def fig_double_clusters_hs(npz_path: Path):
+    r"""Cluster diagnostics from the high-statistics summary file
+    (10 seeds per mode at $L = 30$). Three side-by-side bar
+    panels: number of clusters per snapshot, maximum cluster
+    size, and mean cluster size, each with seed-level standard
+    error bars.
+
+    This renderer replaces the legacy
+    :func:`fig_double_clusters` cluster-size CCDF when the
+    no-cone pipeline is in use; the underlying npz only stores
+    seed-level reductions, not the full size distribution.
+    """
+    z = np.load(npz_path, allow_pickle=True)
+    labels = [str(s) if isinstance(s, str) else s.decode()
+              for s in z["labels"]]
+    n_per_seed = z["n_per_seed"].astype(float)
+    max_per_seed = z["max_per_seed"].astype(float)
+    mean_per_seed = z["mean_per_seed"]
+    n_seeds = n_per_seed.shape[1]
+
+    fig, axes = plt.subplots(1, 3,
+                              figsize=(style.DOUBLE_COL[0], 2.4))
+    panels = (
+        (axes[0], n_per_seed,    "(a) clusters per snapshot",
+         r"$\langle n_{\rm cl}\rangle$"),
+        (axes[1], max_per_seed,  "(b) maximum cluster size",
+         r"$\langle s_{\max}\rangle$ (particles)"),
+        (axes[2], mean_per_seed, "(c) mean cluster size",
+         r"$\langle s\rangle$ (particles)"),
+    )
+    for ax, arr, title, ylabel in panels:
+        means = arr.mean(axis=1)
+        ses = arr.std(axis=1, ddof=1) / np.sqrt(n_seeds)
+        colors = [PALETTE.get(m, "#1f4ea1") for m in labels]
+        positions = np.arange(len(labels))
+        ax.bar(positions, means, yerr=ses, capsize=2.5,
+               color=colors, edgecolor="black", linewidth=0.4)
+        ax.set_xticks(positions)
+        ax.set_xticklabels([_disp(m) for m in labels],
+                           rotation=30, ha="right", fontsize=7)
+        ax.set_ylabel(ylabel)
+        ax.set_title(title, fontsize=8, loc="left")
+        ax.tick_params(axis="y", labelsize=7)
+    fig.tight_layout()
+    _save(fig, "fig_double_clusters.pdf")
+
+
 def fig_double_gr(npz_path: Path):
     """Heading correlation $g(r)$ in dense vs dilute regions, with
     seed-level standard-error bands when per-seed data is
@@ -986,26 +1026,214 @@ def fig_double_gr_decay(npz_path: Path):
     _save(fig, "fig_double_gr_decay.pdf")
 
 
+def fig_double_autocorr(npz_path: Path):
+    r"""Polar/heading autocorrelation $C(\tau)$ for the four
+    heavy-tailed modes at $L = 30$. Panel (a) shows the
+    dense-quartile per-particle $\langle\cos\Delta\theta\rangle$
+    versus $\tau$ for the four modes with seed-standard-error
+    bands. Panel (b) shows the gap full $-$ motility-only
+    against $\tau$, both for dense and dilute quartiles, with
+    z-scores annotated for the dense gap."""
+    z = np.load(npz_path, allow_pickle=True)
+    labels = [str(s) if isinstance(s, str) else s.decode()
+              for s in z["labels"]]
+    taus = z["taus"]
+    C_dense = z["C_dense_per_seed"]      # (n_modes, n_seeds, n_taus)
+    C_dilute = z["C_dilute_per_seed"]
+    n_seeds = C_dense.shape[1]
+
+    mean_dense = C_dense.mean(axis=1)
+    se_dense = C_dense.std(axis=1, ddof=1) / np.sqrt(n_seeds)
+    mean_dilute = C_dilute.mean(axis=1)
+    se_dilute = C_dilute.std(axis=1, ddof=1) / np.sqrt(n_seeds)
+
+    fig, axes = plt.subplots(1, 2,
+                              figsize=(style.DOUBLE_COL[0], 2.8))
+
+    ax = axes[0]
+    for im, lbl in enumerate(labels):
+        c = PALETTE.get(lbl, "#1f4ea1")
+        ax.plot(taus, mean_dense[im], "o-", color=c, lw=1.2, ms=3,
+                label=_disp(lbl))
+        ax.fill_between(taus,
+                         mean_dense[im] - se_dense[im],
+                         mean_dense[im] + se_dense[im],
+                         color=c, alpha=0.20, lw=0)
+    ax.set_xscale("log")
+    ax.set_xlabel(r"lag $\tau$ (steps)")
+    ax.set_ylabel(r"$\langle\cos[\theta_i(t+\tau) - \theta_i(t)]"
+                  r"\rangle_{\rm dense}$")
+    ax.set_title(r"(a) dense-quartile heading autocorrelation",
+                 fontsize=8)
+    ax.axhline(0.0, color="grey", lw=0.4)
+    ax.legend(fontsize=7, frameon=False, loc="upper right")
+
+    # Panel (b): gap full - motility, dense and dilute.
+    i_full = labels.index("full")
+    i_mot = labels.index("v3_limit")
+    diff_dense = (C_dense[i_full] - C_dense[i_mot])
+    diff_dilute = (C_dilute[i_full] - C_dilute[i_mot])
+    g_dense_mean = diff_dense.mean(axis=0)
+    g_dense_se = diff_dense.std(axis=0, ddof=1) / np.sqrt(n_seeds)
+    g_dilute_mean = diff_dilute.mean(axis=0)
+    g_dilute_se = diff_dilute.std(axis=0, ddof=1) / np.sqrt(n_seeds)
+
+    ax = axes[1]
+    c_full = PALETTE["full"]
+    c_mot = PALETTE["v3_limit"]
+    ax.fill_between(taus,
+                     g_dense_mean - g_dense_se,
+                     g_dense_mean + g_dense_se,
+                     color=c_full, alpha=0.20, lw=0)
+    ax.plot(taus, g_dense_mean, "o-", color=c_full, lw=1.4, ms=3,
+            label="dense quartile")
+    ax.fill_between(taus,
+                     g_dilute_mean - g_dilute_se,
+                     g_dilute_mean + g_dilute_se,
+                     color=c_mot, alpha=0.20, lw=0)
+    ax.plot(taus, g_dilute_mean, "s--", color=c_mot, lw=1.0, ms=3,
+            label="dilute quartile")
+    ax.axhline(0.0, color="grey", lw=0.4)
+    ax.set_xscale("log")
+    ax.set_xlabel(r"lag $\tau$ (steps)")
+    ax.set_ylabel(r"$\Delta C(\tau) = C_{\rm full} - C_{\rm motility}$")
+    ax.set_title(r"(b) full $-$ motility-only gap",
+                 fontsize=8)
+    ax.legend(fontsize=7, frameon=False, loc="upper right")
+    # z-score annotation on a few representative lags.
+    for j_tau in (2, 6, 9):       # tau = 5, 100, 1000
+        z_val = (g_dense_mean[j_tau]
+                  / max(g_dense_se[j_tau], 1e-9))
+        ax.annotate(fr"$z\!=\!{z_val:.0f}$",
+                     xy=(taus[j_tau], g_dense_mean[j_tau]),
+                     xytext=(0, -10), textcoords="offset points",
+                     fontsize=6, ha="center", va="top",
+                     color=c_full)
+    fig.tight_layout()
+    _save(fig, "fig_double_autocorr.pdf")
+
+
+def fig_double_orderpdf_largeL(npz_path: Path,
+                                npz_L128_path: Path | None = None):
+    r"""Order-parameter PDF $P(\langle\varphi\rangle)$ for
+    motility-only and double-adaptive at $L = 64$, $L = 90$, and
+    optionally $L = 128$, confirming that the macroscopic mean
+    shift is a scale-invariant signature of the double feedback
+    and probing for late multimodality on a 10x longer
+    trajectory."""
+    from scipy.stats import skew, kurtosis, gaussian_kde
+    z = np.load(npz_path, allow_pickle=True)
+    labels = [str(s) if isinstance(s, str) else s.decode()
+              for s in z["labels"]]
+    Ls = list(z["Ls"])
+    eta_per_case = z["eta_per_case"]
+    phi_traj = z["phi_traj"]
+    panel_data = []
+    for iL, L in enumerate(Ls):
+        panel_data.append((float(L),
+                           float(eta_per_case[labels.index("motility")]),
+                           float(eta_per_case[labels.index("full")]),
+                           phi_traj[labels.index("motility"), iL],
+                           phi_traj[labels.index("full"), iL]))
+    if npz_L128_path is not None and npz_L128_path.exists():
+        z2 = np.load(npz_L128_path, allow_pickle=True)
+        labs2 = [str(s) if isinstance(s, str) else s.decode()
+                 for s in z2["labels"]]
+        eta2 = z2["eta_per_case"]
+        traj2 = z2["phi_traj"]
+        panel_data.append((float(z2["L"]),
+                           float(eta2[labs2.index("motility")]),
+                           float(eta2[labs2.index("full")]),
+                           traj2[labs2.index("motility")],
+                           traj2[labs2.index("full")]))
+
+    fig, axes = plt.subplots(1, len(panel_data),
+                              figsize=(style.DOUBLE_COL[0], 2.8),
+                              sharey=False)
+    if len(panel_data) == 1:
+        axes = [axes]
+    bins = np.linspace(0, 1, 60)
+    grid = np.linspace(0, 1, 200)
+
+    u4 = lambda a: 1.0 - (a ** 4).mean() / (3.0 * (a ** 2).mean() ** 2)
+    for ip, (L, eta_mot, eta_full, m_mot, m_full) in enumerate(panel_data):
+        ax = axes[ip]
+        y_max = 0.0
+        for lbl, data in (("motility", m_mot), ("full", m_full)):
+            c = PALETTE.get(lbl, "#1f4ea1")
+            ax.hist(data, bins=bins, density=True, color=c,
+                    alpha=0.45, edgecolor="black", linewidth=0.3,
+                    label=_disp(lbl))
+            kde = gaussian_kde(data, bw_method="scott")
+            curve = kde(grid)
+            ax.plot(grid, curve, "-", color=c, lw=1.4)
+            y_max = max(y_max, curve.max())
+            ax.axvline(float(data.mean()), color=c, lw=0.7,
+                       ls="--", alpha=0.85)
+        gap = m_full.mean() - m_mot.mean()
+        ax.text(0.03, 0.97,
+                fr"$\langle\varphi\rangle_{{\rm mot}} = "
+                fr"{m_mot.mean():.2f}$" "\n"
+                fr"$\langle\varphi\rangle_{{\rm full}} = "
+                fr"{m_full.mean():.2f}$" "\n"
+                fr"$\Delta = {gap:+.2f}$" "\n"
+                fr"$U_{{4,{{\rm full}}}} = {u4(m_full):.2f}$",
+                transform=ax.transAxes,
+                ha="left", va="top",
+                fontsize=7,
+                bbox=dict(facecolor="white", alpha=0.85,
+                          edgecolor="none", pad=2))
+        ax.set_xlabel(r"$\langle\varphi\rangle$")
+        ax.set_xlim(0, 1)
+        ax.set_ylim(0, 1.15 * y_max)
+        ax.set_title(fr"$L = {int(L)}$ "
+                     fr"($\eta_{{\rm mot}}\!=\!{eta_mot:g}$, "
+                     fr"$\eta_{{\rm full}}\!=\!{eta_full:g}$)",
+                     fontsize=8)
+        if ip == 0:
+            ax.set_ylabel(r"$P(\langle\varphi\rangle)$")
+            ax.legend(fontsize=7, frameon=False, loc="upper right")
+        ax.text(-0.18, 1.04, f"({chr(97 + ip)})",
+                transform=ax.transAxes,
+                fontsize=10, fontweight="bold")
+    fig.tight_layout()
+    _save(fig, "fig_double_orderpdf_largeL.pdf")
+
+
+def _pick(stem: str) -> Path:
+    """Prefer the no-cone version of an npz file when it exists.
+
+    The figure pipeline now defaults to the omnidirectional
+    simulator's outputs. Any file with the same stem and the
+    ``_nocone`` suffix overrides the legacy with-cone version.
+    """
+    no_cone = DATA / f"{stem}_nocone.npz"
+    legacy = DATA / f"{stem}.npz"
+    if no_cone.exists():
+        return no_cone
+    return legacy
+
+
 def main():
     fig_double_schematic()
-    npz = DATA / "double_pilot.npz"
+    npz = _pick("double_pilot")
     if npz.exists():
         fig_double_pilot(npz)
     else:
         print(f"[warn] {npz} not found -- run run_double_pilot.py first")
-    npz_snap = DATA / "double_snapshot.npz"
+    npz_snap = _pick("double_snapshot")
     if npz_snap.exists():
         fig_double_snapshot(npz_snap)
     else:
         print(f"[warn] {npz_snap} not found -- "
               "run run_double_snapshot.py first")
-    npz_plane = DATA / "double_plane.npz"
+    npz_plane = _pick("double_plane")
     if npz_plane.exists():
         fig_double_plane(npz_plane)
     else:
         print(f"[warn] {npz_plane} not found -- "
               "run run_double_plane.py first")
-    npz_plane_L30 = DATA / "double_plane_L30.npz"
+    npz_plane_L30 = _pick("double_plane_L30")
     if npz_plane_L30.exists():
         # Reuse the same figure layout for the L=30 refinement.
         z = npz_plane_L30
@@ -1046,34 +1274,52 @@ def main():
                             color="white")
         fig.tight_layout()
         _save(fig, "fig_double_plane_L30.pdf")
-    npz_op = DATA / "double_orderpdf.npz"
+    npz_op = _pick("double_orderpdf")
     if npz_op.exists():
         fig_double_orderpdf(npz_op)
-    npz_pr = DATA / "double_profile.npz"
+    npz_pr = _pick("double_profile")
     if npz_pr.exists():
         fig_double_profile(npz_pr)
-    npz_cl = DATA / "double_clusters.npz"
-    if npz_cl.exists():
-        fig_double_clusters(npz_cl)
-    npz_gr = DATA / "double_gr.npz"
-    if npz_gr.exists():
-        fig_double_gr(npz_gr)
-    npz_decay = DATA / "double_gr_decay.npz"
+    # Cluster figure: the no-cone pipeline only stores the
+    # high-statistics summary (n_cl, max, mean per seed). When the
+    # _nocone hs file is available, draw a summary bar plot;
+    # otherwise fall back to the legacy CCDF.
+    npz_cl_hs = DATA / "double_clusters_hs_nocone.npz"
+    npz_cl_legacy = DATA / "double_clusters.npz"
+    if npz_cl_hs.exists():
+        fig_double_clusters_hs(npz_cl_hs)
+    elif npz_cl_legacy.exists():
+        fig_double_clusters(npz_cl_legacy)
+    # g(r): _pick prefers the hs file (per-seed bands).
+    npz_gr_hs = DATA / "double_gr_hs_nocone.npz"
+    npz_gr_legacy = DATA / "double_gr.npz"
+    if npz_gr_hs.exists():
+        fig_double_gr(npz_gr_hs)
+    elif npz_gr_legacy.exists():
+        fig_double_gr(npz_gr_legacy)
+    npz_decay = _pick("double_gr_decay")
     if npz_decay.exists():
         fig_double_gr_decay(npz_decay)
-    npz_snap = DATA / "double_snapshot.npz"
+    npz_snap = _pick("double_snapshot")
     if npz_snap.exists():
         fig_double_3regimes(npz_snap)
         fig_double_cluster_map(npz_snap)
-    npz_lfine = DATA / "double_Lfine.npz"
+    npz_lfine = _pick("double_Lfine")
     if npz_lfine.exists():
         fig_double_Lfine_gap(
             npz_lfine,
-            DATA / "double_pilot.npz",
-            DATA / "double_L64.npz",
-            DATA / "double_L90.npz",
-            DATA / "double_L128.npz",
+            _pick("double_pilot"),
+            _pick("double_L64"),
+            _pick("double_L90"),
+            _pick("double_L128"),
         )
+    npz_ac = _pick("double_autocorr")
+    if npz_ac.exists():
+        fig_double_autocorr(npz_ac)
+    npz_oplargeL = _pick("double_orderpdf_largeL")
+    if npz_oplargeL.exists():
+        fig_double_orderpdf_largeL(npz_oplargeL,
+                                   _pick("double_orderpdf_L128"))
 
 
 if __name__ == "__main__":
