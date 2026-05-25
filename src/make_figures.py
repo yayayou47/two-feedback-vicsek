@@ -26,6 +26,17 @@ def _save(fig, name):
 
 SNAPSHOT_BLUE = "#1f4ea1"  # v1 navy: best contrast on cream at print size
 
+# Speed-encoding colormap for snapshots: navy (slow, trapped in
+# the dense phase) -> vermillion (fast, free in the dilute phase).
+# Both endpoints read well on cream and stay legible at print
+# size; the midpoint mauve also stays distinct from the cream BG.
+from matplotlib.colors import LinearSegmentedColormap as _LinearSegmentedColormap
+
+SPEED_CMAP = _LinearSegmentedColormap.from_list(
+    "snapshot_speed", [SNAPSHOT_BLUE, "#7e3a8a", "#D55E00"])
+SPEED_VMIN = 0.005
+SPEED_VMAX = 0.05
+
 
 def _cream_panel(ax):
     """v1 snapshot aesthetic: cream face on the panel."""
@@ -33,7 +44,7 @@ def _cream_panel(ax):
 
 
 def _zoom_inset(ax, xs, ys, ths, L, zoom_size=5.0, loc="upper right",
-                inset_frac=0.38, arrow_len=0.45):
+                inset_frac=0.38, arrow_len=0.45, speeds=None):
     """Add a square zoom inset showing a clearly resolved sub-region.
 
     The inset is anchored in `loc` corner of the parent axes and shows
@@ -62,13 +73,23 @@ def _zoom_inset(ax, xs, ys, ths, L, zoom_size=5.0, loc="upper right",
     iax = ax.inset_axes(anchor)
     iax.set_facecolor(style.CREAM)
     sel = (xs >= x0) & (xs <= x1) & (ys >= y0) & (ys <= y1)
-    iax.quiver(
-        xs[sel], ys[sel], np.cos(ths[sel]), np.sin(ths[sel]),
-        color=SNAPSHOT_BLUE,
-        scale=1.0 / arrow_len, scale_units="xy",
-        angles="xy", width=0.012,
-        headwidth=3.5, headlength=4.0,
-    )
+    if speeds is None:
+        iax.quiver(
+            xs[sel], ys[sel], np.cos(ths[sel]), np.sin(ths[sel]),
+            color=SNAPSHOT_BLUE,
+            scale=1.0 / arrow_len, scale_units="xy",
+            angles="xy", width=0.012,
+            headwidth=3.5, headlength=4.0,
+        )
+    else:
+        iax.quiver(
+            xs[sel], ys[sel], np.cos(ths[sel]), np.sin(ths[sel]),
+            speeds[sel],
+            cmap=SPEED_CMAP, clim=(SPEED_VMIN, SPEED_VMAX),
+            scale=1.0 / arrow_len, scale_units="xy",
+            angles="xy", width=0.012,
+            headwidth=3.5, headlength=4.0,
+        )
     iax.set_xlim(x0, x1); iax.set_ylim(y0, y1)
     iax.set_aspect("equal")
     iax.set_xticks([]); iax.set_yticks([])
@@ -429,28 +450,32 @@ def fig_double_snapshot(npz_path: Path):
     case_labels = [str(s) if isinstance(s, str) else s.decode()
                    for s in z["case_labels"]]
     x = z["x"]; y = z["y"]; theta = z["theta"]
-    eta = z["eta"]; phi = z["phi"]
+    v = z["v"]; eta = z["eta"]; phi = z["phi"]
     L = float(z["params"][1])
 
     nm, nc = len(mode_labels), len(case_labels)
     fig, axes = plt.subplots(nm, nc,
                              figsize=(style.DOUBLE_COL[0], 5.0))
     arrow_len = 0.45
+    last_q = None
     for im in range(nm):
         for ic in range(nc):
             ax = axes[im, ic]
             _cream_panel(ax)
-            ax.quiver(x[im, ic], y[im, ic],
-                      np.cos(theta[im, ic]), np.sin(theta[im, ic]),
-                      color=SNAPSHOT_BLUE,
-                      scale=1.0 / arrow_len, scale_units="xy",
-                      angles="xy", width=0.004,
-                      headwidth=3.5, headlength=4.0)
+            q = ax.quiver(x[im, ic], y[im, ic],
+                          np.cos(theta[im, ic]), np.sin(theta[im, ic]),
+                          v[im, ic],
+                          cmap=SPEED_CMAP,
+                          clim=(SPEED_VMIN, SPEED_VMAX),
+                          scale=1.0 / arrow_len, scale_units="xy",
+                          angles="xy", width=0.004,
+                          headwidth=3.5, headlength=4.0)
             ax.set_xlim(0, L); ax.set_ylim(0, L)
             ax.set_aspect("equal")
             ax.set_xticks([]); ax.set_yticks([])
             _zoom_inset(ax, x[im, ic], y[im, ic], theta[im, ic],
-                        L, zoom_size=5.0, arrow_len=arrow_len)
+                        L, zoom_size=5.0, arrow_len=arrow_len,
+                        speeds=v[im, ic])
             nice_c = _disp(case_labels[ic])
             nice_m = _disp(mode_labels[im])
             ax.set_title(
@@ -459,7 +484,12 @@ def fig_double_snapshot(npz_path: Path):
                 fr"$\langle\varphi\rangle = {phi[im, ic]:.2f}$",
                 fontsize=7,
             )
-    fig.tight_layout()
+            last_q = q
+    fig.tight_layout(rect=(0.0, 0.0, 0.94, 1.0))
+    cbar = fig.colorbar(last_q, ax=axes, orientation="vertical",
+                        fraction=0.020, pad=0.02)
+    cbar.set_label(r"local speed $v_i$", fontsize=8)
+    cbar.ax.tick_params(labelsize=7)
     _cream_save(fig, "fig_double_snapshot.pdf")
 
 
@@ -918,7 +948,7 @@ def fig_double_3regimes(npz_path: Path):
     case_labels = [str(s) if isinstance(s, str) else s.decode()
                    for s in z["case_labels"]]
     x = z["x"]; y = z["y"]; theta = z["theta"]
-    eta = z["eta"]; phi = z["phi"]
+    vs = z["v"]; eta = z["eta"]; phi = z["phi"]
     L = float(z["params"][1])
 
     im_full = mode_labels.index("full")
@@ -927,13 +957,16 @@ def fig_double_3regimes(npz_path: Path):
     fig, axes = plt.subplots(1, 3,
                               figsize=(style.DOUBLE_COL[0], 3.2))
     arrow_len = 0.45
+    last_q = None
     for ic, ax in enumerate(axes):
         _cream_panel(ax)
         u = np.cos(theta[im_full, ic])
-        v = np.sin(theta[im_full, ic])
-        ax.quiver(
-            x[im_full, ic], y[im_full, ic], u, v,
-            color=SNAPSHOT_BLUE,
+        w = np.sin(theta[im_full, ic])
+        q = ax.quiver(
+            x[im_full, ic], y[im_full, ic], u, w,
+            vs[im_full, ic],
+            cmap=SPEED_CMAP,
+            clim=(SPEED_VMIN, SPEED_VMAX),
             scale=1.0 / arrow_len, scale_units="xy",
             angles="xy", width=0.004,
             headwidth=3.5, headlength=4.0,
@@ -942,14 +975,20 @@ def fig_double_3regimes(npz_path: Path):
         ax.set_aspect("equal")
         ax.set_xticks([]); ax.set_yticks([])
         _zoom_inset(ax, x[im_full, ic], y[im_full, ic], theta[im_full, ic],
-                    L, zoom_size=5.0, arrow_len=arrow_len)
+                    L, zoom_size=5.0, arrow_len=arrow_len,
+                    speeds=vs[im_full, ic])
         ax.set_title(
             f"{nice_cases[ic]}\n"
             fr"$\eta={eta[ic]:g}$, "
             fr"$\langle\varphi\rangle={phi[im_full, ic]:.2f}$",
             fontsize=8,
         )
-    fig.tight_layout()
+        last_q = q
+    fig.tight_layout(rect=(0.0, 0.0, 0.93, 1.0))
+    cbar = fig.colorbar(last_q, ax=axes, orientation="vertical",
+                        fraction=0.030, pad=0.02)
+    cbar.set_label(r"local speed $v_i$", fontsize=8)
+    cbar.ax.tick_params(labelsize=7)
     _cream_save(fig, "fig_double_3regimes.pdf")
 
 
