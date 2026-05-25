@@ -260,7 +260,10 @@ def fig_double_pilot(npz_path: Path):
             [a_pop, big["a_pop"][idx][:, None, :]], axis=1)
 
     fig, axes = plt.subplots(2, 3,
-                             figsize=(style.DOUBLE_COL[0] * 1.20, 6.8))
+                             figsize=(style.DOUBLE_COL[0] * 1.20, 5.8),
+                             gridspec_kw=dict(wspace=0.22, hspace=0.28))
+    for _ax in axes.ravel():
+        _ax.set_box_aspect(1)
     panel_titles = [
         r"(a) $\langle\varphi\rangle(\eta)$, $L\!=\!L_{\max}$",
         r"(b) $\chi(\eta)$, $L\!=\!L_{\max}$",
@@ -394,7 +397,7 @@ def fig_double_pilot(npz_path: Path):
         L_grid = np.linspace(Ls.min(), Ls.max(), 50)
         ax.plot(L_grid, np.exp(b) * L_grid ** a, "-",
                  color=PALETTE[m], lw=1.0, alpha=0.85, zorder=2)
-        ax.text(1.02, 0.95 - 0.10 * im,
+        ax.text(0.03, 0.97 - 0.07 * im,
                 fr"$a={a:+.2f}\pm{a_err:.2f}$",
                 transform=ax.transAxes,
                 fontsize=7, color=PALETTE[m],
@@ -425,9 +428,10 @@ def fig_double_pilot(npz_path: Path):
                             ms=4, label=LABELS[m])
                 for m in modes]
     fig.legend(handles=handles, loc="upper center",
-                 bbox_to_anchor=(0.5, 1.02),
+                 bbox_to_anchor=(0.5, 0.99),
                  ncol=4, fontsize=8, frameon=False)
-    fig.tight_layout(rect=(0, 0, 1, 0.94))
+    fig.subplots_adjust(left=0.07, right=0.97, top=0.93, bottom=0.07,
+                        wspace=0.22, hspace=0.28)
     _save(fig, "fig_double_pilot.pdf")
 
 
