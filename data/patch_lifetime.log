@@ -1,0 +1,9 @@
+patch_lifetime:   0%|          | 0/20 [00:00<?, ?it/s]patch_lifetime:   5%|▌         | 1/20 [00:10<03:12, 10.14s/it]patch_lifetime:  10%|█         | 2/20 [00:19<02:58,  9.94s/it]patch_lifetime:  15%|█▌        | 3/20 [00:30<02:50, 10.04s/it]patch_lifetime:  20%|██        | 4/20 [00:40<02:41, 10.09s/it]patch_lifetime:  25%|██▌       | 5/20 [00:50<02:31, 10.07s/it]patch_lifetime:  30%|███       | 6/20 [01:00<02:20, 10.02s/it]patch_lifetime:  35%|███▌      | 7/20 [01:10<02:09,  9.98s/it]patch_lifetime:  40%|████      | 8/20 [01:19<01:59,  9.94s/it]patch_lifetime:  45%|████▌     | 9/20 [01:29<01:48,  9.88s/it]patch_lifetime:  50%|█████     | 10/20 [01:39<01:38,  9.88s/it]patch_lifetime:  55%|█████▌    | 11/20 [01:50<01:30, 10.09s/it]patch_lifetime:  60%|██████    | 12/20 [02:00<01:21, 10.21s/it]patch_lifetime:  65%|██████▌   | 13/20 [02:10<01:11, 10.25s/it]patch_lifetime:  70%|███████   | 14/20 [02:21<01:01, 10.22s/it]patch_lifetime:  75%|███████▌  | 15/20 [02:31<00:51, 10.31s/it]patch_lifetime:  80%|████████  | 16/20 [02:41<00:41, 10.30s/it]patch_lifetime:  85%|████████▌ | 17/20 [02:52<00:31, 10.34s/it]patch_lifetime:  90%|█████████ | 18/20 [03:02<00:20, 10.39s/it]patch_lifetime:  95%|█████████▌| 19/20 [03:13<00:10, 10.35s/it]patch_lifetime: 100%|██████████| 20/20 [03:23<00:00, 10.37s/it]patch_lifetime: 100%|██████████| 20/20 [03:23<00:00, 10.18s/it]
+
+runtime: 3.4 min   saved: double_patch_lifetime.npz
+
+    motility: n_patches =  3023  <tau> all =  1.60 +/- 0.02   <tau> persistent =  2.86  max = 14
+        full: n_patches =  2735  <tau> all =  1.57 +/- 0.02   <tau> persistent =  2.90  max = 24
+
+Paired diff <tau>_full - <tau>_motility per seed:
+  mean = -0.037 +/- 0.029  z = -1.30

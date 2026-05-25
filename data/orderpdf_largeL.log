@@ -1,0 +1,11 @@
+orderpdf_largeL:   0%|          | 0/20 [00:00<?, ?it/s]orderpdf_largeL:   5%|▌         | 1/20 [00:33<10:31, 33.21s/it]orderpdf_largeL:  10%|█         | 2/20 [01:06<09:59, 33.31s/it]orderpdf_largeL:  15%|█▌        | 3/20 [01:40<09:32, 33.69s/it]orderpdf_largeL:  20%|██        | 4/20 [02:13<08:53, 33.35s/it]orderpdf_largeL:  25%|██▌       | 5/20 [02:45<08:13, 32.87s/it]orderpdf_largeL:  30%|███       | 6/20 [03:49<10:06, 43.33s/it]orderpdf_largeL:  35%|███▌      | 7/20 [04:52<10:47, 49.82s/it]orderpdf_largeL:  40%|████      | 8/20 [06:04<11:22, 56.90s/it]orderpdf_largeL:  45%|████▌     | 9/20 [07:23<11:43, 63.92s/it]orderpdf_largeL:  50%|█████     | 10/20 [08:26<10:36, 63.62s/it]orderpdf_largeL:  55%|█████▌    | 11/20 [08:57<08:02, 53.58s/it]orderpdf_largeL:  60%|██████    | 12/20 [09:31<06:20, 47.61s/it]orderpdf_largeL:  65%|██████▌   | 13/20 [10:04<05:02, 43.18s/it]orderpdf_largeL:  70%|███████   | 14/20 [10:37<04:00, 40.01s/it]orderpdf_largeL:  75%|███████▌  | 15/20 [11:07<03:05, 37.18s/it]orderpdf_largeL:  80%|████████  | 16/20 [12:07<02:55, 43.97s/it]orderpdf_largeL:  85%|████████▌ | 17/20 [13:07<02:26, 48.86s/it]orderpdf_largeL:  90%|█████████ | 18/20 [14:06<01:43, 51.93s/it]orderpdf_largeL:  95%|█████████▌| 19/20 [15:07<00:54, 54.46s/it]orderpdf_largeL: 100%|██████████| 20/20 [16:07<00:00, 56.30s/it]orderpdf_largeL: 100%|██████████| 20/20 [16:07<00:00, 48.39s/it]
+
+runtime: 16.1 min
+
+=== L = 64 ===
+    motility  mean=0.241  std=0.081  skew=-0.33  kurt=-0.60  U4=0.555
+        full  mean=0.371  std=0.095  skew=-0.63  kurt=+0.05  U4=0.600
+
+=== L = 90 ===
+    motility  mean=0.194  std=0.077  skew=-0.04  kurt=-0.65  U4=0.504
+        full  mean=0.328  std=0.114  skew=-0.43  kurt=-0.56  U4=0.552
