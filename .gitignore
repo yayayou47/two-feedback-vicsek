@@ -40,3 +40,4 @@ PLAN.md
 # Videos (large)
 videos/*.mp4
 videos/batch.log
+.coverage
