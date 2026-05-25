@@ -24,9 +24,61 @@ def _save(fig, name):
     print(f"  saved {out}")
 
 
+SNAPSHOT_BLUE = "#1f4ea1"  # v1 navy: best contrast on cream at print size
+
+
 def _cream_panel(ax):
     """v1 snapshot aesthetic: cream face on the panel."""
     ax.set_facecolor(style.CREAM)
+
+
+def _zoom_inset(ax, xs, ys, ths, L, zoom_size=5.0, loc="upper right",
+                inset_frac=0.38, arrow_len=0.45):
+    """Add a square zoom inset showing a clearly resolved sub-region.
+
+    The inset is anchored in `loc` corner of the parent axes and shows
+    a `zoom_size`-wide square centred on a dense patch of the snapshot
+    (chosen automatically as the densest sub-window). Arrows in the
+    inset use the same colour and geometry as v1 fig_snapshots."""
+    from matplotlib.patches import Rectangle
+    H, xe, ye = np.histogram2d(xs, ys, bins=10, range=[[0, L], [0, L]])
+    ix, iy = np.unravel_index(np.argmax(H), H.shape)
+    cx = 0.5 * (xe[ix] + xe[ix + 1])
+    cy = 0.5 * (ye[iy] + ye[iy + 1])
+    half = zoom_size / 2
+    x0 = max(0.0, min(L - zoom_size, cx - half))
+    y0 = max(0.0, min(L - zoom_size, cy - half))
+    x1 = x0 + zoom_size
+    y1 = y0 + zoom_size
+
+    # Anchor (x, y, w, h) in parent-axes coords for upper-right /
+    # upper-left corners (we only use upper-right here).
+    if loc == "upper right":
+        anchor = (1.0 - inset_frac - 0.005, 1.0 - inset_frac - 0.005,
+                  inset_frac, inset_frac)
+    else:
+        anchor = (0.005, 1.0 - inset_frac - 0.005,
+                  inset_frac, inset_frac)
+    iax = ax.inset_axes(anchor)
+    iax.set_facecolor(style.CREAM)
+    sel = (xs >= x0) & (xs <= x1) & (ys >= y0) & (ys <= y1)
+    iax.quiver(
+        xs[sel], ys[sel], np.cos(ths[sel]), np.sin(ths[sel]),
+        color=SNAPSHOT_BLUE,
+        scale=1.0 / arrow_len, scale_units="xy",
+        angles="xy", width=0.012,
+        headwidth=3.5, headlength=4.0,
+    )
+    iax.set_xlim(x0, x1); iax.set_ylim(y0, y1)
+    iax.set_aspect("equal")
+    iax.set_xticks([]); iax.set_yticks([])
+    for spine in iax.spines.values():
+        spine.set_edgecolor("#444")
+        spine.set_linewidth(0.6)
+
+    rect = Rectangle((x0, y0), zoom_size, zoom_size,
+                     fill=False, edgecolor="#444", linewidth=0.6)
+    ax.add_patch(rect)
 
 
 def _cream_save(fig, name):
@@ -390,13 +442,15 @@ def fig_double_snapshot(npz_path: Path):
             _cream_panel(ax)
             ax.quiver(x[im, ic], y[im, ic],
                       np.cos(theta[im, ic]), np.sin(theta[im, ic]),
-                      color=style.PARTICLE_BLUE,
+                      color=SNAPSHOT_BLUE,
                       scale=1.0 / arrow_len, scale_units="xy",
                       angles="xy", width=0.004,
                       headwidth=3.5, headlength=4.0)
             ax.set_xlim(0, L); ax.set_ylim(0, L)
             ax.set_aspect("equal")
             ax.set_xticks([]); ax.set_yticks([])
+            _zoom_inset(ax, x[im, ic], y[im, ic], theta[im, ic],
+                        L, zoom_size=5.0, arrow_len=arrow_len)
             nice_c = _disp(case_labels[ic])
             nice_m = _disp(mode_labels[im])
             ax.set_title(
@@ -871,7 +925,7 @@ def fig_double_3regimes(npz_path: Path):
     nice_cases = ["Ordered", "Near-critical", "Disordered"]
 
     fig, axes = plt.subplots(1, 3,
-                              figsize=(style.DOUBLE_COL[0], 2.6))
+                              figsize=(style.DOUBLE_COL[0], 3.2))
     arrow_len = 0.45
     for ic, ax in enumerate(axes):
         _cream_panel(ax)
@@ -879,7 +933,7 @@ def fig_double_3regimes(npz_path: Path):
         v = np.sin(theta[im_full, ic])
         ax.quiver(
             x[im_full, ic], y[im_full, ic], u, v,
-            color=style.PARTICLE_BLUE,
+            color=SNAPSHOT_BLUE,
             scale=1.0 / arrow_len, scale_units="xy",
             angles="xy", width=0.004,
             headwidth=3.5, headlength=4.0,
@@ -887,6 +941,8 @@ def fig_double_3regimes(npz_path: Path):
         ax.set_xlim(0, L); ax.set_ylim(0, L)
         ax.set_aspect("equal")
         ax.set_xticks([]); ax.set_yticks([])
+        _zoom_inset(ax, x[im_full, ic], y[im_full, ic], theta[im_full, ic],
+                    L, zoom_size=5.0, arrow_len=arrow_len)
         ax.set_title(
             f"{nice_cases[ic]}\n"
             fr"$\eta={eta[ic]:g}$, "
