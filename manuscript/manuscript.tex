@@ -166,7 +166,7 @@ would otherwise scramble local alignment are rectified into
 Gaussian-like kicks. A ten-seed measurement at $L = 30$ gives
 $g(r \simeq 0.6) = 0.542 \pm 0.007$ for the motility-only
 ablation against $0.695 \pm 0.008$ for the double-adaptive
-model, a paired gap of $+0.153 \pm 0.011$ ($z = +13.6$); the
+model, a paired gap of $+0.153 \pm 0.011$ ($z = +14$); the
 dilute-quartile correlation is essentially flat between the
 two modes. The cluster geometry confirms the picture: the
 maximum-cluster size grows from $55.0 \pm 7.5$ particles in
@@ -850,7 +850,7 @@ g(r) = \langle \cos[\theta_i(t) - \theta_j(t)] \rangle_{
 \label{eq:gr}
 \end{equation}
 for the four heavy-tailed modes at near-critical $\eta$,
-$L = 30$, three seeds with six snapshots per seed. The
+$L = 30$, ten seeds with six snapshots per seed. The
 reference particle $i$ is restricted to a density quartile of
 the local-density field $\rho_i = \#\{j : |\mathbf x_j -
 \mathbf x_i| < 1\}$; partner $j$ ranges over the whole box
@@ -1332,11 +1332,7 @@ $D_{\rm rot}(\rho) \propto \eta^{\alpha(\rho)}$ would put the
 mechanism on a quantitative footing; we plan to fit
 $\alpha_{\rm eff}(\rho)$ and $v_{\rm eff}(\rho)$ directly
 and benchmark the effective $\gamma/\nu$ against the metric
-Vicsek prediction. A movie utility shipped with the code
-writes MP4 sequences for each mode with frames coloured by
-$v_i$ and an inset tracking $\langle\varphi\rangle(t)$ and
-$s_{\rm sep}(t)$, making the rectification visible in real
-time.
+Vicsek prediction.
 
 \appendix
 
@@ -1498,7 +1494,10 @@ interaction loop is JIT-compiled with Numba's parallel
 reduction; per-particle random streams are derived from a
 single NumPy \texttt{Generator} with a per-run seed, so
 each \texttt{(seed, mode, $L$)} tuple is reproducible
-bit-for-bit.
+bit-for-bit. A movie utility ships alongside the run drivers
+and writes MP4 sequences for each mode with frames coloured
+by $v_i$ and an inset tracking $\langle\varphi\rangle(t)$
+and $s_{\rm sep}(t)$.
 
 \bibliographystyle{plainnat}
 \bibliography{refs}
