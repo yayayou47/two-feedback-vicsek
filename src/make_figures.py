@@ -1123,6 +1123,124 @@ def fig_double_cluster_map(npz_path: Path):
     _cream_save(fig, "fig_double_cluster_map.pdf")
 
 
+def fig_double_cluster_psd(npz_path: Path):
+    """Dense-phase cluster-size distribution P(s) per mode, with
+    the fitted power-law tail exponent. Motility-only fragments
+    into a shallow power-law (spinodal-like); the double-adaptive
+    model steepens the tail and grows the giant-cluster fraction
+    (binodal-like)."""
+    z = np.load(npz_path, allow_pickle=True)
+    labels = [s if isinstance(s, str) else s.decode()
+              for s in z["labels"]]
+    centers = z["centers"]
+    pdf = z["pdf"]
+    tau = z["tau"]
+    smax = z["smax_frac"]
+    n_seeds = smax.shape[1]
+
+    fig, axes = plt.subplots(1, 2, figsize=(style.DOUBLE_COL[0], 2.8))
+
+    ax = axes[0]
+    for im, m in enumerate(labels):
+        y = pdf[im]
+        ok = y > 0
+        if ok.sum() == 0:
+            continue
+        ax.plot(centers[ok], y[ok], "o-", color=PALETTE[m], ms=3,
+                lw=1.0, label=_disp(m))
+        if np.isfinite(tau[im]):
+            ax.plot([], [], " ",
+                    label=fr"  $\tau={tau[im]:.2f}$")
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_xlabel(r"dense-cluster size $s$ (particles)")
+    ax.set_ylabel(r"$P(s)$")
+    ax.set_title(r"(a)", fontsize=9, loc="left")
+    ax.legend(fontsize=6, loc="lower left", frameon=False, ncol=1)
+
+    ax = axes[1]
+    xpos = np.arange(len(labels))
+    means = smax.mean(axis=1)
+    ses = smax.std(axis=1, ddof=1) / np.sqrt(n_seeds)
+    cols = [PALETTE[m] for m in labels]
+    ax.bar(xpos, means, yerr=ses, color=cols, alpha=0.85,
+           capsize=3, width=0.6)
+    ax.set_xticks(xpos)
+    ax.set_xticklabels([_disp(m) for m in labels], rotation=30,
+                       ha="right", fontsize=6)
+    ax.set_ylabel(r"giant-cluster fraction $\langle s_{\max}/N\rangle$")
+    ax.set_title(r"(b)", fontsize=9, loc="left")
+
+    fig.tight_layout()
+    _save(fig, "fig_double_cluster_psd.pdf")
+
+
+def fig_double_gnf(npz_path: Path):
+    """Giant number fluctuations: Var(N_box) vs <N_box> per mode
+    with the fitted exponent zeta in Var ~ <N>^{2 zeta}. The
+    Poisson line zeta = 1/2 is drawn for reference."""
+    z = np.load(npz_path, allow_pickle=True)
+    labels = [s if isinstance(s, str) else s.decode()
+              for s in z["labels"]]
+    mean_N = z["mean_N"]
+    var_N = z["var_N"]
+    zeta = z["zeta"]
+
+    fig, ax = plt.subplots(figsize=(style.SINGLE_COL[0] * 1.5,
+                                    style.SINGLE_COL[1] * 1.4))
+    for im, m in enumerate(labels):
+        mk = var_N[im] > 0
+        ax.plot(mean_N[im, mk], var_N[im, mk], "o-", color=PALETTE[m],
+                ms=4, lw=1.0,
+                label=fr"{_disp(m)}  ($\zeta={zeta[im]:.2f}$)")
+    # Poisson reference Var = <N>
+    xr = np.array([mean_N[mean_N > 0].min(), mean_N.max()])
+    ax.plot(xr, xr, "k--", lw=0.7, label=r"Poisson ($\zeta=1/2$)")
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_xlabel(r"$\langle N_{\rm box}\rangle$")
+    ax.set_ylabel(r"$\mathrm{Var}(N_{\rm box})$")
+    ax.legend(fontsize=6, loc="upper left", frameon=False)
+    fig.tight_layout()
+    _save(fig, "fig_double_gnf.pdf")
+
+
+def fig_double_hysteresis(npz_path: Path):
+    """Quasi-static eta ramp up and down for the two motility-active
+    modes. Overlapping up/down branches indicate a continuous
+    transition; a gap is a first-order hysteresis loop."""
+    z = np.load(npz_path, allow_pickle=True)
+    labels = [s if isinstance(s, str) else s.decode()
+              for s in z["labels"]]
+    eta = z["eta"]
+    phi_up = z["phi_up"]; phi_up_se = z["phi_up_se"]
+    phi_dn = z["phi_down"]; phi_dn_se = z["phi_down_se"]
+    loop = z["loop_area"]
+
+    fig, axes = plt.subplots(1, len(labels),
+                             figsize=(style.DOUBLE_COL[0], 2.8),
+                             sharey=True)
+    if len(labels) == 1:
+        axes = [axes]
+    for im, m in enumerate(labels):
+        ax = axes[im]
+        c = PALETTE[m]
+        ax.errorbar(eta, phi_up[im], yerr=phi_up_se[im], fmt="o-",
+                    color=c, ms=3, lw=1.0, capsize=2, label="up-ramp")
+        ax.errorbar(eta, phi_dn[im], yerr=phi_dn_se[im], fmt="s--",
+                    color=c, ms=3, lw=1.0, capsize=2, alpha=0.6,
+                    mfc="white", label="down-ramp")
+        ax.set_xscale("log")
+        ax.set_xlabel(r"$\eta$")
+        if im == 0:
+            ax.set_ylabel(r"$\langle\varphi\rangle$")
+        ax.set_title(fr"{_disp(m)}  (area $={loop[im]:.3f}$)",
+                     fontsize=8)
+        ax.legend(fontsize=6, loc="lower left", frameon=False)
+    fig.tight_layout()
+    _save(fig, "fig_double_hysteresis.pdf")
+
+
 def fig_double_gr_decay(npz_path: Path):
     """Profile of the dense-quartile gap $\\Delta g(r)$ between
     the double-adaptive model and the motility-only ablation,
@@ -1458,6 +1576,15 @@ def main():
     if npz_oplargeL.exists():
         fig_double_orderpdf_largeL(npz_oplargeL,
                                    _pick("double_orderpdf_L128"))
+    npz_psd = DATA / "double_cluster_psd_nocone.npz"
+    if npz_psd.exists():
+        fig_double_cluster_psd(npz_psd)
+    npz_gnf = DATA / "double_gnf_nocone.npz"
+    if npz_gnf.exists():
+        fig_double_gnf(npz_gnf)
+    npz_hyst = DATA / "double_hysteresis_nocone.npz"
+    if npz_hyst.exists():
+        fig_double_hysteresis(npz_hyst)
 
 
 if __name__ == "__main__":
