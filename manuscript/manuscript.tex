@@ -50,12 +50,14 @@ the local neighbour count, so a crowded particle is at once
 slow and Gaussian-like while an isolated one is fast and
 Cauchy-like. A controlled seven-size finite-size scan
 against the original Vicsek model and three single-channel
-ablations separates two regimes cleanly: only the
-motility-active modes develop a critical susceptibility
-scaling, and the full model is super-additive on that slope
-relative to the motility-only ablation. The
-density-stratified heading correlation inside the dense
-phase, its dynamic counterpart $C(\tau)$, and the
+ablations separates two regimes: heavy-tailed reorientations
+on their own do not drive a critical susceptibility scaling
+--- their rare bursts are averaged away inside a dense patch
+--- whereas the motility channel does, and the otherwise-silent
+noise-shape adaptation lends it a super-additive boost on the
+finite-size lever. The robust fingerprint of the coupling is
+microscopic: the density-stratified heading correlation inside
+the dense phase, its dynamic counterpart $C(\tau)$, and the
 maximum-cluster size all read out the same mechanism --- the
 noise-shape feedback rectifies Cauchy bursts into
 Gaussian-like kicks inside the motility-driven dense phase.
@@ -72,21 +74,20 @@ passive.
         in isolation are activated together in the same
         Vicsek--Couzin flock through a shared sigmoid.
   \item Heavy-tailed reorientations on their own do not drive
-        a critical $\chi_{\max}(L)$ scaling on the seven-size
-        lever; only the motility channel does, and the
-        noise-shape adaptation adds super-additively on top
-        of it.
-  \item The dense-quartile heading correlation records the
-        rectification at $\Delta g \simeq +0.15$, $z \simeq
-        +14$ at $L = 30$; its dynamic counterpart $C(\tau)$
-        holds the same gap over four decades in lag.
-  \item A $25$-cell decoupled-sigmoid sweep pins the motility
-        threshold $n_\star^v$ as the sole control variable
-        ($R^2 = 0.88$ on $n_\star^v$, $R^2 = 0.04$ on the
-        noise-shape threshold). The density-triggered slowdown
-        is a necessary precondition; without it, the
-        heavy-tailed rectification damages coherence rather
-        than building it.
+        a critical $\chi_{\max}(L)$ scaling; only the motility
+        channel does, and the otherwise-silent noise-shape
+        adaptation adds super-additively on top of it.
+  \item The robust signature is microscopic: the dense-quartile
+        heading correlation, and its dynamic counterpart
+        $C(\tau)$ across four decades in lag, record the
+        rectification as a clear, dilute-phase-null gap between
+        the double-adaptive model and the motility-only
+        ablation.
+  \item A decoupled-sigmoid sweep pins the motility threshold
+        as the sole control variable, the noise-shape threshold
+        staying passive. The density-triggered slowdown is a
+        necessary precondition; without it, the heavy-tailed
+        rectification damages coherence rather than building it.
 \end{itemize}
 
 \section{Introduction}
