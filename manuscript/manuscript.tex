@@ -91,97 +91,98 @@ passive.
 
 \section{Introduction}
 
-The standard Vicsek model \citep{Vicsek1995} freezes two
-ingredients of a self-propelled flock that biology does not:
-every particle moves at the same speed $v_0$, and every
-angular kick is drawn from the same Gaussian. Both choices
-are physically wrong in interesting ways. Self-propulsion
-speed responds to local crowding in essentially every system
-one might want to model --- confluent epithelia jam and
-arrest \citep{Bi2016}, swarming bacteria switch between
-planktonic and biofilm regimes through quorum sensing, and
-vehicular, pedestrian and animal traffic all carry a marked
-speed--density anti-correlation \citep{Greenshields, LWR}.
-The reorientation statistics are no closer to Gaussian:
-heavy-tailed L\'evy turns are documented in foragers,
-T-cells and swarming bacteria \citep{Reynolds2018,
-Harris2012, Ariel2015}. The biologically honest model lets
-both inputs depend on the local environment.
+The Vicsek model \citep{Vicsek1995} freezes two ingredients
+of a self-propelled flock that biology keeps fluid: every
+particle moves at the same speed, and every reorientation is
+drawn from the same Gaussian. Neither assumption survives
+contact with real collectives. Self-propulsion speed responds
+to local crowding almost everywhere one looks --- confluent
+epithelia jam and arrest \citep{Bi2016}, swarming bacteria
+switch between planktonic and biofilm regimes through quorum
+sensing, and vehicular, pedestrian and animal traffic all
+carry a pronounced speed--density anti-correlation
+\citep{Greenshields, LWR}. The reorientation statistics are
+no closer to Gaussian: heavy-tailed L\'evy turns are
+documented in foragers, T-cells and swarming bacteria
+\citep{Reynolds2018, Harris2012, Ariel2015}. A biologically
+honest flocking model should let both inputs read the local
+environment.
 
-The two relaxations live in different parts of the literature.
-\citet{CatesTailleur2015} proved that a density-dependent
-speed $v(\rho)$ with $\partial \ln v / \partial \ln \rho < -1$
-drives motility-induced phase separation (MIPS) even with no
-alignment at all. Heavy-tailed angular noise has been studied
-on a separate track, where it is known to reshape the
-order--disorder transition of metric Vicsek dynamics. The
-regime in which both adaptations are switched on together has,
-to our knowledge, not been resolved. Yet the two channels
-should interrogate each other inside the same dense regions:
-the noise distribution sets how particles escape spatial
-structures, while the density-dependent speed sets those
-structures up in the first place.
+These two relaxations have so far been studied apart.
+\citet{CatesTailleur2015} showed that a sufficiently steep
+density-dependent speed drives motility-induced phase
+separation (MIPS) with no alignment interaction at all, and
+density-dependent motility is now a standard route to
+clustering in active matter. Heavy-tailed angular noise has
+been pursued on a separate track, where broadening the
+reorientation tails is known to reshape the order--disorder
+transition of metric Vicsek dynamics. What happens when the
+two adaptations are switched on together, and gated by the
+same local cue, has to our knowledge not been resolved. The
+question is not academic: the two channels should interrogate
+each other precisely where it matters, inside the dense
+regions a flock builds. The noise distribution sets how a
+particle escapes a local structure, while the
+density-dependent speed sets that structure up in the first
+place, so coupling them could as easily cancel as reinforce,
+and only a direct test can decide.
 
-We tie the two adaptations together in the simplest way
-available. A single sigmoid in the local neighbour count
-$n_i$ gates both the self-propulsion speed and the
-angular-noise stability index, so a crowded particle is
-simultaneously slow and Gaussian and an isolated one
-simultaneously fast and Cauchy. Switching both channels off
-($v_i \equiv v_0$, $\alpha_i \equiv 2$) recovers the original
-Vicsek dynamics. Two single-channel ablations isolate the
-individual contributions: a motility-only mode (adaptive
-$v_i$, fixed Cauchy $\alpha = 1$) and a noise-shape-only mode
-(fixed $v_i = v_{\max}$, adaptive $\alpha_i \in [1, 2]$).
+We couple the two adaptations in the most economical way
+available: a single sigmoid in the local neighbour count
+gates both the self-propulsion speed and the stability index
+of the angular noise, so that a crowded particle is at once
+slow and Gaussian and an isolated one fast and Cauchy.
+Turning both channels off recovers the original Vicsek
+dynamics, and two single-channel ablations --- a
+motility-only mode (adaptive speed, fixed Cauchy noise) and a
+noise-shape-only mode (fixed speed, noise interpolating from
+Cauchy to Gaussian) --- isolate each contribution against a
+shared heavy-tailed reference. A controlled finite-size scan
+at fixed density ($\sigma = 2.22$, sizes up to $L = 128$)
+places the four heavy-tailed modes and the Gaussian Vicsek
+baseline on the same footing.
 
-A short quantitative preview places the results that follow.
-The finite-size scan covers $L \in \{15, 22, 30, 45, 64, 90,
-128\}$ at fixed density $\sigma = N/L^2 = 2.22$. The
-density-separation index $s_{\rm sep}$ plateaus at
-$\simeq 1.70$ at the largest sizes for both motility-active
-modes, against $1.13$--$1.16$ for the Vicsek, Cauchy and
-noise-shape references; only the motility-active modes phase
-separate in space. A log--log fit of $\chi_{\max} \sim L^{a}$
-gives $a_{\rm Vicsek} = +0.01$, $a_{\rm Cauchy} = -0.12$,
-$a_{\rm noise} = +0.00$, $a_{\rm motility} = +2.34$ and
-$a_{\rm full} = +2.95$. The split between modes is
-qualitative, not quantitative: the three fixed-noise-shape
-modes carry slopes statistically indistinguishable from zero,
-with only the Cauchy reference robustly negative ($95\%$
-bootstrap CI $[-0.15, -0.08]$); only the motility-active
-modes develop a critical $\chi_{\max}(L)$ scaling. The synergy
-diagnostic
-$\Delta = (a_{\rm full} - a_{\rm Cauchy})
-- (a_{\rm noise} - a_{\rm Cauchy})
-- (a_{\rm motility} - a_{\rm Cauchy})$ would vanish for two
-linearly-combining channels. It instead traces a persistently
-positive trajectory: $\Delta_4 = +0.69$, $\Delta_5 = +1.45$,
-$\Delta_6 = +0.46$, $\Delta_7 = +0.48$. Since the Cauchy
-slopes are essentially zero, $\Delta$ reduces in practice to
-$a_{\rm full} - a_{\rm motility} \simeq +0.6$.
+The two channels separate cleanly. Only the modes carrying the
+density-dependent speed phase separate in space and develop a
+growing finite-size susceptibility; heavy-tailed noise on its
+own leaves the transition essentially Vicsek-like, its rare
+bursts averaged away by the many neighbours of a dense patch.
+Where the two feedbacks act together they do not merely add:
+the noise-shape adaptation, critically silent on its own,
+lends the motility-driven scaling a super-additive boost.
 
-The mechanism is direct. Inside the dense phase the shared
-sigmoid pushes $\alpha_i \to 2$, so the Cauchy bursts that
-would otherwise scramble local alignment are rectified into
-Gaussian-like kicks. A ten-seed measurement at $L = 30$ gives
-$g(r \simeq 0.6) = 0.542 \pm 0.007$ for the motility-only
-ablation against $0.695 \pm 0.008$ for the double-adaptive
-model, a paired gap of $+0.153 \pm 0.011$ ($z = +14$); the
-dilute-quartile correlation is essentially flat between the
-two modes. The cluster geometry confirms the picture: the
-maximum-cluster size grows from $55.0 \pm 7.5$ particles in
-motility-only to $176.6 \pm 42.3$ in the double-adaptive
-model ($z = +2.7$) at conserved total dense mass.  A
-decoupled-sigmoid sweep (Sec.~\ref{sec:decoupled}) pins the
-control variable: on a $25$-cell grid the dense-quartile gap
-follows $\Delta g \simeq -0.144\,n_\star^v + 0.52$ with
-$R^2 = 0.88$, while the analogous fit on $n_\star^\alpha$
-captures only $R^2 = 0.04$. Biologically, the
-density-triggered slowdown is a necessary precondition;
-without it, the heavy-tailed rectification damages
-dense-phase coherence instead of building it.
+The mechanism is local and direct. Inside the dense phase the
+shared sigmoid pushes the noise toward Gaussian, so the Cauchy
+bursts that would otherwise scramble local alignment are
+rectified into coherent kicks; the effect sharpens the heading
+correlation of the dense quartile, fuses the dense mass into
+fewer and larger clusters, and leaves the dilute phase
+untouched. A decoupled-sigmoid analysis
+(Sec.~\ref{sec:decoupled}) pins the control variable: the
+motility threshold alone sets the sign and amplitude of the
+rectification, while the noise-shape threshold is essentially
+passive. The density-triggered slowdown is therefore a
+necessary precondition --- without the dense phase it builds,
+the heavy-tailed rectification has nothing to act on and
+erodes coherence instead of creating it.
+
+The paper is organised as follows.
+Section~\ref{sec:model} defines the two-feedback model, its
+single-channel ablations and the numerical protocol.
+Section~\ref{sec:results} reports the global diagnostics
+(finite-size susceptibility, density separation, number
+fluctuations), the parametric analyses (behavioural plane,
+order-parameter distribution, hysteresis) and the local
+diagnostics (density-stratified heading correlations, cluster
+statistics and the decoupled-sigmoid dissection) that together
+localise the rectification to the dense phase.
+Section~\ref{sec:disc} discusses the mechanism, its place in
+the active-matter literature and its limits, and the appendix
+(Sec.~\ref{sec:hydro}) sketches a hydrodynamic account of the
+dense-phase rectification.
 
 \section{Model and methods}
+\label{sec:model}
 
 \subsection{Dynamics}
 
@@ -335,6 +336,7 @@ outside the original window, except for the noise-shape-only
 ablation at $L = 45$, which we report with its updated value.
 
 \section{Results}
+\label{sec:results}
 
 We first set a visual reference by contrasting the two
 motility-active modes directly in real space across system
