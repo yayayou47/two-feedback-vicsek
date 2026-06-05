@@ -282,14 +282,18 @@ def fig_double_pilot(npz_path: Path):
     v_pop = z["v_pop"]
     a_pop = z["a_pop"]
 
-    # Merge L=64 and L=90 if present.
-    for big_name in ("double_L64.npz", "double_L90.npz"):
+    # Merge the controlled FSS sizes L=64, 90, 128 (no-cone series,
+    # matching Table I). The cone-era double_L*.npz files carry a
+    # different protocol --- their reference-mode chi_max is spuriously
+    # large --- and must NOT be mixed into this no-cone pilot.
+    for big_name in ("double_L64_nocone.npz", "double_L90_nocone.npz",
+                     "double_L128_nocone.npz"):
         big_path = DATA / big_name
         if not big_path.exists():
             continue
         big = np.load(big_path, allow_pickle=True)
         Ls = np.concatenate([Ls, [float(big["L"])]])
-        # The L90 file carries 5 modes (vicsek_gauss + 4 ht); the
+        # These files carry 5 modes (vicsek_gauss + 4 ht); the
         # pilot-derived figure only carries the 4 heavy-tailed modes,
         # so we slice big arrays to those four.
         big_modes = [str(s) if isinstance(s, str) else s.decode()
