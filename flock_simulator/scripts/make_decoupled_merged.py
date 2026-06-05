@@ -163,7 +163,7 @@ def main() -> None:
         ax.errorbar(nvs, ms, yerr=ses, fmt="o", ms=4,
                     color=col, ecolor="grey", elinewidth=0.6, capsize=2,
                     markeredgecolor="black", markeredgewidth=0.3,
-                    label=fr"$\sigma = {sigma:g}$")
+                    label=fr"$\rho_0 = {sigma:g}$")
         aa, bb = np.polyfit(nvs.astype(float), ms, 1,
                             w=1.0 / np.maximum(ses, 1e-6) ** 2)
         xf2 = np.linspace(0.5, 12.5, 100)
@@ -183,11 +183,11 @@ def main() -> None:
                     markeredgecolor="black", markeredgewidth=0.4)
     xf3 = np.linspace(0.7, 3.3, 100)
     ax.plot(xf3, cc * xf3 + dd, "-", color="grey", lw=1.0,
-            label=(fr"$n^{{v,{{\rm crit}}}}_\star = {cc:+.2f}\,\sigma "
+            label=(fr"$n^{{v,{{\rm crit}}}}_\star = {cc:+.2f}\,\rho_0 "
                    fr"{dd:+.2f}$ ($R^2 = {R2s:.2f}$)"))
     ax.plot(xf3, A * xf3, ":", color="black", lw=0.8, alpha=0.6,
-            label=fr"$A\,\sigma = {A:.2f}\,\sigma$")
-    ax.set_xlabel(r"$\sigma$ (mean density)")
+            label=fr"$A\,\rho_0 = {A:.2f}\,\rho_0$")
+    ax.set_xlabel(r"$\rho_0$ (mean density)")
     ax.set_ylabel(r"$n^{v,\,{\rm crit}}_\star$")
     ax.set_title(r"(f) density scaling", fontsize=8, loc="left")
     ax.legend(fontsize=6, frameon=False, loc="lower left")

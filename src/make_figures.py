@@ -866,7 +866,7 @@ def fig_double_profile(npz_path: Path):
     ax.set_xlim(0, L)
     ax.set_ylim(0.85, 1.0)
     ax.set_xlabel(r"$x_\parallel$")
-    ax.set_ylabel(r"$\sigma(x_\parallel)/\sigma_{\max}$")
+    ax.set_ylabel(r"$\rho(x_\parallel)/\rho_{\max}$")
     ax.set_title("(a)", fontsize=9, loc="left")
     # Four entries stacked on four lines, anchored at the panel's
     # lower centre and growing downward.

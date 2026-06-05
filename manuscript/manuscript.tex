@@ -139,7 +139,7 @@ motility-only mode (adaptive speed, fixed Cauchy noise) and a
 noise-shape-only mode (fixed speed, noise interpolating from
 Cauchy to Gaussian) --- isolate each contribution against a
 shared heavy-tailed reference. A controlled finite-size scan
-at fixed density ($\sigma = 2.22$, sizes up to $L = 128$)
+at fixed density ($\rho_0 = 2.22$, sizes up to $L = 128$)
 places the four heavy-tailed modes and the Gaussian Vicsek
 baseline on the same footing.
 
@@ -311,8 +311,8 @@ density within radius $R = 1$) ranks the modes consistently
 and ships with the code. To distinguish a traveling-band
 soliton from an isotropic patch we use the band-soliton index
 \begin{equation}
-b \equiv \frac{\max_{x_\parallel} \sigma(x_\parallel)}
-   {\langle\sigma\rangle},
+b \equiv \frac{\max_{x_\parallel} \rho(x_\parallel)}
+   {\langle\rho\rangle},
 \label{eq:b}
 \end{equation}
 the maximum of the time-averaged density profile along the
@@ -323,7 +323,7 @@ $b \gtrsim 1.5$; an isotropic patch gives $b \simeq 1$.
 \subsection{Numerical protocol}
 
 The seven sizes $L \in \{15, 22, 30, 45, 64, 90, 128\}$ run at
-fixed density $\sigma = N/L^2 = 2.22$, three seeds per
+fixed density $\rho_0 = N/L^2 = 2.22$, three seeds per
 $(\mathrm{mode}, L, \eta)$ cell, with $1500$ warm-up and
 $1000$ measurement steps from $\theta_i \equiv 0$. The noise
 grid is $\eta \in \{0.005, 0.010, 0.020, 0.035, 0.050, 0.075,
@@ -342,7 +342,7 @@ ablation at $L = 45$, which we report with its updated value.
 We first set a visual reference by contrasting the two
 motility-active modes directly in real space across system
 sizes (Fig.~\ref{fig:snapshot}). Motility-only and
-double-adaptive configurations are shown at $\sigma = 2.22$,
+double-adaptive configurations are shown at $\rho_0 = 2.22$,
 single seed, after $3000$ warm-up steps, for three sizes
 $L \in \{30, 90, 128\}$ (one row each) and three noise
 levels spanning the ordered ($\eta = 0.020$), near-critical
@@ -360,7 +360,7 @@ than their motility-only neighbours.
 \begin{figure*}[htbp]
     \centering
     \includegraphics[width=0.984\linewidth]{fig_double_snapshot.pdf}
-    \caption{Real-space configurations at $\sigma = 2.22$, single
+    \caption{Real-space configurations at $\rho_0 = 2.22$, single
     seed, after $3000$ warm-up steps, on a white background, for
     three sizes $L \in \{30, 90, 128\}$, one row per size. Within
     each row the three noise levels run left to right ---
@@ -620,7 +620,7 @@ $L \in \{30, 90, 128\}$ (Fig.~\ref{fig:plane}).
 At $L = 30$ the density-separation map (panel (b)) falls back in
 the upper rectangle $n_\star \ge 5$ to $s_{\rm sep} \simeq 1.5$:
 the threshold sits past the typical occupancy
-$\bar n_i \simeq \sigma\pi(R_a^2 - R_r^2) \simeq 1.7$ and neither
+$\bar n_i \simeq \rho_0\pi(R_a^2 - R_r^2) \simeq 1.7$ and neither
 feedback engages. In the low-threshold band $n_\star \lesssim
 3.5$ with $s \gtrsim 5$ the index climbs to
 $s_{\rm sep} \approx 2.0$ and peaks at
@@ -933,14 +933,14 @@ definition as Fig.~\ref{fig:cluster_summary}; ten seeds, $L = 30$),
 resolved here across the noise window
 $\eta \in \{0.02, 0.05, 0.10, 0.20\}$ for every mode
 (Fig.~\ref{fig:cluster_summary}e). The bare contact graph is useless
-here, since it percolates at $\sigma = 2.22$ with
+here, since it percolates at $\rho_0 = 2.22$ with
 $s_{\max}/N \simeq 0.9$ in every mode and cannot discriminate.
 On the dense bins, the two fixed-speed references never develop
 a dense-phase tail: from deep order to disorder their
 giant-cluster fraction stays pinned at the binning floor
 ($\langle s_{\max}/N\rangle \simeq 0.001$--$0.002$) and no power
 law can be fitted. The Vicsek band instability at
-$\sigma = 2.22$ is simply too weak to nucleate a dense phase once
+$\rho_0 = 2.22$ is simply too weak to nucleate a dense phase once
 the motility channel is switched off. The motility-active modes
 instead carry a heavy-tailed dense phase throughout: the
 motility-only tail runs from $\tau \simeq 1.9$ down to $1.5$ as
@@ -1122,12 +1122,12 @@ $\Delta g(r \!\simeq\! 0.6) = g_{\rm full}^{\rm decoupled}
     colour-coded by $n_\star^\alpha$; the $n_\star^v$-only fit
     reaches $R^2 = 0.88$ against $R^2 = 0.04$ for $n_\star^\alpha$
     alone. (c) Density-scaling test: $\Delta g(n_\star^v)$ at four
-    densities $\sigma \in \{1.0, 1.5, 2.22, 3.0\}$
+    densities $\rho_0 \in \{1.0, 1.5, 2.22, 3.0\}$
     ($n_\star^\alpha = 3$ fixed). (d) Metric- and (e)
-    topological-kernel ($k = 4$) heatmaps at $\sigma = 2.22$,
+    topological-kernel ($k = 4$) heatmaps at $\rho_0 = 2.22$,
     matched colour scale. (f) Critical threshold
-    $n^{v,\,{\rm crit}}_\star(\sigma) = -0.73\,\sigma + 5.81$
-    ($R^2 = 0.97$; dotted line, mean-density prediction $A\sigma$).
+    $n^{v,\,{\rm crit}}_\star(\rho_0) = -0.73\,\rho_0 + 5.81$
+    ($R^2 = 0.97$; dotted line, mean-density prediction $A\rho_0$).
     The three Gouraud-shaded heatmaps (a, d, e) occupy the top row
     on a single shared colour scale with one vertical $\Delta g$
     colorbar at the right; the curves (b, c, f) sit on the bottom
@@ -1140,7 +1140,7 @@ $\Delta g(r \!\simeq\! 0.6) = g_{\rm full}^{\rm decoupled}
 The map splits the quadrant into two horizontal bands,
 separated not by the diagonal but by a critical motility
 threshold $n_\star^v \simeq 4$ --- just above the typical
-alignment-zone occupancy $\sigma\pi(R_a^2 - R_r^2) \simeq
+alignment-zone occupancy $\rho_0\pi(R_a^2 - R_r^2) \simeq
 1.7$. For $n_\star^v \le 3$ every row carries a positive
 gap, $+0.43 \pm 0.01$ at $(1,1)$ down to $+0.10 \pm 0.01$ at
 $(1,8)$; for $n_\star^v \ge 5$ every row is negative,
@@ -1174,34 +1174,34 @@ laid down.
 \label{sec:decoupled-sigma}
 We now ask how the critical motility threshold
 $n_\star^{v,{\rm crit}}$ moves with the global density
-$\sigma$. The mean-density reading takes the relevant
-count to be $A\sigma = \pi(R_a^2 - R_r^2)\,\sigma$ and
-predicts $n_\star^{v,{\rm crit}} \propto \sigma$ with slope
+$\rho_0$. The mean-density reading takes the relevant
+count to be $A\rho_0 = \pi(R_a^2 - R_r^2)\,\rho_0$ and
+predicts $n_\star^{v,{\rm crit}} \propto \rho_0$ with slope
 $A \simeq +0.75$. We test that by sweeping $n_\star^v \in
 \{1, 2, 3, 4, 5, 6, 8\}$ at three additional densities
-$\sigma \in \{1.0, 1.5, 3.0\}$ (plus $\sigma = 2.22$),
+$\rho_0 \in \{1.0, 1.5, 3.0\}$ (plus $\rho_0 = 2.22$),
 $n_\star^\alpha = 3$ fixed, ten seeds, and reading off the
-zero crossing of $\Delta g(n_\star^v) \simeq a(\sigma)\,
-n_\star^v + b(\sigma)$. Per-density fits all reach
+zero crossing of $\Delta g(n_\star^v) \simeq a(\rho_0)\,
+n_\star^v + b(\rho_0)$. Per-density fits all reach
 $R^2 \ge 0.86$ (Fig.~\ref{fig:decoupled_2d}b) and
 \begin{equation}
-n_\star^{v,{\rm crit}}(\sigma)
-   = -0.73\,\sigma + 5.81,
+n_\star^{v,{\rm crit}}(\rho_0)
+   = -0.73\,\rho_0 + 5.81,
 \qquad R^2 = 0.97.
 \label{eq:nv_crit_sigma}
 \end{equation}
 The mean-density prediction is wrong in sign:
-$n_\star^{v,{\rm crit}}$ falls with $\sigma$, the slope
+$n_\star^{v,{\rm crit}}$ falls with $\rho_0$, the slope
 $-0.73$ the mirror image of $+0.75$.
 
 What sets the sign is the dense-to-dilute density contrast.
-At low $\sigma$ the dilute phase is nearly empty, the dense
+At low $\rho_0$ the dilute phase is nearly empty, the dense
 phase carries a large relative contrast, and its local
 neighbour count clears even a demanding $n_\star^v \simeq
-5$. At high $\sigma$ the dilute phase is itself crowded,
+5$. At high $\rho_0$ the dilute phase is itself crowded,
 the contrast weakens, and $n_\star^v$ has to drop for the
 rectification to remain selective. Extrapolating
-Eq.~\eqref{eq:nv_crit_sigma} to $\sigma \simeq 8$ predicts
+Eq.~\eqref{eq:nv_crit_sigma} to $\rho_0 \simeq 8$ predicts
 $n_\star^{v,{\rm crit}} \to 0$: once the two phases are
 indistinguishable, no threshold can produce a coherence gain.
 
@@ -1209,9 +1209,9 @@ A falsification check pushes the picture further. If
 $n_\star^{v,{\rm crit}}$ really tracked the dense-phase
 neighbour count, it should equal $\langle n_i\rangle_{\rm
 dense}$. We measure $\langle n_i\rangle_{\rm dense} = 2.57,
-4.05, 4.85, 5.26$ at $\sigma = 1.0, 1.5, 2.22, 3.0$
+4.05, 4.85, 5.26$ at $\rho_0 = 1.0, 1.5, 2.22, 3.0$
 (top-density quartile, $R = 1$, $L = 30$, $5$ seeds, $12$
-snapshots), an \emph{increasing} function of $\sigma$,
+snapshots), an \emph{increasing} function of $\rho_0$,
 opposite to $n_\star^{v,{\rm crit}}$. The ratio
 $n_\star^{v,{\rm crit}} / \langle n_i\rangle_{\rm dense}$
 runs $2.08, 1.16, 0.85, 0.69$: the naive equality is
@@ -1229,7 +1229,7 @@ $k$ nearest non-repulsion neighbours while the sigmoid
 input stays the metric annulus count.
 
 
-Re-running the $25$-cell map at $L = 30$, $\sigma = 2.22$
+Re-running the $25$-cell map at $L = 30$, $\rho_0 = 2.22$
 with $k = 4$ gives the heatmap of
 Fig.~\ref{fig:decoupled_2d}c. The two-band structure
 softens. The linear fit on $n_\star^v$ alone now captures
@@ -1327,7 +1327,7 @@ under topological alignment); it is controlled by the
 motility threshold alone under metric alignment; and it
 switches off altogether once the dense-to-dilute contrast
 washes out ($n_\star^{v,{\rm crit}} \to 0$ as
-$\sigma \to 8$).
+$\rho_0 \to 8$).
 
 A flock that adapts both its motility and its reorientation
 statistics to local crowding gets a spatially separated
@@ -1428,7 +1428,7 @@ A topological alignment rule, shown to flip the heavy-tail
 trend in canonical Vicsek--Couzin, would be a one-line
 edit. A hydrodynamic theory recovering both the linear
 $\Delta g(n_\star^v)$ at fixed density and the negative slope
-$n_\star^{v,{\rm crit}}(\sigma) = -0.73\,\sigma + 5.81$
+$n_\star^{v,{\rm crit}}(\rho_0) = -0.73\,\rho_0 + 5.81$
 --- attributable to the dense-to-dilute contrast rather than
 the mean density --- would close the mechanistic argument.
 A Toner--Tu closure with $v_{\rm eff}(\rho)$ and a fractional
@@ -1581,10 +1581,10 @@ threshold at which the dense-phase fraction collapses and
 propagating its effect through the noise-shape sector. The
 linear-stability sketch captures the diagonal two-band
 structure but neither the horizontal-band structure of the
-$(n_\star^v, n_\star^\alpha)$ map nor the $\sigma$-scaling
-law $n_\star^{v,{\rm crit}}(\sigma) = -0.73\,\sigma + 5.81$
+$(n_\star^v, n_\star^\alpha)$ map nor the $\rho_0$-scaling
+law $n_\star^{v,{\rm crit}}(\rho_0) = -0.73\,\rho_0 + 5.81$
 which runs opposite to the mean-density prediction.
-Whether the dense-phase local densities scale with $\sigma$
+Whether the dense-phase local densities scale with $\rho_0$
 as the MIPS contrast scales is the natural direction for a
 quantitative theory.
 
