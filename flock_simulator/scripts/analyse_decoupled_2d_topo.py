@@ -126,23 +126,14 @@ def main() -> None:
         (axes[0], m_mean, "(a) metric alignment"),
         (axes[1], t_mean, "(b) topological alignment ($k = 4$)"),
     ):
-        im = ax.imshow(
-            data, origin="lower", aspect="auto",
-            cmap="RdBu_r", vmin=-vmax, vmax=vmax,
-            extent=[n_a.min() - 0.5, n_a.max() + 0.5,
-                    n_v.min() - 0.5, n_v.max() + 0.5],
+        AA, VV = np.meshgrid(n_a, n_v)
+        im = ax.pcolormesh(
+            AA, VV, data, cmap="RdBu_r", vmin=-vmax, vmax=vmax,
+            shading="gouraud",
         )
-        ax.set_xticks(n_a)
-        ax.set_yticks(n_v)
         ax.set_xlabel(r"$n_\star^\alpha$")
         ax.set_ylabel(r"$n_\star^v$")
         ax.set_title(title, fontsize=8, loc="left")
-        for iv in range(len(n_v)):
-            for ia in range(len(n_a)):
-                col = "white" if abs(data[iv, ia]) > 0.6 * vmax else "black"
-                ax.text(n_a[ia], n_v[iv], f"{data[iv, ia]:+.2f}",
-                        ha="center", va="center", fontsize=6.5,
-                        color=col)
         diag = np.linspace(n_a.min(), n_a.max(), 100)
         ax.plot(diag, diag, ":", color="grey", lw=0.6, alpha=0.8)
     cb = fig.colorbar(im, ax=axes, fraction=0.046, pad=0.04)

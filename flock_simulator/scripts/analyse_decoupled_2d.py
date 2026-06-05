@@ -161,14 +161,11 @@ def main() -> None:
     # Panel (a): heatmap of Delta_g on (n_v, n_a).
     ax = axes[0]
     vmax = float(np.nanmax(np.abs(mean_g)))
-    im = ax.imshow(
-        mean_g, origin="lower", aspect="auto",
-        cmap="RdBu_r", vmin=-vmax, vmax=vmax,
-        extent=[n_a.min() - 0.5, n_a.max() + 0.5,
-                n_v.min() - 0.5, n_v.max() + 0.5],
+    AA, VV = np.meshgrid(n_a, n_v)
+    im = ax.pcolormesh(
+        AA, VV, mean_g, cmap="RdBu_r", vmin=-vmax, vmax=vmax,
+        shading="gouraud",
     )
-    ax.set_xticks(n_a)
-    ax.set_yticks(n_v)
     ax.set_xlabel(r"$n_\star^\alpha$ (noise-shape threshold)")
     ax.set_ylabel(r"$n_\star^v$ (motility threshold)")
     ax.set_title(r"(a) $\Delta g(r\!\simeq\!0.6)$ vs motility, $L = 30$, 10 seeds",
@@ -176,14 +173,6 @@ def main() -> None:
     cb = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
     cb.set_label(r"$\Delta g$", fontsize=8)
     cb.ax.tick_params(labelsize=7)
-    # Cell labels with z-score in parentheses.
-    for iv, nsv in enumerate(n_v):
-        for ia, nsa in enumerate(n_a):
-            txt_color = "white" if abs(mean_g[iv, ia]) > 0.6 * vmax else "black"
-            ax.text(nsa, nsv,
-                    f"{mean_g[iv, ia]:+.2f}",
-                    ha="center", va="center",
-                    fontsize=6.5, color=txt_color)
     # Diagonal line (shared-sigmoid locus).
     diag_line_x = np.linspace(n_a.min(), n_a.max(), 100)
     ax.plot(diag_line_x, diag_line_x, ":", color="grey", lw=0.6,

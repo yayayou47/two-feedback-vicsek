@@ -18,8 +18,10 @@ style.apply()
 
 def _save(fig, name):
     out = FIGS / name
-    fig.savefig(out)
-    fig.savefig(out.with_suffix(".png"))
+    # dpi controls the resolution of any rasterized=True artists (e.g.
+    # the dense large-L quiver layers) embedded in the vector PDF.
+    fig.savefig(out, dpi=200)
+    fig.savefig(out.with_suffix(".png"), dpi=150)
     plt.close(fig)
     print(f"  saved {out}")
 
@@ -44,7 +46,8 @@ def _cream_panel(ax):
 
 
 def _zoom_inset(ax, xs, ys, ths, L, zoom_size=5.0, loc="upper right",
-                inset_frac=0.38, arrow_len=0.45, speeds=None):
+                inset_frac=0.38, arrow_len=0.45, speeds=None,
+                bg=None):
     """Add a square zoom inset showing a clearly resolved sub-region.
 
     The inset is anchored in `loc` corner of the parent axes and shows
@@ -71,7 +74,7 @@ def _zoom_inset(ax, xs, ys, ths, L, zoom_size=5.0, loc="upper right",
         anchor = (0.005, 1.0 - inset_frac - 0.005,
                   inset_frac, inset_frac)
     iax = ax.inset_axes(anchor)
-    iax.set_facecolor(style.CREAM)
+    iax.set_facecolor(style.CREAM if bg is None else bg)
     sel = (xs >= x0) & (xs <= x1) & (ys >= y0) & (ys <= y1)
     if speeds is None:
         iax.quiver(
@@ -180,37 +183,81 @@ def fig_double_schematic():
     ax.text(0.5, 1.02, "(a) shared sigmoid", fontsize=8,
             transform=ax.transAxes, ha="center")
 
-    # (b) Couzin zonal cartoon -- omnidirectional vision (no blind sector)
+    # (b) Couzin zonal cartoon, v1 "definition-sketch" visual
+    # language: a red repulsion disc inside a light-blue alignment
+    # annulus, a focal blue arrow, labelled neighbours casting an
+    # alignment or a turn-away response, and dashed R_r / R_a radii.
+    from matplotlib.patches import Wedge
+
     ax = axes[1]
     ax.set_aspect("equal")
-    R_r, R_a = 0.5, 0.7
-    cx, cy = 0.0, 0.0
-    ax.add_patch(patches.Annulus((cx, cy), R_a, R_a - R_r,
-                                  facecolor="#1f4ea1", alpha=0.15,
-                                  edgecolor="#1f4ea1", lw=0.6))
-    ax.add_patch(patches.Circle((cx, cy), R_r,
-                                 facecolor="#e07a3a", alpha=0.18,
-                                 edgecolor="#e07a3a", lw=0.6))
-    ax.arrow(cx, cy, 0.45, 0, head_width=0.07, head_length=0.06,
-             fc="black", ec="black", lw=0.8)
-    ax.scatter([cx], [cy], c="black", s=14, zorder=5)
-    rng = np.random.default_rng(7)
-    for _ in range(12):
-        r = rng.uniform(R_r, R_a * 0.95)
-        th = rng.uniform(-np.pi, np.pi)
-        ax.scatter([r * np.cos(th)], [r * np.sin(th)],
-                    c="#1f4ea1", s=12, alpha=0.8, zorder=4)
-    for _ in range(2):
-        r = rng.uniform(0.05, R_r * 0.9)
-        th = rng.uniform(-np.pi, np.pi)
-        ax.scatter([r * np.cos(th)], [r * np.sin(th)],
-                    c="#e07a3a", s=12, alpha=0.85, zorder=4)
-    ax.text(0.0, R_a * 0.98, "alignment", fontsize=7,
-            color="#1f4ea1", ha="center")
-    ax.text(0.0, -R_a * 0.5, "repulsion", fontsize=7,
-            color="#e07a3a", ha="center")
-    ax.set_xlim(-R_a * 1.15, R_a * 1.15)
-    ax.set_ylim(-R_a * 1.15, R_a * 1.15)
+    R_r, R_a = 0.5, 0.8
+    rep_color, ali_color = "#e07b7b", "#9bb8de"
+    blue = style.PARTICLE_BLUE
+
+    ax.add_patch(Wedge((0, 0), R_a, 0, 360, width=R_a - R_r,
+                       facecolor=ali_color, alpha=0.55,
+                       edgecolor="#3a4a78", lw=0.8, zorder=1))
+    ax.add_patch(Wedge((0, 0), R_r, 0, 360,
+                       facecolor=rep_color, alpha=0.55,
+                       edgecolor="#9c3a3a", lw=0.8, zorder=1))
+
+    # focal particle i with its heading
+    hl = 0.30
+    ax.annotate("", xy=(hl, 0), xytext=(0, 0),
+                arrowprops=dict(arrowstyle="-|>", color=blue, lw=2.4),
+                zorder=6)
+    ax.scatter([0], [0], s=70, color=blue, edgecolor="white",
+               lw=0.8, zorder=7)
+    ax.text(0.04, -0.14, r"$i$", fontsize=11, fontweight="bold",
+            zorder=7)
+    ax.text(hl + 0.02, 0.06, r"$\vec e_i$", fontsize=10, color=blue,
+            zorder=7)
+
+    al = 0.20
+
+    def _nb(x, y, ang, label, color=blue, alpha=1.0):
+        th = np.deg2rad(ang)
+        ax.annotate("", xy=(x + al * np.cos(th), y + al * np.sin(th)),
+                    xytext=(x, y),
+                    arrowprops=dict(arrowstyle="-|>", color=color,
+                                    lw=1.5, alpha=alpha), zorder=6)
+        ax.scatter([x], [y], s=34, color=color, alpha=alpha,
+                   edgecolor="white", lw=0.6, zorder=7)
+        ax.text(x + 0.04, y + 0.07, label, fontsize=9, alpha=alpha,
+                zorder=7)
+
+    # repulsion neighbour -> turn-away vector
+    j1 = (-0.16, 0.20)
+    _nb(*j1, 90, r"$j_1$")
+    nrm = np.hypot(*j1)
+    away = (-j1[0] / nrm * 0.34, -j1[1] / nrm * 0.34)
+    ax.annotate("", xy=away, xytext=(0, 0),
+                arrowprops=dict(arrowstyle="->", color="#9c3a3a",
+                                lw=1.5, ls=(0, (3, 2))), zorder=6)
+    ax.text(away[0] + 0.02, away[1] - 0.08, "repulse", fontsize=8,
+            color="#9c3a3a", style="italic", zorder=7)
+
+    # alignment neighbours (omnidirectional)
+    _nb(0.44, 0.40, 20, r"$j_2$")
+    _nb(-0.50, -0.32, 200, r"$j_3$")
+    _nb(-0.54, 0.06, 0, r"$j_4$")
+    # out-of-range neighbour, greyed
+    _nb(0.86, 0.50, 60, r"$j_\infty$", color="#888", alpha=0.55)
+
+    ax.annotate(r"$R_r$",
+                xy=(R_r * np.cos(np.deg2rad(-55)),
+                    R_r * np.sin(np.deg2rad(-55))),
+                xytext=(0.30, -0.92), fontsize=10,
+                arrowprops=dict(arrowstyle="-", lw=0.6, color="#444"))
+    ax.annotate(r"$R_a$",
+                xy=(R_a * np.cos(np.deg2rad(-32)),
+                    R_a * np.sin(np.deg2rad(-32))),
+                xytext=(0.92, -0.66), fontsize=10,
+                arrowprops=dict(arrowstyle="-", lw=0.6, color="#444"))
+
+    ax.set_xlim(-1.05, 1.15)
+    ax.set_ylim(-1.05, 1.05)
     ax.set_xticks([])
     ax.set_yticks([])
     ax.text(0.5, 1.02, "(b) zonal Couzin neighbourhood",
@@ -436,12 +483,99 @@ def fig_double_pilot(npz_path: Path):
 
 
 def fig_double_snapshot(npz_path: Path):
-    """Two-row snapshot grid: v3-limit (top) vs full (bottom), three
-    eta values (ordered / near-critical / disordered). v1-style
-    monochrome quiver on cream: each panel reads as a clean
-    early-Vicsek snapshot, and the mode/eta contrast is carried by
-    the geometry of the dense phase rather than by per-particle
-    colour."""
+    """Real-space snapshot grid on a white background, arrows coloured
+    by local speed v_i. When the multi-size file
+    (double_snapshot_multiL_nocone.npz) is present, the grid spans
+    three sizes L in {30, 90, 128} (two mode-rows each) and three
+    noise columns (ordered / near-critical / disordered); otherwise a
+    single-size 2x3 grid is drawn. Each panel carries a 5x5 zoom
+    inset on its densest sub-region."""
+    multi = DATA / "double_snapshot_multiL_nocone.npz"
+    arrow_len = 0.45
+
+    if multi.exists():
+        z = np.load(multi, allow_pickle=True)
+        L_list = [float(v) for v in z["L_list"]]
+        mode_labels = [str(s) if isinstance(s, str) else s.decode()
+                       for s in z["mode_labels"]]
+        case_labels = [str(s) if isinstance(s, str) else s.decode()
+                       for s in z["case_labels"]]
+        x = z["x"]; y = z["y"]; theta = z["theta"]; v = z["v"]
+        eta = z["eta"]; phi = z["phi"]; counts = z["counts"]
+
+        n_L, nm, nc = len(L_list), len(mode_labels), len(case_labels)
+        # One row per size; within a row each noise case occupies an
+        # adjacent (motility, double-adaptive) column pair, so a row
+        # reads left to right as the three cases side by side.
+        nrow = n_L
+        ncol = nc * nm
+        # Canvas scaled up 20% (and the manuscript \includegraphics width
+        # to match) so each snapshot panel renders 20% larger while the
+        # rasterised quiver keeps its ~200 dpi at the bigger display size.
+        fig, axes = plt.subplots(nrow, ncol,
+                                 figsize=(1.20 * style.DOUBLE_COL[0],
+                                          0.60 * style.DOUBLE_COL[0]))
+        last_q = None
+        # Display the noise cases right-to-left in data order, i.e.
+        # disordered -> near-critical -> ordered across the columns.
+        case_order = list(range(nc))[::-1]
+        for iL in range(n_L):
+            for jc, ic in enumerate(case_order):
+                for im in range(nm):
+                    col = jc * nm + im
+                    ax = axes[iL, col]
+                    L = L_list[iL]
+                    N = int(counts[iL, im, ic])
+                    xs = x[iL, im, ic, :N]
+                    ys = y[iL, im, ic, :N]
+                    ths = theta[iL, im, ic, :N]
+                    vs = v[iL, im, ic, :N]
+                    wid = 0.004 * 30.0 / L
+                    q = ax.quiver(xs, ys, np.cos(ths), np.sin(ths), vs,
+                                  cmap=SPEED_CMAP,
+                                  clim=(SPEED_VMIN, SPEED_VMAX),
+                                  scale=1.0 / arrow_len,
+                                  scale_units="xy", angles="xy",
+                                  width=wid, headwidth=3.5,
+                                  headlength=4.0, rasterized=True)
+                    last_q = q
+                    ax.set_xlim(0, L); ax.set_ylim(0, L)
+                    ax.set_aspect("equal")
+                    ax.set_xticks([]); ax.set_yticks([])
+                    _zoom_inset(ax, xs, ys, ths, L, zoom_size=5.0,
+                                arrow_len=arrow_len, speeds=vs,
+                                bg=style.WHITE)
+                    # Mode name on the top row only; size label on the
+                    # leftmost column only (no repeats elsewhere).
+                    if iL == 0:
+                        ax.set_title(_disp(mode_labels[im]), fontsize=7)
+                    if col == 0:
+                        ax.set_ylabel(fr"$L = {int(L)}$", fontsize=8)
+                    ax.text(0.03, 0.97,
+                            fr"$\langle\varphi\rangle="
+                            fr"{phi[iL, im, ic]:.2f}$",
+                            transform=ax.transAxes, fontsize=6,
+                            ha="left", va="top",
+                            bbox=dict(facecolor="white", alpha=0.7,
+                                      edgecolor="none", pad=1))
+        fig.tight_layout(rect=(0.0, 0.0, 0.92, 0.93))
+        # A single case/eta header centred over each column pair so the
+        # noise level is written once, not once per mode.
+        for jc, ic in enumerate(case_order):
+            p_l = axes[0, jc * nm].get_position()
+            p_r = axes[0, jc * nm + nm - 1].get_position()
+            fig.text(0.5 * (p_l.x0 + p_r.x1), p_l.y1 + 0.055,
+                     fr"({chr(97 + jc)}) {_disp(case_labels[ic])}, "
+                     fr"$\eta={eta[ic]:g}$",
+                     ha="center", va="bottom", fontsize=8,
+                     fontweight="bold")
+        cbar = fig.colorbar(last_q, ax=axes, orientation="vertical",
+                            fraction=0.015, pad=0.02)
+        cbar.set_label(r"local speed $v_i$", fontsize=8)
+        cbar.ax.tick_params(labelsize=7)
+        _save(fig, "fig_double_snapshot.pdf")
+        return
+
     z = np.load(npz_path, allow_pickle=True)
     mode_labels = [str(s) if isinstance(s, str) else s.decode()
                    for s in z["mode_labels"]]
@@ -454,12 +588,10 @@ def fig_double_snapshot(npz_path: Path):
     nm, nc = len(mode_labels), len(case_labels)
     fig, axes = plt.subplots(nm, nc,
                              figsize=(style.DOUBLE_COL[0], 5.0))
-    arrow_len = 0.45
     last_q = None
     for im in range(nm):
         for ic in range(nc):
             ax = axes[im, ic]
-            _cream_panel(ax)
             q = ax.quiver(x[im, ic], y[im, ic],
                           np.cos(theta[im, ic]), np.sin(theta[im, ic]),
                           v[im, ic],
@@ -473,12 +605,10 @@ def fig_double_snapshot(npz_path: Path):
             ax.set_xticks([]); ax.set_yticks([])
             _zoom_inset(ax, x[im, ic], y[im, ic], theta[im, ic],
                         L, zoom_size=5.0, arrow_len=arrow_len,
-                        speeds=v[im, ic])
-            nice_c = _disp(case_labels[ic])
-            nice_m = _disp(mode_labels[im])
+                        speeds=v[im, ic], bg=style.WHITE)
             ax.set_title(
-                fr"{nice_m} | {nice_c}, $\eta={eta[ic]:g}$"
-                "\n"
+                fr"{_disp(mode_labels[im])} | {_disp(case_labels[ic])}, "
+                fr"$\eta={eta[ic]:g}$" "\n"
                 fr"$\langle\varphi\rangle = {phi[im, ic]:.2f}$",
                 fontsize=7,
             )
@@ -488,159 +618,273 @@ def fig_double_snapshot(npz_path: Path):
                         fraction=0.020, pad=0.02)
     cbar.set_label(r"local speed $v_i$", fontsize=8)
     cbar.ax.tick_params(labelsize=7)
-    _cream_save(fig, "fig_double_snapshot.pdf")
+    _save(fig, "fig_double_snapshot.pdf")
 
 
-def fig_double_plane(npz_path: Path):
-    """Heat maps of chi_peak and sep_peak in the (n_star, s) plane
-    for the FULL two-feedback model."""
-    z = np.load(npz_path, allow_pickle=True)
-    n_stars = z["n_stars"]
-    slopes = z["slopes"]
-    chi_peak = z["chi_peak"]
-    sep_peak = z["sep_peak"]
-    L = float(z["L"])
 
-    fig, axes = plt.subplots(1, 2, figsize=(style.DOUBLE_COL[0], 2.6))
+
+def _plane_panel(ax, fig, data, n_stars, slopes, cmap, vlabel,
+                 title=None, letter=None,
+                 show_xlabel=True, show_ylabel=True):
+    """Render one (n_star, s) heat-map panel with a smooth, continuous
+    colour field (Gouraud-shaded pcolormesh) and no cell annotations.
+    Axis labels are drawn only where requested so a grid of panels can
+    keep the y-label on the left column and the x-label on the bottom
+    row."""
+    S, NS = np.meshgrid(slopes, n_stars)
+    pm = ax.pcolormesh(S, NS, data, cmap=cmap, shading="gouraud")
+    if show_xlabel:
+        ax.set_xlabel(r"sigmoid slope $s$")
+    if show_ylabel:
+        ax.set_ylabel(r"threshold $n_\star$")
+    if title is not None:
+        ax.set_title(title, fontsize=9)
+    if letter is not None:
+        ax.text(0.04, 0.96, letter, transform=ax.transAxes,
+                fontsize=8, fontweight="bold", va="top", ha="left",
+                bbox=dict(facecolor="white", alpha=0.75,
+                          edgecolor="none", pad=1))
+    cb = fig.colorbar(pm, ax=ax, fraction=0.046, pad=0.04)
+    cb.set_label(vlabel, fontsize=8)
+    cb.ax.tick_params(labelsize=7)
+
+
+def fig_double_plane(npz_L22: Path, npz_L30: Path):
+    """Behavioural (n_star, s) plane of the full two-feedback model,
+    one row per system size (chi_max, s_sep). The fine-grid file
+    (double_plane_fine_nocone.npz) supplies L=30 and the large-L file
+    adds L=90 and L=128, all on the same 13x13 grid so the colour
+    fields read as continuous; otherwise the legacy 5x5 files are
+    used. Maps share the navy-mauve-vermillion snapshot colormap."""
+    fine = DATA / "double_plane_fine_nocone.npz"
+    large = DATA / "double_plane_largeL_nocone.npz"
+    if fine.exists():
+        zf = np.load(fine, allow_pickle=True)
+        n_stars = zf["n_stars"]
+        slopes = zf["slopes"]
+        # One row per size; the large-L re-sweep adds L=90 and L=128
+        # once data/double_plane_largeL_nocone.npz is present.
+        rows = [
+            (float(zf["L30"]), zf["chi_peak_30"], zf["sep_peak_30"]),
+        ]
+        if large.exists():
+            zl = np.load(large, allow_pickle=True)
+            rows.append((float(zl["L90"]), zl["chi_peak_90"],
+                         zl["sep_peak_90"]))
+            rows.append((float(zl["L128"]), zl["chi_peak_128"],
+                         zl["sep_peak_128"]))
+        nrow = len(rows)
+        fig, axes = plt.subplots(nrow, 2,
+                                 figsize=(style.DOUBLE_COL[0],
+                                          2.5 * nrow))
+        axes = np.atleast_2d(axes)
+        letters = "abcdefghijkl"
+        for ir, (L, chi, sep) in enumerate(rows):
+            # y-label only on the left column (a, c, e); x-label only
+            # on the bottom row (e, f).
+            bottom = (ir == nrow - 1)
+            _plane_panel(axes[ir, 0], fig, chi, n_stars, slopes,
+                         SPEED_CMAP, r"$\chi_{\max}$",
+                         title=(r"$\chi_{\max}$" if ir == 0 else None),
+                         letter=fr"({letters[2 * ir]}) $L={int(L)}$",
+                         show_xlabel=bottom, show_ylabel=True)
+            _plane_panel(axes[ir, 1], fig, sep, n_stars, slopes,
+                         SPEED_CMAP, r"$s_{\rm sep}$",
+                         title=(r"$s_{\rm sep}$" if ir == 0 else None),
+                         letter=fr"({letters[2 * ir + 1]})",
+                         show_xlabel=bottom, show_ylabel=False)
+        fig.tight_layout()
+        _save(fig, "fig_double_plane.pdf")
+        return
+
+    z22 = np.load(npz_L22, allow_pickle=True)
+    z30 = np.load(npz_L30, allow_pickle=True)
+    n_stars = z22["n_stars"]
+    slopes = z22["slopes"]
+
+    fig, axes = plt.subplots(2, 2, figsize=(style.DOUBLE_COL[0], 5.0))
     panels = (
-        (axes[0], chi_peak, fr"(a) $\chi_{{\max}}$ (full mode, $L = {L:g}$)",
-         "viridis", r"$\chi_{\max}$"),
-        (axes[1], sep_peak, fr"(b) $s_{{\rm sep}}$",
-         "magma", r"$s_{\rm sep}$"),
+        (axes[0, 0], z22["chi_peak"],
+         fr"(a) $\chi_{{\max}}$ ($L = {float(z22['L']):g}$)",
+         "RdBu_r", r"$\chi_{\max}$"),
+        (axes[0, 1], z22["sep_peak"], r"(b) $s_{\rm sep}$",
+         "RdBu_r", r"$s_{\rm sep}$"),
+        (axes[1, 0], z30["chi_peak"],
+         fr"(c) $\chi_{{\max}}$ ($L = {float(z30['L']):g}$, 5 seeds)",
+         "RdBu_r", r"$\chi_{\max}$"),
+        (axes[1, 1], z30["sep_peak"], r"(d) $s_{\rm sep}$",
+         "RdBu_r", r"$s_{\rm sep}$"),
     )
     for ax, data, title, cmap, vlabel in panels:
-        im = ax.imshow(data, origin="lower", aspect="auto",
-                       cmap=cmap,
-                       extent=[slopes.min() - 0.5,
-                               slopes.max() + 0.5,
-                               n_stars.min() - 0.5,
-                               n_stars.max() + 0.5])
-        ax.set_xticks(slopes)
-        ax.set_yticks(n_stars)
-        ax.set_xlabel(r"sigmoid slope $s$")
-        ax.set_ylabel(r"threshold $n_\star$")
-        ax.set_title(title, fontsize=8)
-        cb = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
-        cb.set_label(vlabel, fontsize=8)
-        cb.ax.tick_params(labelsize=7)
-        for i, n_star in enumerate(n_stars):
-            for j, sl in enumerate(slopes):
-                ax.text(sl, n_star, f"{data[i, j]:.2f}",
-                        ha="center", va="center", fontsize=6,
-                        color="white")
+        _plane_panel(ax, fig, data, n_stars, slopes, cmap, vlabel,
+                     title=title)
     fig.tight_layout()
     _save(fig, "fig_double_plane.pdf")
 
 
-def fig_double_orderpdf(npz_path: Path):
-    """P(<phi>) for v3 limit and full mode at L = 30."""
-    z = np.load(npz_path, allow_pickle=True)
-    labels = [str(s) if isinstance(s, str) else s.decode()
-              for s in z["labels"]]
-    phi_traj = z["phi_traj"]
-    eta_arr = z["eta"]
+def _orderpdf_traj(z, labels, key):
+    """Return the phi trajectory for a mode, tolerating the
+    motility/v3_limit alias across the order-parameter npz files."""
+    aliases = {"motility": ("motility", "v3_limit"),
+               "full": ("full",)}.get(key, (key,))
+    for a in aliases:
+        if a in labels:
+            return labels.index(a)
+    raise KeyError(f"{key} not in {labels}")
 
-    from scipy.stats import skew, kurtosis, gaussian_kde
 
-    fig, axes = plt.subplots(1, len(labels),
-                             figsize=(style.DOUBLE_COL[0], 2.6),
+def fig_double_orderpdf(npz_L30: Path, npz_largeL: Path,
+                        npz_L128: Path | None = None):
+    r"""Order-parameter distribution $P(\langle\varphi\rangle)$ of
+    the motility-only and double-adaptive modes, one panel per size
+    $L \in \{30, 64, 90, 128\}$, motility and full overlaid so the
+    macroscopic mean shift reads as a scale-invariant signature."""
+    from scipy.stats import gaussian_kde
+
+    panel_data = []
+    # L = 30 (motility label is v3_limit here).
+    z0 = np.load(npz_L30, allow_pickle=True)
+    labs0 = [str(s) if isinstance(s, str) else s.decode()
+             for s in z0["labels"]]
+    eta0 = z0["eta"]
+    i_m0 = _orderpdf_traj(z0, labs0, "motility")
+    i_f0 = _orderpdf_traj(z0, labs0, "full")
+    panel_data.append((30.0, float(eta0[i_m0]), float(eta0[i_f0]),
+                       z0["phi_traj"][i_m0], z0["phi_traj"][i_f0]))
+    # L = 64, 90.
+    zL = np.load(npz_largeL, allow_pickle=True)
+    labsL = [str(s) if isinstance(s, str) else s.decode()
+             for s in zL["labels"]]
+    etaL = zL["eta_per_case"]
+    i_mL = _orderpdf_traj(zL, labsL, "motility")
+    i_fL = _orderpdf_traj(zL, labsL, "full")
+    for iL, L in enumerate(zL["Ls"]):
+        panel_data.append((float(L), float(etaL[i_mL]), float(etaL[i_fL]),
+                           zL["phi_traj"][i_mL, iL],
+                           zL["phi_traj"][i_fL, iL]))
+    # L = 128 (optional).
+    if npz_L128 is not None and npz_L128.exists():
+        z2 = np.load(npz_L128, allow_pickle=True)
+        labs2 = [str(s) if isinstance(s, str) else s.decode()
+                 for s in z2["labels"]]
+        eta2 = z2["eta_per_case"]
+        i_m2 = _orderpdf_traj(z2, labs2, "motility")
+        i_f2 = _orderpdf_traj(z2, labs2, "full")
+        panel_data.append((float(z2["L"]), float(eta2[i_m2]),
+                           float(eta2[i_f2]),
+                           z2["phi_traj"][i_m2], z2["phi_traj"][i_f2]))
+
+    # Height trimmed 20% (2.8 -> 2.24) and a shared y-axis so the
+    # P-axis label and ticks appear only on the leftmost panel.
+    fig, axes = plt.subplots(1, len(panel_data),
+                             figsize=(style.DOUBLE_COL[0], 2.24),
                              sharey=True)
-    if len(labels) == 1:
+    if len(panel_data) == 1:
         axes = [axes]
     bins = np.linspace(0, 1, 60)
+    centers_b = 0.5 * (bins[:-1] + bins[1:])
+    width_b = bins[1] - bins[0]
     grid = np.linspace(0, 1, 200)
-    # Determine a common y-limit from the maximum density across
-    # both panels so the visual comparison is honest.
-    y_max = 0.0
-    for ic, lbl in enumerate(labels):
-        h, _ = np.histogram(phi_traj[ic], bins=bins, density=True)
-        y_max = max(y_max, h.max())
-    for ic, lbl in enumerate(labels):
-        ax = axes[ic]
-        c = PALETTE.get(lbl, "#1f4ea1")
-        ax.hist(phi_traj[ic], bins=bins, density=True, color=c,
-                alpha=0.55, edgecolor="black", linewidth=0.3)
-        kde = gaussian_kde(phi_traj[ic], bw_method="scott")
-        ax.plot(grid, kde(grid), "-", color=c, lw=1.4)
-        mu = float(phi_traj[ic].mean())
-        sd = float(phi_traj[ic].std())
-        sk = float(skew(phi_traj[ic]))
-        ku = float(kurtosis(phi_traj[ic]))
-        u4 = 1.0 - (phi_traj[ic] ** 4).mean() / (
-            3.0 * (phi_traj[ic] ** 2).mean() ** 2)
-        ax.axvline(mu, color="black", lw=0.6, ls="--", alpha=0.7)
-        ax.text(0.97, 0.95,
-                fr"$\mu = {mu:.2f}$" "\n"
-                fr"$\sigma = {sd:.2f}$" "\n"
-                fr"skew $= {sk:+.2f}$" "\n"
-                fr"kurt $= {ku:+.2f}$" "\n"
-                fr"$U_4 = {u4:.2f}$",
+    u4 = lambda a: 1.0 - (a ** 4).mean() / (3.0 * (a ** 2).mean() ** 2)
+    for ip, (L, eta_mot, eta_full, m_mot, m_full) in enumerate(panel_data):
+        ax = axes[ip]
+        # First pass: build histograms and KDE curves, find the panel
+        # peak so everything can be normalised to [0, 1].
+        series = []
+        peak = 0.0
+        for lbl, data in (("motility", m_mot), ("full", m_full)):
+            c = PALETTE.get(lbl, "#1f4ea1")
+            hist, _ = np.histogram(data, bins=bins, density=True)
+            kde = gaussian_kde(data, bw_method="scott")
+            curve = kde(grid)
+            peak = max(peak, float(hist.max()), float(curve.max()))
+            series.append((lbl, data, c, hist, curve))
+        # Second pass: plot normalised to the panel peak.
+        for lbl, data, c, hist, curve in series:
+            ax.bar(centers_b, hist / peak, width=width_b, color=c,
+                   alpha=0.45, edgecolor="black", linewidth=0.3,
+                   label=_disp(lbl))
+            ax.plot(grid, curve / peak, "-", color=c, lw=1.4)
+            ax.axvline(float(data.mean()), color=c, lw=0.7,
+                       ls="--", alpha=0.85)
+        gap = m_full.mean() - m_mot.mean()
+        ax.text(0.03, 0.97,
+                fr"$\langle\varphi\rangle_{{\rm mot}} = "
+                fr"{m_mot.mean():.2f}$" "\n"
+                fr"$\langle\varphi\rangle_{{\rm full}} = "
+                fr"{m_full.mean():.2f}$" "\n"
+                fr"$\Delta = {gap:+.2f}$" "\n"
+                fr"$U_{{4,{{\rm full}}}} = {u4(m_full):.2f}$",
                 transform=ax.transAxes,
-                ha="right", va="top",
+                ha="left", va="top",
                 fontsize=7,
                 bbox=dict(facecolor="white", alpha=0.85,
                           edgecolor="none", pad=2))
         ax.set_xlabel(r"$\langle\varphi\rangle$")
         ax.set_xlim(0, 1)
-        nice = _disp(lbl)
-        ax.set_title(fr"{nice}, $\eta = {eta_arr[ic]:g}$",
-                     fontsize=8)
-        if ic == 0:
-            ax.set_ylabel(r"$P(\langle\varphi\rangle)$")
-        ax.text(-0.18, 1.04, f"({chr(97 + ic)})",
+        ax.set_ylim(0, 1.0)
+        ax.set_title(fr"$L = {int(L)}$", fontsize=8)
+        if ip == 0:
+            ax.set_ylabel(r"$P(\langle\varphi\rangle)$ (normalised)")
+            ax.legend(fontsize=7, frameon=False, loc="lower right")
+        ax.text(-0.18, 1.04, f"({chr(97 + ip)})",
                 transform=ax.transAxes,
                 fontsize=10, fontweight="bold")
-        ax.set_ylim(0, 1.1 * y_max)
     fig.tight_layout()
     _save(fig, "fig_double_orderpdf.pdf")
 
 
 def fig_double_profile(npz_path: Path):
-    """Polar-axis density profile for the four modes."""
+    """Polar-axis profiles of the four modes, overlaid on two axes.
+    Panel (a): normalised density; panel (b): mean local speed. Each
+    panel is y-limited to the span of the plotted curves; the
+    band-soliton index b per mode is quoted in the legend."""
     z = np.load(npz_path, allow_pickle=True)
     labels = [str(s) if isinstance(s, str) else s.decode()
               for s in z["labels"]]
     centers = z["centers"]
     profiles = z["profiles"]
     v_profiles = z["v_profiles"]
-    eta_arr = z["eta"]
     band_idx = z["band_idx"]
     L = float(z["params"][1])
 
     n = len(labels)
-    fig, axes = plt.subplots(2, n,
-                             figsize=(style.DOUBLE_COL[0], 4.0),
-                             sharex=True)
-    if n == 1:
-        axes = axes.reshape(2, 1)
-    for ic in range(n):
-        col = PALETTE.get(labels[ic], "#1f4ea1")
-        ax_d = axes[0, ic]
-        norm = profiles[ic] / profiles[ic].mean()
-        ax_d.plot(centers, norm, "-", color=col, lw=1.4)
-        ax_d.axhline(1.0, ls=":", c="grey", lw=0.6)
-        ax_d.set_ylim(0, max(2.0, 1.1 * norm.max()))
-        ax_d.set_xlim(0, L)
-        ax_d.set_title(
-            fr"{_disp(labels[ic])}, "
-            fr"$\eta={eta_arr[ic]:g}$, "
-            fr"$b={band_idx[ic]:.2f}$",
-            fontsize=7,
-        )
-        if ic == 0:
-            ax_d.set_ylabel(
-                r"$\sigma(x_\parallel)/\langle\sigma\rangle$"
-            )
+    fig, axes = plt.subplots(1, 2,
+                             figsize=(style.DOUBLE_COL[0], 2.8))
+    # Panel (a): density, each profile normalised to its own peak.
+    dens = [profiles[ic] / profiles[ic].max() for ic in range(n)]
 
-        ax_v = axes[1, ic]
-        ax_v.plot(centers, v_profiles[ic], "-", color=col, lw=1.4)
-        ax_v.axhline(0.05, ls=":", c="grey", lw=0.5)
-        ax_v.axhline(0.005, ls=":", c="grey", lw=0.5)
-        ax_v.set_xlabel(r"$x_\parallel$")
-        ax_v.set_ylim(0, 0.06)
-        ax_v.set_xlim(0, L)
-        if ic == 0:
-            ax_v.set_ylabel(r"$\langle v_i\rangle(x_\parallel)$")
+    ax = axes[0]
+    for ic in range(n):
+        ax.plot(centers, dens[ic], "-", lw=1.4,
+                color=PALETTE.get(labels[ic], "#1f4ea1"),
+                label=fr"{_disp(labels[ic])} ($b={band_idx[ic]:.2f}$)")
+    ax.set_xlim(0, L)
+    ax.set_ylim(0.85, 1.0)
+    ax.set_xlabel(r"$x_\parallel$")
+    ax.set_ylabel(r"$\sigma(x_\parallel)/\sigma_{\max}$")
+    ax.set_title("(a)", fontsize=9, loc="left")
+    # Four entries stacked on four lines, anchored at the panel's
+    # lower centre and growing downward.
+    ax.legend(fontsize=6, frameon=False, loc="lower center",
+              ncol=1, bbox_to_anchor=(0.5, 0.0),
+              borderaxespad=0.3, handlelength=1.6,
+              labelspacing=0.35)
+
+    # Panel (b): local speed, each profile normalised to its peak.
+    ax = axes[1]
+    for ic in range(n):
+        vp = v_profiles[ic]
+        vp = vp / vp.max() if vp.max() > 0 else vp
+        ax.plot(centers, vp, "-", lw=1.4,
+                color=PALETTE.get(labels[ic], "#1f4ea1"),
+                label=_disp(labels[ic]))
+    ax.set_xlim(0, L)
+    ax.set_ylim(0.85, 1.0)
+    ax.set_xlabel(r"$x_\parallel$")
+    ax.set_ylabel(r"$\langle v_i\rangle(x_\parallel)/\langle v_i\rangle_{\max}$")
+    ax.set_title("(b)", fontsize=9, loc="left")
+
     fig.tight_layout()
     _save(fig, "fig_double_profile.pdf")
 
@@ -724,10 +968,35 @@ def fig_double_clusters_hs(npz_path: Path):
     _save(fig, "fig_double_clusters.pdf")
 
 
-def fig_double_gr(npz_path: Path):
-    """Heading correlation $g(r)$ in dense vs dilute regions, with
-    seed-level standard-error bands when per-seed data is
-    available (HS files), or the bare curve otherwise."""
+def _gr_decay_panel(ax, npz_decay: Path):
+    """Panel (c): dense-quartile gap profile Delta g(r) across the
+    four high-statistics sizes."""
+    z = np.load(npz_decay, allow_pickle=True)
+    Ls = z["Ls"]
+    r = z["r_centers"]
+    gap = z["gap"]
+    se = z["se"]
+    cmap = plt.get_cmap("plasma")
+    for iL, L in enumerate(Ls):
+        c = cmap(0.15 + 0.7 * iL / max(len(Ls) - 1, 1))
+        ax.fill_between(r, gap[iL] - se[iL], gap[iL] + se[iL],
+                        color=c, alpha=0.20)
+        ax.plot(r, gap[iL], "-", lw=1.4, color=c,
+                label=fr"$L={int(L)}$")
+    ax.axhline(0.0, color="grey", ls="-", lw=0.4)
+    ax.axvline(0.7, color="grey", ls=":", lw=0.5)
+    ax.set_xlabel(r"distance $r$")
+    ax.set_ylabel(r"$\Delta g(r) = g_{\rm full} - g_{\rm motility}$")
+    ax.set_title("dense-quartile gap", fontsize=8)
+    ax.legend(fontsize=6, frameon=False, loc="lower right", ncol=2)
+
+
+def fig_double_gr(npz_path: Path, npz_decay: Path | None = None):
+    """Density-stratified heading correlation $g(r)$. Panels (a) and
+    (b): $g(r)$ in the dense and dilute quartiles for the four modes
+    with seed-level error bands. Panel (c): the dense-quartile gap
+    $\\Delta g(r)$ between double-adaptive and motility-only across
+    four sizes."""
     z = np.load(npz_path, allow_pickle=True)
     labels = [str(s) if isinstance(s, str) else s.decode()
               for s in z["labels"]]
@@ -748,9 +1017,10 @@ def fig_double_gr(npz_path: Path):
         gr_dilute = z["gr_dilute"]
         gr_dense_se = None
 
-    fig, axes = plt.subplots(1, 2,
-                              figsize=(style.DOUBLE_COL[0], 2.8),
-                              sharey=True)
+    has_decay = npz_decay is not None and npz_decay.exists()
+    ncols = 3 if has_decay else 2
+    fig, axes = plt.subplots(1, ncols,
+                             figsize=(style.DOUBLE_COL[0], 2.8))
     for im, m in enumerate(labels):
         col = PALETTE.get(m, "#1f4ea1")
         axes[0].plot(r_centers, gr_dense[im], "-", lw=1.4,
@@ -766,11 +1036,12 @@ def fig_double_gr(npz_path: Path):
                                   gr_dilute[im] - gr_dilute_se[im],
                                   gr_dilute[im] + gr_dilute_se[im],
                                   color=col, alpha=0.18, lw=0)
-    for ax in axes:
+    for ax in (axes[0], axes[1]):
         ax.axhline(0.0, ls=":", color="grey", lw=0.6)
         ax.axvline(0.7, ls=":", color="grey", lw=0.6)
         ax.set_xlabel(r"distance $r$")
         ax.set_xlim(0.5, r_centers[-1])
+    axes[1].sharey(axes[0])
     axes[0].set_ylabel(r"$g(r) = \langle\cos[\theta_i - \theta_j]\rangle$")
     axes[0].set_title("dense quartile", fontsize=8)
     axes[1].set_title("dilute quartile", fontsize=8)
@@ -787,15 +1058,17 @@ def fig_double_gr(npz_path: Path):
             fr"$\Delta g = {delta:+.3f}$" "\n"
             fr"$z = {z_score:+.1f}$",
             xy=(r_centers[0], gr_dense[i_f, 0]),
-            xytext=(r_centers[0] + 0.6, gr_dense[i_f, 0] + 0.05),
+            xytext=(0.45 * r_centers[-1], 0.28),
             fontsize=7, color=PALETTE["full"],
             arrowprops=dict(arrowstyle="-", lw=0.6,
                               color=PALETTE["full"]))
-    axes[0].legend(fontsize=6, loc="upper right", frameon=False)
-    axes[0].text(-0.18, 1.04, "(a)", transform=axes[0].transAxes,
-                  fontsize=10, fontweight="bold")
-    axes[1].text(-0.18, 1.04, "(b)", transform=axes[1].transAxes,
-                  fontsize=10, fontweight="bold")
+    axes[0].legend(fontsize=6, loc="lower left", frameon=False)
+    if has_decay:
+        _gr_decay_panel(axes[2], npz_decay)
+    for ip in range(ncols):
+        axes[ip].text(-0.18, 1.04, f"({chr(97 + ip)})",
+                      transform=axes[ip].transAxes,
+                      fontsize=10, fontweight="bold")
     fig.tight_layout()
     _save(fig, "fig_double_gr.pdf")
 
@@ -820,55 +1093,69 @@ def fig_double_Lfine_gap(npz_fine, npz_pilot, npz_L64, npz_L90,
         except ValueError:
             return None
 
-    # Pilot has v3_limit (motility) and full at index 2 and 3.
+    # Canonical modes plotted in panel (a). "motility" is the
+    # display name; in the data files it is stored as v3_limit
+    # (pilot / big files) or motility (the all-modes fine scan).
+    CANON = ["baseline", "v2_limit", "motility", "full"]
+    ALIASES = {
+        "baseline": ("baseline",),
+        "v2_limit": ("v2_limit",),
+        "motility": ("v3_limit", "motility"),
+        "full": ("full",),
+    }
+
+    def _idx(modes_list, canon):
+        for a in ALIASES[canon]:
+            if a in modes_list:
+                return modes_list.index(a)
+        return None
+
     pilot_modes = [str(s) if isinstance(s, str) else s.decode()
                    for s in pilot["modes"]]
-    i_mot_pilot = pilot_modes.index("v3_limit")
-    i_full_pilot = pilot_modes.index("full")
+    fine_modes = [str(s) if isinstance(s, str) else s.decode()
+                  for s in fine["modes"]]
 
     pts: list[tuple] = []   # (L, mode, s_sep_max)
 
     # Pilot covers L = 15, 22, 30, 45.
-    for iL, L in enumerate(pilot["Ls"]):
-        pts.append((float(L), "motility",
-                     float(pilot["s_sep"][i_mot_pilot, iL].max())))
-        pts.append((float(L), "full",
-                     float(pilot["s_sep"][i_full_pilot, iL].max())))
+    for canon in CANON:
+        ip = _idx(pilot_modes, canon)
+        if ip is None:
+            continue
+        for iL, L in enumerate(pilot["Ls"]):
+            pts.append((float(L), canon,
+                        float(pilot["s_sep"][ip, iL].max())))
 
     # Big files: L = 64, 90, 128.
     for big in (big64, big90, big128):
         L = float(big["L"])
-        i_mot = big_idx(big, "v3_limit")
-        i_full = big_idx(big, "full")
-        if i_mot is not None:
-            pts.append((L, "motility",
-                         float(big["s_sep"][i_mot].max())))
-        if i_full is not None:
-            pts.append((L, "full",
-                         float(big["s_sep"][i_full].max())))
+        big_modes = [str(s) if isinstance(s, str) else s.decode()
+                     for s in big["modes"]]
+        for canon in CANON:
+            ib = _idx(big_modes, canon)
+            if ib is not None:
+                pts.append((L, canon, float(big["s_sep"][ib].max())))
 
-    # Fine scan: L = 38, 50, 60, 75, 105.
-    fine_modes = [str(s) if isinstance(s, str) else s.decode()
-                  for s in fine["modes"]]
-    i_mot_f = fine_modes.index("motility")
-    i_full_f = fine_modes.index("full")
-    for iL, L in enumerate(fine["Ls"]):
-        pts.append((float(L), "motility",
-                     float(fine["s_sep"][i_mot_f, iL].max())))
-        pts.append((float(L), "full",
-                     float(fine["s_sep"][i_full_f, iL].max())))
+    # Fine scan (all four modes): L = 38, 50, 60, 75, 105.
+    for canon in CANON:
+        iff = _idx(fine_modes, canon)
+        if iff is None:
+            continue
+        for iL, L in enumerate(fine["Ls"]):
+            pts.append((float(L), canon,
+                        float(fine["s_sep"][iff, iL].max())))
 
-    # Sort and split.
     pts.sort()
-    L_full = sorted({p[0] for p in pts if p[1] == "full"})
-    s_full = [next(p[2] for p in pts if p[0] == L and p[1] == "full")
-              for L in L_full]
-    L_mot = sorted({p[0] for p in pts if p[1] == "motility"})
-    s_mot = [next(p[2] for p in pts if p[0] == L and p[1] == "motility")
-              for L in L_mot]
-    L_arr = np.array(L_full)
-    s_full_arr = np.array(s_full)
-    s_mot_arr = np.array(s_mot)
+
+    def _series(mode):
+        Ls = sorted({p[0] for p in pts if p[1] == mode})
+        s = [next(p[2] for p in pts if p[0] == L and p[1] == mode)
+             for L in Ls]
+        return np.array(Ls), np.array(s)
+
+    series = {m: _series(m) for m in CANON}
+    L_arr, s_full_arr = series["full"]
+    _, s_mot_arr = series["motility"]
     gap = s_full_arr - s_mot_arr
 
     # High-statistics 10-seed reference values from
@@ -902,10 +1189,16 @@ def fig_double_Lfine_gap(npz_fine, npz_pilot, npz_L64, npz_L90,
     fig, axes = plt.subplots(1, 2,
                               figsize=(style.DOUBLE_COL[0], 2.8))
     ax = axes[0]
-    ax.plot(L_arr, s_mot_arr, "o", color=PALETTE["v3_limit"],
-             label=DISPLAY["v3_limit"], ms=4)
-    ax.plot(L_arr, s_full_arr, "s", color=PALETTE["full"],
-             label=DISPLAY["full"], ms=4)
+    markers = {"baseline": "v", "v2_limit": "^",
+               "motility": "o", "full": "s"}
+    pal = {"baseline": PALETTE["baseline"], "v2_limit": PALETTE["v2_limit"],
+           "motility": PALETTE["v3_limit"], "full": PALETTE["full"]}
+    for m in CANON:
+        Lm, sm = series[m]
+        if len(Lm) == 0:
+            continue
+        ax.plot(Lm, sm, markers[m], color=pal[m],
+                label=_disp(m), ms=4)
     ax.axhline(1.73, color="black", ls="--", lw=0.5, alpha=0.6)
     ax.text(L_arr[-1] * 1.05, 1.73,
              r"$\simeq 1.73$ plateau",
@@ -937,9 +1230,9 @@ def fig_double_Lfine_gap(npz_fine, npz_pilot, npz_L64, npz_L90,
 def fig_double_3regimes(npz_path: Path):
     """Three-regime snapshot of the proposed double-adaptive
     model (ordered, near-critical, disordered) in the minimalist
-    style of the early-Vicsek snapshot figures: uniform-color
-    particles, white-on-cream quiver, $\\eta$ and $\\langle\\varphi
-    \\rangle$ in the panel titles."""
+    early-Vicsek snapshot style on a white background. Panels are
+    labelled (a)--(c); a single speed colorbar matched to the box
+    height sits at the right."""
     z = np.load(npz_path, allow_pickle=True)
     mode_labels = [str(s) if isinstance(s, str) else s.decode()
                    for s in z["mode_labels"]]
@@ -951,13 +1244,14 @@ def fig_double_3regimes(npz_path: Path):
 
     im_full = mode_labels.index("full")
     nice_cases = ["Ordered", "Near-critical", "Disordered"]
+    tags = ["(a)", "(b)", "(c)"]
 
     fig, axes = plt.subplots(1, 3,
-                              figsize=(style.DOUBLE_COL[0], 3.2))
+                             figsize=(style.DOUBLE_COL[0], 2.7),
+                             constrained_layout=True)
     arrow_len = 0.45
     last_q = None
     for ic, ax in enumerate(axes):
-        _cream_panel(ax)
         u = np.cos(theta[im_full, ic])
         w = np.sin(theta[im_full, ic])
         q = ax.quiver(
@@ -974,31 +1268,31 @@ def fig_double_3regimes(npz_path: Path):
         ax.set_xticks([]); ax.set_yticks([])
         _zoom_inset(ax, x[im_full, ic], y[im_full, ic], theta[im_full, ic],
                     L, zoom_size=5.0, arrow_len=arrow_len,
-                    speeds=vs[im_full, ic])
+                    speeds=vs[im_full, ic], bg=style.WHITE)
         ax.set_title(
-            f"{nice_cases[ic]}\n"
+            f"{tags[ic]} {nice_cases[ic]}\n"
             fr"$\eta={eta[ic]:g}$, "
             fr"$\langle\varphi\rangle={phi[im_full, ic]:.2f}$",
             fontsize=8,
         )
         last_q = q
-    fig.tight_layout(rect=(0.0, 0.0, 0.93, 1.0))
     cbar = fig.colorbar(last_q, ax=axes, orientation="vertical",
-                        fraction=0.030, pad=0.02)
+                        fraction=0.046, pad=0.02, aspect=16)
     cbar.set_label(r"local speed $v_i$", fontsize=8)
     cbar.ax.tick_params(labelsize=7)
-    _cream_save(fig, "fig_double_3regimes.pdf")
+    _save(fig, "fig_double_3regimes.pdf")
 
 
 def fig_double_cluster_map(npz_path: Path):
-    """Real-space cluster identification at the near-critical
-    point: motility-only versus double-adaptive. Snapshot
-    aesthetic (cream BG + v1 quiver geometry + zoom inset
-    centred on the densest cluster); particles in dense bins
-    (above 1.5x median bin occupancy) are coloured by their
-    connected-component cluster ID, particles in dilute bins
-    stay grey, and the 10x10 dense grid is overlaid as a light
-    alpha shading."""
+    """Real-space cluster identification at the near-critical point
+    for motility-only (top row) and double-adaptive (bottom row)
+    across system sizes L in {30, 90, 128} (columns). Snapshot
+    aesthetic on a white background: arrows are coloured by the local
+    speed v_i on the shared navy--mauve--vermillion colormap, exactly
+    as in the snapshot figures, and a fixed 5x5 zoom inset accompanies
+    each panel. The connected-component dense clusters (bins above
+    1.5x the median occupancy on a 10x10 grid) are highlighted with a
+    light green shading. Panels are labelled (a)-(f)."""
     from scipy.ndimage import label as nd_label
     from matplotlib.patches import Rectangle
     import matplotlib.colors as mcolors
@@ -1006,171 +1300,173 @@ def fig_double_cluster_map(npz_path: Path):
     z = np.load(npz_path, allow_pickle=True)
     mode_labels = [str(s) if isinstance(s, str) else s.decode()
                    for s in z["mode_labels"]]
-    case_labels = [str(s) if isinstance(s, str) else s.decode()
-                   for s in z["case_labels"]]
-    x = z["x"]; y = z["y"]; theta = z["theta"]
-    eta = z["eta"]; phi = z["phi"]
-    L = float(z["params"][1])
+    L_list = [float(v) for v in z["L_list"]]
+    counts = z["counts"]
+    x = z["x"]; y = z["y"]; theta = z["theta"]; vv = z["v"]
+    eta = float(z["eta"]); phi = z["phi"]
 
     n_bin = 10
     factor = 1.5
     arrow_len = 0.45
+    zoom_size = 5.0      # fixed, as in the snapshot figures
+    green_shade = (0.0, 0.6, 0.3, 0.18)   # light green dense-zone fill
 
-    im_mot = mode_labels.index("v3_limit") if "v3_limit" in mode_labels else 0
-    im_full = mode_labels.index("full")
-    ic = case_labels.index("near_critical")
+    order = ["v3_limit", "full"]
+    row_idx = [mode_labels.index(m) for m in order if m in mode_labels]
+    row_title = {"v3_limit": "motility adaptive",
+                 "full": "double-adaptive"}
 
-    fig, axes = plt.subplots(1, 2,
-                              figsize=(style.DOUBLE_COL[0], 3.6))
-    panel_data = [
-        (axes[0], im_mot, "motility adaptive"),
-        (axes[1], im_full, "double-adaptive"),
-    ]
+    nrow, ncol = len(row_idx), len(L_list)
+    fig, axes = plt.subplots(nrow, ncol,
+                             figsize=(style.DOUBLE_COL[0],
+                                      1.8 * nrow + 0.6))
+    if nrow == 1:
+        axes = axes[None, :]
+    tags = "abcdefghi"
+    last_q = None
 
-    for ax, im, mode_title in panel_data:
-        _cream_panel(ax)
-        xs = x[im, ic]
-        ys = y[im, ic]
-        ths = theta[im, ic]
+    for r, im in enumerate(row_idx):
+        for c, L in enumerate(L_list):
+            ax = axes[r, c]
+            N = int(counts[im, c])
+            xs = x[im, c, :N]
+            ys = y[im, c, :N]
+            ths = theta[im, c, :N]
+            vs = vv[im, c, :N]
 
-        # Identify dense bins on a 10x10 grid with periodic-aware
-        # connected components.
-        H, _, _ = np.histogram2d(
-            xs, ys, bins=[n_bin, n_bin], range=[[0, L], [0, L]])
-        nz = H[H > 0]
-        threshold = factor * np.median(nz) if len(nz) else 0.0
-        mask = H > threshold
-        tiled = np.tile(mask, (3, 3))
-        labelled, _ = nd_label(tiled)
-        central = labelled[n_bin:2 * n_bin, n_bin:2 * n_bin]
-        cluster_ids = np.unique(central[central > 0])
+            H, _, _ = np.histogram2d(
+                xs, ys, bins=[n_bin, n_bin], range=[[0, L], [0, L]])
+            nz = H[H > 0]
+            threshold = factor * np.median(nz) if len(nz) else 0.0
+            mask = H > threshold
+            tiled = np.tile(mask, (3, 3))
+            labelled, _ = nd_label(tiled)
+            central = labelled[n_bin:2 * n_bin, n_bin:2 * n_bin]
+            n_clusters = len(np.unique(central[central > 0]))
 
-        # Assign each particle to the cluster ID of its bin.
-        bin_ix = np.clip((xs / L * n_bin).astype(int), 0, n_bin - 1)
-        bin_iy = np.clip((ys / L * n_bin).astype(int), 0, n_bin - 1)
-        particle_cid = central[bin_ix, bin_iy]   # 0 if dilute
+            # Green shading of the connected dense clusters.
+            ax.imshow(mask.T, extent=[0, L, 0, L], origin="lower",
+                      cmap=mcolors.ListedColormap(
+                          [(0, 0, 0, 0), green_shade]),
+                      aspect="auto", interpolation="nearest")
 
-        # Build a palette of distinct colours for clusters; grey
-        # for dilute particles.
-        n_clusters = len(cluster_ids)
-        cmap = plt.get_cmap("tab20")
-        colours = np.zeros((len(xs), 4))
-        colours[:] = mcolors.to_rgba("#888888", alpha=0.55)
-        for k, cid in enumerate(cluster_ids):
-            sel = particle_cid == cid
-            colours[sel] = cmap(k % 20)
+            # Snapshot-style quiver coloured by local speed; the
+            # marker width shrinks with system size for legibility.
+            wid = 0.004 * 30.0 / L
+            q = ax.quiver(xs, ys, np.cos(ths), np.sin(ths), vs,
+                          cmap=SPEED_CMAP,
+                          clim=(SPEED_VMIN, SPEED_VMAX),
+                          scale=1.0 / arrow_len, scale_units="xy",
+                          angles="xy", width=wid,
+                          headwidth=3.5, headlength=4.0, zorder=3)
+            last_q = q
+            ax.set_xlim(0, L); ax.set_ylim(0, L)
+            ax.set_aspect("equal")
+            ax.set_xticks([]); ax.set_yticks([])
 
-        # Light shading of dense bins on top of the cream BG.
-        ax.imshow(mask.T, extent=[0, L, 0, L], origin="lower",
-                  cmap=mcolors.ListedColormap([(0, 0, 0, 0),
-                                                (0.85, 0.55, 0.25,
-                                                 0.16)]),
-                  aspect="auto", interpolation="nearest")
-
-        # Snapshot-style colour-coded quivers (cluster colour per
-        # arrow, v1 geometry) so the heading field is readable on
-        # cream without obscuring the cluster identity.
-        ax.quiver(xs, ys, np.cos(ths), np.sin(ths),
-                  color=colours,
-                  scale=1.0 / arrow_len, scale_units="xy",
-                  angles="xy", width=0.004,
-                  headwidth=3.5, headlength=4.0,
-                  zorder=3)
-        ax.set_xlim(0, L); ax.set_ylim(0, L)
-        ax.set_aspect("equal")
-        ax.set_xticks([]); ax.set_yticks([])
-
-        # Zoom inset centred on the densest sub-region: build an
-        # inset_axes manually so the arrows inherit the parent
-        # cluster colours.
-        zoom_size = 5.0
-        Hzoom, xe, ye = np.histogram2d(xs, ys, bins=10,
+            # Fixed 5x5 zoom inset on the densest sub-region.
+            Hz, xe, ye = np.histogram2d(xs, ys, bins=10,
                                         range=[[0, L], [0, L]])
-        zix, ziy = np.unravel_index(np.argmax(Hzoom), Hzoom.shape)
-        zcx = 0.5 * (xe[zix] + xe[zix + 1])
-        zcy = 0.5 * (ye[ziy] + ye[ziy + 1])
-        z0x = max(0.0, min(L - zoom_size, zcx - zoom_size / 2))
-        z0y = max(0.0, min(L - zoom_size, zcy - zoom_size / 2))
-        iax = ax.inset_axes((1.0 - 0.38 - 0.005, 1.0 - 0.38 - 0.005,
-                             0.38, 0.38))
-        iax.set_facecolor(style.CREAM)
-        sel = ((xs >= z0x) & (xs <= z0x + zoom_size)
-               & (ys >= z0y) & (ys <= z0y + zoom_size))
-        iax.quiver(xs[sel], ys[sel], np.cos(ths[sel]), np.sin(ths[sel]),
-                   color=colours[sel],
-                   scale=1.0 / arrow_len, scale_units="xy",
-                   angles="xy", width=0.012,
-                   headwidth=3.5, headlength=4.0)
-        iax.set_xlim(z0x, z0x + zoom_size)
-        iax.set_ylim(z0y, z0y + zoom_size)
-        iax.set_aspect("equal")
-        iax.set_xticks([]); iax.set_yticks([])
-        for spine in iax.spines.values():
-            spine.set_edgecolor("#444")
-            spine.set_linewidth(0.6)
-        ax.add_patch(Rectangle((z0x, z0y), zoom_size, zoom_size,
-                               fill=False, edgecolor="#444",
-                               linewidth=0.6))
+            zix, ziy = np.unravel_index(np.argmax(Hz), Hz.shape)
+            zcx = 0.5 * (xe[zix] + xe[zix + 1])
+            zcy = 0.5 * (ye[ziy] + ye[ziy + 1])
+            z0x = max(0.0, min(L - zoom_size, zcx - zoom_size / 2))
+            z0y = max(0.0, min(L - zoom_size, zcy - zoom_size / 2))
+            iax = ax.inset_axes((1.0 - 0.38 - 0.005,
+                                 1.0 - 0.38 - 0.005, 0.38, 0.38))
+            iax.set_facecolor(style.WHITE)
+            sel = ((xs >= z0x) & (xs <= z0x + zoom_size)
+                   & (ys >= z0y) & (ys <= z0y + zoom_size))
+            iax.quiver(xs[sel], ys[sel],
+                       np.cos(ths[sel]), np.sin(ths[sel]), vs[sel],
+                       cmap=SPEED_CMAP, clim=(SPEED_VMIN, SPEED_VMAX),
+                       scale=1.0 / arrow_len, scale_units="xy",
+                       angles="xy", width=0.012,
+                       headwidth=3.5, headlength=4.0)
+            iax.set_xlim(z0x, z0x + zoom_size)
+            iax.set_ylim(z0y, z0y + zoom_size)
+            iax.set_aspect("equal")
+            iax.set_xticks([]); iax.set_yticks([])
+            for spine in iax.spines.values():
+                spine.set_edgecolor("#444")
+                spine.set_linewidth(0.6)
+            ax.add_patch(Rectangle((z0x, z0y), zoom_size, zoom_size,
+                                   fill=False, edgecolor="#444",
+                                   linewidth=0.6))
 
-        ax.set_title(
-            f"{mode_title}\n"
-            fr"$\eta={eta[ic]:g}$, $\langle\varphi\rangle = "
-            fr"{phi[im, ic]:.2f}$, "
-            fr"$n_{{\rm cl}}={n_clusters}$",
-            fontsize=8,
-        )
-    fig.tight_layout()
-    _cream_save(fig, "fig_double_cluster_map.pdf")
+            # Per-panel quantities annotated inside the panel; the
+            # size goes in the column header and the mode in the row
+            # label so neither is repeated across the grid.
+            ax.text(0.03, 0.97,
+                    fr"({tags[r * ncol + c]}) "
+                    fr"$\langle\varphi\rangle={phi[im, c]:.2f}$, "
+                    fr"$n_{{\rm cl}}={n_clusters}$",
+                    transform=ax.transAxes, fontsize=6,
+                    ha="left", va="top",
+                    bbox=dict(facecolor="white", alpha=0.7,
+                              edgecolor="none", pad=1))
+            if r == 0:
+                ax.set_title(fr"$L = {int(L)}$", fontsize=8)
+            if c == 0:
+                ax.set_ylabel(row_title.get(order[r], order[r]),
+                              fontsize=8)
+    fig.tight_layout(rect=(0.0, 0.0, 0.93, 1.0))
+    cbar = fig.colorbar(last_q, ax=axes, orientation="vertical",
+                        fraction=0.020, pad=0.02)
+    cbar.set_label(r"local speed $v_i$", fontsize=8)
+    cbar.ax.tick_params(labelsize=7)
+    _save(fig, "fig_double_cluster_map.pdf")
 
 
 def fig_double_cluster_psd(npz_path: Path):
-    """Dense-phase cluster-size distribution P(s) per mode, with
-    the fitted power-law tail exponent. Motility-only fragments
-    into a shallow power-law (spinodal-like); the double-adaptive
-    model steepens the tail and grows the giant-cluster fraction
-    (binodal-like)."""
+    """Dense-phase cluster-size distribution P(s) for every mode
+    across the order--disorder window, all curves on one axes.
+    Colour encodes the mode (paper palette); the line style of each
+    curve encodes the noise level eta (solid to dotted for increasing
+    eta). The two fixed-speed references form no dense phase at any
+    eta; the motility-active modes keep a heavy-tailed dense phase
+    throughout."""
     z = np.load(npz_path, allow_pickle=True)
     labels = [s if isinstance(s, str) else s.decode()
               for s in z["labels"]]
+    etas = z["etas"]
     centers = z["centers"]
     pdf = z["pdf"]
-    tau = z["tau"]
-    smax = z["smax_frac"]
-    n_seeds = smax.shape[1]
+    smax = z["smax_frac"]            # (n_modes, n_eta, n_seeds)
+    n_modes, n_eta = len(labels), len(etas)
 
-    fig, axes = plt.subplots(1, 2, figsize=(style.DOUBLE_COL[0], 2.8))
+    # noise level -> distinct dash pattern (low eta solid, high eta sparse)
+    eta_styles = ["solid", (0, (5, 1)), (0, (4, 1, 1, 1)), (0, (1, 1.4))]
 
-    ax = axes[0]
+    fig, ax = plt.subplots(figsize=(style.DOUBLE_COL[0],
+                                    style.DOUBLE_COL[0] * 0.52))
     for im, m in enumerate(labels):
-        y = pdf[im]
-        ok = y > 0
-        if ok.sum() == 0:
-            continue
-        ax.plot(centers[ok], y[ok], "o-", color=PALETTE[m], ms=3,
-                lw=1.0, label=_disp(m))
-        if np.isfinite(tau[im]):
-            ax.plot([], [], " ",
-                    label=fr"  $\tau={tau[im]:.2f}$")
+        for ie in range(n_eta):
+            y = pdf[im, ie]
+            ok = y > 0
+            if ok.any():
+                ax.plot(centers[ok], y[ok],
+                        color=PALETTE[m], lw=1.1, alpha=0.9,
+                        ls=eta_styles[ie % len(eta_styles)])
     ax.set_xscale("log")
     ax.set_yscale("log")
     ax.set_xlabel(r"dense-cluster size $s$ (particles)")
     ax.set_ylabel(r"$P(s)$")
-    ax.set_title(r"(a)", fontsize=9, loc="left")
-    ax.legend(fontsize=6, loc="lower left", frameon=False, ncol=1)
 
-    ax = axes[1]
-    xpos = np.arange(len(labels))
-    means = smax.mean(axis=1)
-    ses = smax.std(axis=1, ddof=1) / np.sqrt(n_seeds)
-    cols = [PALETTE[m] for m in labels]
-    ax.bar(xpos, means, yerr=ses, color=cols, alpha=0.85,
-           capsize=3, width=0.6)
-    ax.set_xticks(xpos)
-    ax.set_xticklabels([_disp(m) for m in labels], rotation=30,
-                       ha="right", fontsize=6)
-    ax.set_ylabel(r"giant-cluster fraction $\langle s_{\max}/N\rangle$")
-    ax.set_title(r"(b)", fontsize=9, loc="left")
-
+    # Two legends in the cleared lower-left/upper-right of a decaying
+    # P(s): one keying mode to hue, one keying eta to line style.
+    from matplotlib.lines import Line2D
+    mode_handles = [Line2D([], [], color=PALETTE[m], lw=2,
+                           label=_disp(m)) for m in labels]
+    eta_handles = [Line2D([], [], color="0.30", lw=1.4,
+                          ls=eta_styles[ie % len(eta_styles)],
+                          label=fr"$\eta = {etas[ie]:g}$")
+                   for ie in range(n_eta)]
+    leg1 = ax.legend(handles=mode_handles, fontsize=7, frameon=False,
+                     loc="upper right", title="mode")
+    ax.add_artist(leg1)
+    ax.legend(handles=eta_handles, fontsize=7, frameon=False,
+              loc="lower left", title="noise", ncol=2)
     fig.tight_layout()
     _save(fig, "fig_double_cluster_psd.pdf")
 
@@ -1205,10 +1501,122 @@ def fig_double_gnf(npz_path: Path):
     _save(fig, "fig_double_gnf.pdf")
 
 
+def fig_double_cluster_summary(npz_clusters: Path, npz_gnf: Path,
+                               npz_psd: Path):
+    """Merged dense-phase structure figure (former Figs. on cluster
+    statistics, number fluctuations, and the cluster-size
+    distribution). Panels (a)-(c): seed-averaged cluster count, max
+    and mean cluster size per mode with +-1 SE bars. Panel (d):
+    giant number fluctuations Var(N_box) vs <N_box> with the fitted
+    exponent zeta. Panel (e): dense-phase P(s), hue keying the mode
+    and line style the noise level eta."""
+    from matplotlib.lines import Line2D
+
+    # --- cluster summary statistics ---
+    zc = np.load(npz_clusters, allow_pickle=True)
+    clabels = [s if isinstance(s, str) else s.decode()
+               for s in zc["labels"]]
+    n_clusters = zc["n_per_seed"].astype(float)
+    max_size = zc["max_per_seed"].astype(float)
+    mean_size = zc["mean_per_seed"].astype(float)
+    n_seeds = n_clusters.shape[1]
+
+    def _ms(arr):
+        return (arr.mean(axis=1),
+                arr.std(axis=1, ddof=1) / np.sqrt(n_seeds))
+
+    counts_m, counts_se = _ms(n_clusters)
+    maxsz_m, maxsz_se = _ms(max_size)
+    meansz_m, meansz_se = _ms(mean_size)
+    disp = [_disp(m) for m in clabels]
+    xpos = np.arange(len(clabels))
+    ccolors = [PALETTE[m] for m in clabels]
+
+    # --- GNF ---
+    zg = np.load(npz_gnf, allow_pickle=True)
+    glabels = [s if isinstance(s, str) else s.decode()
+               for s in zg["labels"]]
+    mean_N = zg["mean_N"]; var_N = zg["var_N"]; zeta = zg["zeta"]
+
+    # --- P(s) ---
+    zp = np.load(npz_psd, allow_pickle=True)
+    plabels = [s if isinstance(s, str) else s.decode()
+               for s in zp["labels"]]
+    etas = zp["etas"]; centers = zp["centers"]; pdf = zp["pdf"]
+    eta_styles = ["solid", (0, (5, 1)), (0, (4, 1, 1, 1)), (0, (1, 1.4))]
+
+    fig = plt.figure(figsize=(style.DOUBLE_COL[0], 5.0))
+    gs = fig.add_gridspec(2, 3)
+
+    # Panels (a)-(c): bar summaries.
+    bar_panels = (
+        (fig.add_subplot(gs[0, 0]), counts_m, counts_se,
+         "(a) cluster count"),
+        (fig.add_subplot(gs[0, 1]), maxsz_m, maxsz_se,
+         "(b) max cluster size"),
+        (fig.add_subplot(gs[0, 2]), meansz_m, meansz_se,
+         "(c) mean cluster size"),
+    )
+    for ax, m, se, ylab in bar_panels:
+        ax.bar(xpos, m, yerr=se, color=ccolors, capsize=3,
+               alpha=0.85, error_kw=dict(lw=0.8))
+        ax.set_xticks(xpos)
+        ax.set_xticklabels(disp, rotation=30, ha="right", fontsize=6)
+        ax.set_ylabel(ylab, fontsize=8)
+
+    # Panel (d): GNF.
+    ax = fig.add_subplot(gs[1, 0])
+    for im, m in enumerate(glabels):
+        mk = var_N[im] > 0
+        ax.plot(mean_N[im, mk], var_N[im, mk], "o-", color=PALETTE[m],
+                ms=3, lw=1.0,
+                label=fr"{_disp(m)} ($\zeta={zeta[im]:.2f}$)")
+    xr = np.array([mean_N[mean_N > 0].min(), mean_N.max()])
+    ax.plot(xr, xr, "k--", lw=0.7, label=r"Poisson")
+    ax.set_xscale("log"); ax.set_yscale("log")
+    ax.set_xlabel(r"$\langle N_{\rm box}\rangle$")
+    ax.set_ylabel(r"$\mathrm{Var}(N_{\rm box})$")
+    ax.legend(fontsize=5.5, loc="upper left", frameon=False)
+    ax.set_title("(d)", fontsize=9, loc="left")
+
+    # Panel (e): P(s) overlay, spanning the remaining two cells.
+    axe = fig.add_subplot(gs[1, 1:])
+    for im, m in enumerate(plabels):
+        for ie in range(len(etas)):
+            y = pdf[im, ie]
+            ok = y > 0
+            if ok.any():
+                axe.plot(centers[ok], y[ok], color=PALETTE[m], lw=1.1,
+                         alpha=0.9,
+                         ls=eta_styles[ie % len(eta_styles)])
+    axe.set_xscale("log"); axe.set_yscale("log")
+    axe.set_xlabel(r"dense-cluster size $s$ (particles)")
+    axe.set_ylabel(r"$P(s)$")
+    axe.set_title("(e)", fontsize=9, loc="left")
+    mode_handles = [Line2D([], [], color=PALETTE[m], lw=2,
+                           label=_disp(m)) for m in plabels]
+    eta_handles = [Line2D([], [], color="0.30", lw=1.4,
+                          ls=eta_styles[ie % len(eta_styles)],
+                          label=fr"$\eta = {etas[ie]:g}$")
+                   for ie in range(len(etas))]
+    leg1 = axe.legend(handles=mode_handles, fontsize=6, frameon=False,
+                      loc="upper right", title="mode")
+    axe.add_artist(leg1)
+    axe.legend(handles=eta_handles, fontsize=6, frameon=False,
+               loc="lower left", title="noise", ncol=2)
+
+    fig.tight_layout()
+    _save(fig, "fig_double_cluster_summary.pdf")
+
+
 def fig_double_hysteresis(npz_path: Path):
-    """Quasi-static eta ramp up and down for the two motility-active
-    modes. Overlapping up/down branches indicate a continuous
-    transition; a gap is a first-order hysteresis loop."""
+    """Quasi-static eta ramp up (filled circles, solid) and down
+    (open squares, dashed) at L=64, all four modes overlaid on a
+    single axes with hue keying the mode. Overlapping up/down
+    branches and negligible loop areas indicate a continuous
+    transition."""
+    from matplotlib.lines import Line2D
+
     z = np.load(npz_path, allow_pickle=True)
     labels = [s if isinstance(s, str) else s.decode()
               for s in z["labels"]]
@@ -1217,69 +1625,36 @@ def fig_double_hysteresis(npz_path: Path):
     phi_dn = z["phi_down"]; phi_dn_se = z["phi_down_se"]
     loop = z["loop_area"]
 
-    fig, axes = plt.subplots(1, len(labels),
-                             figsize=(style.DOUBLE_COL[0], 2.8),
-                             sharey=True)
-    if len(labels) == 1:
-        axes = [axes]
+    fig, ax = plt.subplots(figsize=(style.SINGLE_COL[0] * 1.5,
+                                    style.SINGLE_COL[1] * 1.15))
+    mode_handles = []
     for im, m in enumerate(labels):
-        ax = axes[im]
         c = PALETTE[m]
         ax.errorbar(eta, phi_up[im], yerr=phi_up_se[im], fmt="o-",
-                    color=c, ms=3, lw=1.0, capsize=2, label="up-ramp")
+                    color=c, ms=3, lw=1.0, capsize=2)
         ax.errorbar(eta, phi_dn[im], yerr=phi_dn_se[im], fmt="s--",
                     color=c, ms=3, lw=1.0, capsize=2, alpha=0.6,
-                    mfc="white", label="down-ramp")
-        ax.set_xscale("log")
-        ax.set_xlabel(r"$\eta$")
-        if im == 0:
-            ax.set_ylabel(r"$\langle\varphi\rangle$")
-        ax.set_title(fr"{_disp(m)}  (area $={loop[im]:.3f}$)",
-                     fontsize=8)
-        ax.legend(fontsize=6, loc="lower left", frameon=False)
+                    mfc="white")
+        mode_handles.append(
+            Line2D([], [], color=c, lw=1.6,
+                   label=fr"{_disp(m)} (area $={loop[im]:.3f}$)"))
+    ax.set_xscale("log")
+    ax.set_xlabel(r"$\eta$")
+    ax.set_ylabel(r"$\langle\varphi\rangle$")
+    # Two legends: hue keys the mode, marker keys the ramp direction.
+    ramp_handles = [
+        Line2D([], [], color="0.30", lw=1.0, marker="o", ls="-",
+               ms=4, label="up-ramp"),
+        Line2D([], [], color="0.30", lw=1.0, marker="s", ls="--",
+               ms=4, mfc="white", label="down-ramp"),
+    ]
+    leg_modes = ax.legend(handles=mode_handles, fontsize=6.5,
+                          frameon=False, loc="lower left")
+    ax.add_artist(leg_modes)
+    ax.legend(handles=ramp_handles, fontsize=6.5, frameon=False,
+              loc="upper right")
     fig.tight_layout()
     _save(fig, "fig_double_hysteresis.pdf")
-
-
-def fig_double_gr_decay(npz_path: Path):
-    """Profile of the dense-quartile gap $\\Delta g(r)$ between
-    the double-adaptive model and the motility-only ablation,
-    over the full alignment range $r \\in [0.5, 6]$, for the
-    four sizes at which the high-statistics measurement was
-    run."""
-    z = np.load(npz_path, allow_pickle=True)
-    Ls = z["Ls"]
-    r = z["r_centers"]
-    gap = z["gap"]
-    se = z["se"]
-
-    fig, ax = plt.subplots(figsize=(style.SINGLE_COL[0] * 1.4,
-                                      style.SINGLE_COL[1] * 1.3))
-    cmap = plt.get_cmap("plasma")
-    for iL, L in enumerate(Ls):
-        c = cmap(0.15 + 0.7 * iL / max(len(Ls) - 1, 1))
-        ax.fill_between(r, gap[iL] - se[iL], gap[iL] + se[iL],
-                         color=c, alpha=0.20)
-        ax.plot(r, gap[iL], "-", lw=1.4, color=c,
-                 label=fr"$L={int(L)}$")
-    # plateau reference line and metric alignment cutoff
-    plateau = float(np.nanmean(gap))
-    ax.axhline(plateau, color="black", ls="--", lw=0.5, alpha=0.5)
-    ax.text(r[-1] * 0.98, plateau + 0.005,
-             fr"$\Delta g \simeq {plateau:.2f}$",
-             fontsize=7, ha="right", va="bottom", color="black")
-    ax.axhline(0.0, color="grey", ls="-", lw=0.4)
-    ax.axvline(0.7, color="grey", ls=":", lw=0.5)
-    ax.text(0.72, ax.get_ylim()[0] + 0.01, r"$R_a$",
-             fontsize=7, ha="left", va="bottom", color="grey")
-    ax.set_xlabel(r"distance $r$")
-    ax.set_ylabel(r"$\Delta g(r) = g_{\rm full}(r) - g_{\rm motility}(r)$"
-                  r" in dense quartile")
-    ax.set_title(r"Dense-quartile correlation gap profile",
-                  fontsize=8)
-    ax.legend(fontsize=7, frameon=False, loc="lower right")
-    fig.tight_layout()
-    _save(fig, "fig_double_gr_decay.pdf")
 
 
 def fig_double_autocorr(npz_path: Path):
@@ -1369,93 +1744,6 @@ def fig_double_autocorr(npz_path: Path):
     _save(fig, "fig_double_autocorr.pdf")
 
 
-def fig_double_orderpdf_largeL(npz_path: Path,
-                                npz_L128_path: Path | None = None):
-    r"""Order-parameter PDF $P(\langle\varphi\rangle)$ for
-    motility-only and double-adaptive at $L = 64$, $L = 90$, and
-    optionally $L = 128$, confirming that the macroscopic mean
-    shift is a scale-invariant signature of the double feedback
-    and probing for late multimodality on a 10x longer
-    trajectory."""
-    from scipy.stats import skew, kurtosis, gaussian_kde
-    z = np.load(npz_path, allow_pickle=True)
-    labels = [str(s) if isinstance(s, str) else s.decode()
-              for s in z["labels"]]
-    Ls = list(z["Ls"])
-    eta_per_case = z["eta_per_case"]
-    phi_traj = z["phi_traj"]
-    panel_data = []
-    for iL, L in enumerate(Ls):
-        panel_data.append((float(L),
-                           float(eta_per_case[labels.index("motility")]),
-                           float(eta_per_case[labels.index("full")]),
-                           phi_traj[labels.index("motility"), iL],
-                           phi_traj[labels.index("full"), iL]))
-    if npz_L128_path is not None and npz_L128_path.exists():
-        z2 = np.load(npz_L128_path, allow_pickle=True)
-        labs2 = [str(s) if isinstance(s, str) else s.decode()
-                 for s in z2["labels"]]
-        eta2 = z2["eta_per_case"]
-        traj2 = z2["phi_traj"]
-        panel_data.append((float(z2["L"]),
-                           float(eta2[labs2.index("motility")]),
-                           float(eta2[labs2.index("full")]),
-                           traj2[labs2.index("motility")],
-                           traj2[labs2.index("full")]))
-
-    fig, axes = plt.subplots(1, len(panel_data),
-                              figsize=(style.DOUBLE_COL[0], 2.8),
-                              sharey=False)
-    if len(panel_data) == 1:
-        axes = [axes]
-    bins = np.linspace(0, 1, 60)
-    grid = np.linspace(0, 1, 200)
-
-    u4 = lambda a: 1.0 - (a ** 4).mean() / (3.0 * (a ** 2).mean() ** 2)
-    for ip, (L, eta_mot, eta_full, m_mot, m_full) in enumerate(panel_data):
-        ax = axes[ip]
-        y_max = 0.0
-        for lbl, data in (("motility", m_mot), ("full", m_full)):
-            c = PALETTE.get(lbl, "#1f4ea1")
-            ax.hist(data, bins=bins, density=True, color=c,
-                    alpha=0.45, edgecolor="black", linewidth=0.3,
-                    label=_disp(lbl))
-            kde = gaussian_kde(data, bw_method="scott")
-            curve = kde(grid)
-            ax.plot(grid, curve, "-", color=c, lw=1.4)
-            y_max = max(y_max, curve.max())
-            ax.axvline(float(data.mean()), color=c, lw=0.7,
-                       ls="--", alpha=0.85)
-        gap = m_full.mean() - m_mot.mean()
-        ax.text(0.03, 0.97,
-                fr"$\langle\varphi\rangle_{{\rm mot}} = "
-                fr"{m_mot.mean():.2f}$" "\n"
-                fr"$\langle\varphi\rangle_{{\rm full}} = "
-                fr"{m_full.mean():.2f}$" "\n"
-                fr"$\Delta = {gap:+.2f}$" "\n"
-                fr"$U_{{4,{{\rm full}}}} = {u4(m_full):.2f}$",
-                transform=ax.transAxes,
-                ha="left", va="top",
-                fontsize=7,
-                bbox=dict(facecolor="white", alpha=0.85,
-                          edgecolor="none", pad=2))
-        ax.set_xlabel(r"$\langle\varphi\rangle$")
-        ax.set_xlim(0, 1)
-        ax.set_ylim(0, 1.15 * y_max)
-        ax.set_title(fr"$L = {int(L)}$ "
-                     fr"($\eta_{{\rm mot}}\!=\!{eta_mot:g}$, "
-                     fr"$\eta_{{\rm full}}\!=\!{eta_full:g}$)",
-                     fontsize=8)
-        if ip == 0:
-            ax.set_ylabel(r"$P(\langle\varphi\rangle)$")
-            ax.legend(fontsize=7, frameon=False, loc="upper right")
-        ax.text(-0.18, 1.04, f"({chr(97 + ip)})",
-                transform=ax.transAxes,
-                fontsize=10, fontweight="bold")
-    fig.tight_layout()
-    _save(fig, "fig_double_orderpdf_largeL.pdf")
-
-
 def _pick(stem: str) -> Path:
     """Prefer the no-cone version of an npz file when it exists.
 
@@ -1472,119 +1760,41 @@ def _pick(stem: str) -> Path:
 
 def main():
     fig_double_schematic()
-    npz = _pick("double_pilot")
-    if npz.exists():
-        fig_double_pilot(npz)
-    else:
-        print(f"[warn] {npz} not found -- run run_double_pilot.py first")
-    npz_snap = _pick("double_snapshot")
-    if npz_snap.exists():
-        fig_double_snapshot(npz_snap)
-    else:
-        print(f"[warn] {npz_snap} not found -- "
-              "run run_double_snapshot.py first")
-    npz_plane = _pick("double_plane")
-    if npz_plane.exists():
-        fig_double_plane(npz_plane)
-    else:
-        print(f"[warn] {npz_plane} not found -- "
-              "run run_double_plane.py first")
-    npz_plane_L30 = _pick("double_plane_L30")
-    if npz_plane_L30.exists():
-        # Reuse the same figure layout for the L=30 refinement.
-        z = npz_plane_L30
-        z = np.load(z, allow_pickle=True)
-        # Render via the existing fig_double_plane structure with
-        # an alternate output name.
-        n_stars = z["n_stars"]
-        slopes_s = z["slopes"]
-        chi_peak = z["chi_peak"]
-        sep_peak = z["sep_peak"]
-        L_ = float(z["L"])
-        fig, axes = plt.subplots(1, 2,
-                                  figsize=(style.DOUBLE_COL[0], 2.6))
-        for ax, data, title, cmap, vlabel in (
-            (axes[0], chi_peak, fr"(a) $\chi_{{\max}}$ (full mode, $L = {L_:g}$, 5 seeds)",
-             "viridis", r"$\chi_{\max}$"),
-            (axes[1], sep_peak, fr"(b) $s_{{\rm sep}}$",
-             "magma", r"$s_{\rm sep}$"),
-        ):
-            im = ax.imshow(data, origin="lower", aspect="auto",
-                            cmap=cmap,
-                            extent=[slopes_s.min() - 0.5,
-                                    slopes_s.max() + 0.5,
-                                    n_stars.min() - 0.5,
-                                    n_stars.max() + 0.5])
-            ax.set_xticks(slopes_s)
-            ax.set_yticks(n_stars)
-            ax.set_xlabel(r"sigmoid slope $s$")
-            ax.set_ylabel(r"threshold $n_\star$")
-            ax.set_title(title, fontsize=8)
-            cb = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
-            cb.set_label(vlabel, fontsize=8)
-            cb.ax.tick_params(labelsize=7)
-            for i, n_star in enumerate(n_stars):
-                for j, sl in enumerate(slopes_s):
-                    ax.text(sl, n_star, f"{data[i, j]:.2f}",
-                            ha="center", va="center", fontsize=6,
-                            color="white")
-        fig.tight_layout()
-        _save(fig, "fig_double_plane_L30.pdf")
+    fig_double_pilot(_pick("double_pilot"))
+    fig_double_snapshot(_pick("double_snapshot"))
+    # fig_double_3regimes was promoted out: the two-mode snapshot now
+    # serves as the early real-space figure.
+    fig_double_plane(_pick("double_plane"), _pick("double_plane_L30"))
     npz_op = _pick("double_orderpdf")
-    if npz_op.exists():
-        fig_double_orderpdf(npz_op)
-    npz_pr = _pick("double_profile")
-    if npz_pr.exists():
-        fig_double_profile(npz_pr)
-    # Cluster figure: the no-cone pipeline only stores the
-    # high-statistics summary (n_cl, max, mean per seed). When the
-    # _nocone hs file is available, draw a summary bar plot;
-    # otherwise fall back to the legacy CCDF.
-    npz_cl_hs = DATA / "double_clusters_hs_nocone.npz"
-    npz_cl_legacy = DATA / "double_clusters.npz"
-    if npz_cl_hs.exists():
-        fig_double_clusters_hs(npz_cl_hs)
-    elif npz_cl_legacy.exists():
-        fig_double_clusters(npz_cl_legacy)
-    # g(r): _pick prefers the hs file (per-seed bands).
-    npz_gr_hs = DATA / "double_gr_hs_nocone.npz"
-    npz_gr_legacy = DATA / "double_gr.npz"
-    if npz_gr_hs.exists():
-        fig_double_gr(npz_gr_hs)
-    elif npz_gr_legacy.exists():
-        fig_double_gr(npz_gr_legacy)
-    npz_decay = _pick("double_gr_decay")
-    if npz_decay.exists():
-        fig_double_gr_decay(npz_decay)
-    npz_snap = _pick("double_snapshot")
-    if npz_snap.exists():
-        fig_double_3regimes(npz_snap)
-        fig_double_cluster_map(npz_snap)
-    npz_lfine = _pick("double_Lfine")
-    if npz_lfine.exists():
-        fig_double_Lfine_gap(
-            npz_lfine,
-            _pick("double_pilot"),
-            _pick("double_L64"),
-            _pick("double_L90"),
-            _pick("double_L128"),
-        )
-    npz_ac = _pick("double_autocorr")
-    if npz_ac.exists():
-        fig_double_autocorr(npz_ac)
-    npz_oplargeL = _pick("double_orderpdf_largeL")
-    if npz_oplargeL.exists():
-        fig_double_orderpdf_largeL(npz_oplargeL,
-                                   _pick("double_orderpdf_L128"))
-    npz_psd = DATA / "double_cluster_psd_nocone.npz"
-    if npz_psd.exists():
-        fig_double_cluster_psd(npz_psd)
-    npz_gnf = DATA / "double_gnf_nocone.npz"
-    if npz_gnf.exists():
-        fig_double_gnf(npz_gnf)
-    npz_hyst = DATA / "double_hysteresis_nocone.npz"
-    if npz_hyst.exists():
-        fig_double_hysteresis(npz_hyst)
+    npz_op_large = _pick("double_orderpdf_largeL")
+    npz_op_128 = _pick("double_orderpdf_L128")
+    fig_double_orderpdf(npz_op, npz_op_large, npz_op_128)
+    fig_double_profile(_pick("double_profile"))
+    npz_clmap = DATA / "double_cluster_snaps_multiL_nocone.npz"
+    fig_double_cluster_map(npz_clmap if npz_clmap.exists()
+                           else _pick("double_snapshot"))
+    fig_double_gr(_pick("double_gr_hs"), _pick("double_gr_decay"))
+    npz_lfine = DATA / "double_Lfine_allmodes_nocone.npz"
+    fig_double_Lfine_gap(
+        npz_lfine if npz_lfine.exists() else _pick("double_Lfine"),
+        _pick("double_pilot"),
+        _pick("double_L64"),
+        _pick("double_L90"),
+        _pick("double_L128"),
+    )
+    npz_psd = DATA / "double_cluster_psd_eta_nocone.npz"
+    if not npz_psd.exists():
+        npz_psd = _pick("double_cluster_psd")
+    npz_gnf = _pick("double_gnf")
+    npz_hyst = DATA / "double_hysteresis_allmodes_nocone.npz"
+    if not npz_hyst.exists():
+        npz_hyst = _pick("double_hysteresis")
+    fig_double_cluster_summary(_pick("double_clusters_hs"), npz_gnf, npz_psd)
+    fig_double_hysteresis(npz_hyst)
+    fig_double_autocorr(_pick("double_autocorr"))
+    # The decoupled-2D, sigma-sweep and topological-kernel figures
+    # (Figs. 14-16) are produced by the analyse_*.py scripts, not by
+    # this renderer.
 
 
 if __name__ == "__main__":

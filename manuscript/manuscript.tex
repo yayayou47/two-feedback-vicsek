@@ -254,7 +254,7 @@ isolated one ($n_i \ll n_\star$) at $\sigma_i \to 0$, $v_i
 \to v_{\max}$, $\alpha_i \to \alpha_{\min} = 1$. The two
 channels are locked: slow means Gaussian, fast means Cauchy.
 
-\begin{figure}[!ht]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.92\linewidth]{fig_double_schematic.pdf}
     \caption{The two-feedback model. (a) The shared sigmoid
@@ -262,7 +262,9 @@ channels are locked: slow means Gaussian, fast means Cauchy.
     the stability index $\alpha_i$ (green), which move
     together as the particle goes from isolated to crowded.
     (b) The Couzin zonal neighbourhood: inner repulsion disc
-    and outer alignment annulus, sensed omnidirectionally.}
+    and outer alignment annulus, sensed omnidirectionally. A single
+    threshold thus couples slowing and noise-Gaussianisation --- the
+    lone mechanism the rest of the paper dissects.}
     \label{fig:schematic}
 \end{figure}
 
@@ -333,34 +335,47 @@ ablation at $L = 45$, which we report with its updated value.
 
 \section{Results}
 
-We first set a visual reference. The double-adaptive model at
-$L = 30$, $N = 2000$, after $3000$ warm-up steps, at three
-noise levels spanning the ordered, near-critical and
-disordered regimes (Fig.~\ref{fig:double_3regimes}): the flock
-is almost fully aligned and dense at $\eta = 0.020$; an
-inhomogeneous configuration of locally ordered slow patches in
-a faster disordered gas at near-critical $\eta = 0.10$;
-particles fill the box without a coherent global heading at
-$\eta = 0.30$. The near-critical panel is the operating point
-at which the rectification mechanism documented below is
-active.
+We first set a visual reference by contrasting the two
+motility-active modes directly in real space across system
+sizes (Fig.~\ref{fig:snapshot}). Motility-only and
+double-adaptive configurations are shown at $\sigma = 2.22$,
+single seed, after $3000$ warm-up steps, for three sizes
+$L \in \{30, 90, 128\}$ (one row each) and three noise
+levels spanning the ordered ($\eta = 0.020$), near-critical
+($\eta = 0.10$) and disordered ($\eta = 0.30$) regimes. Deep in
+the ordered phase the flock is almost fully aligned and dense
+in both modes; at near-critical $\eta$ the configuration breaks
+into locally ordered slow patches embedded in a faster
+disordered gas; at $\eta = 0.30$ the particles fill the box
+without a coherent global heading. The near-critical column is
+the operating point at which the rectification mechanism
+documented below is active, and at every size the
+double-adaptive panels hold a tighter, more coherent dense core
+than their motility-only neighbours.
 
-\begin{figure}[!ht]
+\begin{figure*}[htbp]
     \centering
-    \includegraphics[width=0.95\linewidth]{fig_double_3regimes.pdf}
-    \caption{Real-space configurations of the double-adaptive
-    model at $L = 30$, $N = 2000$, single seed, after $3000$
-    warm-up steps, at three noise levels spanning the ordered
-    ($\eta = 0.020$), near-critical ($\eta = 0.10$) and
-    disordered ($\eta = 0.30$) regimes on a cream background.
-    Each particle is drawn as an arrow whose colour encodes the
-    local speed $v_i$ on a navy--mauve--vermillion colormap
-    (shared colorbar on the right); a $5 \times 5$ zoom inset
-    on the densest sub-region accompanies each panel. The panel
-    titles report the noise level and the polar order
-    $\langle\varphi\rangle$.}
-    \label{fig:double_3regimes}
-\end{figure}
+    \includegraphics[width=0.984\linewidth]{fig_double_snapshot.pdf}
+    \caption{Real-space configurations at $\sigma = 2.22$, single
+    seed, after $3000$ warm-up steps, on a white background, for
+    three sizes $L \in \{30, 90, 128\}$, one row per size. Within
+    each row the three noise levels run left to right ---
+    (a) $\eta = 0.30$ (deeply disordered), (b) $\eta = 0.10$
+    (near-critical) and (c) $\eta = 0.020$ (deeply ordered) --- and
+    each level places
+    the motility-only configuration immediately left of its
+    double-adaptive counterpart. Each particle is drawn as an arrow
+    coloured by
+    its instantaneous local speed $v_i$ on a
+    navy--mauve--vermillion colormap (shared colorbar on the
+    right); a $5 \times 5$ zoom inset on the densest sub-region
+    accompanies each panel, and the polar order
+    $\langle\varphi\rangle$ is annotated per panel. Across sizes the
+    double-adaptive flock keeps a denser, better-aligned core than the
+    motility-only ablation at near-critical and high noise, the two
+    becoming indistinguishable only deep in the ordered phase.}
+    \label{fig:snapshot}
+\end{figure*}
 
 \subsection{Global diagnostics}
 \label{sec:results-global}
@@ -374,7 +389,7 @@ $\chi_{\max}(L)$; its slope $a$ in $\chi_{\max} \sim L^a$
 separates the four modes (Fig.~\ref{fig:pilot},
 Table~\ref{tab:slopes}).
 
-\begin{figure}[!ht]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{fig_double_pilot.pdf}
     \caption{Seven-size scan, $L \in \{15, 22, 30, 45, 64, 90, 128\}$,
@@ -390,7 +405,9 @@ Table~\ref{tab:slopes}).
     $\chi_{\max}$ versus $L$ with fitted slopes per mode; panel
     (f) reports the population mean speed $\langle v_i\rangle$
     (solid) and the population mean stability $\langle\alpha_i
-    \rangle$ (dotted) versus $\eta$ at the largest $L$.}
+    \rangle$ (dotted) versus $\eta$ at the largest $L$. Only the two
+    motility-active modes grow a size-dependent $\chi_{\max}$, and the
+    double-adaptive slope is the steeper of the two.}
     \label{fig:pilot}
 \end{figure}
 
@@ -459,6 +476,23 @@ widens at $n = 6, 7$ because the motility slope itself carries
 a wide bootstrap dispersion ($[+1.60, +3.04]$), but the point
 estimate stays positive.
 
+The $\Delta_6 = +0.46$ point is the lone non-monotonic node,
+and it rests on the three-seed full-mode $\chi_{\max}$ at
+$L = 90$, the noisiest cell of the series. A ten-seed rerun
+at $L = 90$ returns pooled $\chi_{\max} = 823$
+(motility-only) and $734$ (double-adaptive), against the
+three-seed $1119$ and $294$: the three-seed full-mode value
+was anomalously low. Refitting with the ten-seed $L = 90$
+node raises $\Delta_6$ from $+0.46$ to $+0.94$ and $\Delta_7$
+from $+0.48$ to $+0.72$, so the dip was a seed-budget
+artefact and the synergy trajectory is monotonically positive
+once $L = 90$ is properly sampled. The pooled $\chi_{\max}$
+estimator is itself seed-sensitive at large $L$ with heavy
+tails (the $L = 90$ value moved by $\sim 25$--$150\%$), which
+is why the microscopic $g(r)$, $C(\tau)$, GNF and $P(s)$
+diagnostics --- not the large-$L$ $\chi_{\max}$ --- carry the
+load-bearing evidence.
+
 The reading is mechanistic. Inside a dense patch the alignment
 sum over the many neighbours in the annulus is dominated by
 typical kicks rather than by rare extreme ones, so the Cauchy
@@ -496,32 +530,40 @@ two motility-active modes phase separate, both plateauing
 near $s_{\rm sep} \simeq 1.7$. The double-adaptive model
 sits above the motility-only ablation by $+0.24$ at
 $L = 64$, $+0.10$ at $L = 90$, and $+0.01$ at $L = 128$, the
-two modes converging on the asymptotic plateau.
+two modes converging on the asymptotic plateau. Only the two
+motility-active modes phase separate, so $s_{\rm sep}$ reads the
+same split as the susceptibility slope, with a noise-shape surplus
+that is largest at intermediate sizes before the plateau closes it.
+
+\subsubsection{Giant number fluctuations}
+\label{sec:gnf}
+
+A spatially phase-separated active fluid leaves a second,
+independent trace in its density fluctuations. We count the
+particle number $N_{\rm box}$ in nested square sub-boxes and
+read its variance against the mean,
+$\mathrm{Var}(N_{\rm box}) \sim \langle N_{\rm box}
+\rangle^{2\zeta}$, at $L = 30$, near-critical $\eta$, ten
+seeds (Fig.~\ref{fig:cluster_summary}d). A homogeneous fluid sits at the
+Poisson value $\zeta = 1/2$; a polar flock develops giant
+number fluctuations up to the Toner--Tu value
+$\zeta \simeq 0.8$. The two fixed-noise-shape references stay
+on the Poisson line ($\zeta = 0.57$ Cauchy, $0.58$
+noise-shape), while the two motility-active modes fluctuate
+anomalously, $\zeta = 0.79$ (motility-only) and $0.82$
+(double-adaptive), both straddling the polar-flock
+prediction. Giant number fluctuations are an independent
+collective confirmation that only the motility-active modes
+phase separate --- the same split the susceptibility slope
+and $s_{\rm sep}$ already drew, now read off the density
+fluctuations directly.
+
 
 \subsubsection{Direct visualisation in real space}
 
-The next question is how motility-only and double-adaptive
-differ on individual configurations across the order--disorder
-window. We run both at $L = 30$, $N = 2000$, single seed,
-$3000$ warm-up steps, at three noise levels
-(Fig.~\ref{fig:snapshot}).
-
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=0.95\linewidth]{fig_double_snapshot.pdf}
-    \caption{Real-space configurations at $L = 30$, $N = 2000$,
-    after $3000$ warm-up steps, single seed, on a cream
-    background. Top row: motility only. Bottom row:
-    double-adaptive. Columns left to right: $\eta = 0.020$
-    (deeply ordered), $\eta = 0.10$ (near-critical),
-    $\eta = 0.30$ (deeply disordered). Each particle is drawn
-    as an arrow coloured by its instantaneous local speed
-    $v_i$ on a navy--mauve--vermillion colormap (shared
-    colorbar on the right); a $5 \times 5$ zoom inset on the
-    densest sub-region accompanies each panel.}
-    \label{fig:snapshot}
-\end{figure}
-
+Returning to the real-space snapshots introduced above
+(Fig.~\ref{fig:snapshot}), we read off the two microscopic
+contrasts quantitatively.
 Deep in the ordered phase at $\eta = 0.020$ the two modes are
 almost indistinguishable, with $\langle\varphi\rangle = 0.78$
 and $0.83$ respectively. At near-critical $\eta = 0.10$ the
@@ -548,57 +590,65 @@ nowhere else.
 The single working point used so far ($n_\star = 3$, $s = 2$)
 sets the strength of both feedbacks. To check whether the
 contrast extends to the whole plane we sweep $n_\star$ and
-$s$ on a $5 \times 4$ grid at $L = 22$, two seeds, with a
-five-point $\eta$ sub-grid resolving the peaks
-(Fig.~\ref{fig:plane}).
+$s$ on a $13 \times 13$ grid, three seeds, with a five-point
+$\eta$ sub-grid resolving the peaks, at three system sizes
+$L \in \{30, 90, 128\}$ (Fig.~\ref{fig:plane}).
 
-\begin{figure}[!ht]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.92\linewidth]{fig_double_plane.pdf}
-    \caption{Behavioural-parameter plane of the
-    double-adaptive model at $L = 22$, two seeds, five-point
-    eta sub-grid. Panel (a) shows the susceptibility peak
-    $\chi_{\max}$, panel (b) the density-separation index
-    $s_{\rm sep}$. Cell labels report numerical values.}
+    \includegraphics[width=0.76\linewidth]{fig_double_plane.pdf}
+    \caption{Behavioural $(n_\star, s)$ plane of the
+    double-adaptive model, one row per system size
+    $L \in \{30, 90, 128\}$ from top to bottom. Left column:
+    the susceptibility peak $\chi_{\max}$; right column: the
+    density-separation index $s_{\rm sep}$. Every row uses the
+    same $13 \times 13$ grid, five-point $\eta$ sub-grid and three
+    seeds; the colour fields are Gouraud-shaded on the
+    navy--mauve--vermillion snapshot colormap so the maps read
+    as continuous. The threshold $n_\star$ axis is labelled on the
+    left column and the slope $s$ axis on the bottom row only;
+    panels are tagged (a)--(f). Cohesion (high $s_{\rm sep}$) and
+    criticality (high $\chi_{\max}$) peak on different cells of the
+    plane, and both features persist from $L = 30$ to $L = 128$.}
     \label{fig:plane}
 \end{figure}
 
-In the upper rectangle $n_\star \ge 5$ the index falls back
-to $s_{\rm sep} \simeq 1.50$: the threshold sits past the
-typical occupancy $\bar n_i \simeq \sigma\pi(R_a^2 - R_r^2)
-\simeq 1.7$ and neither feedback engages. In the lower
-rectangle $n_\star \le 3$ with $s \ge 5$ the index climbs to
-$s_{\rm sep} = 1.84$--$1.87$ and peaks at $(n_\star, s) =
-(3, 10)$. The cohesion gain covers the entire MIPS-active
-corner rather than sitting on a knife-edge cell. The
-susceptibility map in panel (a) is noisier at two seeds, so
-we re-sweep the same plane at $L = 30$ with five seeds.
-
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=0.92\linewidth]{fig_double_plane_L30.pdf}
-    \caption{Refined behavioural plane at $L = 30$ with five
-    seeds. Panel (a) reports the susceptibility peak
-    $\chi_{\max}$, panel (b) the density-separation index
-    $s_{\rm sep}$.}
-    \label{fig:plane_L30}
-\end{figure}
-
-The refined density-separation panel preserves the $L = 22$
-structure: $n_\star \ge 5$ falls back to $s_{\rm sep} \le
-1.49$, while $n_\star \le 3$ with $s \ge 5$ reaches
-$1.68$--$1.76$ and peaks at $(2, 10)$. The susceptibility map
-no longer co-localises. The brightest cell moves down to the
-$n_\star = 1$ row and peaks at $(1, 10)$ with $\chi_{\max} =
-31.9$; the whole $n_\star \le 2$ rectangle is brighter than
-the $n_\star = 3$ row, and the $\chi_{\max}$ peak sits where
-$s_{\rm sep}$ has dropped to $1.48$. Cohesion and
+At $L = 30$ the density-separation map (panel (b)) falls back in
+the upper rectangle $n_\star \ge 5$ to $s_{\rm sep} \simeq 1.5$:
+the threshold sits past the typical occupancy
+$\bar n_i \simeq \sigma\pi(R_a^2 - R_r^2) \simeq 1.7$ and neither
+feedback engages. In the low-threshold band $n_\star \lesssim
+3.5$ with $s \gtrsim 5$ the index climbs to
+$s_{\rm sep} \approx 2.0$ and peaks at
+$(n_\star, s) \approx (3.3, 8.5)$, so the cohesion gain covers
+the entire MIPS-active corner rather than sitting on a
+knife-edge cell. The susceptibility map (a) does not
+co-localise: the brightest cell sits on the $n_\star = 1$ row
+and peaks at $(n_\star, s) \approx (1, 4.75)$ with
+$\chi_{\max} = 46$; the whole $n_\star \le 2$ rectangle
+($\langle\chi\rangle \approx 16$) is brighter than the
+$n_\star \simeq 3$ row ($\approx 12$), and the $\chi_{\max}$
+peak sits where $s_{\rm sep}$ has dropped to $1.48$. Cohesion and
 susceptibility therefore optimise on different cells: the
 susceptibility peaks where the threshold sits below typical
 occupancy and the rectification fires almost everywhere
 (washing out the dense--dilute asymmetry), while $s_{\rm sep}$
 peaks where the threshold bridges typical occupancy and the
 rectification stays selective for the dense phase.
+
+Extending the sweep to $L = 90$ and $L = 128$ (panels (c)--(f))
+shows that both features survive at larger scales. The
+susceptibility ridge stays pinned to the $n_\star = 1$ row and
+its peak climbs several-fold above the $L = 30$ value
+($\chi_{\max} = 46$), reaching $\chi_{\max} = 136$ at $L = 90$
+and $104$ at $L = 128$ as expected for a critical response,
+while the density-separation maximum stays in the
+low-threshold band $n_\star \lesssim 4$, peaking at
+$s_{\rm sep} = 1.94$ ($L = 90$) and $1.82$ ($L = 128$) with the
+$n_\star \ge 5$ rectangle still suppressed near
+$s_{\rm sep} \simeq 1.2$. The cohesion gain and its decoupling
+from the susceptibility peak are therefore not finite-size
+artefacts of the small survey boxes.
 
 \subsubsection{\texorpdfstring{Fine-$L$ scan of the transient advantage}{Fine-L scan of the transient advantage}}
 
@@ -607,7 +657,7 @@ We add five intermediate sizes $L \in \{38, 50, 60, 75,
 to track the $s_{\rm sep}$ gap between the seven FSS nodes
 (Fig.~\ref{fig:Lfine_gap}).
 
-\begin{figure}[!ht]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.92\linewidth]{fig_double_Lfine_gap.pdf}
     \caption{Twelve-size $s_{\rm sep}$ scan combining the
@@ -615,7 +665,10 @@ to track the $s_{\rm sep}$ gap between the seven FSS nodes
     intermediate sizes $L \in \{38, 50, 60, 75, 105\}$ (five
     seeds). Panel (a): $s_{\rm sep}^{\max}$ vs $L$ for
     motility-only and double-adaptive. Panel (b): the gap
-    $s_{\rm sep}^{\rm full}(L) - s_{\rm sep}^{\rm motility}(L)$.}
+    $s_{\rm sep}^{\rm full}(L) - s_{\rm sep}^{\rm motility}(L)$. The
+    double-adaptive surplus is significant in an intermediate-$L$
+    window (sharpest near $L = 64$) rather than growing monotonically
+    with size.}
     \label{fig:Lfine_gap}
 \end{figure}
 
@@ -664,16 +717,22 @@ $\langle\varphi\rangle$ on long trajectories at $L = 30$,
 $N = 2000$, three seeds, $6000$ measurement steps each, for
 the motility-only ablation at $\eta = 0.10$ and the
 double-adaptive model at $\eta = 0.15$
-(Fig.~\ref{fig:orderpdf}). Both histograms come out unimodal.
+(Fig.~\ref{fig:orderpdf}a). Both histograms come out unimodal.
 
-\begin{figure}[!ht]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.92\linewidth]{fig_double_orderpdf.pdf}
-    \caption{Histograms of $\langle\varphi\rangle$ at $L = 30$,
-    $N = 2000$, three seeds, $6000$ measurement steps each.
-    Panel (a): motility-only ablation at the near-critical
-    $\eta = 0.10$. Panel (b): double-adaptive model at
-    $\eta = 0.15$.}
+    \includegraphics[width=0.95\linewidth]{fig_double_orderpdf.pdf}
+    \caption{Order-parameter distribution
+    $P(\langle\varphi\rangle)$ with motility-only and
+    double-adaptive overlaid, one panel per size:
+    (a) $L = 30$, (b) $L = 64$, (c) $L = 90$, (d) $L = 128$
+    (motility at $\eta = 0.10$, double-adaptive at $\eta = 0.15$).
+    Each panel is normalised to its own peak and shares the
+    vertical scale. Dashed lines mark the per-mode means; each
+    panel reports the mean gap $\Delta$ and the full-mode Binder
+    cumulant $U_4$. $P(\langle\varphi\rangle)$ stays single-peaked at
+    every size, so the deepened Binder dip is not a coexistence
+    signature.}
     \label{fig:orderpdf}
 \end{figure}
 
@@ -691,28 +750,44 @@ size.
 
 Rerunning the histograms at $L = 64, 90$ (five seeds,
 $6\,000$ steps) and at $L = 128$ (five seeds, $60\,000$
-steps), the double-adaptive distribution sits to the right
-of motility-only at every size: $\Delta\langle\varphi\rangle
-= +0.145, +0.048, +0.121$ at $L = 64, 90, 128$ (the $L = 90$
-row is a seed-budget outlier already seen in $s_{\rm sep}$).
-The full-mode $U_4$ stays in $[0.57, 0.62]$ and the
-distributions broaden into mildly platykurtic shapes at
-$L = 128$ ($\kappa = -0.27$ for motility, $-0.20$ for full)
-without developing two-peak structure.
-$P(\langle\varphi\rangle)$ remains unimodal across all four
-sizes.
+steps) in panels (b)--(d), the double-adaptive distribution
+sits to the right of motility-only at every size:
+$\Delta\langle\varphi\rangle = +0.145, +0.048, +0.121$ at
+$L = 64, 90, 128$ (the $L = 90$ row is a seed-budget outlier
+already seen in $s_{\rm sep}$). The full-mode $U_4$ stays in
+$[0.57, 0.62]$ and the distributions broaden into mildly
+platykurtic shapes at $L = 128$ ($\kappa = -0.27$ for
+motility, $-0.20$ for full) without developing two-peak
+structure. $P(\langle\varphi\rangle)$ remains unimodal across
+all four sizes.
 
-\begin{figure}[!ht]
+\subsubsection{Hysteresis across the transition}
+\label{sec:hysteresis}
+
+The unimodal $P(\langle\varphi\rangle)$ and the ambiguous
+$U_4$ dip leave the order of the transition unsettled. A
+hysteresis test settles it. We ramp $\eta$ quasi-statically
+up and then back down at $L = 64$, five seeds, carrying the
+configuration over from one step to the next (no
+re-randomisation), for the two motility-active modes
+(Fig.~\ref{fig:hysteresis}). The up- and down-ramp
+$\varphi(\eta)$ branches overlap within error bars, and the
+loop area is negligible --- $0.006$ for motility-only,
+$0.000$ for the double-adaptive model. A first-order
+transition would open a finite loop; its absence, with the
+unimodal $P(\langle\varphi\rangle)$, places the transition in
+the continuous (or at most very weakly first-order) class.
+
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.95\linewidth]{fig_double_orderpdf_largeL.pdf}
-    \caption{Histograms of $\langle\varphi\rangle$ at
-    $L = 64, 90$ (five seeds, $6\,000$ steps) and at
-    $L = 128$ (five seeds, $60\,000$ steps), motility-only at
-    $\eta = 0.10$ and double-adaptive at $\eta = 0.15$.
-    Vertical dashed lines mark the per-mode means; gaps are
-    $+0.145, +0.048, +0.121$ at $L = 64, 90, 128$ ($L = 90$
-    is a seed-budget outlier).}
-    \label{fig:orderpdf_largeL}
+    \includegraphics[width=0.6\linewidth]{fig_double_hysteresis.pdf}
+    \caption{Quasi-static $\eta$ ramp up (filled circles, solid)
+    and down (open squares, dashed) at $L = 64$, five seeds, for
+    all four modes overlaid. Hue keys the mode. The up- and
+    down-ramp branches overlap for every mode and the loop areas
+    are negligible ($\leq 0.006$), consistent with a continuous
+    transition.}
+    \label{fig:hysteresis}
 \end{figure}
 
 \subsubsection{Time-averaged density profile along the polar axis}
@@ -726,15 +801,18 @@ measure $b$ for all four heavy-tailed modes at their
 near-critical $\eta$, $L = 30$, three seeds, $4000$
 measurement steps (Fig.~\ref{fig:profile}).
 
-\begin{figure}[!ht]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{fig_double_profile.pdf}
-    \caption{Time-averaged density (top row) and mean local
-    speed (bottom row) along the instantaneous polar-flow axis
-    $x_\parallel$ at $L = 30$, three seeds, $4000$ measurement
-    steps. The four columns are the four modes at their
-    respective near-critical $\eta$ values. The band-soliton
-    index $b$ is reported in each panel title.}
+    \caption{Time-averaged profiles along the instantaneous
+    polar-flow axis $x_\parallel$ at $L = 30$, three seeds,
+    $4000$ measurement steps, with the four modes overlaid at
+    their respective near-critical $\eta$. Panel (a): density
+    normalised to its peak, with the band-soliton index $b$ per
+    mode in the legend. Panel (b): local speed normalised to its
+    peak. Every profile is flat ($b \simeq 1$), so the
+    motility-built dense phase is an isotropic comoving patch, not a
+    travelling Vicsek band.}
     \label{fig:profile}
 \end{figure}
 
@@ -787,40 +865,48 @@ four-point core) on the top-density quartile ranks the modes
 consistently and confirms the full mode carries the larger
 maximum cluster; we keep the grid-threshold counts here and
 ship DBSCAN with the code. Ten seeds at $L = 30$ separate
-the four modes (Figs.~\ref{fig:clusters},~\ref{fig:cluster_map}).
+the four modes (Figs.~\ref{fig:cluster_summary},~\ref{fig:cluster_map}).
 
-\begin{figure}[!ht]
+
+\begin{figure*}[htbp]
     \centering
-    \includegraphics[width=0.7\linewidth]{fig_double_clusters.pdf}
-    \caption{Cluster summary statistics per mode at $L = 30$,
-    $N = 2000$, ten seeds. Panels (a)--(c) report the
-    seed-averaged cluster count, maximum size and mean size,
-    each with $\pm 1$ SE bars. The two reference modes sit
-    near the threshold floor; motility-only fragments the
-    dense phase into many medium clusters; the
-    double-adaptive model concentrates the same mass into a
-    few large droplets ($\langle s_{\max}\rangle = 177$ vs
-    $55$).}
-    \label{fig:clusters}
-\end{figure}
+    \includegraphics[width=0.95\linewidth]{fig_double_cluster_summary.pdf}
+    \caption{Dense-phase structure across the four modes at
+    $L = 30$, ten seeds. Panels (a)--(c): seed-averaged cluster
+    count, maximum size and mean size, each with $\pm 1$ SE bars
+    --- the two reference modes sit near the threshold floor,
+    motility-only fragments the dense phase into many medium
+    clusters, and the double-adaptive model concentrates the same
+    mass into a few large droplets ($\langle s_{\max}\rangle = 177$
+    vs $55$). Panel (d): number fluctuations
+    $\mathrm{Var}(N_{\rm box})$ versus $\langle N_{\rm box}\rangle$
+    with the fitted exponent $\zeta$ (dashed Poisson reference).
+    Panel (e): dense-phase cluster-size distribution $P(s)$, hue
+    keying the mode and line style the noise level
+    $\eta \in \{0.02, 0.05, 0.10, 0.20\}$ (solid to dotted for
+    increasing $\eta$). Only the motility-active modes phase
+    separate, and the noise-shape rectification redistributes that
+    dense mass into fewer, larger droplets.}
+    \label{fig:cluster_summary}
+\end{figure*}
 
-\begin{figure}[!ht]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{fig_double_cluster_map.pdf}
     \caption{Real-space cluster identification at the
-    near-critical point, $L = 30$, $N = 2000$, single seed, on
-    a cream background. Particles in dense bins (above $1.5$
-    times the median bin occupancy on a $10 \times 10$ grid)
-    are drawn as arrows carrying the colour of the
-    connected-component cluster they belong to; particles in
-    dilute bins are grey. The dense bins are overlaid as a
-    light ochre shading, and each panel carries a $5 \times 5$
-    zoom inset on its densest sub-region. Left: motility-only
-    ablation, with many small-to-medium dense clusters
-    scattered across the box. Right: double-adaptive model,
-    with the same total dense area concentrated into one or
-    two large droplets.}
-    \label{fig:cluster_map}
+    near-critical point, single seed, for motility-only (top row)
+    and double-adaptive (bottom row) across system sizes
+    $L \in \{30, 90, 128\}$ (columns, panels (a)--(f)). Particles
+    in dense bins (above $1.5$ times the median bin occupancy on a
+    $10 \times 10$ grid) are drawn as arrows carrying the colour of
+    the connected-component cluster they belong to; particles in
+    dilute bins are grey. The dense bins are overlaid as a light
+    ochre shading, and each panel carries a zoom inset on its
+    densest sub-region. The motility-only model fragments the dense
+    phase into many small-to-medium clusters, whereas the
+    double-adaptive model concentrates the same dense area into one
+    or two large droplets at every size.}
+        \label{fig:cluster_map}
 \end{figure}
 
 The Cauchy and noise-shape modes give only marginal density
@@ -836,6 +922,35 @@ significant) and on max size by $+121.6 \pm 45.2$
 few large clusters at conserved total dense area
 (Fig.~\ref{fig:cluster_map}). Max size is the meaningful
 diagnostic here; the cluster count carries no clean signal.
+
+The dense-phase cluster-size distribution $P(s)$ sharpens the
+same reading (same $10 \times 10$, $1.5\times$-median dense-bin
+definition as Fig.~\ref{fig:cluster_summary}; ten seeds, $L = 30$),
+resolved here across the noise window
+$\eta \in \{0.02, 0.05, 0.10, 0.20\}$ for every mode
+(Fig.~\ref{fig:cluster_summary}e). The bare contact graph is useless
+here, since it percolates at $\sigma = 2.22$ with
+$s_{\max}/N \simeq 0.9$ in every mode and cannot discriminate.
+On the dense bins, the two fixed-speed references never develop
+a dense-phase tail: from deep order to disorder their
+giant-cluster fraction stays pinned at the binning floor
+($\langle s_{\max}/N\rangle \simeq 0.001$--$0.002$) and no power
+law can be fitted, so the Vicsek band instability at
+$\sigma = 2.22$ is too weak to nucleate a dense phase once the
+motility channel is switched off. The motility-active modes
+instead carry a heavy-tailed dense phase throughout: the
+motility-only tail runs from $\tau \simeq 1.9$ down to $1.5$ as
+$\eta$ climbs from $0.02$ to $0.20$ with its giant-cluster
+fraction growing from $0.002$ to $0.011$, while the
+double-adaptive mode, which needs a little noise to seed the
+density contrast, overtakes it at higher $\eta$ and reaches
+$\langle s_{\max}/N\rangle = 0.023$ at $\eta = 0.20$. At their
+near-critical operating points the double-adaptive tail is the
+steeper of the two ($\tau = 2.01$ against $1.74$) with a
+$2.6$-fold larger giant-cluster fraction ($0.018$ versus
+$0.007$), the binodal-like signature of mass concentrated into
+a few large droplets. This makes the qualitative ``fewer,
+larger droplets'' reading of the cluster map quantitative.
 
 \subsubsection{\texorpdfstring{Heading correlation $g(r)$ in dense and dilute regions}{Heading correlation in dense and dilute regions}}
 \label{sec:gr}
@@ -856,13 +971,20 @@ the local-density field $\rho_i = \#\{j : |\mathbf x_j -
 \mathbf x_i| < 1\}$; partner $j$ ranges over the whole box
 (Fig.~\ref{fig:gr}).
 
-\begin{figure}[!ht]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.92\linewidth]{fig_double_gr.pdf}
-    \caption{Heading correlation $g(r)$ in the dense (top
-    quartile) and dilute (bottom quartile) regions of each
-    heavy-tailed mode at the near-critical $\eta$, $L = 30$,
-    $N = 2000$, three seeds, six snapshots per seed.}
+    \includegraphics[width=0.95\linewidth]{fig_double_gr.pdf}
+    \caption{Density-stratified heading correlation $g(r)$ at
+    near-critical $\eta$, $L = 30$, ten seeds. Panel (a): dense
+    (top quartile) and panel (b): dilute (bottom quartile)
+    correlation for the four heavy-tailed modes, with seed-level
+    error bands. Panel (c): the dense-quartile gap $\Delta g(r)$
+    between double-adaptive and motility-only over
+    $r \in [0.5, 6]$ at $L \in \{30, 64, 90, 128\}$. The dense-quartile
+    correlation is the rectification's sharpest fingerprint ---
+    positive for the motility-active modes, negative for the
+    references --- and the double-adaptive gap survives all four
+    sizes.}
     \label{fig:gr}
 \end{figure}
 
@@ -890,7 +1012,7 @@ $g(r)$ is the diagnostic whose two-feedback signature
 survives all four sizes.
 
 Extending the comparison to the full $r \in [0.5, 6]$ profile
-on the same ten-seed budget (Fig.~\ref{fig:gr_decay}),
+on the same ten-seed budget (Fig.~\ref{fig:gr}c),
 $\Delta g(r)$ is not a short-range fingerprint that decays
 with $r$. Its inner-range mean $r \in (0.5, 1.5)$ sits at
 $+0.150, +0.152, +0.131, +0.113$ for $L = 30, 64, 90, 128$,
@@ -899,18 +1021,6 @@ while its outer-range mean $r > 3$ climbs to $+0.181, +0.184,
 cutoff $R_a = 0.7$ as it is inside it, and slightly larger:
 the rectification imposes a long-range coherence on the dense
 phase that survives well past the metric interaction range.
-
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=0.7\linewidth]{fig_double_gr_decay.pdf}
-    \caption{Dense-quartile correlation gap
-    $\Delta g(r) = g_{\rm full}(r) - g_{\rm motility}(r)$ vs
-    distance, ten seeds, $L \in \{30, 64, 90, 128\}$. Shaded
-    bands: $\pm 1$ seed-level SE. The gap plateaus near
-    $0.11$--$0.18$ across $r \in [0.5, 6]$ and rises mildly
-    beyond $R_a = 0.7$.}
-    \label{fig:gr_decay}
-\end{figure}
 
 \subsubsection{\texorpdfstring{Dynamic counterpart: heading autocorrelation $C(\tau)$}{Dynamic counterpart: heading autocorrelation C(tau)}}
 \label{sec:autocorr}
@@ -947,7 +1057,7 @@ t-statistic at nine d.o.f.\ saturates beyond a few sigmas; we
 therefore report bootstrap CIs. The dilute gap is a few
 percent and its CI brackets zero past $\tau \simeq 100$.
 
-\begin{figure}[!ht]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{fig_double_autocorr.pdf}
     \caption{Density-stratified per-particle heading
@@ -956,7 +1066,9 @@ percent and its CI brackets zero past $\tau \simeq 100$.
     $\eta$, $\pm 1$ seed-level SE bands. Panel (b): gap
     $\Delta C(\tau) = C_{\rm full} - C_{\rm motility}$ in the
     dense and dilute quartiles, bootstrap $95\%$ CIs as
-    bands.}
+    bands. The full-minus-motility dense gap is a near-constant
+    positive offset that persists to lags far beyond the polar-order
+    correlation time.}
     \label{fig:autocorr}
 \end{figure}
 
@@ -965,7 +1077,7 @@ The dense-phase plateau matches the $\Gamma \sim
 the gap is exactly the effect of switching $\alpha$ from $1$
 to $2$ inside the dense phase built by the motility channel.
 The dense $g(r)$ captured the static counterpart in
-Fig.~\ref{fig:gr_decay}; $C(\tau)$ extends it to the
+Fig.~\ref{fig:gr}c; $C(\tau)$ extends it to the
 single-particle dynamic at lags well beyond the polar-order
 correlation time.
 
@@ -994,19 +1106,32 @@ $\eta = 0.15$, we record the seed-paired gap
 $\Delta g(r \!\simeq\! 0.6) = g_{\rm full}^{\rm decoupled}
 - g_{\rm motility}$ (Fig.~\ref{fig:decoupled_2d}).
 
-\begin{figure}[!ht]
+\begin{figure*}[htbp]
     \centering
-    \includegraphics[width=0.95\linewidth]{fig_double_decoupled_2d.pdf}
-    \caption{Decoupled-sigmoid threshold sweep at $L = 30$,
-    ten seeds per cell. Panel (a): $25$-cell heatmap of the
-    paired gap $\Delta g(r\!\simeq\!0.6) = g_{\rm full}^{\rm
-    decoupled} - g_{\rm motility}$; grey dashed line marks
-    $n_\star^v = n_\star^\alpha$. Panel (b): same gap vs
-    $n_\star^v$, colour-coded by $n_\star^\alpha$. The
-    $n_\star^v$-only fit reaches $R^2 = 0.88$;
-    $n_\star^\alpha$ alone, $R^2 = 0.04$.}
+    \includegraphics[width=0.98\linewidth]{fig_double_decoupled_2d.pdf}
+    \caption{Decoupled-sigmoid dissection of the alignment gap
+    $\Delta g(r\!\simeq\!0.6) = g_{\rm full}^{\rm decoupled} -
+    g_{\rm motility}$ at $L = 30$, ten seeds per cell, in a
+    $2 \times 3$ grid. (a) Continuous heatmap of $\Delta g$ on the
+    $(n_\star^\alpha, n_\star^v)$ plane (grey dashed line
+    $n_\star^v = n_\star^\alpha$). (b) $\Delta g$ vs $n_\star^v$
+    colour-coded by $n_\star^\alpha$; the $n_\star^v$-only fit
+    reaches $R^2 = 0.88$ against $R^2 = 0.04$ for $n_\star^\alpha$
+    alone. (c) Density-scaling test: $\Delta g(n_\star^v)$ at four
+    densities $\sigma \in \{1.0, 1.5, 2.22, 3.0\}$
+    ($n_\star^\alpha = 3$ fixed). (d) Metric- and (e)
+    topological-kernel ($k = 4$) heatmaps at $\sigma = 2.22$,
+    matched colour scale. (f) Critical threshold
+    $n^{v,\,{\rm crit}}_\star(\sigma) = -0.73\,\sigma + 5.81$
+    ($R^2 = 0.97$; dotted line, mean-density prediction $A\sigma$).
+    The three Gouraud-shaded heatmaps (a, d, e) occupy the top row
+    on a single shared colour scale with one vertical $\Delta g$
+    colorbar at the right; the curves (b, c, f) sit on the bottom
+    row. The sign of the gap is set by the motility threshold
+    $n_\star^v$ alone and only for the metric kernel, identifying the
+    rectification as a metric, motility-driven effect.}
     \label{fig:decoupled_2d}
-\end{figure}
+\end{figure*}
 
 The map splits the quadrant into two horizontal bands,
 separated not by the diagonal but by a critical motility
@@ -1054,7 +1179,7 @@ $\sigma \in \{1.0, 1.5, 3.0\}$ (plus $\sigma = 2.22$),
 $n_\star^\alpha = 3$ fixed, ten seeds, and reading off the
 zero crossing of $\Delta g(n_\star^v) \simeq a(\sigma)\,
 n_\star^v + b(\sigma)$. Per-density fits all reach
-$R^2 \ge 0.86$ (Fig.~\ref{fig:sigma_sweep}) and
+$R^2 \ge 0.86$ (Fig.~\ref{fig:decoupled_2d}b) and
 \begin{equation}
 n_\star^{v,{\rm crit}}(\sigma)
    = -0.73\,\sigma + 5.81,
@@ -1090,21 +1215,6 @@ refuted. A refined picture would make the threshold depend
 on how long the densest particles spend above it during
 consolidation; we leave that theory open.
 
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=0.95\linewidth]{fig_double_sigma_sweep.pdf}
-    \caption{Density-scaling test. Panel (a):
-    $\Delta g(r\!\simeq\!0.6)$ vs $n_\star^v$ at four
-    densities $\sigma \in \{1.0, 1.5, 2.22, 3.0\}$ (ten seeds,
-    $n_\star^\alpha = 3$ fixed, $L = 30$), per-density weighted
-    linear fits. Panel (b): critical threshold
-    $n^{v,\,{\rm crit}}_\star(\sigma)$ extracted at the sign
-    crossing. The weighted fit gives
-    $n^{v,\,{\rm crit}}_\star = -0.73\,\sigma + 5.81$
-    ($R^2 = 0.97$); the dotted line is the mean-density
-    prediction $A\sigma$ ($+0.75$).}
-    \label{fig:sigma_sweep}
-\end{figure}
 
 \label{sec:decoupled-topo}
 Metric alignment conflates two roles: the sigmoid input
@@ -1114,20 +1224,10 @@ two apart with the topological variant of
 $k$ nearest non-repulsion neighbours while the sigmoid
 input stays the metric annulus count.
 
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=0.95\linewidth]{fig_double_decoupled_2d_metric_vs_topo.pdf}
-    \caption{Alignment-kernel comparison of the 2D
-    decoupled-sigmoid map at $L = 30$, $\sigma = 2.22$, ten
-    seeds. Panel (a): metric (matched colour scale to
-    Fig.~\ref{fig:decoupled_2d}). Panel (b): topological with
-    $k = 4$. Grey dashed line: $n_\star^v = n_\star^\alpha$.}
-    \label{fig:decoupled_2d_topo}
-\end{figure}
 
 Re-running the $25$-cell map at $L = 30$, $\sigma = 2.22$
 with $k = 4$ gives the heatmap of
-Fig.~\ref{fig:decoupled_2d_topo}b. The two-band structure
+Fig.~\ref{fig:decoupled_2d}c. The two-band structure
 softens. The linear fit on $n_\star^v$ alone now captures
 $R^2 = 0.68$ (was $0.88$), while the $n_\star^\alpha$ fit
 climbs to $R^2 = 0.43$ (was $0.04$). The bivariate fit
@@ -1299,12 +1399,12 @@ excluding zero at $n = 4, 5$; at $n = 6, 7$ the interval
 widens because the motility slope itself carries a wide
 bootstrap dispersion ($[+1.60, +3.04]$), but the point
 estimate stays positive. The non-monotonic drop from
-$\Delta_5 = +1.45$ to $\Delta_6 = +0.46$ tracks the slowing
+$\Delta_5 = +1.45$ to $\Delta_6 = +0.46$ tracked the slowing
 of the full $\chi_{\max}$ at $L = 90$, where the largest
-seed-level fluctuations sit; higher statistics at $L = 90$
-would tell whether $\Delta_6$ stabilises near $+0.5$ or
-drifts toward the asymptotic estimate $a_{\rm full} -
-a_{\rm motility} \simeq +0.6$. Controlled runs at $L = 180$
+seed-level fluctuations sit; a ten-seed rerun at $L = 90$
+removes the dip, lifting $\Delta_6$ to $+0.94$, so the
+trajectory is monotonically positive once that node is
+properly sampled. Controlled runs at $L = 180$
 or $L = 256$ would resolve the residual $\Delta_n$, tell
 whether the dense $g(r)$ signal plateaus near $+0.15$, and
 tell whether $P(\langle\varphi\rangle)$ eventually narrows.
