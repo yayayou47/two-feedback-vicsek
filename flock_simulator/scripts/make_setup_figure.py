@@ -271,10 +271,10 @@ def _evolve(pos_i, th_i, pos_j, th_j):
 
 def _render_frame(ax, pos_i, th_i, pos_j, th_j, labels):
     _draw_zones(ax)
-    _particle(ax, pos_i, th_i, color=FOCAL_RED, ss=156, al=0.415, lw=3.72,
+    _particle(ax, pos_i, th_i, color=FOCAL_RED, ss=156, al=0.664, lw=3.72,
               label=r"$i$", loff=(0.07, -0.30), fs=15)
     for pos, th, lab in zip(pos_j, th_j, labels):
-        _particle(ax, pos, th, color=PARTICLE_BLUE, ss=72, al=0.290, lw=2.30,
+        _particle(ax, pos, th, color=PARTICLE_BLUE, ss=72, al=0.464, lw=2.30,
                   label=lab, loff=(0.06, 0.09), fs=12)
 
 
