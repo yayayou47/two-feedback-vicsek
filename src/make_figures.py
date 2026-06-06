@@ -523,9 +523,9 @@ def fig_double_snapshot(npz_path: Path):
                                  gridspec_kw={"wspace": 0.05,
                                               "hspace": 0.18})
         last_q = None
-        # Display the noise cases right-to-left in data order, i.e.
-        # disordered -> near-critical -> ordered across the columns.
-        case_order = list(range(nc))[::-1]
+        # Columns left to right in data order: ordered -> near-critical
+        # -> disordered.
+        case_order = list(range(nc))
         for iL in range(n_L):
             for jc, ic in enumerate(case_order):
                 for im in range(nm):
