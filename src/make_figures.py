@@ -492,8 +492,28 @@ def fig_double_pilot(npz_path: Path):
     axes[0, 0].legend(handles=handles, loc="lower left", fontsize=6,
                       frameon=True, framealpha=0.9, handlelength=1.2,
                       borderpad=0.3, labelspacing=0.3)
-    fig.subplots_adjust(left=0.07, right=0.97, top=0.94, bottom=0.07,
-                        wspace=0.22, hspace=0.28)
+    fig.subplots_adjust(left=0.08, right=0.96, top=0.93, bottom=0.07,
+                        wspace=0.42, hspace=0.40)
+    # Enclosing "card" frame around each of the six subfigures (the
+    # data axes plus their title, ticks and axis labels), drawn on the
+    # cream background like Fig. 1. Read from each panel's tight bbox so
+    # the box hugs the whole subfigure; panel (f) unions its twin axis.
+    from matplotlib.patches import Rectangle as _Rect
+    from matplotlib.transforms import Bbox as _Bbox
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    inv = fig.transFigure.inverted()
+    pad = 0.010
+    twin_of = {id(axes[1, 2]): ax2}
+    for a in axes.ravel():
+        bb = a.get_tightbbox(renderer)
+        if id(a) in twin_of:
+            bb = _Bbox.union([bb, twin_of[id(a)].get_tightbbox(renderer)])
+        (x0, y0), (x1, y1) = inv.transform(bb)
+        fig.add_artist(_Rect((x0 - pad, y0 - pad),
+                             (x1 - x0) + 2 * pad, (y1 - y0) + 2 * pad,
+                             transform=fig.transFigure, fill=False,
+                             edgecolor="#333333", lw=0.9, zorder=0))
     _save(fig, "fig_double_pilot.pdf")
 
 
@@ -573,8 +593,8 @@ def fig_double_snapshot(npz_path: Path):
                             fr"$\langle\varphi\rangle="
                             fr"{phi[iL, im, ic]:.2f}$",
                             transform=ax.transAxes, fontsize=6,
-                            ha="left", va="top",
-                            bbox=dict(facecolor="white", alpha=0.7,
+                            fontweight="bold", ha="left", va="top",
+                            bbox=dict(facecolor=style.CREAM, alpha=0.9,
                                       edgecolor="none", pad=1))
         fig.tight_layout(rect=(0.0, 0.0, 0.96, 0.93), w_pad=0.25,
                          h_pad=0.4)
