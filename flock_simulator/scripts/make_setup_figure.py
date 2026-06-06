@@ -55,6 +55,7 @@ R_A = 0.7 * 1.2
 V_VIS = 0.40                        # visualisation step (v1 value)
 
 FIGSIZE = (5.4, 4.4)               # exact version-1 per-panel figsize
+AXRECT = (0.16, 0.17, 0.70, 0.70)  # shared frame box for (a),(b),(c)
 
 
 def _save(fig, name, crop=True):
@@ -134,13 +135,16 @@ def fig_geometry():
               label=r"Repulsion ($d<R_r$)"),
         Patch(facecolor=ALI_COLOR, alpha=0.55, edgecolor="#3a4a78",
               label=r"Alignment ($R_r \leq d < R_a$)"),
-    ], loc="upper right", fontsize=12, framealpha=0.92)
+    ], loc="lower left", fontsize=12, framealpha=0.92)
 
     ax.set_xlim(-1.86, 1.86); ax.set_ylim(-1.44, 1.44)
-    ax.set_aspect("equal")
+    # datalim-adjustable equal aspect keeps the frame box at AXRECT
+    # (matching b, c) while expanding the view to contain all content.
+    ax.set_aspect("equal", adjustable="datalim")
     ax.set_xticks([]); ax.set_yticks([])
-    ax.set_title(r"(a) Two-zone update", fontsize=20.25)
-    fig.tight_layout()
+    ax.text(0.5, 0.965, r"(a) Two-zone update", transform=ax.transAxes,
+            ha="center", va="top", fontsize=20.25, zorder=9)
+    ax.set_position(AXRECT)
     _save(fig, "fig_setup_geometry.pdf", crop=False)
 
 
@@ -162,9 +166,9 @@ def fig_noise():
     ax.set_ylim(1e-4, 1.0)
     ax.tick_params(labelsize=16.5)
     ax.legend(fontsize=18)
+    ax.set_position(AXRECT)
     fig.suptitle(r"(b) $\alpha$-stable noise pdfs",
                  fontsize=20.25, y=0.95)
-    fig.tight_layout(rect=(0.0, 0.0, 1.0, 0.90))
     _save(fig, "fig_setup_noise.pdf", crop=False)
 
 
@@ -196,8 +200,8 @@ def fig_sigmoid():
     l2, = ax.plot([], [], "-", color=A_GREEN, lw=2.2, label=r"$\alpha_i$")
     ax.legend(handles=[l1, l2], loc="center right", fontsize=18,
               framealpha=0.92)
+    ax.set_position(AXRECT); ax2.set_position(AXRECT)
     fig.suptitle(r"(c) Shared sigmoid", fontsize=20.25, y=0.95)
-    fig.tight_layout(rect=(0.0, 0.0, 1.0, 0.90))
     _save(fig, "fig_setup_sigmoid.pdf", crop=False)
 
 
@@ -248,10 +252,10 @@ def _evolve(pos_i, th_i, pos_j, th_j):
 
 def _render_frame(ax, pos_i, th_i, pos_j, th_j, labels):
     _draw_zones(ax)
-    _particle(ax, pos_i, th_i, color=FOCAL_RED, ss=156, al=0.54, lw=4.8,
+    _particle(ax, pos_i, th_i, color=FOCAL_RED, ss=156, al=0.346, lw=3.72,
               label=r"$i$", loff=(0.07, -0.30), fs=15)
     for pos, th, lab in zip(pos_j, th_j, labels):
-        _particle(ax, pos, th, color=PARTICLE_BLUE, ss=72, al=0.384, lw=3.12,
+        _particle(ax, pos, th, color=PARTICLE_BLUE, ss=72, al=0.242, lw=2.30,
                   label=lab, loff=(0.06, 0.09), fs=12)
 
 
@@ -263,7 +267,7 @@ def _rule_pair(title, pos_i, th_i, pos_j, th_j, labels, name, drift=False):
                                       gridspec_kw={"wspace": 0.04})
     for ax, lab in zip((ax_t, ax_tp), (r"$t$", r"$t + \delta t$")):
         ax.set_aspect("equal"); ax.set_xticks([]); ax.set_yticks([])
-        ax.set_xlim(-1.55, 1.55); ax.set_ylim(-1.45, 1.55)
+        ax.set_xlim(-1.29, 1.29); ax.set_ylim(-1.20, 1.30)
         ax.text(0.5, -0.05, lab, transform=ax.transAxes, ha="center",
                 va="top", fontsize=14, fontweight="bold")
     # Title +50% (13.5 -> 20.25) and pulled close to the frames.
