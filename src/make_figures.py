@@ -14,6 +14,14 @@ FIGS = HERE.parent / "figures"
 FIGS.mkdir(exist_ok=True)
 
 style.apply()
+# Cream figure background with neutral (white) panel interiors and
+# framed axes, applied uniformly to every figure in this module.
+plt.rcParams.update({
+    "figure.facecolor": style.CREAM,
+    "savefig.facecolor": style.CREAM,
+    "savefig.edgecolor": style.CREAM,
+    "axes.facecolor": style.WHITE,
+})
 
 
 def _save(fig, name):

@@ -27,6 +27,14 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))
 import style as st  # noqa: E402
 
+# Cream figure background, neutral (white) panel interiors, framed axes.
+plt.rcParams.update({
+    "figure.facecolor": st.CREAM,
+    "savefig.facecolor": st.CREAM,
+    "savefig.edgecolor": st.CREAM,
+    "axes.facecolor": st.WHITE,
+})
+
 DATA = ROOT / "data"
 FIG = ROOT / "figures"
 

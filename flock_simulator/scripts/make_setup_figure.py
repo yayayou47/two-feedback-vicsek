@@ -31,6 +31,14 @@ sys.path.insert(0, str(ROOT))
 import style as st  # noqa: E402
 from flock_simulator.core.noise import stable_rvs_vector  # noqa: E402
 
+# Cream figure background, neutral (white) panel interiors, framed axes.
+plt.rcParams.update({
+    "figure.facecolor": st.CREAM,
+    "savefig.facecolor": st.CREAM,
+    "savefig.edgecolor": st.CREAM,
+    "axes.facecolor": st.WHITE,
+})
+
 FIG = ROOT / "figures"
 
 PARTICLE_BLUE = "#1f4ea1"          # v1 navy
