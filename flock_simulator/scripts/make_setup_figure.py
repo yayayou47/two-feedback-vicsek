@@ -55,7 +55,14 @@ R_A = 0.7 * 1.2
 V_VIS = 0.40                        # visualisation step (v1 value)
 
 FIGSIZE = (5.4, 4.4)               # exact version-1 per-panel figsize
-AXRECT = (0.16, 0.17, 0.70, 0.70)  # shared frame box for (a),(b),(c)
+AXRECT = (0.20, 0.17, 0.63, 0.70)  # shared frame box for (a),(b),(c)
+
+
+def _frame(*axs):
+    for ax in axs:
+        for sp in ax.spines.values():
+            sp.set_visible(True); sp.set_edgecolor("#333333")
+            sp.set_linewidth(0.9)
 
 
 def _save(fig, name, crop=True):
@@ -145,6 +152,7 @@ def fig_geometry():
     ax.text(0.5, 0.965, r"(a) Two-zone update", transform=ax.transAxes,
             ha="center", va="top", fontsize=20.25, zorder=9)
     ax.set_position(AXRECT)
+    _frame(ax)
     _save(fig, "fig_setup_geometry.pdf", crop=False)
 
 
@@ -167,6 +175,7 @@ def fig_noise():
     ax.tick_params(labelsize=16.5)
     ax.legend(fontsize=18)
     ax.set_position(AXRECT)
+    _frame(ax)
     fig.suptitle(r"(b) $\alpha$-stable noise pdfs",
                  fontsize=20.25, y=0.95)
     _save(fig, "fig_setup_noise.pdf", crop=False)
@@ -201,6 +210,7 @@ def fig_sigmoid():
     ax.legend(handles=[l1, l2], loc="center right", fontsize=18,
               framealpha=0.92)
     ax.set_position(AXRECT); ax2.set_position(AXRECT)
+    _frame(ax, ax2)
     fig.suptitle(r"(c) Shared sigmoid", fontsize=20.25, y=0.95)
     _save(fig, "fig_setup_sigmoid.pdf", crop=False)
 

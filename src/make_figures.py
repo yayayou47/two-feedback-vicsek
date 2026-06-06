@@ -323,6 +323,9 @@ def fig_double_pilot(npz_path: Path):
                              gridspec_kw=dict(wspace=0.22, hspace=0.28))
     for _ax in axes.ravel():
         _ax.set_box_aspect(1)
+        for _sp in _ax.spines.values():
+            _sp.set_visible(True); _sp.set_linewidth(0.8)
+            _sp.set_edgecolor("#333333")
     panel_titles = [
         r"(a) $\langle\varphi\rangle(\eta)$, $L\!=\!L_{\max}$",
         r"(b) $\chi(\eta)$, $L\!=\!L_{\max}$",
@@ -380,7 +383,7 @@ def fig_double_pilot(npz_path: Path):
     ax.set_xscale("log")
     ax.set_xlabel(r"$\eta$")
     ax.set_ylabel(r"$\langle\varphi\rangle$")
-    ax.set_title(r"(a)", fontsize=9, loc="left")
+    ax.set_title(r"(a) $\langle\varphi\rangle(\eta)$", fontsize=9, loc="left")
 
     # (b) chi -- log-y so the heavy spread does not flatten everything else.
     ax = axes[0, 1]
@@ -398,7 +401,7 @@ def fig_double_pilot(npz_path: Path):
     ax.set_yscale("log")
     ax.set_xlabel(r"$\eta$")
     ax.set_ylabel(r"$\chi$")
-    ax.set_title(r"(b)", fontsize=9, loc="left")
+    ax.set_title(r"(b) $\chi(\eta)$", fontsize=9, loc="left")
 
     # (c) s_sep
     ax = axes[0, 2]
@@ -414,7 +417,7 @@ def fig_double_pilot(npz_path: Path):
     ax.set_xscale("log")
     ax.set_xlabel(r"$\eta$")
     ax.set_ylabel(r"$s_{\rm sep}$")
-    ax.set_title(r"(c)", fontsize=9, loc="left")
+    ax.set_title(r"(c) $s_{\rm sep}(\eta)$", fontsize=9, loc="left")
 
     # (d) U4
     ax = axes[1, 0]
@@ -432,7 +435,7 @@ def fig_double_pilot(npz_path: Path):
     ax.set_xscale("log")
     ax.set_xlabel(r"$\eta$")
     ax.set_ylabel(r"$U_4$")
-    ax.set_title(r"(d)", fontsize=9, loc="left")
+    ax.set_title(r"(d) $U_4(\eta)$", fontsize=9, loc="left")
 
     # (e) chi_max FSS with bootstrap CI on the slope.
     ax = axes[1, 1]
@@ -465,7 +468,7 @@ def fig_double_pilot(npz_path: Path):
     ax.set_yscale("log")
     ax.set_xlabel(r"$L$")
     ax.set_ylabel(r"$\chi_{\max}$")
-    ax.set_title(r"(e)", fontsize=9, loc="left")
+    ax.set_title(r"(e) $\chi_{\max}(L)$", fontsize=9, loc="left")
 
     # (f) v_pop and a_pop overlay
     ax = axes[1, 2]
@@ -480,16 +483,16 @@ def fig_double_pilot(npz_path: Path):
     ax.set_ylabel(r"$\langle v_i\rangle$  (solid)")
     ax2.set_ylabel(r"$\langle\alpha_i\rangle$  (dotted)")
     ax2.set_ylim(0.95, 2.05)
-    ax.set_title(r"(f)", fontsize=9, loc="left")
+    ax.set_title(r"(f) $\langle v\rangle,\,\langle\alpha\rangle(\eta)$", fontsize=9, loc="left")
 
     # Shared legend at the top of the figure, no stack on panel a.
     handles = [plt.Line2D([0], [0], color=PALETTE[m], marker="o",
-                            ms=4, label=LABELS[m])
+                            ms=4, label=_disp(m))
                 for m in modes]
-    fig.legend(handles=handles, loc="upper center",
-                 bbox_to_anchor=(0.5, 0.99),
-                 ncol=4, fontsize=8, frameon=False)
-    fig.subplots_adjust(left=0.07, right=0.97, top=0.93, bottom=0.07,
+    axes[0, 0].legend(handles=handles, loc="lower left", fontsize=6,
+                      frameon=True, framealpha=0.9, handlelength=1.2,
+                      borderpad=0.3, labelspacing=0.3)
+    fig.subplots_adjust(left=0.07, right=0.97, top=0.94, bottom=0.07,
                         wspace=0.22, hspace=0.28)
     _save(fig, "fig_double_pilot.pdf")
 
