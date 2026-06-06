@@ -42,6 +42,7 @@ plt.rcParams.update({
 FIG = ROOT / "figures"
 
 PARTICLE_BLUE = "#1f4ea1"          # v1 navy
+NB_COLORS = ["#1f4ea1", "#000000", "#2ca02c", "#d55e00"]  # j1..j4
 FOCAL_RED = "#c83a3a"
 REP_COLOR = "#e07b7b"
 ALI_COLOR = "#9bb8de"
@@ -111,7 +112,7 @@ def fig_geometry():
                 zorder=7)
 
     j1 = (-0.18 * 1.2, 0.22 * 1.2)
-    neighbour(*j1, theta_deg=90, label=r"$j_1$")
+    neighbour(*j1, theta_deg=90, label=r"$j_1$", color=NB_COLORS[0])
     nrm = np.hypot(*j1)
     away = (-j1[0] / nrm * 0.30 * 1.2 * 1.2 * 1.2, -j1[1] / nrm * 0.30 * 1.2 * 1.2 * 1.2)
     ax.annotate("", xy=away, xytext=(0, 0),
@@ -120,9 +121,12 @@ def fig_geometry():
     ax.text(away[0] + 0.02, away[1] - 0.06, "repulse", fontsize=12,
             color="#9c3a3a", style="italic", zorder=7)
 
-    neighbour(0.46 * 1.2, 0.42 * 1.2, theta_deg=20, label=r"$j_2$")
-    neighbour(-0.50 * 1.2, -0.34 * 1.2, theta_deg=200, label=r"$j_3$")
-    neighbour(-0.55 * 1.2, 0.06 * 1.2, theta_deg=0, label=r"$j_4$")
+    neighbour(0.46 * 1.2, 0.42 * 1.2, theta_deg=20, label=r"$j_2$",
+              color=NB_COLORS[1])
+    neighbour(-0.50 * 1.2, -0.34 * 1.2, theta_deg=200, label=r"$j_3$",
+              color=NB_COLORS[2])
+    neighbour(-0.55 * 1.2, 0.06 * 1.2, theta_deg=0, label=r"$j_4$",
+              color=NB_COLORS[3])
     neighbour(0.85 * 1.2, 0.55 * 1.2, theta_deg=60, label=r"$j_\infty$",
               color="#666", alpha=0.55)
 
@@ -273,8 +277,9 @@ def _render_frame(ax, pos_i, th_i, pos_j, th_j, labels):
     _draw_zones(ax)
     _particle(ax, pos_i, th_i, color=FOCAL_RED, ss=156, al=0.531, lw=3.72,
               label=r"$i$", loff=(0.07, -0.30), fs=15)
-    for pos, th, lab in zip(pos_j, th_j, labels):
-        _particle(ax, pos, th, color=PARTICLE_BLUE, ss=72, al=0.371, lw=2.30,
+    for k, (pos, th, lab) in enumerate(zip(pos_j, th_j, labels)):
+        _particle(ax, pos, th, color=NB_COLORS[k % len(NB_COLORS)],
+                  ss=72, al=0.371, lw=2.30,
                   label=lab, loff=(0.06, 0.09), fs=12)
 
 
@@ -296,10 +301,11 @@ def _rule_pair(title, pos_i, th_i, pos_j, th_j, labels, name, drift=False):
     _render_frame(ax_tp, npi, nti, npj, ntj, labels)
     # dotted trajectories from t to t+dt for every particle
     ax_tp.plot([pos_i[0], npi[0]], [pos_i[1], npi[1]], ":",
-               color=FOCAL_RED, lw=1.1, zorder=2, alpha=0.8)
+               color=FOCAL_RED, lw=1.8, zorder=2, alpha=0.9)
     for k in range(len(pos_j)):
         ax_tp.plot([pos_j[k, 0], npj[k, 0]], [pos_j[k, 1], npj[k, 1]],
-                   ":", color=PARTICLE_BLUE, lw=1.0, zorder=2, alpha=0.8)
+                   ":", color=NB_COLORS[k % len(NB_COLORS)], lw=1.7,
+                   zorder=2, alpha=0.9)
     fig.tight_layout(rect=(0.0, 0.07, 1.0, 0.87))
     # Enclosing frame around the whole (d)/(e)/(f) sub-figure.
     fig.add_artist(Rectangle((0.012, 0.012), 0.976, 0.95, fill=False,
