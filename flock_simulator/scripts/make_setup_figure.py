@@ -50,7 +50,8 @@ FIGSIZE = (5.4, 4.4)               # exact version-1 per-panel figsize
 
 
 def _save(fig, name):
-    fig.savefig(FIG / name, dpi=200)
+    fig.savefig(FIG / name, dpi=200, bbox_inches="tight",
+                pad_inches=0.02)
     plt.close(fig)
 
 
@@ -127,7 +128,7 @@ def fig_geometry():
     ax.set_xlim(-1.86, 1.86); ax.set_ylim(-1.44, 1.44)
     ax.set_aspect("equal")
     ax.set_xticks([]); ax.set_yticks([])
-    ax.set_title(r"(a) Two-zone update", fontsize=21)
+    ax.set_title(r"(a) Two-zone update", fontsize=20.25)
     fig.tight_layout()
     _save(fig, "fig_setup_geometry.pdf")
 
@@ -145,11 +146,11 @@ def fig_noise():
         s = s[(s > -6) & (s < 6)]
         h, _ = np.histogram(s, bins=bins, density=True)
         ax.semilogy(centers, h + 1e-6, ls, lw=1.3, label=fr"$\alpha={a}$")
-    ax.set_xlabel(r"angular kick $\xi$", fontsize=13)
-    ax.set_ylabel(r"pdf $p_\alpha(\xi)$", fontsize=13)
+    ax.set_xlabel(r"angular kick $\xi$", fontsize=19.5)
+    ax.set_ylabel(r"pdf $p_\alpha(\xi)$", fontsize=19.5)
     ax.set_ylim(1e-4, 1.0)
-    ax.tick_params(labelsize=11)
-    ax.legend(fontsize=12)
+    ax.tick_params(labelsize=16.5)
+    ax.legend(fontsize=18)
     fig.suptitle(r"(b) $\alpha$-stable noise pdfs",
                  fontsize=20.25, y=0.95)
     fig.tight_layout(rect=(0.0, 0.0, 1.0, 0.90))
@@ -172,17 +173,17 @@ def fig_sigmoid():
     ax.plot(n, v, "-", color=V_PURPLE, lw=2.2, label=r"$v_i(n_i)$")
     ax2.plot(n, a, "-", color=A_GREEN, lw=2.2, label=r"$\alpha_i(n_i)$")
     ax.axvline(n_star, ls=":", c="grey", lw=1.0)
-    ax.set_xlabel(r"local neighbour count $n_i$", fontsize=13)
-    ax.set_ylabel(r"speed $v_i$", color=V_PURPLE, fontsize=13)
-    ax2.set_ylabel(r"stability index $\alpha_i$", color=A_GREEN, fontsize=13)
-    ax.tick_params(axis="y", colors=V_PURPLE, labelsize=11)
-    ax.tick_params(axis="x", labelsize=11)
-    ax2.tick_params(axis="y", colors=A_GREEN, labelsize=11)
+    ax.set_xlabel(r"local neighbour count $n_i$", fontsize=19.5)
+    ax.set_ylabel(r"speed $v_i$", color=V_PURPLE, fontsize=19.5)
+    ax2.set_ylabel(r"stability index $\alpha_i$", color=A_GREEN, fontsize=19.5)
+    ax.tick_params(axis="y", colors=V_PURPLE, labelsize=16.5)
+    ax.tick_params(axis="x", labelsize=16.5)
+    ax2.tick_params(axis="y", colors=A_GREEN, labelsize=16.5)
     ax.text(n_star, v_max * 1.02, r"$n_\star$", fontsize=13, ha="center",
             color="grey")
     l1, = ax.plot([], [], "-", color=V_PURPLE, lw=2.2, label=r"$v_i$")
     l2, = ax.plot([], [], "-", color=A_GREEN, lw=2.2, label=r"$\alpha_i$")
-    ax.legend(handles=[l1, l2], loc="center right", fontsize=12,
+    ax.legend(handles=[l1, l2], loc="center right", fontsize=18,
               framealpha=0.92)
     fig.suptitle(r"(c) Shared sigmoid", fontsize=20.25, y=0.95)
     fig.tight_layout(rect=(0.0, 0.0, 1.0, 0.90))
@@ -247,7 +248,8 @@ def _rule_pair(title, pos_i, th_i, pos_j, th_j, labels, name, drift=False):
     # Shorter canvas (width kept at 5.4) so the two square frames fill
     # the height and the title sits close to them.
     fig, (ax_t, ax_tp) = plt.subplots(1, 2, figsize=(5.4, 3.4),
-                                      sharex=True, sharey=True)
+                                      sharex=True, sharey=True,
+                                      gridspec_kw={"wspace": 0.04})
     for ax, lab in zip((ax_t, ax_tp), (r"$t$", r"$t + \delta t$")):
         ax.set_aspect("equal"); ax.set_xticks([]); ax.set_yticks([])
         ax.set_xlim(-1.55, 1.55); ax.set_ylim(-1.45, 1.55)
