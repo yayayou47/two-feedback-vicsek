@@ -49,9 +49,12 @@ V_VIS = 0.40                        # visualisation step (v1 value)
 FIGSIZE = (5.4, 4.4)               # exact version-1 per-panel figsize
 
 
-def _save(fig, name):
-    fig.savefig(FIG / name, dpi=200, bbox_inches="tight",
-                pad_inches=0.02)
+def _save(fig, name, crop=True):
+    if crop:
+        fig.savefig(FIG / name, dpi=200, bbox_inches="tight",
+                    pad_inches=0.02)
+    else:
+        fig.savefig(FIG / name, dpi=200)
     plt.close(fig)
 
 
@@ -130,7 +133,7 @@ def fig_geometry():
     ax.set_xticks([]); ax.set_yticks([])
     ax.set_title(r"(a) Two-zone update", fontsize=20.25)
     fig.tight_layout()
-    _save(fig, "fig_setup_geometry.pdf")
+    _save(fig, "fig_setup_geometry.pdf", crop=False)
 
 
 # ====================================================================
@@ -154,7 +157,7 @@ def fig_noise():
     fig.suptitle(r"(b) $\alpha$-stable noise pdfs",
                  fontsize=20.25, y=0.95)
     fig.tight_layout(rect=(0.0, 0.0, 1.0, 0.90))
-    _save(fig, "fig_setup_noise.pdf")
+    _save(fig, "fig_setup_noise.pdf", crop=False)
 
 
 # ====================================================================
@@ -187,7 +190,7 @@ def fig_sigmoid():
               framealpha=0.92)
     fig.suptitle(r"(c) Shared sigmoid", fontsize=20.25, y=0.95)
     fig.tight_layout(rect=(0.0, 0.0, 1.0, 0.90))
-    _save(fig, "fig_setup_sigmoid.pdf")
+    _save(fig, "fig_setup_sigmoid.pdf", crop=False)
 
 
 # ====================================================================
