@@ -271,10 +271,10 @@ def _evolve(pos_i, th_i, pos_j, th_j):
 
 def _render_frame(ax, pos_i, th_i, pos_j, th_j, labels):
     _draw_zones(ax)
-    _particle(ax, pos_i, th_i, color=FOCAL_RED, ss=156, al=0.664, lw=3.72,
+    _particle(ax, pos_i, th_i, color=FOCAL_RED, ss=156, al=0.531, lw=3.72,
               label=r"$i$", loff=(0.07, -0.30), fs=15)
     for pos, th, lab in zip(pos_j, th_j, labels):
-        _particle(ax, pos, th, color=PARTICLE_BLUE, ss=72, al=0.464, lw=2.30,
+        _particle(ax, pos, th, color=PARTICLE_BLUE, ss=72, al=0.371, lw=2.30,
                   label=lab, loff=(0.06, 0.09), fs=12)
 
 
@@ -294,9 +294,12 @@ def _rule_pair(title, pos_i, th_i, pos_j, th_j, labels, name, drift=False):
     _render_frame(ax_t, pos_i, th_i, pos_j, th_j, labels)
     npi, nti, npj, ntj = _evolve(pos_i, th_i, pos_j, th_j)
     _render_frame(ax_tp, npi, nti, npj, ntj, labels)
-    if drift:
-        ax_tp.plot([pos_i[0], npi[0]], [pos_i[1], npi[1]], ":",
-                   color="#444", lw=0.9, zorder=2)
+    # dotted trajectories from t to t+dt for every particle
+    ax_tp.plot([pos_i[0], npi[0]], [pos_i[1], npi[1]], ":",
+               color=FOCAL_RED, lw=1.1, zorder=2, alpha=0.8)
+    for k in range(len(pos_j)):
+        ax_tp.plot([pos_j[k, 0], npj[k, 0]], [pos_j[k, 1], npj[k, 1]],
+                   ":", color=PARTICLE_BLUE, lw=1.0, zorder=2, alpha=0.8)
     fig.tight_layout(rect=(0.0, 0.07, 1.0, 0.87))
     # Enclosing frame around the whole (d)/(e)/(f) sub-figure.
     fig.add_artist(Rectangle((0.012, 0.012), 0.976, 0.95, fill=False,
