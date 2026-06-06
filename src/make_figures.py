@@ -592,6 +592,23 @@ def fig_double_snapshot(npz_path: Path):
                             fraction=0.012, pad=0.012)
         cbar.set_label(r"local speed $v_i$", fontsize=8)
         cbar.ax.tick_params(labelsize=7)
+        # One common frame per noise group: each (a)/(b)/(c) block of
+        # six panels (motility | double-adaptive across the three sizes)
+        # is enclosed in a shared rectangle, read from the final axis
+        # positions (after the colorbar has reclaimed its slice).
+        from matplotlib.patches import Rectangle as _Rect
+        gpad = 0.009
+        for jc in range(nc):
+            c_l, c_r = jc * nm, jc * nm + nm - 1
+            x0 = min(axes[iL, c_l].get_position().x0 for iL in range(n_L))
+            x1 = max(axes[iL, c_r].get_position().x1 for iL in range(n_L))
+            y0 = min(axes[n_L - 1, c].get_position().y0 for c in (c_l, c_r))
+            y1 = max(axes[0, c].get_position().y1 for c in (c_l, c_r))
+            fig.add_artist(_Rect((x0 - gpad, y0 - gpad),
+                                 (x1 - x0) + 2 * gpad,
+                                 (y1 - y0) + 2 * gpad,
+                                 transform=fig.transFigure, fill=False,
+                                 edgecolor="#333333", lw=1.1, zorder=10))
         _save(fig, "fig_double_snapshot.pdf")
         return
 
