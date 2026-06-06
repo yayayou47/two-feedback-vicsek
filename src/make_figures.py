@@ -717,26 +717,29 @@ def fig_double_plane(npz_L22: Path, npz_L30: Path):
                          zl["sep_peak_90"]))
             rows.append((float(zl["L128"]), zl["chi_peak_128"],
                          zl["sep_peak_128"]))
-        nrow = len(rows)
-        fig, axes = plt.subplots(nrow, 2,
-                                 figsize=(style.DOUBLE_COL[0],
-                                          2.5 * nrow))
+        # 2x3 layout: one column per size (L = 30, 90, 128), the size
+        # written above each column as a header outside the panel frame
+        # (top-row title); top row carries chi_max, bottom row s_sep.
+        # Each panel gets a short subtitle (letter + observable). The
+        # threshold n_star axis is labelled on the left column only and
+        # the slope s axis on the bottom row only.
+        ncol = len(rows)
+        fig, axes = plt.subplots(2, ncol,
+                                 figsize=(1.18 * style.DOUBLE_COL[0], 4.7))
         axes = np.atleast_2d(axes)
         letters = "abcdefghijkl"
-        for ir, (L, chi, sep) in enumerate(rows):
-            # y-label only on the left column (a, c, e); x-label only
-            # on the bottom row (e, f).
-            bottom = (ir == nrow - 1)
-            _plane_panel(axes[ir, 0], fig, chi, n_stars, slopes,
+        for ic, (L, chi, sep) in enumerate(rows):
+            left = (ic == 0)
+            _plane_panel(axes[0, ic], fig, chi, n_stars, slopes,
                          SPEED_CMAP, r"$\chi_{\max}$",
-                         title=(r"$\chi_{\max}$" if ir == 0 else None),
-                         letter=fr"({letters[2 * ir]}) $L={int(L)}$",
-                         show_xlabel=bottom, show_ylabel=True)
-            _plane_panel(axes[ir, 1], fig, sep, n_stars, slopes,
+                         title=fr"$L = {int(L)}$",
+                         letter=fr"({letters[ic]}) $\chi_{{\max}}$",
+                         show_xlabel=False, show_ylabel=left)
+            _plane_panel(axes[1, ic], fig, sep, n_stars, slopes,
                          SPEED_CMAP, r"$s_{\rm sep}$",
-                         title=(r"$s_{\rm sep}$" if ir == 0 else None),
-                         letter=fr"({letters[2 * ir + 1]})",
-                         show_xlabel=bottom, show_ylabel=False)
+                         title=None,
+                         letter=fr"({letters[ncol + ic]}) $s_{{\rm sep}}$",
+                         show_xlabel=True, show_ylabel=left)
         fig.tight_layout()
         _save(fig, "fig_double_plane.pdf")
         return
