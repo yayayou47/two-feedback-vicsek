@@ -322,10 +322,10 @@ def fig_double_pilot(npz_path: Path):
                              figsize=(style.DOUBLE_COL[0] * 1.20, 5.8),
                              gridspec_kw=dict(wspace=0.22, hspace=0.28))
     for _ax in axes.ravel():
-        _ax.set_box_aspect(1)
         for _sp in _ax.spines.values():
             _sp.set_visible(True); _sp.set_linewidth(0.8)
             _sp.set_edgecolor("#333333")
+        _ax.tick_params(labelsize=7)
     panel_titles = [
         r"(a) $\langle\varphi\rangle(\eta)$, $L\!=\!L_{\max}$",
         r"(b) $\chi(\eta)$, $L\!=\!L_{\max}$",
@@ -492,28 +492,33 @@ def fig_double_pilot(npz_path: Path):
     axes[0, 0].legend(handles=handles, loc="lower left", fontsize=6,
                       frameon=True, framealpha=0.9, handlelength=1.2,
                       borderpad=0.3, labelspacing=0.3)
-    fig.subplots_adjust(left=0.08, right=0.96, top=0.93, bottom=0.07,
-                        wspace=0.42, hspace=0.40)
-    # Enclosing "card" frame around each of the six subfigures (the
-    # data axes plus their title, ticks and axis labels), drawn on the
-    # cream background like Fig. 1. Read from each panel's tight bbox so
-    # the box hugs the whole subfigure; panel (f) unions its twin axis.
+    # Lay the six subfigures out as equal cards separated by a tiny
+    # uniform gap (panels shrink to make room). Each axes is placed
+    # inside its card leaving space for the title (top), the y-label and
+    # ticks (left), the x-label and ticks (bottom) and -- for panel (f)
+    # only -- the twin y-label (right). The card rectangle is then drawn
+    # on the cream background like Fig. 1.
     from matplotlib.patches import Rectangle as _Rect
-    from matplotlib.transforms import Bbox as _Bbox
-    fig.canvas.draw()
-    renderer = fig.canvas.get_renderer()
-    inv = fig.transFigure.inverted()
-    pad = 0.010
-    twin_of = {id(axes[1, 2]): ax2}
-    for a in axes.ravel():
-        bb = a.get_tightbbox(renderer)
-        if id(a) in twin_of:
-            bb = _Bbox.union([bb, twin_of[id(a)].get_tightbbox(renderer)])
-        (x0, y0), (x1, y1) = inv.transform(bb)
-        fig.add_artist(_Rect((x0 - pad, y0 - pad),
-                             (x1 - x0) + 2 * pad, (y1 - y0) + 2 * pad,
-                             transform=fig.transFigure, fill=False,
-                             edgecolor="#333333", lw=0.9, zorder=0))
+    nrow, ncol = axes.shape
+    LM, RM, TM, BM = 0.012, 0.012, 0.018, 0.012
+    gap = 0.013
+    cw = (1.0 - LM - RM - (ncol - 1) * gap) / ncol
+    ch = (1.0 - TM - BM - (nrow - 1) * gap) / nrow
+    in_l, in_b, in_t = 0.215, 0.165, 0.115
+    for r in range(nrow):
+        for c in range(ncol):
+            ax = axes[r, c]
+            cx0 = LM + c * (cw + gap)
+            cy0 = BM + (nrow - 1 - r) * (ch + gap)
+            in_r = 0.205 if (r, c) == (nrow - 1, ncol - 1) else 0.05
+            ax.set_position((cx0 + in_l * cw, cy0 + in_b * ch,
+                             cw * (1.0 - in_l - in_r),
+                             ch * (1.0 - in_b - in_t)))
+            if (r, c) == (nrow - 1, ncol - 1):
+                ax2.set_position(ax.get_position())
+            fig.add_artist(_Rect((cx0, cy0), cw, ch,
+                                 transform=fig.transFigure, fill=False,
+                                 edgecolor="#333333", lw=0.9, zorder=0))
     _save(fig, "fig_double_pilot.pdf")
 
 
