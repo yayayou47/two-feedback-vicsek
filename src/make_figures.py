@@ -513,12 +513,15 @@ def fig_double_snapshot(npz_path: Path):
         # reads left to right as the three cases side by side.
         nrow = n_L
         ncol = nc * nm
-        # Canvas scaled up 20% (and the manuscript \includegraphics width
-        # to match) so each snapshot panel renders 20% larger while the
+        # Canvas scaled up (and the manuscript \includegraphics width to
+        # match) plus tight inter-panel spacing so each snapshot panel
+        # renders ~10% larger than the previous version while the
         # rasterised quiver keeps its ~200 dpi at the bigger display size.
         fig, axes = plt.subplots(nrow, ncol,
-                                 figsize=(1.20 * style.DOUBLE_COL[0],
-                                          0.60 * style.DOUBLE_COL[0]))
+                                 figsize=(1.32 * style.DOUBLE_COL[0],
+                                          0.66 * style.DOUBLE_COL[0]),
+                                 gridspec_kw={"wspace": 0.05,
+                                              "hspace": 0.18})
         last_q = None
         # Display the noise cases right-to-left in data order, i.e.
         # disordered -> near-critical -> ordered across the columns.
@@ -562,7 +565,8 @@ def fig_double_snapshot(npz_path: Path):
                             ha="left", va="top",
                             bbox=dict(facecolor="white", alpha=0.7,
                                       edgecolor="none", pad=1))
-        fig.tight_layout(rect=(0.0, 0.0, 0.92, 0.93))
+        fig.tight_layout(rect=(0.0, 0.0, 0.96, 0.93), w_pad=0.25,
+                         h_pad=0.4)
         # A single case/eta header centred over each column pair so the
         # noise level is written once, not once per mode.
         for jc, ic in enumerate(case_order):
@@ -574,7 +578,7 @@ def fig_double_snapshot(npz_path: Path):
                      ha="center", va="bottom", fontsize=8,
                      fontweight="bold")
         cbar = fig.colorbar(last_q, ax=axes, orientation="vertical",
-                            fraction=0.015, pad=0.02)
+                            fraction=0.012, pad=0.012)
         cbar.set_label(r"local speed $v_i$", fontsize=8)
         cbar.ax.tick_params(labelsize=7)
         _save(fig, "fig_double_snapshot.pdf")
