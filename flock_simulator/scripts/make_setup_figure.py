@@ -23,7 +23,7 @@ import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.patches import Wedge, Patch
+from matplotlib.patches import Wedge, Patch, Rectangle
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))
@@ -260,6 +260,10 @@ def _rule_pair(title, pos_i, th_i, pos_j, th_j, labels, name, drift=False):
         ax_tp.plot([pos_i[0], npi[0]], [pos_i[1], npi[1]], ":",
                    color="#444", lw=0.9, zorder=2)
     fig.tight_layout(rect=(0.0, 0.0, 1.0, 0.94))
+    # Enclosing frame around the whole (d)/(e)/(f) sub-figure.
+    fig.add_artist(Rectangle((0.012, 0.012), 0.976, 0.976, fill=False,
+                             edgecolor="#666", lw=1.3,
+                             transform=fig.transFigure, zorder=10))
     _save(fig, name)
 
 
