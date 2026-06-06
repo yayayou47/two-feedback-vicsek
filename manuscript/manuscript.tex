@@ -259,15 +259,20 @@ Cauchy.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.92\linewidth]{fig_double_schematic.pdf}
-    \caption{The two-feedback model. (a) The shared sigmoid
-    maps $n_i$ onto the propulsion speed $v_i$ (purple) and
-    the stability index $\alpha_i$ (green), which move
-    together as the particle goes from isolated to crowded.
-    (b) The Couzin zonal neighbourhood: inner repulsion disc
-    and outer alignment annulus, sensed omnidirectionally. A single
-    threshold thus couples slowing and noise-Gaussianisation --- the
-    lone mechanism the rest of the paper dissects.}
+    \includegraphics[width=\linewidth]{fig_double_schematic.pdf}
+    \caption{Vicsek--Couzin setup and update rules. (a) Two-zone
+    geometry around a focal particle $i$: a repulsion disc
+    ($d < R_r$), an alignment annulus ($R_r \leq d < R_a$) and full
+    $360^\circ$ vision, with priority repulsion $\to$ alignment
+    $\to$ inertia. (b) Symmetric $\alpha$-stable noise pdfs; as
+    $\alpha$ decreases the bulk narrows and the tails grow heavier.
+    (c) The shared sigmoid that defines the two-feedback model: the
+    local neighbour count $n_i$ sets both the propulsion speed $v_i$
+    (purple) and the stability index $\alpha_i$ (green), so a crowded
+    particle is at once slow and Gaussian and an isolated one fast and
+    Cauchy. (d)--(f) Worked examples of the inertia, repulsion and
+    alignment rules of Eq.~\eqref{eq:theta_star}, each shown at $t$
+    and $t + \delta t$.}
     \label{fig:schematic}
 \end{figure}
 

@@ -1763,7 +1763,10 @@ def _pick(stem: str) -> Path:
 
 
 def main():
-    fig_double_schematic()
+    # Fig. 1 (fig_double_schematic.pdf) is now produced by
+    # flock_simulator/scripts/make_setup_figure.py (Vicsek--Couzin
+    # setup + alpha-stable pdfs + shared sigmoid + worked rules), not
+    # by the legacy two-panel fig_double_schematic() below.
     fig_double_pilot(_pick("double_pilot"))
     fig_double_snapshot(_pick("double_snapshot"))
     # fig_double_3regimes was promoted out: the two-mode snapshot now
