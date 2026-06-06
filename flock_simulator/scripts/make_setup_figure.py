@@ -127,8 +127,7 @@ def fig_geometry():
     ax.set_xlim(-1.86, 1.86); ax.set_ylim(-1.44, 1.44)
     ax.set_aspect("equal")
     ax.set_xticks([]); ax.set_yticks([])
-    ax.set_title(r"(a) Two-zone Vicsek--Couzin update "
-                 r"(full $360^\circ$ vision)", fontsize=14)
+    ax.set_title(r"(a) Two-zone update", fontsize=21)
     fig.tight_layout()
     _save(fig, "fig_setup_geometry.pdf")
 
@@ -151,9 +150,9 @@ def fig_noise():
     ax.set_ylim(1e-4, 1.0)
     ax.tick_params(labelsize=11)
     ax.legend(fontsize=12)
-    fig.suptitle(r"(b) Symmetric $\alpha$-stable noise pdfs",
-                 fontsize=13.5, y=0.97)
-    fig.tight_layout(rect=(0.0, 0.0, 1.0, 0.94))
+    fig.suptitle(r"(b) $\alpha$-stable noise pdfs",
+                 fontsize=20.25, y=0.95)
+    fig.tight_layout(rect=(0.0, 0.0, 1.0, 0.90))
     _save(fig, "fig_setup_noise.pdf")
 
 
@@ -185,8 +184,8 @@ def fig_sigmoid():
     l2, = ax.plot([], [], "-", color=A_GREEN, lw=2.2, label=r"$\alpha_i$")
     ax.legend(handles=[l1, l2], loc="center right", fontsize=12,
               framealpha=0.92)
-    fig.suptitle(r"(c) Shared sigmoid (this work)", fontsize=13.5, y=0.97)
-    fig.tight_layout(rect=(0.0, 0.0, 1.0, 0.94))
+    fig.suptitle(r"(c) Shared sigmoid", fontsize=20.25, y=0.95)
+    fig.tight_layout(rect=(0.0, 0.0, 1.0, 0.90))
     _save(fig, "fig_setup_sigmoid.pdf")
 
 
