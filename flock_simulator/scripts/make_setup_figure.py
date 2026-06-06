@@ -245,45 +245,44 @@ def _render_frame(ax, pos_i, th_i, pos_j, th_j, labels):
 
 
 def _rule_pair(title, pos_i, th_i, pos_j, th_j, labels, name, drift=False):
-    fig, (ax_t, ax_tp) = plt.subplots(1, 2, figsize=FIGSIZE,
+    # Shorter canvas (width kept at 5.4) so the two square frames fill
+    # the height and the title sits close to them.
+    fig, (ax_t, ax_tp) = plt.subplots(1, 2, figsize=(5.4, 3.4),
                                       sharex=True, sharey=True)
     for ax, lab in zip((ax_t, ax_tp), (r"$t$", r"$t + \delta t$")):
         ax.set_aspect("equal"); ax.set_xticks([]); ax.set_yticks([])
         ax.set_xlim(-1.55, 1.55); ax.set_ylim(-1.45, 1.55)
         ax.text(0.5, -0.05, lab, transform=ax.transAxes, ha="center",
                 va="top", fontsize=14, fontweight="bold")
-    fig.suptitle(title, fontsize=13.5, y=0.97)
+    # Title +50% (13.5 -> 20.25) and pulled close to the frames.
+    fig.suptitle(title, fontsize=20.25, y=0.905)
     _render_frame(ax_t, pos_i, th_i, pos_j, th_j, labels)
     npi, nti, npj, ntj = _evolve(pos_i, th_i, pos_j, th_j)
     _render_frame(ax_tp, npi, nti, npj, ntj, labels)
     if drift:
         ax_tp.plot([pos_i[0], npi[0]], [pos_i[1], npi[1]], ":",
                    color="#444", lw=0.9, zorder=2)
-    fig.tight_layout(rect=(0.0, 0.0, 1.0, 0.94))
+    fig.tight_layout(rect=(0.0, 0.07, 1.0, 0.87))
     # Enclosing frame around the whole (d)/(e)/(f) sub-figure.
-    fig.add_artist(Rectangle((0.012, 0.012), 0.976, 0.976, fill=False,
+    fig.add_artist(Rectangle((0.012, 0.012), 0.976, 0.95, fill=False,
                              edgecolor="#666", lw=1.3,
                              transform=fig.transFigure, zorder=10))
     _save(fig, name)
 
 
 def fig_rules():
-    _rule_pair(r"(d) Inertia: no neighbour in $R_a$"
-               r" $\Rightarrow \vec e_i$ unchanged",
+    _rule_pair(r"(d) Inertia",
                np.array([-0.55, -0.10]), np.deg2rad(20.0),
                np.array([[1.05, 1.05], [-1.20, 0.90]]),
                np.array([np.deg2rad(160.0), np.deg2rad(-20.0)]),
                [r"$j_1$", r"$j_2$"], "fig_setup_inertia.pdf", drift=True)
-    _rule_pair(r"(e) Repulsion: $d_{ij_1}<R_r$"
-               r" $\Rightarrow \vec e_i^{\,\star} = -\widehat{x_{j_1}-x_i}$",
+    _rule_pair(r"(e) Repulsion",
                np.array([0.0, 0.0]), np.deg2rad(45.0),
                np.array([[-0.22, 0.27], [0.55, -0.25], [1.10, 0.90]]),
                np.array([np.deg2rad(110.0), np.deg2rad(0.0),
                          np.deg2rad(-90.0)]),
                [r"$j_1$", r"$j_2$", r"$j_3$"], "fig_setup_repulsion.pdf")
-    _rule_pair(r"(f) Alignment: $R_r\!\leq\! d_{ij}\!<\!R_a$"
-               r" $\Rightarrow \vec e_i^{\,\star} ="
-               r" \mathrm{atan2}(\!\sum\!\sin\theta_j,\!\sum\!\cos\theta_j)$",
+    _rule_pair(r"(f) Alignment",
                np.array([0.0, 0.0]), np.deg2rad(-30.0),
                np.array([[0.55, 0.40], [-0.58, 0.28], [0.10, -0.62],
                          [1.20, 0.95]]),
