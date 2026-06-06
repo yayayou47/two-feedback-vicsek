@@ -1441,8 +1441,8 @@ def fig_double_cluster_map(npz_path: Path):
                     fr"$\langle\varphi\rangle={phi[im, c]:.2f}$, "
                     fr"$n_{{\rm cl}}={n_clusters}$",
                     transform=ax.transAxes, fontsize=6,
-                    ha="left", va="top",
-                    bbox=dict(facecolor="white", alpha=0.7,
+                    fontweight="bold", ha="left", va="top",
+                    bbox=dict(facecolor=style.CREAM, alpha=0.9,
                               edgecolor="none", pad=1))
             if r == 0:
                 ax.set_title(fr"$L = {int(L)}$", fontsize=8)
