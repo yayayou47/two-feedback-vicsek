@@ -66,26 +66,26 @@ def fig_geometry():
                 edgecolor="#3a4a78", lw=0.9, zorder=1)
     ax.add_patch(rep); ax.add_patch(ali)
 
-    head_len = 0.20 * 1.2 * 1.2
+    head_len = 0.20 * 1.2 * 1.2 * 1.2
     ax.annotate("", xy=(head_len, 0), xytext=(0, 0),
                 arrowprops=dict(arrowstyle="-|>", color=PARTICLE_BLUE,
-                                lw=3.1), zorder=6)
-    ax.scatter([0], [0], s=108, color=PARTICLE_BLUE, edgecolor="white",
+                                lw=3.72), zorder=6)
+    ax.scatter([0], [0], s=156, color=PARTICLE_BLUE, edgecolor="white",
                lw=0.96, zorder=7)
     ax.text(0.05, -0.13, r"$i$", fontsize=16, fontweight="bold", zorder=7)
     ax.text(head_len + 0.02, 0.05, r"$\vec e_i(t)$", fontsize=14,
             color=PARTICLE_BLUE, zorder=7)
 
-    arrow_len = 0.14 * 1.2 * 1.2
+    arrow_len = 0.14 * 1.2 * 1.2 * 1.2
 
     def neighbour(x, y, theta_deg, label, color=PARTICLE_BLUE, alpha=1.0):
         th = np.deg2rad(theta_deg)
         ax.annotate("", xy=(x + arrow_len * np.cos(th),
                             y + arrow_len * np.sin(th)),
                     xytext=(x, y),
-                    arrowprops=dict(arrowstyle="-|>", color=color, lw=1.92,
+                    arrowprops=dict(arrowstyle="-|>", color=color, lw=2.30,
                                     alpha=alpha), zorder=6)
-        ax.scatter([x], [y], s=50, color=color, alpha=alpha,
+        ax.scatter([x], [y], s=72, color=color, alpha=alpha,
                    edgecolor="white", lw=0.72, zorder=7)
         ax.text(x + 0.05, y + 0.08, label, fontsize=13, alpha=alpha,
                 zorder=7)
@@ -93,9 +93,9 @@ def fig_geometry():
     j1 = (-0.18 * 1.2, 0.22 * 1.2)
     neighbour(*j1, theta_deg=90, label=r"$j_1$")
     nrm = np.hypot(*j1)
-    away = (-j1[0] / nrm * 0.30 * 1.2 * 1.2, -j1[1] / nrm * 0.30 * 1.2 * 1.2)
+    away = (-j1[0] / nrm * 0.30 * 1.2 * 1.2 * 1.2, -j1[1] / nrm * 0.30 * 1.2 * 1.2 * 1.2)
     ax.annotate("", xy=away, xytext=(0, 0),
-                arrowprops=dict(arrowstyle="->", color="#9c3a3a", lw=1.8,
+                arrowprops=dict(arrowstyle="->", color="#9c3a3a", lw=2.16,
                                 ls=(0, (3, 2))), zorder=6)
     ax.text(away[0] + 0.02, away[1] - 0.06, "repulse", fontsize=12,
             color="#9c3a3a", style="italic", zorder=7)
@@ -237,10 +237,10 @@ def _evolve(pos_i, th_i, pos_j, th_j):
 
 def _render_frame(ax, pos_i, th_i, pos_j, th_j, labels):
     _draw_zones(ax)
-    _particle(ax, pos_i, th_i, color=FOCAL_RED, ss=108, al=0.45, lw=4.0,
+    _particle(ax, pos_i, th_i, color=FOCAL_RED, ss=156, al=0.54, lw=4.8,
               label=r"$i$", loff=(0.07, -0.30), fs=15)
     for pos, th, lab in zip(pos_j, th_j, labels):
-        _particle(ax, pos, th, color=PARTICLE_BLUE, ss=50, al=0.32, lw=2.6,
+        _particle(ax, pos, th, color=PARTICLE_BLUE, ss=72, al=0.384, lw=3.12,
                   label=lab, loff=(0.06, 0.09), fs=12)
 
 
@@ -250,8 +250,8 @@ def _rule_pair(title, pos_i, th_i, pos_j, th_j, labels, name, drift=False):
     for ax, lab in zip((ax_t, ax_tp), (r"$t$", r"$t + \delta t$")):
         ax.set_aspect("equal"); ax.set_xticks([]); ax.set_yticks([])
         ax.set_xlim(-1.55, 1.55); ax.set_ylim(-1.45, 1.55)
-        ax.text(0.5, 1.02, lab, transform=ax.transAxes, ha="center",
-                va="bottom", fontsize=14, fontweight="bold")
+        ax.text(0.5, -0.05, lab, transform=ax.transAxes, ha="center",
+                va="top", fontsize=14, fontweight="bold")
     fig.suptitle(title, fontsize=13.5, y=0.97)
     _render_frame(ax_t, pos_i, th_i, pos_j, th_j, labels)
     npi, nti, npj, ntj = _evolve(pos_i, th_i, pos_j, th_j)
