@@ -153,6 +153,9 @@ def fig_geometry():
             ha="center", va="top", fontsize=20.25, zorder=9)
     ax.set_position(AXRECT)
     _frame(ax)
+    fig.add_artist(Rectangle((0.012, 0.012), 0.976, 0.95, fill=False,
+                             edgecolor="#666", lw=1.3,
+                             transform=fig.transFigure, zorder=10))
     _save(fig, "fig_setup_geometry.pdf", crop=False)
 
 
@@ -178,6 +181,9 @@ def fig_noise():
     _frame(ax)
     fig.suptitle(r"(b) $\alpha$-stable noise pdfs",
                  fontsize=20.25, y=0.95)
+    fig.add_artist(Rectangle((0.012, 0.012), 0.976, 0.95, fill=False,
+                             edgecolor="#666", lw=1.3,
+                             transform=fig.transFigure, zorder=10))
     _save(fig, "fig_setup_noise.pdf", crop=False)
 
 
@@ -212,6 +218,9 @@ def fig_sigmoid():
     ax.set_position(AXRECT); ax2.set_position(AXRECT)
     _frame(ax, ax2)
     fig.suptitle(r"(c) Shared sigmoid", fontsize=20.25, y=0.95)
+    fig.add_artist(Rectangle((0.012, 0.012), 0.976, 0.95, fill=False,
+                             edgecolor="#666", lw=1.3,
+                             transform=fig.transFigure, zorder=10))
     _save(fig, "fig_setup_sigmoid.pdf", crop=False)
 
 
@@ -262,10 +271,10 @@ def _evolve(pos_i, th_i, pos_j, th_j):
 
 def _render_frame(ax, pos_i, th_i, pos_j, th_j, labels):
     _draw_zones(ax)
-    _particle(ax, pos_i, th_i, color=FOCAL_RED, ss=156, al=0.346, lw=3.72,
+    _particle(ax, pos_i, th_i, color=FOCAL_RED, ss=156, al=0.415, lw=3.72,
               label=r"$i$", loff=(0.07, -0.30), fs=15)
     for pos, th, lab in zip(pos_j, th_j, labels):
-        _particle(ax, pos, th, color=PARTICLE_BLUE, ss=72, al=0.242, lw=2.30,
+        _particle(ax, pos, th, color=PARTICLE_BLUE, ss=72, al=0.290, lw=2.30,
                   label=lab, loff=(0.06, 0.09), fs=12)
 
 
