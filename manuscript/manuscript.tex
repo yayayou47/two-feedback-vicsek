@@ -992,6 +992,80 @@ Fig.~\ref{fig:gr}c; $C(\tau)$ extends it to the
 single-particle dynamic at lags well beyond the polar-order
 correlation time.
 
+\subsubsection{\texorpdfstring{Turning-angle statistics and density-stratified diffusion}{Turning-angle statistics and density-stratified diffusion}}
+\label{sec:traj}
+
+The autocorrelation $C(\tau)$ tells us how long a heading is
+remembered, but not how it changes from step to step nor how far a
+particle travels. We close that gap with two single-particle
+diagnostics measured on the same near-critical runs ($L = 30$,
+$\rho_0 = 2.22$, six seeds, $8\,000$ steps), each stratified by the
+local-density quartile a particle occupies: the per-step
+turning-angle distribution $p(\Delta\theta)$ and the mean squared
+displacement $\langle\Delta r^2\rangle(\tau)$ conditioned on the
+density class at the time origin, with positions unwrapped across
+the periodic box (Fig.~\ref{fig:traj}).
+
+The turning-angle pdf exposes the noise gate as a switch in the
+reorientation statistics. In the dilute gas both models turn with a
+heavy, Cauchy-like tail: the weight beyond $|\Delta\theta| > \pi/2$
+is $0.34$ (double-adaptive) and $0.41$ (motility-only) and the
+circular variance is $0.73$ and $0.83$, the L\'evy-like signature of
+$\alpha \to 1$ (Fig.~\ref{fig:traj}b). In the dense phase the two
+part company (Fig.~\ref{fig:traj}a): the double-adaptive increment
+collapses onto a narrow, Gaussian-like core (tail weight $0.14$,
+circular variance $0.34$, peak $p(0) = 0.78$), whereas motility-only
+keeps a much heavier tail (tail weight $0.22$, circular variance
+$0.50$) because its stability index is pinned at $\alpha = 1$. The
+gate therefore cuts the dense-phase tail weight by a factor $2.4$ for
+the double-adaptive model ($0.34 \to 0.14$) against only $1.9$ for
+motility-only --- the rectification that $C(\tau)$ saw as a
+persistence plateau is, at the level of the increments, a switch from
+heavy-tailed to Gaussian turning inside the dense phase.
+
+The stratified MSD turns this into transport
+(Fig.~\ref{fig:traj}c,d). The dense phase is ballistic --- a
+coherent, comoving ordered droplet --- with exponent
+$\gamma_{\rm dense} = 2.01 \pm 0.01$ for the double-adaptive model
+and $1.93$ for motility-only, while the dilute gas is super-diffusive
+but sub-ballistic, $\gamma_{\rm dilute} = 1.59$ and $1.45$
+respectively, the fast free particles losing direction to their
+heavy-tailed turning. The double feedback raises the exponent in both
+phases and lifts the dense-phase displacement at $\tau = 2\,000$ steps
+by $66\%$ ($235.7$ against $142.2$ in box units): the Gaussian gate
+makes the dense droplets advance as cleaner ballistic units.
+
+Together the two diagnostics give the single-particle mechanism
+behind the macroscopic gains. The noise channel sets the turning
+statistics --- Gaussian, directed motion inside the dense flock and
+heavy-tailed, L\'evy-like reorientation in the dilute gas --- while
+the speed channel sets the magnitude, and their conjunction is what
+lets the double-adaptive droplets stay denser, more cohesive and more
+persistent than the motility-only ablation.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{fig_double_traj_stats.pdf}
+    \caption{Density-stratified single-particle trajectory statistics
+    at $L = 30$, $\rho_0 = 2.22$, six seeds, near-critical $\eta$.
+    Top row: per-step turning-angle pdf $p(\Delta\theta)$ in the
+    dense (a) and dilute (b) quartiles, double-adaptive (purple) vs
+    motility-only (red), on a log ordinate. The double-adaptive
+    increment is Gaussian-narrow in the dense phase ($\alpha \to 2$)
+    but heavy-tailed in the dilute gas ($\alpha \to 1$); motility-only,
+    with $\alpha$ pinned at $1$, stays heavy-tailed in both. Bottom
+    row: mean squared displacement $\langle\Delta r^2\rangle(\tau)$
+    conditioned on the density class at the time origin, for the
+    double-adaptive (c) and motility-only (d) models, dense (solid)
+    vs dilute (dashed), with the fitted exponent $\gamma$ per curve.
+    The dense phase is ballistic ($\gamma \simeq 2$, a comoving
+    ordered droplet); the dilute gas is super-diffusive but
+    sub-ballistic. Takeaway: the noise gate turns dense-phase
+    reorientation from L\'evy-like to Gaussian, so the droplets
+    advance as cleaner directed units.}
+    \label{fig:traj}
+\end{figure}
+
 \subsubsection{Decoupled sigmoids: a four-way anatomy of the rectification}
 \label{sec:decoupled}
 

@@ -1791,6 +1791,94 @@ def fig_double_autocorr(npz_path: Path):
     _save(fig, "fig_double_autocorr.pdf")
 
 
+def fig_double_traj_stats(npz_path: Path):
+    r"""Density-stratified single-particle trajectory statistics at
+    $L = 30$. Top row: per-step turning-angle pdf $p(\Delta\theta)$ in
+    the dense (a) and dilute (b) quartiles, double-adaptive vs
+    motility-only, on a log ordinate so the heavy Cauchy tail is
+    visible. Bottom row: mean squared displacement
+    $\langle\Delta r^2\rangle(\tau)$ conditioned on the density class
+    at the time origin, for the double-adaptive (c) and motility-only
+    (d) models, dense (solid) vs dilute (dashed), with the fitted
+    diffusion exponent $\gamma$ per curve."""
+    z = np.load(npz_path, allow_pickle=True)
+    labels = [str(s) if isinstance(s, str) else s.decode()
+              for s in z["labels"]]
+    centers = z["centers"]
+    turn_pdf = z["turn_pdf"]            # (n_modes, n_seeds, 2, n_bins)
+    lags = z["lags_steps"].astype(float)
+    msd = z["msd"]                     # (n_modes, n_seeds, 2, n_lags)
+    idx = {m: labels.index(m) for m in ("v3_limit", "full")
+           if m in labels}
+
+    def _mean_se(arr):                 # average over the seed axis (0)
+        mu = np.nanmean(arr, axis=0)
+        n = np.sum(np.isfinite(arr), axis=0)
+        se = np.nanstd(arr, axis=0, ddof=1) / np.sqrt(np.maximum(n, 1))
+        return mu, se
+
+    def _fit_gamma(x, y):
+        ok = np.isfinite(y) & (y > 0)
+        if ok.sum() < 4:
+            return np.nan
+        xs = np.log10(x[ok]); ys = np.log10(y[ok])
+        sl = slice(1, -1)              # drop the first lag and saturation
+        a, _ = np.polyfit(xs[sl], ys[sl], 1)
+        return float(a)
+
+    fig, axes = plt.subplots(2, 2, figsize=(style.DOUBLE_COL[0], 5.2))
+    for _ax in axes.ravel():
+        for _sp in _ax.spines.values():
+            _sp.set_visible(True); _sp.set_linewidth(0.8)
+            _sp.set_edgecolor("#333333")
+
+    # Top row: turning-angle pdf, dense (class 1) then dilute (class 0).
+    PHASE = {0: "dilute", 1: "dense"}
+    for col, cls in ((0, 1), (1, 0)):
+        ax = axes[0, col]
+        for m in ("full", "v3_limit"):
+            im = idx[m]
+            mu, se = _mean_se(turn_pdf[im, :, cls, :])
+            c = PALETTE[m]
+            ax.plot(centers, mu, "-", color=c, lw=1.3, label=_disp(m))
+            ax.fill_between(centers, np.maximum(mu - se, 1e-6), mu + se,
+                            color=c, alpha=0.18, lw=0)
+        ax.set_yscale("log")
+        ax.set_xlim(-np.pi, np.pi)
+        ax.set_xticks([-np.pi, -np.pi / 2, 0, np.pi / 2, np.pi])
+        ax.set_xticklabels([r"$-\pi$", r"$-\frac{\pi}{2}$", "0",
+                            r"$\frac{\pi}{2}$", r"$\pi$"])
+        ax.set_xlabel(r"turning angle $\Delta\theta$ (per step)")
+        if col == 0:
+            ax.set_ylabel(r"$p(\Delta\theta)$")
+        ax.set_title(fr"({'ab'[col]}) {PHASE[cls]} phase",
+                     fontsize=9, loc="left")
+        if col == 0:
+            ax.legend(fontsize=6, frameon=False, loc="lower center")
+
+    # Bottom row: MSD, full (c) then motility-only (d).
+    for col, m in ((0, "full"), (1, "v3_limit")):
+        ax = axes[1, col]
+        im = idx[m]
+        c = PALETTE[m]
+        for cls, ls, nm in ((1, "-", "dense"), (0, "--", "dilute")):
+            mu, se = _mean_se(msd[im, :, cls, :])
+            g = _fit_gamma(lags, mu)
+            ax.plot(lags, mu, ls, color=c, lw=1.4,
+                    label=fr"{nm} ($\gamma = {g:.2f}$)")
+            ax.fill_between(lags, np.maximum(mu - se, 1e-9), mu + se,
+                            color=c, alpha=0.15, lw=0)
+        ax.set_xscale("log"); ax.set_yscale("log")
+        ax.set_xlabel(r"lag $\tau$ (steps)")
+        if col == 0:
+            ax.set_ylabel(r"MSD $\langle\Delta r^2\rangle$")
+        ax.set_title(fr"({'cd'[col]}) {_disp(m)}", fontsize=9, loc="left")
+        ax.legend(fontsize=6, frameon=False, loc="upper left")
+
+    fig.tight_layout()
+    _save(fig, "fig_double_traj_stats.pdf")
+
+
 def _pick(stem: str) -> Path:
     """Prefer the no-cone version of an npz file when it exists.
 
@@ -1842,6 +1930,9 @@ def main():
     fig_double_cluster_summary(_pick("double_clusters_hs"), npz_gnf, npz_psd)
     fig_double_hysteresis(npz_hyst)
     fig_double_autocorr(_pick("double_autocorr"))
+    npz_traj = DATA / "double_traj_stats_nocone.npz"
+    if npz_traj.exists():
+        fig_double_traj_stats(npz_traj)
     # The decoupled-2D, sigma-sweep and topological-kernel figures
     # (Figs. 14-16) are produced by the analyse_*.py scripts, not by
     # this renderer.
