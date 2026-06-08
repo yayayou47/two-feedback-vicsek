@@ -1631,7 +1631,7 @@ def fig_double_cluster_summary(npz_clusters: Path, npz_gnf: Path,
 
     from matplotlib.patches import Patch
 
-    fig = plt.figure(figsize=(style.DOUBLE_COL[0], 5.0))
+    fig = plt.figure(figsize=(style.DOUBLE_COL[0], 4.0))
     gs = fig.add_gridspec(2, 3)
 
     # Top row (rows swapped): (d) number fluctuations and (e) P(s).
