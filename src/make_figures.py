@@ -947,7 +947,7 @@ def fig_double_profile(npz_path: Path):
     ax.set_ylim(0.85, 1.0)
     ax.set_xlabel(r"$x_\parallel$")
     ax.set_ylabel(r"$\rho(x_\parallel)/\rho_{\max}$")
-    ax.set_title("(a)", fontsize=9, loc="left")
+    ax.set_title("(a) density profile", fontsize=9, loc="left")
     # Four entries stacked on four lines, anchored at the panel's
     # lower centre and growing downward.
     ax.legend(fontsize=6, frameon=False, loc="lower center",
@@ -967,7 +967,7 @@ def fig_double_profile(npz_path: Path):
     ax.set_ylim(0.85, 1.0)
     ax.set_xlabel(r"$x_\parallel$")
     ax.set_ylabel(r"$\langle v_i\rangle(x_\parallel)/\langle v_i\rangle_{\max}$")
-    ax.set_title("(b)", fontsize=9, loc="left")
+    ax.set_title("(b) speed profile", fontsize=9, loc="left")
 
     fig.tight_layout()
     _save(fig, "fig_double_profile.pdf")
@@ -1290,7 +1290,7 @@ def fig_double_Lfine_gap(npz_fine, npz_pilot, npz_L64, npz_L90,
     ax.set_xscale("log")
     ax.set_xlabel(r"$L$")
     ax.set_ylabel(r"$s_{\rm sep}^{\max}$")
-    ax.set_title(r"(a)", fontsize=9, loc="left")
+    ax.set_title(r"(a) $s_{\rm sep}^{\max}$ vs $L$", fontsize=9, loc="left")
     ax.legend(fontsize=7, loc="lower right", frameon=False)
 
     ax = axes[1]
@@ -1304,7 +1304,7 @@ def fig_double_Lfine_gap(npz_fine, npz_pilot, npz_L64, npz_L90,
     ax.set_xscale("log")
     ax.set_xlabel(r"$L$")
     ax.set_ylabel(r"$s_{\rm sep}^{\rm full} - s_{\rm sep}^{\rm motility}$")
-    ax.set_title(r"(b)", fontsize=9, loc="left")
+    ax.set_title(r"(b) full $-$ motility gap", fontsize=9, loc="left")
     ax.legend(fontsize=7, loc="lower left", frameon=False)
 
     fig.tight_layout()
