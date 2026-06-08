@@ -1839,14 +1839,15 @@ def fig_double_autocorr(npz_path: Path):
 
 def fig_double_traj_stats(npz_path: Path):
     r"""Density-stratified single-particle trajectory statistics at
-    $L = 30$. Top row: per-step turning-angle pdf $p(\Delta\theta)$ in
-    the dense (a) and dilute (b) quartiles, double-adaptive vs
-    motility-only, on a log ordinate so the heavy Cauchy tail is
-    visible. Bottom row: mean squared displacement
-    $\langle\Delta r^2\rangle(\tau)$ conditioned on the density class
-    at the time origin, for the double-adaptive (c) and motility-only
-    (d) models, dense (solid) vs dilute (dashed), with the fitted
-    diffusion exponent $\gamma$ per curve."""
+    $L = 30$, all four modes. Panel (a): per-step turning-angle pdf
+    $p(\Delta\theta)$ on a log ordinate; panel (b): mean squared
+    displacement $\langle\Delta r^2\rangle(\tau)$ conditioned on the
+    density class at the time origin. Hue keys the mode; line style
+    keys the density class (solid dense, dashed dilute). The fitted
+    diffusion exponent $\gamma_{\rm dense}/\gamma_{\rm dilute}$ per mode
+    is annotated in panel (b)."""
+    from matplotlib.lines import Line2D
+
     z = np.load(npz_path, allow_pickle=True)
     labels = [str(s) if isinstance(s, str) else s.decode()
               for s in z["labels"]]
@@ -1854,72 +1855,85 @@ def fig_double_traj_stats(npz_path: Path):
     turn_pdf = z["turn_pdf"]            # (n_modes, n_seeds, 2, n_bins)
     lags = z["lags_steps"].astype(float)
     msd = z["msd"]                     # (n_modes, n_seeds, 2, n_lags)
-    idx = {m: labels.index(m) for m in ("v3_limit", "full")
-           if m in labels}
 
-    def _mean_se(arr):                 # average over the seed axis (0)
-        mu = np.nanmean(arr, axis=0)
-        n = np.sum(np.isfinite(arr), axis=0)
-        se = np.nanstd(arr, axis=0, ddof=1) / np.sqrt(np.maximum(n, 1))
-        return mu, se
+    # All four modes, references first.
+    order = [m for m in ("baseline", "v2_limit", "v3_limit", "full")
+             if m in labels]
+    short = {"baseline": "Cauchy", "v2_limit": "noise-shape",
+             "v3_limit": "motility", "full": "double-adaptive"}
+
+    def _mean(arr):                    # mean over the seed axis (0)
+        return np.nanmean(arr, axis=0)
 
     def _fit_gamma(x, y):
         ok = np.isfinite(y) & (y > 0)
         if ok.sum() < 4:
             return np.nan
         xs = np.log10(x[ok]); ys = np.log10(y[ok])
-        sl = slice(1, -1)              # drop the first lag and saturation
-        a, _ = np.polyfit(xs[sl], ys[sl], 1)
+        a, _ = np.polyfit(xs[1:-1], ys[1:-1], 1)   # drop ends
         return float(a)
 
-    fig, axes = plt.subplots(2, 2, figsize=(style.DOUBLE_COL[0], 5.2))
-    for _ax in axes.ravel():
+    # density class: 1 = dense (solid), 0 = dilute (dashed)
+    PHASE_LS = {1: "-", 0: "--"}
+
+    fig, axes = plt.subplots(1, 2, figsize=(style.DOUBLE_COL[0], 3.0))
+    for _ax in axes:
         for _sp in _ax.spines.values():
             _sp.set_visible(True); _sp.set_linewidth(0.8)
             _sp.set_edgecolor("#333333")
 
-    # Top row: turning-angle pdf, dense (class 1) then dilute (class 0).
-    PHASE = {0: "dilute", 1: "dense"}
-    for col, cls in ((0, 1), (1, 0)):
-        ax = axes[0, col]
-        for m in ("full", "v3_limit"):
-            im = idx[m]
-            mu, se = _mean_se(turn_pdf[im, :, cls, :])
-            c = PALETTE[m]
-            ax.plot(centers, mu, "-", color=c, lw=1.3, label=_disp(m))
-            ax.fill_between(centers, np.maximum(mu - se, 1e-6), mu + se,
-                            color=c, alpha=0.18, lw=0)
-        ax.set_yscale("log")
-        ax.set_xlim(-np.pi, np.pi)
-        ax.set_xticks([-np.pi, -np.pi / 2, 0, np.pi / 2, np.pi])
-        ax.set_xticklabels([r"$-\pi$", r"$-\frac{\pi}{2}$", "0",
-                            r"$\frac{\pi}{2}$", r"$\pi$"])
-        ax.set_xlabel(r"turning angle $\Delta\theta$ (per step)")
-        if col == 0:
-            ax.set_ylabel(r"$p(\Delta\theta)$")
-        ax.set_title(fr"({'ab'[col]}) {PHASE[cls]} phase",
-                     fontsize=9, loc="left")
-        if col == 0:
-            ax.legend(fontsize=6, frameon=False, loc="lower center")
+    # (a) turning-angle pdf: every mode, dense + dilute.
+    ax = axes[0]
+    for m in order:
+        im = labels.index(m); c = PALETTE[m]
+        for cls in (1, 0):
+            ax.plot(centers, _mean(turn_pdf[im, :, cls, :]),
+                    PHASE_LS[cls], color=c, lw=1.1, alpha=0.9)
+    ax.set_yscale("log")
+    ax.set_xlim(-np.pi, np.pi)
+    ax.set_xticks([-np.pi, -np.pi / 2, 0, np.pi / 2, np.pi])
+    ax.set_xticklabels([r"$-\pi$", r"$-\frac{\pi}{2}$", "0",
+                        r"$\frac{\pi}{2}$", r"$\pi$"])
+    ax.set_xlabel(r"turning angle $\Delta\theta$ (per step)")
+    ax.set_ylabel(r"$p(\Delta\theta)$")
+    ax.set_title("(a) turning-angle pdf", fontsize=9, loc="left")
+    mode_handles = [Line2D([], [], color=PALETTE[m], lw=2,
+                           label=short[m]) for m in order]
+    phase_handles = [Line2D([], [], color="0.3", lw=1.3, ls="-",
+                            label="dense"),
+                     Line2D([], [], color="0.3", lw=1.3, ls="--",
+                            label="dilute")]
+    leg1 = ax.legend(handles=mode_handles, fontsize=5.5, frameon=False,
+                     loc="lower center", ncol=2, handlelength=1.3,
+                     columnspacing=1.0, labelspacing=0.25)
+    ax.add_artist(leg1)
+    ax.legend(handles=phase_handles, fontsize=6, frameon=False,
+              loc="upper right")
 
-    # Bottom row: MSD, full (c) then motility-only (d).
-    for col, m in ((0, "full"), (1, "v3_limit")):
-        ax = axes[1, col]
-        im = idx[m]
-        c = PALETTE[m]
-        for cls, ls, nm in ((1, "-", "dense"), (0, "--", "dilute")):
-            mu, se = _mean_se(msd[im, :, cls, :])
-            g = _fit_gamma(lags, mu)
-            ax.plot(lags, mu, ls, color=c, lw=1.4,
-                    label=fr"{nm} ($\gamma = {g:.2f}$)")
-            ax.fill_between(lags, np.maximum(mu - se, 1e-9), mu + se,
-                            color=c, alpha=0.15, lw=0)
-        ax.set_xscale("log"); ax.set_yscale("log")
-        ax.set_xlabel(r"lag $\tau$ (steps)")
-        if col == 0:
-            ax.set_ylabel(r"MSD $\langle\Delta r^2\rangle$")
-        ax.set_title(fr"({'cd'[col]}) {_disp(m)}", fontsize=9, loc="left")
-        ax.legend(fontsize=6, frameon=False, loc="upper left")
+    # (b) stratified MSD: every mode, dense + dilute, gamma annotated.
+    ax = axes[1]
+    gammas = []
+    for m in order:
+        im = labels.index(m); c = PALETTE[m]
+        for cls in (1, 0):
+            ax.plot(lags, _mean(msd[im, :, cls, :]),
+                    PHASE_LS[cls], color=c, lw=1.2, alpha=0.9)
+        gammas.append((m, c,
+                       _fit_gamma(lags, _mean(msd[im, :, 1, :])),
+                       _fit_gamma(lags, _mean(msd[im, :, 0, :]))))
+    ax.set_xscale("log"); ax.set_yscale("log")
+    ax.set_xlabel(r"lag $\tau$ (steps)")
+    ax.set_ylabel(r"MSD $\langle\Delta r^2\rangle$")
+    ax.set_title("(b) stratified MSD", fontsize=9, loc="left")
+    ax.text(0.03, 0.985,
+            r"$\gamma_{\rm dense}/\gamma_{\rm dilute}$:",
+            transform=ax.transAxes, fontsize=6, va="top", ha="left",
+            color="0.2")
+    for k, (m, c, gd, gl) in enumerate(gammas):
+        ax.text(0.03, 0.91 - 0.075 * k,
+                fr"{short[m]}: {gd:.2f}/{gl:.2f}",
+                transform=ax.transAxes, fontsize=6, va="top",
+                ha="left", color=c)
 
     fig.tight_layout()
     _save(fig, "fig_double_traj_stats.pdf")
