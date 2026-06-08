@@ -1629,27 +1629,13 @@ def fig_double_cluster_summary(npz_clusters: Path, npz_gnf: Path,
     etas = zp["etas"]; centers = zp["centers"]; pdf = zp["pdf"]
     eta_styles = ["solid", (0, (5, 1)), (0, (4, 1, 1, 1)), (0, (1, 1.4))]
 
+    from matplotlib.patches import Patch
+
     fig = plt.figure(figsize=(style.DOUBLE_COL[0], 5.0))
     gs = fig.add_gridspec(2, 3)
 
-    # Panels (a)-(c): bar summaries.
-    bar_panels = (
-        (fig.add_subplot(gs[0, 0]), counts_m, counts_se,
-         "(a) cluster count"),
-        (fig.add_subplot(gs[0, 1]), maxsz_m, maxsz_se,
-         "(b) max cluster size"),
-        (fig.add_subplot(gs[0, 2]), meansz_m, meansz_se,
-         "(c) mean cluster size"),
-    )
-    for ax, m, se, ylab in bar_panels:
-        ax.bar(xpos, m, yerr=se, color=ccolors, capsize=3,
-               alpha=0.85, error_kw=dict(lw=0.8))
-        ax.set_xticks(xpos)
-        ax.set_xticklabels(disp, rotation=30, ha="right", fontsize=6)
-        ax.set_ylabel(ylab, fontsize=8)
-
-    # Panel (d): GNF.
-    ax = fig.add_subplot(gs[1, 0])
+    # Top row (rows swapped): (d) number fluctuations and (e) P(s).
+    ax = fig.add_subplot(gs[0, 0])
     for im, m in enumerate(glabels):
         mk = var_N[im] > 0
         ax.plot(mean_N[im, mk], var_N[im, mk], "o-", color=PALETTE[m],
@@ -1661,10 +1647,10 @@ def fig_double_cluster_summary(npz_clusters: Path, npz_gnf: Path,
     ax.set_xlabel(r"$\langle N_{\rm box}\rangle$")
     ax.set_ylabel(r"$\mathrm{Var}(N_{\rm box})$")
     ax.legend(fontsize=5.5, loc="upper left", frameon=False)
-    ax.set_title("(d)", fontsize=9, loc="left")
+    ax.set_title("(d) number fluctuations", fontsize=8, loc="center")
 
     # Panel (e): P(s) overlay, spanning the remaining two cells.
-    axe = fig.add_subplot(gs[1, 1:])
+    axe = fig.add_subplot(gs[0, 1:])
     for im, m in enumerate(plabels):
         for ie in range(len(etas)):
             y = pdf[im, ie]
@@ -1676,7 +1662,7 @@ def fig_double_cluster_summary(npz_clusters: Path, npz_gnf: Path,
     axe.set_xscale("log"); axe.set_yscale("log")
     axe.set_xlabel(r"dense-cluster size $s$ (particles)")
     axe.set_ylabel(r"$P(s)$")
-    axe.set_title("(e)", fontsize=9, loc="left")
+    axe.set_title("(e) cluster-size distribution", fontsize=8, loc="center")
     mode_handles = [Line2D([], [], color=PALETTE[m], lw=2,
                            label=_disp(m)) for m in plabels]
     eta_handles = [Line2D([], [], color="0.30", lw=1.4,
@@ -1688,6 +1674,29 @@ def fig_double_cluster_summary(npz_clusters: Path, npz_gnf: Path,
     axe.add_artist(leg1)
     axe.legend(handles=eta_handles, fontsize=6, frameon=False,
                loc="lower left", title="noise", ncol=2)
+
+    # Bottom row (rows swapped): (a)-(c) bar summaries. The x-ticks
+    # (one rotated mode name per bar) are dropped and the mode->colour
+    # key is given once, as a single legend on panel (a).
+    bar_panels = (
+        (fig.add_subplot(gs[1, 0]), counts_m, counts_se,
+         "(a) cluster count"),
+        (fig.add_subplot(gs[1, 1]), maxsz_m, maxsz_se,
+         "(b) max cluster size"),
+        (fig.add_subplot(gs[1, 2]), meansz_m, meansz_se,
+         "(c) mean cluster size"),
+    )
+    for ax, mvals, se, title in bar_panels:
+        ax.bar(xpos, mvals, yerr=se, color=ccolors, capsize=3,
+               alpha=0.85, error_kw=dict(lw=0.8))
+        ax.set_xticks([])
+        ax.set_title(title, fontsize=8, loc="center")
+    bar_handles = [Patch(facecolor=PALETTE[m], label=_disp(m))
+                   for m in clabels]
+    bar_panels[0][0].legend(handles=bar_handles, fontsize=5,
+                            frameon=False, loc="upper left",
+                            handlelength=1.0, handletextpad=0.4,
+                            labelspacing=0.25)
 
     fig.tight_layout()
     _save(fig, "fig_double_cluster_summary.pdf")
