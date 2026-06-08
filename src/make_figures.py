@@ -437,33 +437,70 @@ def fig_double_pilot(npz_path: Path):
     ax.set_ylabel(r"$U_4$")
     ax.set_title(r"(d) $U_4(\eta)$", fontsize=9, loc="left")
 
-    # (e) chi_max FSS with bootstrap CI on the slope.
+    # (e) chi_max FSS. Prefer the homogeneous ten-seed series
+    # (double_fss_homog10_nocone.npz, seven sizes x ten seeds), which
+    # is the referee-grade FSS: the slope CI is bootstrapped over the
+    # ten seeds. Fall back to the merged three-seed data otherwise.
     ax = axes[1, 1]
     rng = np.random.default_rng(0)
-    for im, m in enumerate(modes):
-        chi_max = chi[im].max(axis=1)
-        ax.plot(Ls, chi_max, "o", color=PALETTE[m], ms=5, zorder=3)
-        a, b = np.polyfit(np.log(Ls), np.log(chi_max), 1)
-        # bootstrap the slope by resampling sizes with replacement
-        boot = []
-        for _ in range(2000):
-            idx = rng.integers(0, len(Ls), len(Ls))
-            try:
-                ai, _ = np.polyfit(np.log(Ls[idx]),
-                                    np.log(chi_max[idx]), 1)
-                boot.append(ai)
-            except (np.linalg.LinAlgError, ValueError):
+    homog = DATA / "double_fss_homog10_nocone.npz"
+    if homog.exists():
+        zh = np.load(homog, allow_pickle=True)
+        h_modes = [str(s) if isinstance(s, str) else s.decode()
+                   for s in zh["modes"]]
+        Lh = zh["Ls"].astype(float)
+        chi_h = zh["chi"]                 # (mode, L, eta, seed)
+        nseed_h = chi_h.shape[3]
+        for im, m in enumerate(modes):
+            if m not in h_modes:
                 continue
-        a_lo, a_hi = np.percentile(boot, [16, 84])
-        a_err = 0.5 * (a_hi - a_lo)
-        L_grid = np.linspace(Ls.min(), Ls.max(), 50)
-        ax.plot(L_grid, np.exp(b) * L_grid ** a, "-",
-                 color=PALETTE[m], lw=1.0, alpha=0.85, zorder=2)
-        ax.text(0.03, 0.97 - 0.07 * im,
-                fr"$a={a:+.2f}\pm{a_err:.2f}$",
-                transform=ax.transAxes,
-                fontsize=7, color=PALETTE[m],
-                ha="left", va="top")
+            jm = h_modes.index(m)
+            chi_max = np.nanmax(np.nanmean(chi_h[jm], axis=2), axis=1)
+            a, b = np.polyfit(np.log(Lh), np.log(chi_max), 1)
+            boot = []
+            for _ in range(2000):
+                idx = rng.integers(0, nseed_h, nseed_h)
+                cmb = np.nanmax(np.nanmean(chi_h[jm][:, :, idx], axis=2),
+                                axis=1)
+                try:
+                    boot.append(np.polyfit(np.log(Lh),
+                                           np.log(cmb), 1)[0])
+                except (np.linalg.LinAlgError, ValueError):
+                    continue
+            a_lo, a_hi = np.percentile(boot, [2.5, 97.5])
+            a_err = 0.5 * (a_hi - a_lo)
+            ax.plot(Lh, chi_max, "o", color=PALETTE[m], ms=5, zorder=3)
+            L_grid = np.linspace(Lh.min(), Lh.max(), 50)
+            ax.plot(L_grid, np.exp(b) * L_grid ** a, "-",
+                    color=PALETTE[m], lw=1.0, alpha=0.85, zorder=2)
+            ax.text(0.03, 0.97 - 0.07 * im,
+                    fr"$a={a:+.2f}\pm{a_err:.2f}$",
+                    transform=ax.transAxes, fontsize=7,
+                    color=PALETTE[m], ha="left", va="top")
+    else:
+        for im, m in enumerate(modes):
+            chi_max = chi[im].max(axis=1)
+            ax.plot(Ls, chi_max, "o", color=PALETTE[m], ms=5, zorder=3)
+            a, b = np.polyfit(np.log(Ls), np.log(chi_max), 1)
+            boot = []
+            for _ in range(2000):
+                idx = rng.integers(0, len(Ls), len(Ls))
+                try:
+                    ai, _ = np.polyfit(np.log(Ls[idx]),
+                                        np.log(chi_max[idx]), 1)
+                    boot.append(ai)
+                except (np.linalg.LinAlgError, ValueError):
+                    continue
+            a_lo, a_hi = np.percentile(boot, [16, 84])
+            a_err = 0.5 * (a_hi - a_lo)
+            L_grid = np.linspace(Ls.min(), Ls.max(), 50)
+            ax.plot(L_grid, np.exp(b) * L_grid ** a, "-",
+                     color=PALETTE[m], lw=1.0, alpha=0.85, zorder=2)
+            ax.text(0.03, 0.97 - 0.07 * im,
+                    fr"$a={a:+.2f}\pm{a_err:.2f}$",
+                    transform=ax.transAxes,
+                    fontsize=7, color=PALETTE[m],
+                    ha="left", va="top")
     ax.set_xscale("log")
     ax.set_yscale("log")
     ax.set_xlabel(r"$L$")
