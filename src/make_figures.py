@@ -643,13 +643,13 @@ def fig_double_snapshot(npz_path: Path):
                     # Mode name on the top row only; size label on the
                     # leftmost column only (no repeats elsewhere).
                     if iL == 0:
-                        ax.set_title(_disp(mode_labels[im]), fontsize=6.8)
+                        ax.set_title(_disp(mode_labels[im]), fontsize=7.82)
                     if col == 0:
-                        ax.set_ylabel(fr"$L = {int(L)}$", fontsize=7.8)
+                        ax.set_ylabel(fr"$L = {int(L)}$", fontsize=8.97)
                     ax.text(0.03, 0.97,
                             fr"$\langle\varphi\rangle="
                             fr"{phi[iL, im, ic]:.2f}$",
-                            transform=ax.transAxes, fontsize=5.85,
+                            transform=ax.transAxes, fontsize=6.73,
                             fontweight="bold", ha="left", va="top",
                             bbox=dict(facecolor=style.CREAM, alpha=0.9,
                                       edgecolor="none", pad=1))
@@ -663,7 +663,7 @@ def fig_double_snapshot(npz_path: Path):
             fig.text(0.5 * (p_l.x0 + p_r.x1), p_l.y1 + 0.055,
                      fr"({chr(97 + jc)}) {_disp(case_labels[ic])}, "
                      fr"$\eta={eta[ic]:g}$",
-                     ha="center", va="bottom", fontsize=7.8,
+                     ha="center", va="bottom", fontsize=8.97,
                      fontweight="bold")
         cbar = fig.colorbar(last_q, ax=axes, orientation="vertical",
                             fraction=0.018, pad=0.012)
