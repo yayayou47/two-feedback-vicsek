@@ -1,9 +1,10 @@
 """Shared matplotlib style for journal figures.
 
-White-background figures sized for PRE/PRL/Soft Matter
-(single-column 3.4 in, two-column 7.0 in). Colorblind-safe
-Wong palette as default. Cream is kept as an alternative for
-slides via ``apply(bg="cream")``.
+Defines the project palette and rcParams for PRE/PRL/Soft Matter
+figures: the colorblind-safe Wong colours, a fixed per-mode PALETTE
+reused across analysis figures, PARTICLE_BLUE for snapshots, and
+standard column sizes (single 3.4 in, double 7.0 in). apply() activates
+serif 9 pt journal styling on a white (default) or cream background.
 """
 from __future__ import annotations
 

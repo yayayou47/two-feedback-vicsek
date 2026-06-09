@@ -1,10 +1,9 @@
 """
-L = 128 controlled FSS extension. Adds the seventh row to the
-five-mode comparison and tests whether the synergy diagnostic
-$\Delta$ on $\chi$ converges to zero (the dense-phase saturation
-fully closes the gap) or stays weakly antagonistic.
-$\Delta_4 = +0.26$, $\Delta_5 = -0.68$, $\Delta_6 = -0.16$
-already; $\Delta_7$ settles the asymptotic value.
+L = 128 controlled FSS run, the largest size in the five-mode
+comparison. It sweeps the Vicsek-Gauss reference and the four
+heavy-tailed modes (baseline, v2_limit, v3_limit, full) over the eta
+grid {0.005 ... 0.300} with 3 seeds, recording phi, chi, U4, s_sep
+and the mean adaptive speed and exponent.
 
 Output: data/double_L128.npz with the same schema as
 double_L64.npz / double_L90.npz, including the Vicsek-Gauss

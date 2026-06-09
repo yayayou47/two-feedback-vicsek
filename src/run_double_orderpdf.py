@@ -1,9 +1,10 @@
 """
-Probability density of the polar order parameter for the FULL
-two-feedback model and the v3 limit, at L = 30, near-critical
-eta. Bimodal -> first-order; unimodal -> continuous. The open
-question for v4 is whether the synergic regime produces the
-two-peak structure that v3 alone could not.
+Samples the polar order parameter at L = 30, sigma = 2.22, near
+the critical eta of two modes (the motility-only v3 limit and the
+full two-feedback model), over three seeds with 2000 warm-up and
+6000 measurement steps each. Concatenates the per-seed
+polarisation trajectories and prints their moments and Binder
+cumulant.
 
 Output: data/double_orderpdf.npz
 """

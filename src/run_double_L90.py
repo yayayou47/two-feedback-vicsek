@@ -1,16 +1,10 @@
 """
-L = 90 controlled FSS extension of the five-mode comparison.
-Adding the L = 90 row to the existing L = 15--64 series settles
-whether the antagonistic synergy on chi (Delta = -0.68 on 5
-sizes) survives in the asymptotic regime. The motility-only slope
-may level off at L >= 90 once the dense-phase fraction saturates;
-in that case Delta should close, possibly flipping back to
-additive. If both slopes keep climbing, Delta deepens and the
-antagonistic verdict hardens.
-
-We include the Vicsek (Gaussian, fixed v) reference and the four
-heavy-tailed modes in a single run, so all results sit on the
-same eta grid and seed budget.
+L = 90 controlled FSS run for the five-mode comparison, adding the
+L = 90 size to the L = 15--64 series. It sweeps the Vicsek-Gauss
+reference (fixed v, fixed alpha) together with the four heavy-tailed
+modes (baseline, v2_limit, v3_limit, full) over the eta grid
+{0.005 ... 0.300} with 3 seeds, recording phi, chi, U4, s_sep and
+the mean adaptive speed and exponent on a single shared grid.
 
 Output: data/double_L90.npz
 """

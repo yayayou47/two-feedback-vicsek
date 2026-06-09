@@ -1,16 +1,17 @@
 """
-Pilot of the double-adaptive Vicsek-Couzin model. Compares four
-modes that share the same code path -- only the parameter ranges
-differ:
+Pilot FSS scan of the double-adaptive Vicsek-Couzin model. Sweeps
+eta on a 10-point grid for $L \\in \\{15, 22, 30, 45\\}$ ($\\sigma =
+N/L^2 = 2.22$, seeds 11/23/41), comparing four modes that share
+the same code path and differ only in parameter ranges:
 
   baseline   : fixed v=v_max, fixed alpha=1     (canonical heavy-tail metric Vicsek)
   v2_limit   : fixed v=v_max, alpha in [1, 2]   (noise-shape feedback alone)
   v3_limit   : v in [v_min, v_max], alpha=1     (motility feedback alone)
   full       : v in [v_min, v_max], alpha in [1, 2]  (both feedbacks tied)
 
-Sweep eta on a grid for L in {15, 22, 30, 45} at sigma = N/L^2 ~ 2.22,
-three seeds. Records per-mode/per-L/per-eta:
-  phi, chi, U4, s_sep, mean v_i, mean alpha_i.
+Records per mode/L/eta (pooled and per-seed): phi, the
+susceptibility chi, the Binder cumulant U4, the density-separation
+index s_sep, and the population means of v_i and alpha_i.
 
 Output: data/double_pilot.npz
 """

@@ -1,8 +1,11 @@
 """
-Final 7-size FSS refit: L = 15, 22, 30, 45, 64, 90, 128.
-Combines double_pilot.npz (L 15-45), double_L64.npz (L=64),
-double_finegrid.npz (small-eta), vicsek_gauss_ref.npz (Vicsek,
-L 15-64), double_L90.npz (L=90), double_L128.npz (L=128).
+Seven-size FSS refit over $L = 15, 22, 30, 45, 64, 90, 128$.
+Combines the precomputed scans (double_pilot, double_L64,
+double_finegrid, vicsek_gauss_ref, double_L90, double_L128) to
+extract $\\chi_{\\max}$, the peak $\\eta$, and $s_{\\rm sep,max}$
+per mode and size, fits the FSS slopes $\\chi_{\\max}\\sim L^a$,
+and prints the synergy diagnostic $\\Delta$ and its convergence
+sequence over the leading $n=4,5,6,7$ sizes (no file written).
 """
 from pathlib import Path
 import numpy as np

@@ -1,15 +1,10 @@
 """
-Alpha-stable (Levy) noise generators.
-
-Reference: Chambers, Mallows & Stuck (1976), "A Method for Simulating
-Stable Random Variables", JASA 71(354).
-
-We generate symmetric alpha-stable variates S_alpha(scale=c, beta=0, mu=0).
-For alpha = 2 this reduces to a Gaussian with std = sqrt(2)*c.
-For alpha = 1 it is Cauchy with HWHM = c.
-
-In the Vicsek model the noise is added to the angle modulo 2*pi. Heavy tails
-allow large angular jumps -> "Levy flights in orientation space".
+Symmetric alpha-stable (Levy) noise generators via the Chambers-Mallows-
+Stuck method (JASA 71(354), 1976). stable_rvs draws variates
+S_alpha(scale=c, beta=0, mu=0); alpha=2 gives a Gaussian with
+std=sqrt(2)*c and alpha=1 gives Cauchy with HWHM=c. wrapped_stable_rvs
+wraps the output to (-pi, pi] for use as angular noise in the Vicsek
+models, where alpha<2 produces heavy-tailed orientation kicks.
 """
 from __future__ import annotations
 

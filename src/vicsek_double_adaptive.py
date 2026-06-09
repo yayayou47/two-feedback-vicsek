@@ -1,19 +1,17 @@
 """
-Vicsek-Couzin variant with two density-adaptive feedbacks gated by
-the same local neighbour count n_i:
+Vicsek-Couzin model with two density-adaptive feedbacks driven by a
+single shared sigmoid of the local neighbour count n_i:
 
-    sig_i  = 1 / (1 + exp(-(n_i - n_star) * slope))
-    v_i    = v_max   - (v_max - v_min)         * sig_i      (motility)
-    alpha_i = alpha_min + (alpha_max - alpha_min) * sig_i   (noise shape)
+    sig_i   = 1 / (1 + exp(-(n_i - n_star) * slope))
+    v_i     = v_max     - (v_max - v_min)         * sig_i    (motility)
+    alpha_i = alpha_min + (alpha_max - alpha_min) * sig_i    (noise shape)
 
-The two channels are tied: a crowded particle is simultaneously slow
-and noisy-Gaussian-like; an isolated particle is simultaneously fast
-and noisy-Cauchy-like. Setting v_min = v_max disables the motility
-channel; setting alpha_min = alpha_max disables the noise-shape
-channel; one simulator therefore covers the four modes
-{baseline, v2-limit, v3-limit, full} with a single code path.
-
-Angular kicks are drawn particle-by-particle from S_{alpha_i}(eta).
+Crowded particles become slow and Gaussian-like, isolated particles
+fast and Cauchy-like. Setting v_min=v_max or alpha_min=alpha_max
+freezes the corresponding channel, so DoubleAdaptiveParams and the
+DoubleAdaptiveVicsek class cover the baseline, motility-only,
+noise-only and full modes through one code path. Angular kicks are
+drawn per particle from S_{alpha_i}(eta) via stable_rvs_vector.
 """
 from __future__ import annotations
 

@@ -1,15 +1,13 @@
 """
-Refined small-eta grid for the four-mode controlled FSS. The 4-size
-pilot and the L = 64 controlled run used eta_min = 0.005, and the
-baseline mode's chi peak at L = 64 sat right at eta = 0.010 (the
-second-smallest grid point) -- evidence that the true peak might
-be below the existing grid. This run complements the existing
-data with four additional small-eta points
-{0.001, 0.002, 0.003, 0.0075} at all five sizes
-{15, 22, 30, 45, 64}, two seeds.
+Small-eta extension of the four-mode controlled FSS, adding the
+points eta in {0.001, 0.002, 0.003, 0.0075} below the existing grid
+to resolve chi peaks that fall near eta_min. It sweeps the four modes
+(baseline, v2_limit, v3_limit, full) at L in {15, 22, 30, 45, 64}
+with 2 seeds, recording phi, chi, U4, s_sep and the mean adaptive
+speed and exponent.
 
-Output: data/double_finegrid.npz with the same schema as the
-pilot, restricted to the new eta values.
+Output: data/double_finegrid.npz (same schema as the pilot,
+restricted to the new eta values).
 """
 from __future__ import annotations
 

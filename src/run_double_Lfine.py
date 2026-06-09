@@ -1,11 +1,10 @@
 """
-Fine-L scan of the transient density-separation advantage of the
-double-adaptive model over the motility-only ablation. Existing
-data show the gap going 0 -> +0.07 -> +0.10 -> +0.05 -> 0 on
-L = {15, 22, 30, 45, 64, 90, 128}. We add intermediate sizes
-$L \in \{38, 50, 60, 75, 105\}$ to locate the peak position and
-characterize its shape, sweeping a four-point eta sub-grid that
-spans both modes' near-critical noise.
+Fine-L scan comparing the full double-adaptive model against the
+motility-only ablation across the intermediate sizes
+L in {38, 50, 60, 75, 105}, filling the gaps in the main FSS series.
+Over the eta sub-grid {0.075, 0.100, 0.150, 0.200} with 5 seeds it
+records phi, chi and the density-separation index s_sep for both
+modes.
 
 Output: data/double_Lfine.npz
 """

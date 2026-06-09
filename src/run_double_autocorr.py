@@ -1,15 +1,11 @@
-"""
-Polar-order autocorrelation $C(\\tau) = \\langle\\langle\\varphi
-\\rangle(t+\\tau)\\langle\\varphi\\rangle(t)\\rangle / \\sigma^2_\\varphi$
-for the four heavy-tailed modes at $L = 30$, ten seeds, long
-trajectory ($n_{\\rm meas} = 20\\,000$). Tests the analytic
-prediction of the hydrodynamic appendix $\\Gamma(\\rho, \\eta)
-\\simeq \\eta^{\\alpha(\\rho)}$, namely that the full and motility
-modes should differ in their decorrelation timescale by a factor
-$\\eta^{\\alpha_{\\max} - \\alpha_{\\min}} = \\eta$ inside the
-dense phase. We additionally compute the dense- and
-dilute-quartile per-particle heading autocorrelation to make the
-density stratification explicit.
+r"""
+Computes the polar-order autocorrelation $C(\tau)$ at a set of
+lags for the four heavy-tailed modes (baseline, v2 limit, v3/
+motility limit, and full) at $L = 30$, $\sigma = 2.22$, over ten
+seeds with 2000 warm-up and $n_{\rm meas} = 20\,000$ measurement
+steps. Also accumulates per-particle heading autocorrelation
+stratified into dense and dilute quartiles by local density,
+saving all per-seed curves.
 
 Output: data/double_autocorr.npz
 """

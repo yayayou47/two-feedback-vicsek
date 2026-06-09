@@ -1,11 +1,11 @@
-"""
-Persistence check of the dense-quartile heading-correlation
-fingerprint at $L = 128$. The seven-size FSS already covered
-this size for chi/s_sep, where the gap closed; here we test
-whether $g(r)$ in the dense quartile keeps the
-$\\Delta g \\simeq +0.135$ plateau measured at $L = 64$ and
-$L = 90$, or whether it itself starts to erode. We also
-record the cluster-count statistic for completeness.
+r"""
+Measures the microscopic rectification diagnostics at $L = 128$,
+$\sigma = 2.22$, for the motility-only and full two-feedback
+modes, over ten seeds with 1500 warm-up and 4000 measurement
+steps. Accumulates grid-based cluster sizes every 50 steps and
+density-stratified heading correlation $g(r)$ from six snapshots
+spaced by 200 steps, storing per-seed cluster counts, maximum
+sizes, and dense and dilute $g(r)$ curves.
 
 Output: data/double_micro_hs_L128.npz
 """

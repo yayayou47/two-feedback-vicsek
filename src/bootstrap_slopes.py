@@ -1,21 +1,13 @@
 """
 Bootstrap 95% confidence intervals on the seven-size FSS slopes
-$\\chi_{\\max}\\sim L^a$ for the four heavy-tailed-noise modes
-and the Vicsek-Gaussian reference, plus the synergy diagnostic
-$\\Delta_n = a_{\\rm full} + a_{\\rm Cauchy} - a_{\\rm noise}
-- a_{\\rm motility}$ for $n \\in \\{4,5,6,7\\}$.
-
-Resampling protocol: with-replacement on the seven
-$(L, \\chi_{\\max})$ pairs, $B = 10\\,000$. The same bootstrap
-indices are reused across modes for $\\Delta_n$, so the slope
-correlations are preserved.
-
-Per-seed standard deviation of $\\chi_{\\max}$ at the peak eta is
-also reported for the four smallest sizes (three seeds, pilot
-data); per-seed channels are not stored at $L \\ge 64$ in the
-current dataset.
-
-Run from version4/ as: ../.venv/bin/python src/bootstrap_slopes.py
+$\\chi_{\\max}\\sim L^a$ (sizes $L=15,22,30,45,64,90,128$) for the
+four heavy-tailed modes and the Vicsek-Gaussian reference, and on
+the synergy diagnostic $\\Delta_n = a_{\\rm full} + a_{\\rm Cauchy}
+- a_{\\rm noise} - a_{\\rm motility}$ for $n \\in \\{4,5,6,7\\}$.
+Resampling is with-replacement on the $(L, \\chi_{\\max})$ pairs
+($B = 10\\,000$), with bootstrap indices shared across modes so
+slope correlations are preserved. Reads the precomputed scan
+data; prints slopes, CIs, and bootstrap std (no file written).
 """
 from __future__ import annotations
 

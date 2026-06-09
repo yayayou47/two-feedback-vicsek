@@ -1,12 +1,10 @@
 """
-Refined behavioural plane (n_star, s) at L = 30 with 5 seeds.
-The original plane (run_double_plane.py) used L = 22 and 2 seeds,
-which gave a clean s_sep landscape but a noisy chi_max landscape.
-Here we re-sweep at L = 30 with five seeds so that the chi_max
-landscape is statistically reliable, and we can test whether the
-synergic corner (n_star <= 3, s >= 5) carries the steepest
-chi_max(L) slope or whether the two landscapes diverge as the
-split-synergy verdict on the central working point would suggest.
+Refined behavioural plane (n_star, s) at L = 30 with 5 seeds, a
+higher-statistics counterpart to run_double_plane.py (L = 22,
+2 seeds). It sweeps n_star in {1, 2, 3, 5, 8}, slope in {1, 2, 5, 10}
+and eta in {0.05, 0.075, 0.10, 0.15, 0.20} for the full two-feedback
+model, measuring chi and the density-separation index s_sep and
+recording the eta-peak of each.
 
 Output: data/double_plane_L30.npz
 """

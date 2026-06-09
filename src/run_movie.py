@@ -1,13 +1,13 @@
 r"""
 Movie generator for the double-adaptive Vicsek-Couzin model.
-
-Drives the DoubleAdaptiveVicsek simulator and writes an MP4 in
-which particles are coloured by their instantaneous local speed
-$v_i$ (yellow = slow / crowded, purple = fast / isolated). White
-arrows mark the heading direction. Two insets track the global
-polar order $\langle\varphi\rangle(t)$ and the density-separation
-index $s_{\rm sep}(t)$, so the rectification mechanism is visible
-in real time.
+Drives the DoubleAdaptiveVicsek simulator and writes an MP4 whose
+particles are coloured by instantaneous local speed $v_i$ (yellow
+= slow/crowded, purple = fast/isolated), with white heading
+arrows and two insets tracking the polar order
+$\langle\varphi\rangle(t)$ and the density-separation index
+$s_{\rm sep}(t)$. The mode, eta, L, N, seed, and step count are
+CLI flags; --all renders the five modes and --regimes renders
+three contrasted eta values. Output: ../videos/<mode>_eta<eta>.mp4.
 
 The same script covers the five study modes through CLI flags:
 

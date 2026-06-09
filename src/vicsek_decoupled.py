@@ -1,14 +1,11 @@
 """
-Decoupled-sigmoid Vicsek-Couzin: same model as
-DoubleAdaptiveVicsek but with two independent sigmoids gating
-v_i and alpha_i, parameterized by (n_star_v, slope_v) and
-(n_star_alpha, slope_alpha) respectively. Setting both pairs
-equal recovers the shared-sigmoid model.
-
-This file is used to test whether the shared-sigmoid coupling
-is essential to the dense-phase rectification or whether any
-two density-dependent feedbacks at any timing reproduce the
-g(r) dense gap.
+Decoupled-sigmoid Vicsek-Couzin model: the same two density-adaptive
+feedbacks as DoubleAdaptiveVicsek, but with the motility and noise-shape
+channels gated by two independent sigmoids of the neighbour count n_i,
+parameterised by (n_star_v, slope_v) and (n_star_alpha, slope_alpha).
+DecoupledParams configures the run and the DecoupledVicsek class exposes
+step(), polarisation() and density_separation_index(). Setting both
+sigmoid pairs equal recovers the shared-sigmoid DoubleAdaptiveVicsek.
 """
 from __future__ import annotations
 

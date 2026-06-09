@@ -1,14 +1,13 @@
-"""
-Controlled FSS extension of the four-mode pilot to L = 64. Uses
-the same eta grid and the same seed budget as the pilot, so the
-five-size log-log fit (15, 22, 30, 45, 64) refits each mode's
-slope on a wider FSS lever and tests whether the pilot ordering
-$a_{\rm baseline} < a_{v2} < a_{v3} < a_{\rm full}$ -- and the
-super-additive synergy diagnostic $\Delta = +0.26$ -- survive.
+r"""
+Controlled FSS run at the single size L = 64 for the four modes
+(baseline, v2_limit, v3_limit, full), extending the smaller-size
+pilot. Over the eta grid {0.005 ... 0.300} with 3 seeds it records
+phi, chi, U4, s_sep and the mean adaptive speed and exponent, on the
+same eta grid and seed budget as the pilot.
 
 Output: data/double_L64.npz with the same schema as
-data/double_pilot.npz but at the single size L = 64. The figure
-renderer will concatenate.
+data/double_pilot.npz but at L = 64. The figure renderer
+concatenates it with the other sizes.
 """
 from __future__ import annotations
 

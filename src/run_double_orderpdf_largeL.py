@@ -1,10 +1,10 @@
-"""
-Order-parameter histogram at $L = 64$ and $L = 90$, motility-only
-ablation and double-adaptive model only, five seeds each. The
-existing data at $L = 30$ shows unimodal $P(\\langle\\varphi
-\\rangle)$ in both modes; this run tests whether a bimodal
-structure emerges at larger $L$, which would diagnose a true
-two-phase coexistence.
+r"""
+Samples the polar order parameter at $L = 64$ and $L = 90$,
+$\sigma = 2.22$, for the motility-only and full two-feedback
+modes, over five seeds with 2000 warm-up and 6000 measurement
+steps each. Stores the concatenated per-seed polarisation
+trajectories per mode and size and prints their moments and
+Binder cumulant.
 
 Output: data/double_orderpdf_largeL.npz
 """

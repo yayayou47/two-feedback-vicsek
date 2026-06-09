@@ -1,15 +1,13 @@
 """
-Real-space snapshots comparing the v3-limit (motility only) and the
-full two-feedback model (motility + noise-shape) at three eta
-values, $L = 30$. Goal: visualise whether the Gaussian
-rectification of the heavy tails inside the dense phase produces
-a sharper / more cohesive phase-separated structure than the
-motility channel alone.
+Generate real-space snapshots of the v3-limit (motility only) and
+the full two-feedback model (motility + noise-shape) at $L = 30$
+($\\sigma = 2.22$, seed 11), in three eta cases (ordered 0.020,
+near-critical 0.100, disordered 0.300). For each mode and case it
+warms up the simulator and stores the final particle positions,
+headings, speeds, and alpha values, plus the polar order phi.
 
 Output: data/double_snapshot.npz
-   labels[mode, case], x[mode, case, n], y[mode, case, n],
-   theta[mode, case, n], v[mode, case, n], alpha[mode, case, n],
-   eta[case], phi[mode, case]
+   mode_labels, case_labels, x, y, theta, v, alpha, eta, phi.
 """
 from __future__ import annotations
 

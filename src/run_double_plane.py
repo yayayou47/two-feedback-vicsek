@@ -1,9 +1,10 @@
 """
-Behavioural-parameter plane (n_star, s) for the FULL two-feedback
-model. Both v_i and alpha_i are gated by the same sigmoid, so a
-single (n_star, s) cell controls both adaptations simultaneously.
-We measure the susceptibility peak and the density-separation
-index over a small eta sub-grid, at L = 22.
+Behavioural-parameter plane (n_star, s) for the full two-feedback
+model at L = 22, where one sigmoid gates both v_i and alpha_i. Over
+n_star in {1, 2, 3, 5, 8}, slope in {1, 2, 5, 10} and an eta sub-grid
+{0.05, 0.075, 0.10, 0.15, 0.20} (2 seeds), it measures the
+susceptibility chi and the density-separation index s_sep, then
+records the eta-peak of each.
 
 Output: data/double_plane.npz
    n_stars, slopes, etas, chi[ns, sl, e], sep[ns, sl, e],

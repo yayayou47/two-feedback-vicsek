@@ -1,13 +1,12 @@
 """
-Compute the dense-quartile gap profile $\\Delta g(r)$ between the
-double-adaptive model and the motility-only ablation across the
-full alignment-zone range, $r \\in [0.5, 6]$, on the four tested
-sizes $L \\in \\{30, 64, 90, 128\\}$. Uses the existing per-seed
-$g(r)$ arrays from the high-statistics scans; no new simulation
-is needed.
+Compute the pair-correlation gap profile between the full
+double-adaptive model and the motility-only ablation, per r-bin
+and per size $L \\in \\{30, 64, 90, 128\\}$. Reads precomputed
+per-seed $g(r)$ arrays (no new simulation) and reports the gap
+mean, standard error, and z-score across bins, plus inner-zone
+versus outer-zone summaries.
 
-Output: data/double_gr_decay.npz with the gap mean and SE per
-size and per r-bin, plus the z-score profile.
+Output: data/double_gr_decay.npz (Ls, r_centers, gap, se, z).
 """
 from __future__ import annotations
 

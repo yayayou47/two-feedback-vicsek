@@ -1,25 +1,13 @@
 """
-Vicsek-Couzin 2D model with optional alpha-stable angular noise.
-
-Each particle has three behavioural zones (Couzin et al., J. Theor.
-Biol. 2002), within a vision cone (blind sector at the rear):
-
-  * repulsion zone   d < R_r          : turn away from neighbours
-  * alignment zone   R_r <= d < R_a   : align with neighbours' heading
-  * outside R_a                       : no interaction
-
-Decision order: repulsion is checked first; if at least one repulsion
-neighbour is visible, the particle turns away from them (sum of unit
-vectors pointing away). Otherwise, if at least one alignment neighbour
-is visible, the particle copies their mean heading. Otherwise, the
-particle keeps its previous heading. Symmetric alpha-stable noise is
-then added in all cases.
-
-xi_i ~ S_alpha(scale=eta, beta=0). alpha=2 recovers Gaussian; alpha<2
-introduces heavy tails ("Levy-Vicsek-Couzin").
-
-Spatial neighbour search uses a linked-cell list, O(N) per step. Hot
-loops are JIT-compiled with Numba.
+2D Vicsek-Couzin self-propelled-particle model with alpha-stable
+angular noise. Each particle reacts to visible neighbours (rear blind
+sector of full width beta) under a priority rule: repulsion inside R_r
+overrides alignment in [R_r, R_a), and an unneighboured particle keeps
+its heading. Symmetric alpha-stable noise xi ~ S_alpha(scale=eta) is
+then added, with alpha=2 giving Gaussian and alpha<2 heavy-tailed
+kicks. VicsekParams configures the run; the Vicsek class exposes
+step(), polarisation() and state(). Neighbour search uses a Numba-JIT
+linked-cell list (O(N) per step) with a NumPy O(N^2) fallback.
 """
 from __future__ import annotations
 

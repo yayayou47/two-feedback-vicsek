@@ -1,8 +1,13 @@
 r"""
-High-statistics heading correlation $g(r)$ at L = 30 with ten
-seeds, density-stratified by top/bottom quartile of local
-density. Per-seed g(r) is saved so seed-level standard errors
-can be quoted on the gap full vs motility.
+Measures the heading-correlation function $g(r)$ at $L = 30$,
+$\sigma = 2.22$, for the four heavy-tailed modes (baseline, v2
+limit, v3 limit, and full) over ten seeds, with 2000 warm-up and
+six snapshots spaced by 200 steps. Stratifies particles by the
+top and bottom quartile of local density and stores per-seed
+dense and dilute $g(r)$ curves so seed-level standard errors can
+be quoted on the gap between modes.
+
+Output: data/double_gr_hs.npz
 """
 from __future__ import annotations
 

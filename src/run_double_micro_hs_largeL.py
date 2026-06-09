@@ -1,12 +1,12 @@
-"""
-Persistence check of the microscopic rectification signature at
-$L = 64$ and $L = 90$. We replicate the ten-seed cluster-count
-and density-stratified $g(r)$ measurements that established the
-mechanism at $L = 30$, restricted to the motility-only and
-double-adaptive modes, so the question is whether the
-rectification fingerprints survive past the size where the
-macroscopic diagnostics ($s_{\rm sep}$ gap, $\chi$ slope) have
-washed out.
+r"""
+Measures the microscopic rectification diagnostics at $L = 64$
+and $L = 90$, $\sigma = 2.22$, for the motility-only and full
+two-feedback modes, over ten seeds with 1500 warm-up and 4000
+measurement steps. Accumulates grid-based cluster sizes every 50
+steps and density-stratified heading correlation $g(r)$ from six
+snapshots spaced by 200 steps, storing per-seed cluster counts,
+maximum and mean sizes, and dense and dilute $g(r)$ curves per
+size.
 
 Output: data/double_micro_hs_largeL.npz
 """

@@ -1,8 +1,12 @@
 """
-Original Vicsek (Gaussian noise, fixed speed) reference run at the
-same five sizes and the same eta grid as the main study, so that
-every comparison in the paper is against the canonical Vicsek
-behaviour rather than an internal control.
+Canonical Vicsek reference run (Gaussian noise, fixed speed:
+alpha=2, v_min=v_max=0.05) over the same eta grid and five sizes
+$L = 15, 22, 30, 45, 64$ ($\\sigma = N/L^2 = 2.22$, seeds
+11/23/41). Sweeps eta and records phi, the susceptibility chi,
+the Binder cumulant U4, and the density-separation index s_sep
+per size, then fits and prints the FSS slope of chi_max.
+
+Output: data/vicsek_gauss_ref.npz (Ls, etas, phi, chi, U4, s_sep).
 """
 from __future__ import annotations
 

@@ -1,17 +1,16 @@
 """
-Test whether the shared-sigmoid restriction is essential to the
-dense-phase rectification fingerprint. We compare the
-shared-sigmoid double-adaptive model against two decoupled-
-sigmoid variants in which the speed and noise-shape sigmoids
-have shifted thresholds.
+Measures the density-stratified heading correlation g(r) at
+L = 30, sigma = 2.22, eta = 0.150, over ten seeds, for the
+decoupled-sigmoid Vicsek model in four configurations of the
+speed and noise-shape thresholds:
 
-  shared      : n_star_v = n_star_alpha = 3, slope_v = slope_alpha = 2 (same as full mode)
-  decoupled_A : n_star_v = 1, n_star_alpha = 5  (speed engages early, alpha engages late)
-  decoupled_B : n_star_v = 5, n_star_alpha = 1  (alpha engages early, speed engages late)
-  motility    : alpha frozen at 1, v sigmoid as in the shared mode (reference)
+  motility    : alpha frozen at 1 (reference)
+  shared      : n_star_v = n_star_alpha = 3
+  decoupled_A : n_star_v = 1, n_star_alpha = 5
+  decoupled_B : n_star_v = 5, n_star_alpha = 1
 
-We measure the dense-quartile g(r) on ten seeds at L = 30 and
-report the gap g_full - g_motility for each variant.
+Uses 2000 warm-up and six snapshots spaced by 200 steps, storing
+per-seed dense and dilute g(r) curves per mode.
 
 Output: data/double_decoupled.npz
 """

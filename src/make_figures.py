@@ -1,4 +1,18 @@
-"""Figure renderer for the double-adaptive Vicsek paper."""
+"""Figure renderer for the double-adaptive Vicsek--Couzin paper.
+
+Builds every main-text and supplementary figure from the precomputed
+``data/*.npz`` scans (no simulation is run here): the real-space
+snapshot grid, the six-panel FSS pilot summary, the behavioural
+``(n_star, s)`` plane, the order-parameter pdfs, the polar-axis
+profile, the cluster-structure and number-fluctuation panels, the
+density-stratified ``g(r)`` and turning-angle / MSD diagnostics, the
+heading autocorrelation, and the hysteresis ramp. Each ``fig_*``
+function loads its npz and writes a PDF (plus PNG) into ``figures/``;
+``main()`` renders the full set in manuscript order, preferring the
+no-cone data files when present. Colours and sizes follow ``style``
+(Wong palette, per-mode ``PALETTE``, navy--mauve--vermillion speed
+colormap) on the cream background used throughout the paper.
+"""
 from __future__ import annotations
 
 from pathlib import Path

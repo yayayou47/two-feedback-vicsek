@@ -1,13 +1,13 @@
 """
-Time-averaged density profile along the polar-flow axis for the
-FULL two-feedback model, the v3 limit, and (for reference) the
-v2 limit and baseline. The v3 paper found b = max/<rho> ~ 1.04
-(no travelling-band soliton). The open question for v4 is
-whether the Gaussian rectification of the dense phase, by making
-it more cohesive, supports the soliton structure that the v3
-limit could not.
+Compute the time-averaged density profile along the polar-flow
+axis for the baseline, v2-limit, v3-limit, and full two-feedback
+modes at $L = 30$ ($\\sigma = 2.22$, seeds 11/23/41), each at its
+own near-critical eta. Projects positions onto the instantaneous
+mean-heading direction, histograms them into 60 bins (density and
+v-weighted), and records phi and the band index max/mean per mode.
 
 Output: data/double_profile.npz
+   labels, centers, profiles, v_profiles, eta, phi, band_idx.
 """
 from __future__ import annotations
 

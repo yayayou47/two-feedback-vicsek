@@ -1,8 +1,12 @@
 """
-High-statistics cluster-size measurement at L = 30 with ten
-seeds. We aggregate the cluster ensemble within each seed and
-report per-seed (n_clusters, max_size, mean_size) so that
+Measures grid-based cluster sizes at L = 30, sigma = 2.22, for the
+four heavy-tailed modes (baseline, v2 limit, v3 limit, and full)
+over ten seeds, with 2000 warm-up and 4000 measurement steps
+sampled every 50 steps. Aggregates the cluster ensemble per seed
+and stores per-seed cluster count, maximum size, and mean size so
 seed-level standard errors can be quoted on the differences.
+
+Output: data/double_clusters_hs.npz
 """
 from __future__ import annotations
 

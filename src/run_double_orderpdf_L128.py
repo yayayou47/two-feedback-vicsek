@@ -1,14 +1,11 @@
-"""
-Long-trajectory order-parameter histogram at $L = 128$ for the
-four heavy-tailed modes, five seeds and $n_{\\rm meas} = 60\\,000$
-measurement steps per seed (10x the protocol used at $L = 64$
-and $L = 90$). Triggered by the emerging shoulder near
-$\\langle\\varphi\\rangle\\simeq 0.1$ in the full-mode $L = 90$
-histogram, which suggests an incipient bimodality. This run
-tests whether $P(\\langle\\varphi\\rangle)$ becomes genuinely
-multimodal at the largest size of the FSS series with a
-trajectory long enough to resolve a moderate fluctuation
-barrier.
+r"""
+Samples the polar order parameter at $L = 128$, $\sigma = 2.22$,
+for the four heavy-tailed modes (baseline, v2 limit, motility, and
+full), over five seeds with 2000 warm-up and a long
+$n_{\rm meas} = 60\,000$ measurement steps per seed. Stores the
+concatenated per-seed polarisation trajectories per mode and
+prints their moments, Binder cumulant, and an estimated number of
+histogram modes.
 
 Output: data/double_orderpdf_L128.npz
 """

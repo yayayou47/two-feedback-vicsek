@@ -1,10 +1,10 @@
 """
-High-statistics scan at three intermediate sizes L in {50, 64,
-80} with 10 seeds. Goal: tighten the gap full - motility on
-s_sep and discriminate between a deterministic peak buried in
-seed noise and a genuinely flat advantage on the
-intermediate-$L$ window. We also report seed-to-seed standard
-errors so the gap can be quoted with statistical weight.
+High-statistics scan at three intermediate sizes L in {50, 64, 80}
+with 10 seeds, comparing the full double-adaptive model against the
+motility-only ablation. Over the eta sub-grid
+{0.075, 0.100, 0.150, 0.200} it stores per-seed phi, chi and the
+density-separation index s_sep, enabling seed-to-seed standard errors
+on the full - motility gap.
 
 Output: data/double_L_highstat.npz
 """
