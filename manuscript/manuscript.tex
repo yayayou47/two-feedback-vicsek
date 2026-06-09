@@ -713,8 +713,7 @@ phase. The order-parameter distribution
 $P(\langle\varphi\rangle)$ stays unimodal at every size and the
 quasi-static $\eta$ ramp opens no hysteresis loop (loop area
 $\le 0.006$), so the transition is continuous, or at most very
-weakly first-order (Figs.~\ref{fig:orderpdf},
-\ref{fig:hysteresis}). The time-averaged density profile along
+weakly first-order (Fig.~\ref{fig:transition}). The time-averaged density profile along
 the polar-flow axis is flat for all modes (band-soliton index
 $b \simeq 1$), so the motility-built dense phase is an
 isotropic comoving patch rather than a travelling Vicsek band
@@ -1606,23 +1605,27 @@ $\langle\varphi\rangle$ on long trajectories at $L = 30$,
 $N = 2000$, three seeds, $6000$ measurement steps each, for
 the motility-only ablation at $\eta = 0.10$ and the
 double-adaptive model at $\eta = 0.15$
-(Fig.~\ref{fig:orderpdf}a). Both histograms come out unimodal.
+(Fig.~\ref{fig:transition}a). Both histograms come out unimodal.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.95\linewidth]{fig_double_orderpdf.pdf}
-    \caption{Order-parameter distribution
-    $P(\langle\varphi\rangle)$ with motility-only and
-    double-adaptive overlaid, one panel per size:
-    (a) $L = 30$, (b) $L = 64$, (c) $L = 90$, (d) $L = 128$
-    (motility at $\eta = 0.10$, double-adaptive at $\eta = 0.15$).
-    Each panel is normalised to its own peak and shares the
-    vertical scale. Dashed lines mark the per-mode means; each
-    panel reports the mean gap $\Delta$ and the full-mode Binder
-    cumulant $U_4$. $P(\langle\varphi\rangle)$ stays single-peaked at
-    every size, so the deepened Binder dip is not a coexistence
-    signature.}
-    \label{fig:orderpdf}
+    \includegraphics[width=\linewidth]{fig_double_transition.pdf}
+    \caption{Order of the transition. Panels (a)--(d):
+    order-parameter distribution $P(\langle\varphi\rangle)$ with
+    motility-only and double-adaptive overlaid, one panel per size
+    (a) $L = 30$, (b) $L = 64$, (c) $L = 90$, (d) $L = 128$ (motility
+    at $\eta = 0.10$, double-adaptive at $\eta = 0.15$), each
+    normalised to its own peak and sharing the vertical scale; dashed
+    lines mark the per-mode means and each panel reports the mean gap
+    $\Delta$ and the full-mode Binder cumulant $U_4$. Panel (e):
+    quasi-static $\eta$ ramp up (filled circles, solid) and down
+    (open squares, dashed) at $L = 64$, five seeds, all four modes
+    (hue), with the loop areas. $P(\langle\varphi\rangle)$ stays
+    single-peaked at every size and the hysteresis loops are
+    negligible ($\leq 0.006$): the deepened Binder dip is not a
+    coexistence signature and the transition is continuous (at most
+    very weakly first-order).}
+    \label{fig:transition}
 \end{figure}
 
 Motility-only peaks at $\langle\varphi\rangle \simeq 0.45$
@@ -1659,25 +1662,13 @@ hysteresis test settles it. We ramp $\eta$ quasi-statically
 up and then back down at $L = 64$, five seeds, carrying the
 configuration over from one step to the next (no
 re-randomisation), for the two motility-active modes
-(Fig.~\ref{fig:hysteresis}). The up- and down-ramp
+(Fig.~\ref{fig:transition}e). The up- and down-ramp
 $\varphi(\eta)$ branches overlap within error bars, and the
 loop area is negligible --- $0.006$ for motility-only,
 $0.000$ for the double-adaptive model. A first-order
 transition would open a finite loop; its absence, with the
 unimodal $P(\langle\varphi\rangle)$, places the transition in
 the continuous (or at most very weakly first-order) class.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.6\linewidth]{fig_double_hysteresis.pdf}
-    \caption{Quasi-static $\eta$ ramp up (filled circles, solid)
-    and down (open squares, dashed) at $L = 64$, five seeds, for
-    all four modes overlaid. Hue keys the mode. The up- and
-    down-ramp branches overlap for every mode and the loop areas
-    are negligible ($\leq 0.006$), consistent with a continuous
-    transition.}
-    \label{fig:hysteresis}
-\end{figure}
 
 \subsection*{Time-averaged density profile along the polar axis}
 

@@ -1765,6 +1765,130 @@ def fig_double_hysteresis(npz_path: Path):
     _save(fig, "fig_double_hysteresis.pdf")
 
 
+def fig_double_transition(npz_L30: Path, npz_largeL: Path,
+                          npz_L128: Path | None, npz_hyst: Path):
+    r"""Transition-order SI figure (merged order-parameter distribution
+    and hysteresis). Top row: $P(\langle\varphi\rangle)$ for
+    motility-only and double-adaptive at $L \in \{30, 64, 90, 128\}$
+    (panels a--d), each normalised to its peak with per-mode means,
+    gap $\Delta$ and full-mode $U_4$. Bottom, panel (e): quasi-static
+    $\eta$ ramp up/down at $L = 64$ for all four modes with the loop
+    areas. Unimodal histograms and negligible hysteresis loops together
+    place the transition in the continuous (at most weakly first-order)
+    class."""
+    from scipy.stats import gaussian_kde
+    from matplotlib.lines import Line2D
+
+    # --- order-parameter panel data (one per size) ---
+    panel_data = []
+    z0 = np.load(npz_L30, allow_pickle=True)
+    labs0 = [str(s) if isinstance(s, str) else s.decode()
+             for s in z0["labels"]]
+    i_m0 = _orderpdf_traj(z0, labs0, "motility")
+    i_f0 = _orderpdf_traj(z0, labs0, "full")
+    panel_data.append((30.0, z0["phi_traj"][i_m0], z0["phi_traj"][i_f0]))
+    zL = np.load(npz_largeL, allow_pickle=True)
+    labsL = [str(s) if isinstance(s, str) else s.decode()
+             for s in zL["labels"]]
+    i_mL = _orderpdf_traj(zL, labsL, "motility")
+    i_fL = _orderpdf_traj(zL, labsL, "full")
+    for iL, L in enumerate(zL["Ls"]):
+        panel_data.append((float(L), zL["phi_traj"][i_mL, iL],
+                           zL["phi_traj"][i_fL, iL]))
+    if npz_L128 is not None and npz_L128.exists():
+        z2 = np.load(npz_L128, allow_pickle=True)
+        labs2 = [str(s) if isinstance(s, str) else s.decode()
+                 for s in z2["labels"]]
+        i_m2 = _orderpdf_traj(z2, labs2, "motility")
+        i_f2 = _orderpdf_traj(z2, labs2, "full")
+        panel_data.append((float(z2["L"]), z2["phi_traj"][i_m2],
+                           z2["phi_traj"][i_f2]))
+
+    nL = len(panel_data)
+    fig = plt.figure(figsize=(style.DOUBLE_COL[0], 4.4))
+    gs = fig.add_gridspec(2, nL)
+    bins = np.linspace(0, 1, 60)
+    centers_b = 0.5 * (bins[:-1] + bins[1:]); width_b = bins[1] - bins[0]
+    grid = np.linspace(0, 1, 200)
+    u4 = lambda a: 1.0 - (a ** 4).mean() / (3.0 * (a ** 2).mean() ** 2)
+    ax0 = None
+    for ip, (L, m_mot, m_full) in enumerate(panel_data):
+        ax = (fig.add_subplot(gs[0, ip], sharey=ax0) if ax0 is not None
+              else fig.add_subplot(gs[0, ip]))
+        if ax0 is None:
+            ax0 = ax
+        series = []; peak = 0.0
+        for lbl, data in (("motility", m_mot), ("full", m_full)):
+            c = PALETTE.get(lbl, "#1f4ea1")
+            hist, _ = np.histogram(data, bins=bins, density=True)
+            curve = gaussian_kde(data, bw_method="scott")(grid)
+            peak = max(peak, float(hist.max()), float(curve.max()))
+            series.append((lbl, data, c, hist, curve))
+        for lbl, data, c, hist, curve in series:
+            ax.bar(centers_b, hist / peak, width=width_b, color=c,
+                   alpha=0.45, edgecolor="black", linewidth=0.3,
+                   label=_disp(lbl))
+            ax.plot(grid, curve / peak, "-", color=c, lw=1.4)
+            ax.axvline(float(data.mean()), color=c, lw=0.7, ls="--",
+                       alpha=0.85)
+        gap = m_full.mean() - m_mot.mean()
+        ax.text(0.03, 0.97,
+                fr"$\langle\varphi\rangle_{{\rm mot}}={m_mot.mean():.2f}$"
+                "\n"
+                fr"$\langle\varphi\rangle_{{\rm full}}={m_full.mean():.2f}$"
+                "\n" fr"$\Delta={gap:+.2f}$" "\n"
+                fr"$U_{{4,{{\rm full}}}}={u4(m_full):.2f}$",
+                transform=ax.transAxes, ha="left", va="top", fontsize=6.5,
+                bbox=dict(facecolor="white", alpha=0.85, edgecolor="none",
+                          pad=2))
+        ax.set_xlabel(r"$\langle\varphi\rangle$")
+        ax.set_xlim(0, 1); ax.set_ylim(0, 1.0)
+        ax.set_title(fr"$L = {int(L)}$", fontsize=8)
+        if ip == 0:
+            ax.set_ylabel(r"$P(\langle\varphi\rangle)$ (norm.)")
+            ax.legend(fontsize=6.5, frameon=False, loc="lower right")
+        ax.text(-0.18, 1.06, f"({chr(97 + ip)})", transform=ax.transAxes,
+                fontsize=10, fontweight="bold")
+
+    # --- hysteresis panel (e), centred on the bottom row ---
+    lo = (nL - 2) // 2
+    axh = fig.add_subplot(gs[1, lo:lo + 2])
+    zh = np.load(npz_hyst, allow_pickle=True)
+    hlabels = [s if isinstance(s, str) else s.decode()
+               for s in zh["labels"]]
+    eta = zh["eta"]; phi_up = zh["phi_up"]; phi_up_se = zh["phi_up_se"]
+    phi_dn = zh["phi_down"]; phi_dn_se = zh["phi_down_se"]
+    loop = zh["loop_area"]
+    mode_handles = []
+    for im, m in enumerate(hlabels):
+        c = PALETTE[m]
+        axh.errorbar(eta, phi_up[im], yerr=phi_up_se[im], fmt="o-",
+                     color=c, ms=3, lw=1.0, capsize=2)
+        axh.errorbar(eta, phi_dn[im], yerr=phi_dn_se[im], fmt="s--",
+                     color=c, ms=3, lw=1.0, capsize=2, alpha=0.6,
+                     mfc="white")
+        mode_handles.append(Line2D([], [], color=c, lw=1.6,
+                            label=fr"{_disp(m)} (area $={loop[im]:.3f}$)"))
+    axh.set_xscale("log"); axh.set_xlabel(r"$\eta$")
+    axh.set_ylabel(r"$\langle\varphi\rangle$")
+    ramp_handles = [
+        Line2D([], [], color="0.30", lw=1.0, marker="o", ls="-", ms=4,
+               label="up-ramp"),
+        Line2D([], [], color="0.30", lw=1.0, marker="s", ls="--", ms=4,
+               mfc="white", label="down-ramp")]
+    leg_modes = axh.legend(handles=mode_handles, fontsize=6, frameon=False,
+                           loc="lower left")
+    axh.add_artist(leg_modes)
+    axh.legend(handles=ramp_handles, fontsize=6, frameon=False,
+               loc="upper right")
+    axh.set_title(r"hysteresis, $L = 64$", fontsize=8)
+    axh.text(-0.12, 1.06, f"({chr(97 + nL)})", transform=axh.transAxes,
+             fontsize=10, fontweight="bold")
+
+    fig.tight_layout()
+    _save(fig, "fig_double_transition.pdf")
+
+
 def fig_double_autocorr(npz_path: Path):
     r"""Polar/heading autocorrelation $C(\tau)$ for the four
     heavy-tailed modes at $L = 30$. Panel (a) shows the
@@ -2131,7 +2255,6 @@ def main():
     npz_op = _pick("double_orderpdf")
     npz_op_large = _pick("double_orderpdf_largeL")
     npz_op_128 = _pick("double_orderpdf_L128")
-    fig_double_orderpdf(npz_op, npz_op_large, npz_op_128)
     fig_double_profile(_pick("double_profile"))
     npz_clmap = DATA / "double_cluster_snaps_multiL_nocone.npz"
     fig_double_cluster_map(npz_clmap if npz_clmap.exists()
@@ -2153,7 +2276,8 @@ def main():
     if not npz_hyst.exists():
         npz_hyst = _pick("double_hysteresis")
     fig_double_cluster_summary(_pick("double_clusters_hs"), npz_gnf, npz_psd)
-    fig_double_hysteresis(npz_hyst)
+    # Merged transition-order SI figure (order-parameter pdf + hysteresis).
+    fig_double_transition(npz_op, npz_op_large, npz_op_128, npz_hyst)
     # Merged single-particle dynamics figure (heading autocorrelation +
     # trajectory statistics); falls back to the two separate figures if
     # the trajectory file is absent.
