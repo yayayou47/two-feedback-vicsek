@@ -39,7 +39,11 @@ figures:
 	$(PY) -c "import sys; sys.path.insert(0, 'src'); import make_figures; make_figures.main()"
 
 manuscript:
-	cd $(MS) && latexmk -pdf -interaction=nonstopmode -halt-on-error manuscript.tex
+	# Compile both the main file and the separate supplement; run twice
+	# so the xr cross-references between them (Figs.~S1/S2 in the main,
+	# Eq.~(9) in the supplement) resolve once both .aux files exist.
+	cd $(MS) && latexmk -pdf -interaction=nonstopmode -halt-on-error manuscript.tex supplement.tex
+	cd $(MS) && latexmk -pdf -interaction=nonstopmode -halt-on-error manuscript.tex supplement.tex
 
 pilot:
 	$(PY) $(SCRIPTS)/run_pilot_nocone.py
