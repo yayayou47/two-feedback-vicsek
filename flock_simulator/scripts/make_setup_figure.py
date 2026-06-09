@@ -93,7 +93,7 @@ def fig_geometry():
                                 lw=3.72), zorder=6)
     ax.scatter([0], [0], s=156, color=PARTICLE_BLUE, edgecolor="white",
                lw=0.96, zorder=7)
-    ax.text(0.05, -0.13, r"$i$", fontsize=16, fontweight="bold", zorder=7)
+    ax.text(0.05, -0.13, r"$i$", fontsize=24, fontweight="bold", zorder=7)
     ax.text(head_len + 0.02, 0.05, r"$\vec e_i(t)$", fontsize=14,
             color=PARTICLE_BLUE, zorder=7)
 
@@ -108,7 +108,7 @@ def fig_geometry():
                                     alpha=alpha), zorder=6)
         ax.scatter([x], [y], s=72, color=color, alpha=alpha,
                    edgecolor="white", lw=0.72, zorder=7)
-        ax.text(x + 0.05, y + 0.08, label, fontsize=13, alpha=alpha,
+        ax.text(x + 0.05, y + 0.08, label, fontsize=19.5, alpha=alpha,
                 zorder=7)
 
     j1 = (-0.18 * 1.2, 0.22 * 1.2)
@@ -153,10 +153,9 @@ def fig_geometry():
     # (matching b, c) while expanding the view to contain all content.
     ax.set_aspect("equal", adjustable="datalim")
     ax.set_xticks([]); ax.set_yticks([])
-    ax.text(0.5, 0.965, r"(a) Two-zone update", transform=ax.transAxes,
-            ha="center", va="top", fontsize=20.25, zorder=9)
     ax.set_position(AXRECT)
     _frame(ax)
+    fig.suptitle(r"(a) Two-zone update", fontsize=20.25, y=0.95)
     fig.add_artist(Rectangle((0.012, 0.012), 0.976, 0.95, fill=False,
                              edgecolor="#666", lw=1.3,
                              transform=fig.transFigure, zorder=10))
@@ -276,11 +275,11 @@ def _evolve(pos_i, th_i, pos_j, th_j):
 def _render_frame(ax, pos_i, th_i, pos_j, th_j, labels):
     _draw_zones(ax)
     _particle(ax, pos_i, th_i, color=FOCAL_RED, ss=156, al=0.531, lw=3.72,
-              label=r"$i$", loff=(0.07, -0.30), fs=15)
+              label=r"$i$", loff=(0.07, -0.30), fs=22.5)
     for k, (pos, th, lab) in enumerate(zip(pos_j, th_j, labels)):
         _particle(ax, pos, th, color=NB_COLORS[k % len(NB_COLORS)],
                   ss=72, al=0.371, lw=2.30,
-                  label=lab, loff=(0.06, 0.09), fs=12)
+                  label=lab, loff=(0.06, 0.09), fs=18)
 
 
 def _rule_pair(title, pos_i, th_i, pos_j, th_j, labels, name, drift=False):
@@ -293,7 +292,7 @@ def _rule_pair(title, pos_i, th_i, pos_j, th_j, labels, name, drift=False):
         ax.set_aspect("equal"); ax.set_xticks([]); ax.set_yticks([])
         ax.set_xlim(-1.29, 1.29); ax.set_ylim(-1.20, 1.30)
         ax.text(0.5, -0.05, lab, transform=ax.transAxes, ha="center",
-                va="top", fontsize=14, fontweight="bold")
+                va="top", fontsize=21, fontweight="bold")
     # Title +50% (13.5 -> 20.25) and pulled close to the frames.
     fig.suptitle(title, fontsize=20.25, y=0.905)
     _render_frame(ax_t, pos_i, th_i, pos_j, th_j, labels)
@@ -323,7 +322,7 @@ def fig_rules():
     _rule_pair(r"(e) Repulsion",
                np.array([0.0, 0.0]), np.deg2rad(45.0),
                np.array([[-0.22, 0.27], [0.55, -0.25], [1.10, 0.90]]),
-               np.array([np.deg2rad(110.0), np.deg2rad(0.0),
+               np.array([np.deg2rad(110.0), np.deg2rad(-90.0),
                          np.deg2rad(-90.0)]),
                [r"$j_1$", r"$j_2$", r"$j_3$"], "fig_setup_repulsion.pdf")
     _rule_pair(r"(f) Alignment",

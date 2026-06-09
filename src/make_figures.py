@@ -527,6 +527,7 @@ def fig_double_pilot(npz_path: Path):
                             ms=4, label=_disp(m))
                 for m in modes]
     axes[0, 0].legend(handles=handles, loc="lower left", fontsize=6,
+                      bbox_to_anchor=(0.0, 0.12),
                       frameon=True, framealpha=0.9, handlelength=1.2,
                       borderpad=0.3, labelspacing=0.3)
     # Lay the six subfigures out as equal cards separated by a tiny
@@ -628,13 +629,13 @@ def fig_double_snapshot(npz_path: Path):
                     # Mode name on the top row only; size label on the
                     # leftmost column only (no repeats elsewhere).
                     if iL == 0:
-                        ax.set_title(_disp(mode_labels[im]), fontsize=7)
+                        ax.set_title(_disp(mode_labels[im]), fontsize=10.5)
                     if col == 0:
-                        ax.set_ylabel(fr"$L = {int(L)}$", fontsize=8)
+                        ax.set_ylabel(fr"$L = {int(L)}$", fontsize=12)
                     ax.text(0.03, 0.97,
                             fr"$\langle\varphi\rangle="
                             fr"{phi[iL, im, ic]:.2f}$",
-                            transform=ax.transAxes, fontsize=6,
+                            transform=ax.transAxes, fontsize=9,
                             fontweight="bold", ha="left", va="top",
                             bbox=dict(facecolor=style.CREAM, alpha=0.9,
                                       edgecolor="none", pad=1))
@@ -648,12 +649,12 @@ def fig_double_snapshot(npz_path: Path):
             fig.text(0.5 * (p_l.x0 + p_r.x1), p_l.y1 + 0.055,
                      fr"({chr(97 + jc)}) {_disp(case_labels[ic])}, "
                      fr"$\eta={eta[ic]:g}$",
-                     ha="center", va="bottom", fontsize=8,
+                     ha="center", va="bottom", fontsize=12,
                      fontweight="bold")
         cbar = fig.colorbar(last_q, ax=axes, orientation="vertical",
-                            fraction=0.012, pad=0.012)
-        cbar.set_label(r"local speed $v_i$", fontsize=8)
-        cbar.ax.tick_params(labelsize=7)
+                            fraction=0.018, pad=0.012)
+        cbar.set_label(r"local speed $v_i$", fontsize=12)
+        cbar.ax.tick_params(labelsize=10.5)
         _save(fig, "fig_double_snapshot.pdf")
         return
 
