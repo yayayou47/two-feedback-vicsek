@@ -1954,6 +1954,156 @@ def fig_double_traj_stats(npz_path: Path):
     _save(fig, "fig_double_traj_stats.pdf")
 
 
+def fig_double_dynamics(npz_autocorr: Path, npz_traj: Path):
+    r"""Single-particle dynamics at $L = 30$ (merged heading
+    autocorrelation and trajectory statistics). Top row: (a)
+    dense-quartile heading autocorrelation $C(\tau)$ per mode with
+    seed-SE bands; (b) the gap $\Delta C(\tau) = C_{\rm full} -
+    C_{\rm motility}$ in the dense and dilute quartiles with z-scores.
+    Bottom row, per-particle increments for all four modes (hue), dense
+    (solid) vs dilute (dashed): (c) turning-angle pdf $p(\Delta\theta)$;
+    (d) density-class MSD $\langle\Delta r^2\rangle(\tau)$ with the
+    fitted exponent $\gamma_{\rm dense}/\gamma_{\rm dilute}$ per mode."""
+    from matplotlib.lines import Line2D
+
+    fig, axes = plt.subplots(2, 2, figsize=(style.DOUBLE_COL[0], 5.4))
+
+    # ---- top row: heading autocorrelation ----
+    z = np.load(npz_autocorr, allow_pickle=True)
+    labels = [str(s) if isinstance(s, str) else s.decode()
+              for s in z["labels"]]
+    taus = z["taus"]
+    C_dense = z["C_dense_per_seed"]; C_dilute = z["C_dilute_per_seed"]
+    n_seeds = C_dense.shape[1]
+    mean_dense = C_dense.mean(axis=1)
+    se_dense = C_dense.std(axis=1, ddof=1) / np.sqrt(n_seeds)
+
+    ax = axes[0, 0]
+    for im, lbl in enumerate(labels):
+        c = PALETTE.get(lbl, "#1f4ea1")
+        ax.plot(taus, mean_dense[im], "o-", color=c, lw=1.2, ms=3,
+                label=_disp(lbl))
+        ax.fill_between(taus, mean_dense[im] - se_dense[im],
+                        mean_dense[im] + se_dense[im], color=c,
+                        alpha=0.20, lw=0)
+    ax.set_xscale("log")
+    ax.set_xlabel(r"lag $\tau$ (steps)")
+    ax.set_ylabel(r"$\langle\cos[\theta_i(t+\tau)-\theta_i(t)]"
+                  r"\rangle_{\rm dense}$")
+    ax.set_title(r"(a) dense-quartile $C(\tau)$", fontsize=9, loc="left")
+    ax.axhline(0.0, color="grey", lw=0.4)
+    ax.legend(fontsize=6, frameon=False, loc="upper right")
+
+    i_full = labels.index("full"); i_mot = labels.index("v3_limit")
+    diff_dense = C_dense[i_full] - C_dense[i_mot]
+    diff_dilute = C_dilute[i_full] - C_dilute[i_mot]
+    g_dense_mean = diff_dense.mean(axis=0)
+    g_dense_se = diff_dense.std(axis=0, ddof=1) / np.sqrt(n_seeds)
+    g_dilute_mean = diff_dilute.mean(axis=0)
+    g_dilute_se = diff_dilute.std(axis=0, ddof=1) / np.sqrt(n_seeds)
+    ax = axes[0, 1]
+    c_full = PALETTE["full"]; c_mot = PALETTE["v3_limit"]
+    ax.fill_between(taus, g_dense_mean - g_dense_se,
+                    g_dense_mean + g_dense_se, color=c_full, alpha=0.20, lw=0)
+    ax.plot(taus, g_dense_mean, "o-", color=c_full, lw=1.4, ms=3,
+            label="dense quartile")
+    ax.fill_between(taus, g_dilute_mean - g_dilute_se,
+                    g_dilute_mean + g_dilute_se, color=c_mot, alpha=0.20, lw=0)
+    ax.plot(taus, g_dilute_mean, "s--", color=c_mot, lw=1.0, ms=3,
+            label="dilute quartile")
+    ax.axhline(0.0, color="grey", lw=0.4)
+    ax.set_xscale("log")
+    ax.set_xlabel(r"lag $\tau$ (steps)")
+    ax.set_ylabel(r"$\Delta C(\tau) = C_{\rm full} - C_{\rm motility}$")
+    ax.set_title(r"(b) full $-$ motility gap", fontsize=9, loc="left")
+    ax.legend(fontsize=6, frameon=False, loc="upper right")
+    for j_tau in (2, 6, 9):
+        z_val = g_dense_mean[j_tau] / max(g_dense_se[j_tau], 1e-9)
+        ax.annotate(fr"$z\!=\!{z_val:.0f}$",
+                    xy=(taus[j_tau], g_dense_mean[j_tau]),
+                    xytext=(0, -10), textcoords="offset points",
+                    fontsize=6, ha="center", va="top", color=c_full)
+
+    # ---- bottom row: per-particle increments ----
+    zt = np.load(npz_traj, allow_pickle=True)
+    tlabels = [str(s) if isinstance(s, str) else s.decode()
+               for s in zt["labels"]]
+    tcenters = zt["centers"]; turn_pdf = zt["turn_pdf"]
+    tlags = zt["lags_steps"].astype(float); msd = zt["msd"]
+    order = [m for m in ("baseline", "v2_limit", "v3_limit", "full")
+             if m in tlabels]
+    short = {"baseline": "Cauchy", "v2_limit": "noise-shape",
+             "v3_limit": "motility", "full": "double-adaptive"}
+
+    def _mean(arr):
+        return np.nanmean(arr, axis=0)
+
+    def _fit_gamma(x, y):
+        ok = np.isfinite(y) & (y > 0)
+        if ok.sum() < 4:
+            return np.nan
+        xs = np.log10(x[ok]); ys = np.log10(y[ok])
+        a, _ = np.polyfit(xs[1:-1], ys[1:-1], 1)
+        return float(a)
+
+    PHASE_LS = {1: "-", 0: "--"}
+
+    ax = axes[1, 0]
+    for m in order:
+        im = tlabels.index(m); c = PALETTE[m]
+        for cls in (1, 0):
+            ax.plot(tcenters, _mean(turn_pdf[im, :, cls, :]),
+                    PHASE_LS[cls], color=c, lw=1.1, alpha=0.9)
+    ax.set_yscale("log"); ax.set_xlim(-np.pi, np.pi)
+    ax.set_xticks([-np.pi, -np.pi / 2, 0, np.pi / 2, np.pi])
+    ax.set_xticklabels([r"$-\pi$", r"$-\frac{\pi}{2}$", "0",
+                        r"$\frac{\pi}{2}$", r"$\pi$"])
+    ax.set_xlabel(r"turning angle $\Delta\theta$ (per step)")
+    ax.set_ylabel(r"$p(\Delta\theta)$")
+    ax.set_title("(c) turning-angle pdf", fontsize=9, loc="left")
+    mode_handles = [Line2D([], [], color=PALETTE[m], lw=2, label=short[m])
+                    for m in order]
+    phase_handles = [Line2D([], [], color="0.3", lw=1.3, ls="-",
+                            label="dense"),
+                     Line2D([], [], color="0.3", lw=1.3, ls="--",
+                            label="dilute")]
+    leg1 = ax.legend(handles=mode_handles, fontsize=5.5, frameon=False,
+                     loc="lower center", ncol=2, handlelength=1.3,
+                     columnspacing=1.0, labelspacing=0.25)
+    ax.add_artist(leg1)
+    ax.legend(handles=phase_handles, fontsize=6, frameon=False,
+              loc="upper right")
+
+    ax = axes[1, 1]
+    gammas = []
+    for m in order:
+        im = tlabels.index(m); c = PALETTE[m]
+        for cls in (1, 0):
+            ax.plot(tlags, _mean(msd[im, :, cls, :]),
+                    PHASE_LS[cls], color=c, lw=1.2, alpha=0.9)
+        gammas.append((m, c, _fit_gamma(tlags, _mean(msd[im, :, 1, :])),
+                       _fit_gamma(tlags, _mean(msd[im, :, 0, :]))))
+    ax.set_xscale("log"); ax.set_yscale("log")
+    ax.set_xlabel(r"lag $\tau$ (steps)")
+    ax.set_ylabel(r"MSD $\langle\Delta r^2\rangle$")
+    ax.set_title("(d) stratified MSD", fontsize=9, loc="left")
+    ax.text(0.03, 0.985, r"$\gamma_{\rm dense}/\gamma_{\rm dilute}$:",
+            transform=ax.transAxes, fontsize=6, va="top", ha="left",
+            color="0.2")
+    for k, (m, c, gd, gl) in enumerate(gammas):
+        ax.text(0.03, 0.91 - 0.075 * k,
+                fr"{short[m]}: {gd:.2f}/{gl:.2f}",
+                transform=ax.transAxes, fontsize=6, va="top",
+                ha="left", color=c)
+
+    for _ax in axes.ravel():
+        for _sp in _ax.spines.values():
+            _sp.set_visible(True); _sp.set_linewidth(0.8)
+            _sp.set_edgecolor("#333333")
+    fig.tight_layout()
+    _save(fig, "fig_double_dynamics.pdf")
+
+
 def _pick(stem: str) -> Path:
     """Prefer the no-cone version of an npz file when it exists.
 
@@ -2004,10 +2154,14 @@ def main():
         npz_hyst = _pick("double_hysteresis")
     fig_double_cluster_summary(_pick("double_clusters_hs"), npz_gnf, npz_psd)
     fig_double_hysteresis(npz_hyst)
-    fig_double_autocorr(_pick("double_autocorr"))
+    # Merged single-particle dynamics figure (heading autocorrelation +
+    # trajectory statistics); falls back to the two separate figures if
+    # the trajectory file is absent.
     npz_traj = DATA / "double_traj_stats_nocone.npz"
     if npz_traj.exists():
-        fig_double_traj_stats(npz_traj)
+        fig_double_dynamics(_pick("double_autocorr"), npz_traj)
+    else:
+        fig_double_autocorr(_pick("double_autocorr"))
     # The decoupled-2D, sigma-sweep and topological-kernel figures
     # (Figs. 14-16) are produced by the analyse_*.py scripts, not by
     # this renderer.

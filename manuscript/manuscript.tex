@@ -959,7 +959,7 @@ $\tau \in \{1, 2, 5, 10, 20, 50, 100, 200, 500, 1\,000,
 2\,000, 5\,000\}$ (and similarly $C_{\rm dilute}$).
 
 The four modes order in the same way at every lag
-(Fig.~\ref{fig:autocorr}a): Cauchy and noise-shape drop
+(Fig.~\ref{fig:dynamics}a): Cauchy and noise-shape drop
 fastest, motility-only sits above, and the full model sits
 above motility-only by a nearly constant offset. The gap
 $\Delta C(\tau) = C_{\rm full}(\tau) - C_{\rm motility}(\tau)$
@@ -976,17 +976,29 @@ percent and its CI brackets zero past $\tau \simeq 100$.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.95\linewidth]{fig_double_autocorr.pdf}
-    \caption{Density-stratified per-particle heading
-    autocorrelation at $L = 30$, ten seeds, $20\,000$ steps.
-    Panel (a): $C_{\rm dense}(\tau)$ per mode at near-critical
-    $\eta$, $\pm 1$ seed-level SE bands. Panel (b): gap
-    $\Delta C(\tau) = C_{\rm full} - C_{\rm motility}$ in the
-    dense and dilute quartiles, bootstrap $95\%$ CIs as
-    bands. The full-minus-motility dense gap is a near-constant
-    positive offset that persists to lags far beyond the polar-order
-    correlation time.}
-    \label{fig:autocorr}
+    \includegraphics[width=\linewidth]{fig_double_dynamics.pdf}
+    \caption{Single-particle dynamics at $L = 30$, $\rho_0 = 2.22$,
+    near-critical $\eta$. Top row, density-stratified heading
+    autocorrelation (ten seeds, $20\,000$ steps): (a)
+    $C_{\rm dense}(\tau)$ per mode with $\pm 1$ seed-level SE bands;
+    (b) the gap $\Delta C(\tau) = C_{\rm full} - C_{\rm motility}$ in
+    the dense and dilute quartiles, with $z$-scores on the dense gap.
+    Bottom row, per-particle increments (six seeds, all four modes;
+    hue keys the mode, line style the density class --- solid dense,
+    dashed dilute): (c) per-step turning-angle pdf $p(\Delta\theta)$ on
+    a log ordinate; (d) density-class-conditioned MSD
+    $\langle\Delta r^2\rangle(\tau)$ with the fitted exponent
+    $\gamma_{\rm dense}/\gamma_{\rm dilute}$ per mode. The
+    full-minus-motility dense $C(\tau)$ gap is a near-constant positive
+    offset persisting far beyond the polar-order correlation time; only
+    the double-adaptive increment turns Gaussian-narrow in the dense
+    phase ($\alpha \to 2$) while the fixed-speed references, building no
+    dense phase, stay heavy-tailed; the dense phase is ballistic
+    ($\gamma \simeq 2$) and the dilute gas super-diffusive but
+    sub-ballistic. Takeaway: the noise gate turns dense-phase
+    reorientation from L\'evy-like to Gaussian, but only once the
+    motility channel has carved out the dense phase.}
+    \label{fig:dynamics}
 \end{figure}
 
 The dense-phase plateau matches the $\Gamma \sim
@@ -1010,10 +1022,10 @@ local-density quartile a particle occupies: the per-step
 turning-angle distribution $p(\Delta\theta)$ and the mean squared
 displacement $\langle\Delta r^2\rangle(\tau)$ conditioned on the
 density class at the time origin, with positions unwrapped across
-the periodic box (Fig.~\ref{fig:traj}).
+the periodic box (Fig.~\ref{fig:dynamics}c,d).
 
 The turning-angle pdf exposes the noise gate as a switch in the
-reorientation statistics (Fig.~\ref{fig:traj}a; solid dense, dashed
+reorientation statistics (Fig.~\ref{fig:dynamics}c; solid dense, dashed
 dilute). In the dilute gas both motility-active models turn with a
 heavy, Cauchy-like tail: the weight beyond $|\Delta\theta| > \pi/2$
 is $0.34$ (double-adaptive) and $0.41$ (motility-only) and the
@@ -1035,7 +1047,7 @@ both keep a heavy dense-quartile tail, so the Gaussian conversion needs
 the motility channel to first build the dense phase.
 
 The stratified MSD turns this into transport
-(Fig.~\ref{fig:traj}b). The dense phase is ballistic --- a
+(Fig.~\ref{fig:dynamics}d). The dense phase is ballistic --- a
 coherent, comoving ordered droplet --- with exponent
 $\gamma_{\rm dense} = 2.01 \pm 0.01$ for the double-adaptive model
 and $1.93$ for motility-only, while the dilute gas is super-diffusive
@@ -1056,30 +1068,6 @@ heavy-tailed, L\'evy-like reorientation in the dilute gas --- while
 the speed channel sets the magnitude, and their conjunction is what
 lets the double-adaptive droplets stay denser, more cohesive and more
 persistent than the motility-only ablation.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\linewidth]{fig_double_traj_stats.pdf}
-    \caption{Density-stratified single-particle trajectory statistics
-    at $L = 30$, $\rho_0 = 2.22$, six seeds, near-critical $\eta$, all
-    four modes. Panel (a): per-step turning-angle pdf $p(\Delta\theta)$
-    on a log ordinate. Panel (b): mean squared displacement
-    $\langle\Delta r^2\rangle(\tau)$ conditioned on the density class
-    at the time origin, with the fitted exponent
-    $\gamma_{\rm dense}/\gamma_{\rm dilute}$ per mode annotated. Hue
-    keys the mode (Cauchy, noise-shape, motility, double-adaptive);
-    line style keys the density class (solid dense, dashed dilute).
-    Only the double-adaptive increment turns Gaussian-narrow in the
-    dense phase ($\alpha \to 2$); the two fixed-speed references, which
-    build no dense phase, stay heavy-tailed throughout. The dense phase
-    of the motility-active modes is ballistic ($\gamma \simeq 2$, a
-    comoving ordered droplet); the dilute gas is super-diffusive but
-    sub-ballistic. Takeaway: the noise gate turns dense-phase
-    reorientation from L\'evy-like to Gaussian, but only once the
-    motility channel has carved out the dense phase, so the droplets
-    advance as cleaner directed units.}
-    \label{fig:traj}
-\end{figure}
 
 \subsubsection{Decoupled sigmoids: a four-way anatomy of the rectification}
 \label{sec:decoupled}
