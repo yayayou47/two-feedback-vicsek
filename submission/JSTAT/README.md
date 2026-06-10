@@ -11,10 +11,27 @@ source lives in `version4/manuscript/`).
 | File | Role |
 |------|------|
 | `cover_letter.{tex,pdf}` | Cover letter to the JSTAT editorial board |
-| `manuscript.{tex,pdf}`   | Main article (figures 1–10) |
+| `manuscript.tex` (+ `.pdf`) | Main article, generic `article` class — **compiles here**, use for quick local builds / arXiv |
+| `manuscript_iopart.tex`  | Main article in the **IOP `iopart` class** (JSTAT house style) — see note below |
 | `supplement.{tex,pdf}`   | Supplementary material (figures S1–S2) |
 | `refs.bib`               | Bibliography |
-| `figures/`               | The 17 figure PDFs included by the two `.tex` files |
+| `figures/`               | The 17 figure PDFs included by the `.tex` files |
+
+### `manuscript_iopart.tex` — IOP house style
+
+This is the JSTAT-formatted version: `\documentclass[12pt]{iopart}`,
+`\title`/`\author`/`\address`/`\ead` front matter, `\maketitle` after the
+abstract, a Keywords line, the Elsevier-style Highlights dropped, and
+`\bibliographystyle{iopart-num}` (the `.bst` ships with TeX Live).
+
+**It is not compiled in this folder**: `iopart.cls` is distributed by IOP
+Publishing (not on CTAN) and is absent from this TeX install. Build it on
+**Overleaf** (start from the "iopart" template, which provides the class)
+or with IOP's downloadable author template; the body, figures and
+bibliography are otherwise identical to `manuscript.tex`. The supplement
+is kept in the generic class — its S-numbered labels still feed the
+iopart manuscript's `xr` cross-references (Figs.~S1/S2) via
+`supplement.aux`; convert it to `iopart` too if a uniform SI is wanted.
 
 ## Build
 
