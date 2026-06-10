@@ -1,0 +1,173 @@
+\begin{thebibliography}{24}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Ariel et~al.(2015)Ariel, Rabani, Benisty, Partridge, Harshey, and
+  Be'er]{Ariel2015}
+G.~Ariel, A.~Rabani, S.~Benisty, J.~D. Partridge, R.~M. Harshey, and A.~Be'er.
+\newblock Swarming bacteria migrate by l{\'e}vy walk.
+\newblock \emph{Nature Communications}, 6:\penalty0 8396, 2015.
+\newblock \doi{10.1038/ncomms9396}.
+
+\bibitem[Bazazi et~al.(2008)Bazazi, Buhl, Hale, Anstey, Sword, Simpson, and
+  Couzin]{Bazazi2008}
+S.~Bazazi, J.~Buhl, J.~J. Hale, M.~L. Anstey, G.~A. Sword, S.~J. Simpson, and
+  I.~D. Couzin.
+\newblock Collective motion and cannibalism in locust migratory bands.
+\newblock \emph{Current Biology}, 18:\penalty0 735--739, 2008.
+\newblock \doi{10.1016/j.cub.2008.04.035}.
+
+\bibitem[Bechinger et~al.(2016)Bechinger, Di~Leonardo, L{\"o}wen, Reichhardt,
+  Volpe, and Volpe]{Bechinger2016}
+C.~Bechinger, R.~Di~Leonardo, H.~L{\"o}wen, C.~Reichhardt, G.~Volpe, and
+  G.~Volpe.
+\newblock Active particles in complex and crowded environments.
+\newblock \emph{Rev. Mod. Phys.}, 88:\penalty0 045006, 2016.
+\newblock \doi{10.1103/RevModPhys.88.045006}.
+
+\bibitem[Bi et~al.(2016)Bi, Yang, Marchetti, and Manning]{Bi2016}
+D.~Bi, X.~Yang, M.~C. Marchetti, and M.~L. Manning.
+\newblock Motility-driven glass and jamming transitions in biological tissues.
+\newblock \emph{Phys. Rev. X}, 6:\penalty0 021011, 2016.
+\newblock \doi{10.1103/PhysRevX.6.021011}.
+
+\bibitem[Binder and Landau(1984)]{Binder1984}
+K.~Binder and D.~P. Landau.
+\newblock Finite-size scaling at first-order phase transitions.
+\newblock \emph{Phys. Rev. B}, 30:\penalty0 1477--1485, 1984.
+\newblock \doi{10.1103/PhysRevB.30.1477}.
+
+\bibitem[Buhl et~al.(2006)Buhl, Sumpter, Couzin, Hale, Despland, Miller, and
+  Simpson]{Buhl2006}
+J.~Buhl, D.~J.~T. Sumpter, I.~D. Couzin, J.~J. Hale, E.~Despland, E.~R. Miller,
+  and S.~J. Simpson.
+\newblock From disorder to order in marching locusts.
+\newblock \emph{Science}, 312:\penalty0 1402--1406, 2006.
+\newblock \doi{10.1126/science.1125142}.
+
+\bibitem[Cates and Tailleur(2015)]{CatesTailleur2015}
+M.~E. Cates and J.~Tailleur.
+\newblock Motility-induced phase separation.
+\newblock \emph{Annu. Rev. Condens. Matter Phys.}, 6:\penalty0 219--244, 2015.
+\newblock \doi{10.1146/annurev-conmatphys-031214-014710}.
+
+\bibitem[Chambers et~al.(1976)Chambers, Mallows, and Stuck]{Chambers1976}
+J.~M. Chambers, C.~L. Mallows, and B.~W. Stuck.
+\newblock A method for simulating stable random variables.
+\newblock \emph{J. Amer. Statist. Assoc.}, 71:\penalty0 340--344, 1976.
+\newblock \doi{10.1080/01621459.1976.10480344}.
+
+\bibitem[Chat{\'e} et~al.(2008)Chat{\'e}, Ginelli, Gr{\'e}goire, and
+  Raynaud]{Chate2008}
+H.~Chat{\'e}, F.~Ginelli, G.~Gr{\'e}goire, and F.~Raynaud.
+\newblock Collective motion of self-propelled particles interacting without
+  cohesion.
+\newblock \emph{Phys. Rev. E}, 77:\penalty0 046113, 2008.
+\newblock \doi{10.1103/PhysRevE.77.046113}.
+
+\bibitem[Couzin et~al.(2002)Couzin, Krause, James, Ruxton, and
+  Franks]{Couzin2002}
+I.~D. Couzin, J.~Krause, R.~James, G.~D. Ruxton, and N.~R. Franks.
+\newblock Collective memory and spatial sorting in animal groups.
+\newblock \emph{J. Theor. Biol.}, 218:\penalty0 1--11, 2002.
+\newblock \doi{10.1006/jtbi.2002.3065}.
+
+\bibitem[Dieterich et~al.(2008)Dieterich, Klages, Preuss, and
+  Schwab]{Dieterich2008}
+P.~Dieterich, R.~Klages, R.~Preuss, and A.~Schwab.
+\newblock Anomalous dynamics of cell migration.
+\newblock \emph{Proc. Natl. Acad. Sci. USA}, 105:\penalty0 459--463, 2008.
+\newblock \doi{10.1073/pnas.0707603105}.
+
+\bibitem[Eliazar and Klafter(2003)]{Eliazar2003}
+I.~Eliazar and J.~Klafter.
+\newblock L{\'e}vy-driven langevin systems: Targeted stochasticity.
+\newblock \emph{J. Stat. Phys.}, 111:\penalty0 739--768, 2003.
+\newblock \doi{10.1023/A:1022894030773}.
+
+\bibitem[Ginelli and Chat{\'e}(2010)]{Ginelli2010}
+F.~Ginelli and H.~Chat{\'e}.
+\newblock Relevance of metric-free interactions in flocking phenomena.
+\newblock \emph{Phys. Rev. Lett.}, 105:\penalty0 168103, 2010.
+\newblock \doi{10.1103/PhysRevLett.105.168103}.
+
+\bibitem[Greenshields(1935)]{Greenshields}
+B.~D. Greenshields.
+\newblock A study of traffic capacity.
+\newblock \emph{Highway Research Board Proc.}, 14:\penalty0 448--477, 1935.
+
+\bibitem[Gr{\'e}goire and Chat{\'e}(2004)]{Gregoire2004}
+G.~Gr{\'e}goire and H.~Chat{\'e}.
+\newblock Onset of collective and cohesive motion.
+\newblock \emph{Phys. Rev. Lett.}, 92:\penalty0 025702, 2004.
+\newblock \doi{10.1103/PhysRevLett.92.025702}.
+
+\bibitem[Harris et~al.(2012)Harris, Banigan, Christian, Konradt, Wojno, Norose,
+  Wilson, John, Weninger, Luster, Liu, and Hunter]{Harris2012}
+T.~H. Harris, E.~J. Banigan, D.~A. Christian, C.~Konradt, E.~D.~T. Wojno,
+  K.~Norose, E.~H. Wilson, B.~John, W.~Weninger, A.~D. Luster, A.~J. Liu, and
+  C.~A. Hunter.
+\newblock Generalized {L}\'evy walks and the role of chemokines in migration of
+  effector {CD}8$^+$ {T} cells.
+\newblock \emph{Nature}, 486:\penalty0 545--548, 2012.
+\newblock \doi{10.1038/nature11098}.
+
+\bibitem[Korobkova et~al.(2004)Korobkova, Emonet, Vilar, Shimizu, and
+  Cluzel]{Korobkova2004}
+E.~Korobkova, T.~Emonet, J.~M.~G. Vilar, T.~S. Shimizu, and P.~Cluzel.
+\newblock From molecular noise to behavioural variability in a single
+  bacterium.
+\newblock \emph{Nature}, 428:\penalty0 574--578, 2004.
+\newblock \doi{10.1038/nature02404}.
+
+\bibitem[Lighthill and Whitham(1955)]{LWR}
+M.~J. Lighthill and G.~B. Whitham.
+\newblock On kinematic waves ii: A theory of traffic flow on long crowded
+  roads.
+\newblock \emph{Proc. R. Soc. Lond. A}, 229:\penalty0 317--345, 1955.
+\newblock \doi{10.1098/rspa.1955.0089}.
+
+\bibitem[Marchetti et~al.(2013)Marchetti, Joanny, Ramaswamy, Liverpool, Prost,
+  Rao, and Simha]{Marchetti2013}
+M.~C. Marchetti, J.-F. Joanny, S.~Ramaswamy, T.~B. Liverpool, J.~Prost, M.~Rao,
+  and R.~A. Simha.
+\newblock Hydrodynamics of soft active matter.
+\newblock \emph{Rev. Mod. Phys.}, 85:\penalty0 1143--1189, 2013.
+\newblock \doi{10.1103/RevModPhys.85.1143}.
+
+\bibitem[Reynolds(2018)]{Reynolds2018}
+A.~M. Reynolds.
+\newblock Current status and future directions of {L}\'evy walk research.
+\newblock \emph{Biology Open}, 7:\penalty0 bio030106, 2018.
+\newblock \doi{10.1242/bio.030106}.
+
+\bibitem[Toner(2012)]{TonerTu2012}
+J.~Toner.
+\newblock Reanalysis of the hydrodynamic theory of fluid, polar-ordered flocks.
+\newblock \emph{Phys. Rev. E}, 86:\penalty0 031918, 2012.
+\newblock \doi{10.1103/PhysRevE.86.031918}.
+
+\bibitem[Toner and Tu(1995)]{TonerTu1995}
+J.~Toner and Y.~Tu.
+\newblock Long-range order in a two-dimensional dynamical {XY} model: How birds
+  fly together.
+\newblock \emph{Phys. Rev. Lett.}, 75:\penalty0 4326--4329, 1995.
+\newblock \doi{10.1103/PhysRevLett.75.4326}.
+
+\bibitem[Toner and Tu(1998)]{TonerTu1998}
+J.~Toner and Y.~Tu.
+\newblock Flocks, herds, and schools: A quantitative theory of flocking.
+\newblock \emph{Phys. Rev. E}, 58:\penalty0 4828, 1998.
+\newblock \doi{10.1103/PhysRevE.58.4828}.
+
+\bibitem[Vicsek et~al.(1995)Vicsek, Czir{\'o}k, Ben-Jacob, Cohen, and
+  Shochet]{Vicsek1995}
+T.~Vicsek, A.~Czir{\'o}k, E.~Ben-Jacob, I.~Cohen, and O.~Shochet.
+\newblock Novel type of phase transition in a system of self-driven particles.
+\newblock \emph{Phys. Rev. Lett.}, 75:\penalty0 1226--1229, 1995.
+\newblock \doi{10.1103/PhysRevLett.75.1226}.
+
+\end{thebibliography}

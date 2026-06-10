@@ -1,0 +1,96 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue!50!black,
+            urlcolor=blue!50!black}
+\pagestyle{empty}
+\setlength{\parskip}{0.45em}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\hfill\today
+
+\medskip
+
+To the Editorial Board\\
+\emph{Journal of Statistical Mechanics: Theory and Experiment} (JSTAT)
+
+\medskip
+
+Dear Editors,
+
+Please consider the enclosed manuscript, ``A two-feedback
+Vicsek--Couzin flock: density-stratified heading correlations as
+the robust fingerprint of motility--noise coupling,'' for
+publication in JSTAT as an original research article.
+
+The standard Vicsek model fixes the self-propulsion speed and the
+angular-noise distribution as global constants. Two relaxations
+have been studied separately: a density-dependent speed, which
+drives motility-induced phase separation, and heavy-tailed
+L\'evy reorientations, which reshape the order--disorder
+transition. We ask what happens when both are switched on
+together, gated by a single density-dependent sigmoid in the local
+neighbour count, and we isolate each contribution with a four-way
+ablation (baseline / noise-shape-only / motility-only / full) run
+on one code path.
+
+We find that heavy-tailed noise on its own grows no size-dependent
+susceptibility; only the motility channel builds a phase-separated
+dense phase, on top of which the otherwise-silent noise-shape
+adaptation adds a finite-size super-additive excess. The robust,
+scale-spanning fingerprint of the coupling is microscopic: a
+density-stratified dense-phase heading correlation $g(r)$ and its
+dynamic counterpart $C(\tau)$, together with a single-particle
+switch of dense-phase reorientation from L\'evy-like to Gaussian
+(per-step turning-angle distribution and density-stratified mean
+squared displacement). A decoupled-sigmoid sweep identifies the
+motility threshold as the sole control variable, and a
+hydrodynamic appendix supplies the analytic counterpart.
+
+We believe the work fits JSTAT squarely. It is a
+statistical-mechanics study of an active-matter model --- Vicsek
+and Couzin flocking, motility-induced phase separation, giant
+number fluctuations, finite-size scaling of the order--disorder
+transition, and density-stratified correlation functions --- and
+should interest the active-matter and non-equilibrium
+statistical-mechanics communities the journal serves.
+
+The analysis is deliberately conservative. Claims rest on
+ten-seed finite-size scans with seed-bootstrap confidence
+intervals and non-parametric (Wilcoxon signed-rank,
+Mann--Whitney) tests rather than Gaussian $z$-scores; null results
+(a passive noise-shape threshold, negligible hysteresis, no
+extended patch lifetime, a topological-kernel breakdown) are
+reported rather than buried; and the macroscopic finite-size
+synergy is presented as a finite-size effect, not an asymptotic
+critical exponent. All code and data are openly available at
+\url{https://github.com/yayayou47/two-feedback-vicsek} for
+bit-for-bit reproduction of every figure.
+
+This manuscript is original, has not been published previously,
+and is not under consideration at any other journal. It has a
+single author, who declares no competing interests. One
+supplementary-material PDF accompanies the submission. As
+potential referees, we would suggest specialists in active-matter
+and flocking models, in finite-size scaling of non-equilibrium
+phase transitions, and in motility-induced phase separation.
+
+Thank you for considering our submission.
+
+\medskip
+
+Sincerely,\\[0.8em]
+Yaya Youssouf Yaya\\
+D\'epartement de Math\'ematiques, \'Ecole Normale Sup\'erieure de
+N'Djam\'ena, Tchad\\
+Chercheur Associ\'e, LMA, Universit\'e Assane Seck de Ziguinchor,
+S\'en\'egal\\
+\texttt{yy.y@zig.univ.sn} \;\; ORCID:
+\href{https://orcid.org/0000-0003-0781-4923}{0000-0003-0781-4923}
+
+\end{document}
