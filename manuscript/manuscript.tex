@@ -1130,9 +1130,11 @@ $\Delta g(r \!\simeq\! 0.6) = g_{\rm full}^{\rm decoupled}
     $2 \times 3$ grid. (a) Continuous heatmap of $\Delta g$ on the
     $(n_\star^\alpha, n_\star^v)$ plane (grey dashed line
     $n_\star^v = n_\star^\alpha$). (b) $\Delta g$ vs $n_\star^v$
-    colour-coded by $n_\star^\alpha$; the $n_\star^v$-only fit
-    reaches $R^2 = 0.88$ against $R^2 = 0.04$ for $n_\star^\alpha$
-    alone. (c) Density-scaling test: $\Delta g(n_\star^v)$ at four
+    colour-coded by $n_\star^\alpha$, with the per-$n_\star^v$ band
+    mean ($\pm 95\%$ seed-bootstrap CI, black squares) stepping
+    monotonically through zero at $n_\star^v \simeq 4$; the
+    $n_\star^v$-only linear fit reaches $R^2 = 0.88$ against
+    $R^2 = 0.04$ for $n_\star^\alpha$ alone. (c) Density-scaling test: $\Delta g(n_\star^v)$ at four
     densities $\rho_0 \in \{1.0, 1.5, 2.22, 3.0\}$
     ($n_\star^\alpha = 3$ fixed). (d) Metric- and (e)
     topological-kernel ($k = 4$) heatmaps at $\rho_0 = 2.22$,
@@ -1152,17 +1154,23 @@ The map splits the quadrant into two horizontal bands,
 separated not by the diagonal but by a critical motility
 threshold $n_\star^v \simeq 4$ --- just above the typical
 alignment-zone occupancy $\rho_0\pi(R_a^2 - R_r^2) \simeq
-1.7$. For $n_\star^v \le 3$ every row carries a positive
-gap, $+0.43 \pm 0.01$ at $(1,1)$ down to $+0.10 \pm 0.01$ at
-$(1,8)$; for $n_\star^v \ge 5$ every row is negative,
-$-0.27 \pm 0.01$ at $(5,1)$ down to $-0.63 \pm 0.01$ at
-$(8,1)$. The shared-sigmoid diagonal cuts straight through
-the stratification: $(3,3)$ gives $+0.25$, $(5,5)$ gives
-$-0.40$. The sign is set by $n_\star^v$ alone, not by the
-timing offset. Quantitatively, $\Delta g \simeq -0.144\,
-n_\star^v + 0.52$ captures $R^2 = 0.88$; the analogous fit
-on $n_\star^\alpha$ captures $R^2 = 0.04$; the timing-offset
-fit, $R^2 = 0.28$.
+1.7$. Averaging each $n_\star^v$ band over $n_\star^\alpha$, the
+mean gap steps monotonically with the motility threshold ---
+$+0.32$ ($95\%$ seed-bootstrap CI $[+0.31, +0.33]$) at
+$n_\star^v = 1$, $+0.30$ ($[+0.29, +0.31]$) at $2$, $+0.19$
+($[+0.17, +0.20]$) at $3$, $-0.35$ ($[-0.35, -0.34]$) at $5$
+and $-0.58$ ($[-0.59, -0.57]$) at $8$ --- the adjacent bands
+non-overlapping and the sign flipping at $n_\star^v \simeq 4$.
+The matching $n_\star^\alpha$ bands stay near zero ($+0.03$
+for $n_\star^\alpha \le 3$, down to $-0.16$ at
+$n_\star^\alpha = 8$), so the noise-shape threshold is
+passive. The shared-sigmoid diagonal ($n_\star^v =
+n_\star^\alpha$) crosses straight from the positive bands at
+$n_\star^v \le 3$ to the negative bands at $n_\star^v \ge 5$,
+so the sign is set by $n_\star^v$ alone, not by the timing
+offset; a linear fit corroborates it ($\Delta g \simeq
+-0.144\, n_\star^v + 0.52$, $R^2 = 0.88$, against $R^2 = 0.04$
+on $n_\star^\alpha$ and $0.28$ on the timing offset).
 
 The mechanism is simple. At $n_\star^v = 3$, just above
 typical occupancy, dense-patch particles fire the motility

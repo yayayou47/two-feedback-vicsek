@@ -149,9 +149,24 @@ def main() -> None:
                         ecolor="grey", elinewidth=0.6, capsize=2,
                         markeredgecolor="black", markeredgewidth=0.3)
             xv.append(float(nv)); yv.append(float(mean_g[iv, ia]))
-    a_fit, b_fit = np.polyfit(xv, yv, 1)
-    xf = np.linspace(0.5, 8.5, 100)
-    ax.plot(xf, a_fit * xf + b_fit, "-", color="grey", lw=0.8)
+    # Per-n_v band mean (averaged over n_a) with a seed-bootstrap CI:
+    # the gap steps monotonically with the motility threshold and flips
+    # sign --- cleaner evidence than the linear R^2.
+    gd2 = twod["gr_dense"][..., j]                  # (n_v, n_a, seed)
+    gm2 = twod["gr_dense_motility"][:, j]           # (seed,)
+    band = (gd2 - gm2[None, None, :]).mean(axis=1)  # (n_v, seed)
+    bmean = band.mean(axis=1)
+    rng_b = np.random.default_rng(0); nsd = band.shape[1]
+    blo, bhi = [], []
+    for iv in range(band.shape[0]):
+        bs = [band[iv, rng_b.integers(0, nsd, nsd)].mean()
+              for _ in range(5000)]
+        lo, hi = np.percentile(bs, [2.5, 97.5])
+        blo.append(lo); bhi.append(hi)
+    blo = np.array(blo); bhi = np.array(bhi)
+    ax.errorbar(n_v, bmean, yerr=[bmean - blo, bhi - bmean],
+                fmt="s-", color="black", lw=1.3, ms=4.5, capsize=2.5,
+                zorder=6, label=r"$n_\star^v$ band mean")
     ax.axhline(0, color="black", lw=0.4, ls="--", alpha=0.4)
     ax.set_xlabel(r"$n_\star^v$")
     ax.set_ylabel(r"$\Delta g(r\!\simeq\!0.6)$")
