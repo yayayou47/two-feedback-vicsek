@@ -55,8 +55,8 @@ one is fast and Cauchy-like. A seven-size finite-size scan
 against the original Vicsek model and three single-channel
 ablations splits the problem in two. Heavy-tailed
 reorientations on their own grow no size-dependent
-susceptibility --- their rare bursts wash out among the many
-neighbours of a dense patch --- whereas the motility channel
+susceptibility (their rare bursts wash out among the many
+neighbours of a dense patch) whereas the motility channel
 does, building a phase-separated dense phase whose finite-size
 susceptibility grows in a motility-induced-phase-separation
 manner rather than through a sharp critical divergence. On top
@@ -77,8 +77,8 @@ staying passive.
 
 \section*{Highlights}
 \begin{itemize}\setlength{\itemsep}{1pt}
-  \item Two feedbacks --- density-dependent motility and
-        heavy-tailed L\'evy reorientations --- studied so far
+  \item Two feedbacks, density-dependent motility and
+        heavy-tailed L\'evy reorientations, studied so far
         in isolation are activated together in one
         Vicsek--Couzin flock through a shared sigmoid.
   \item Heavy-tailed reorientations alone grow no
@@ -109,7 +109,7 @@ a self-propelled flock that biology keeps fluid: every particle
 moves at the same speed, and every reorientation is drawn from
 the same Gaussian. Neither assumption survives contact with
 real collectives. Self-propulsion speed responds to local
-crowding almost everywhere one looks --- confluent epithelia
+crowding almost everywhere one looks: confluent epithelia
 jam and arrest \citep{Bi2016}, swarming bacteria switch between
 planktonic and biofilm regimes through quorum sensing, and
 vehicular, pedestrian and animal traffic carry a pronounced
@@ -130,7 +130,7 @@ on a separate, L\'evy-driven track \citep{Eliazar2003,
 Ariel2015}, where broadening the turning tails reshapes the
 order--disorder transition of metric Vicsek dynamics. Switching
 both adaptations on together, gated by the same local cue, has
-to our knowledge not been resolved --- and the question is not
+to our knowledge not been resolved, and the question is not
 academic. The two channels should interrogate each other
 precisely inside the dense regions a flock builds: the noise
 distribution sets how a particle escapes a local structure,
@@ -144,9 +144,10 @@ both the self-propulsion speed and the stability index of the
 angular noise, so a crowded particle is at once slow and
 Gaussian and an isolated one fast and Cauchy. Turning both
 channels off recovers the original Vicsek dynamics. Two
-single-channel ablations --- a motility-only mode (adaptive
-speed, fixed Cauchy noise) and a noise-shape-only mode (fixed
-speed, noise interpolating from Cauchy to Gaussian) --- isolate
+single-channel ablations (a motility-only mode with adaptive
+speed and fixed Cauchy noise, and a noise-shape-only mode with
+fixed speed and noise interpolating from Cauchy to Gaussian)
+isolate
 each contribution against a shared heavy-tailed reference, and a
 finite-size scan at fixed density ($\rho_0 = 2.22$, sizes up to
 $L = 128$) places the four heavy-tailed modes and the Gaussian
@@ -172,7 +173,7 @@ clusters, and leaves the dilute phase alone. A decoupled-sigmoid
 analysis (Sec.~\ref{sec:decoupled}) pins the control variable:
 the motility threshold alone sets the sign and amplitude of the
 rectification, the noise-shape threshold staying passive. The
-density-triggered slowdown is the precondition --- without the
+density-triggered slowdown is the precondition: without the
 dense phase it builds, the heavy-tailed rectification has
 nothing to act on and erodes coherence instead of creating it.
 
@@ -375,8 +376,8 @@ motility-only neighbours at every size.
     \caption{Real-space configurations at $\rho_0 = 2.22$, single
     seed, after $3000$ warm-up steps, three sizes
     $L \in \{30, 90, 128\}$ (one row each). Per row the noise runs
-    left to right --- (a) $\eta = 0.020$ (ordered), (b) $\eta =
-    0.10$ (near-critical), (c) $\eta = 0.30$ (disordered) --- each
+    left to right: (a) $\eta = 0.020$ (ordered), (b) $\eta =
+    0.10$ (near-critical), (c) $\eta = 0.30$ (disordered); each
     placing motility-only left of its double-adaptive counterpart.
     Arrows are coloured by local speed $v_i$ (shared colorbar), with
     a $5 \times 5$ zoom inset and the polar order
@@ -447,7 +448,7 @@ $[+0.40, +0.83]$, excluding zero. The interval reflects seed
 scatter, not the short lever; and since the $\chi_{\max}$ peaks
 already flatten over the largest sizes (motility $37.8 \to 47.7
 \to 49.8$ at $L = 64, 90, 128$), we read the $\simeq +0.6$
-excess as a finite-size super-additive boost --- cooperation
+excess as a finite-size super-additive boost: cooperation
 between the channels, not a proven asymptotic exponent. The
 load-bearing evidence is the microscopic signature below.
 
@@ -478,25 +479,23 @@ double-adaptive    & $3.01$ & $2.31$ & $7.05$ & $21.52$ & $45.27$ & $91.40$ & $9
 \end{table}
 
 \noindent
-The cumulative size budget tightens with the lever: $\Delta_4
-= +1.04$ ($[-0.27, +1.81]$), $\Delta_5 = +0.79$ ($[+0.33,
-+1.22]$), $\Delta_6 = +0.71$ ($[+0.39, +0.98]$), $\Delta_7 =
-+0.63$ ($[+0.40, +0.83]$, all $95\%$), excluding zero from five
-sizes onward (per-seed paired $t = +5.9$ at nine d.o.f.). With
-ten seeds the $\chi_{\max}(L)$ series is monotone for both
-motility-active modes, the non-monotonic $L = 90$ node of the
-earlier three-seed survey a seed-budget artefact. The pooled
-estimator stays seed-sensitive at large $L$ under heavy tails,
-which is why the microscopic $g(r)$, $C(\tau)$, GNF and $P(s)$
-diagnostics below carry the load-bearing evidence.
+The cumulative budget is positive at every truncation and
+excludes zero from $n = 5$ onward (per-seed paired $t = +5.9$
+at nine d.o.f.). With ten seeds the $\chi_{\max}(L)$ series is
+monotone for both motility-active modes, the non-monotonic
+$L = 90$ node of the earlier three-seed survey a seed-budget
+artefact. The pooled estimator stays seed-sensitive at large
+$L$ under heavy tails, which is why the microscopic $g(r)$,
+$C(\tau)$, GNF and $P(s)$ diagnostics below carry the
+load-bearing evidence.
 
 The reading is mechanistic. Inside a dense patch the alignment
 sum over many annulus neighbours is dominated by typical kicks,
 so the Cauchy bursts of the heavy-tail-only modes wash out
 before they can drive any $\chi_{\max}$ growth. The motility
-channel sidesteps that averaging --- the dense phase it carves
-out has a susceptibility set by density--density fluctuations
---- and the noise-shape rectification adds on top because
+channel sidesteps that averaging (the dense phase it carves
+out has a susceptibility set by density--density fluctuations),
+and the noise-shape rectification adds on top because
 $\alpha_i \to 2$ damps the residual heading fluctuations in the
 same patch, giving the $\Delta a \simeq +0.6$ excess. The $U_4$
 panel of Fig.~\ref{fig:pilot}d carries a caveat: all four modes,
@@ -510,20 +509,16 @@ signature here. We turn to $s_{\rm sep}$.
 
 The next question is whether the dense regions are spatially
 separated. On the same protocol, at the $\chi$-peak $\eta$ and
-the three largest sizes, $s_{\rm sep} = (1.25, 1.25, 1.48,
-1.72)$ at $L = 64$, $(1.19, 1.18, 1.68, 1.78)$ at $L = 90$, and
-$(1.13, 1.14, 1.69, 1.70)$ at $L = 128$, in the order Cauchy,
-noise-shape, motility, full (Fig.~\ref{fig:pilot}c). The two
+the three largest sizes (Fig.~\ref{fig:pilot}c), the two
 Cauchy-only modes are essentially homogeneous ($s_{\rm sep}
 \simeq 1.2$, the binning floor), their $s_{\rm sep}$ in fact
 falling slowly with $L$. Only the two motility-active modes
 phase separate, both plateauing near $s_{\rm sep} \simeq 1.7$,
 the double-adaptive model above the motility-only ablation by
-$+0.24$ at $L = 64$, $+0.10$ at $L = 90$ and $+0.01$ at $L =
-128$ as they converge on the plateau. So $s_{\rm sep}$ reads the
-same split as the susceptibility slope, with a noise-shape
-surplus largest at intermediate sizes before the plateau closes
-it.
+$+0.24$ at $L = 64$ and closing to $+0.01$ by $L = 128$ as they
+converge on the plateau. So $s_{\rm sep}$ reads the same split
+as the susceptibility slope, with a noise-shape surplus largest
+at intermediate sizes before the plateau closes it.
 
 The snapshots (Fig.~\ref{fig:snapshot}) make the contrast
 concrete. At $\eta = 0.020$ the two modes are almost
@@ -537,7 +532,7 @@ aligned where the motility-only patches scramble. Inside the
 dense phase $\langle\alpha_i\rangle$ reaches $1.5$--$1.6$ for
 the full mode and damps the L\'evy bursts that would otherwise
 reshuffle the slow particles, whereas the motility-only ablation
-takes the full Cauchy kick there at every step --- the picture
+takes the full Cauchy kick there at every step: the picture
 the shared sigmoid predicts, rectification in the dense regions
 and nowhere else.
 
@@ -572,14 +567,11 @@ the threshold sits past the typical occupancy $\bar n_i \simeq
 \rho_0\pi(R_a^2 - R_r^2) \simeq 1.7$ and neither feedback
 engages. In the low-threshold band $n_\star \lesssim 3.5$ with
 $s \gtrsim 5$ the index climbs to $s_{\rm sep} \approx 2.0$,
-peaking at $(n_\star, s) \approx (3.3, 8.5)$, so the cohesion
+peaking near $(n_\star, s) \approx (3.3, 8.5)$, so the cohesion
 gain covers the whole MIPS-active corner rather than a
 knife-edge cell. The susceptibility map (a) does not
 co-localise: its brightest cell sits on the $n_\star = 1$ row,
-at $(n_\star, s) \approx (1, 4.75)$ with $\chi_{\max} = 46$; the
-whole $n_\star \le 2$ rectangle ($\langle\chi\rangle \approx
-16$) is brighter than the $n_\star \simeq 3$ row ($\approx 12$),
-and the $\chi_{\max}$ peak sits where $s_{\rm sep}$ has dropped
+with $\chi_{\max} = 46$, where $s_{\rm sep}$ has already dropped
 to $1.48$. The two optimise on different cells: $\chi_{\max}$
 peaks where the threshold sits below typical occupancy and the
 rectification fires almost everywhere, washing out the
@@ -590,13 +582,13 @@ selective for the dense phase.
 Both features survive to $L = 90$ and $L = 128$ (panels (b),
 (c) for $\chi_{\max}$; (e), (f) for $s_{\rm sep}$). The
 susceptibility ridge stays pinned to the $n_\star = 1$ row and
-its peak climbs several-fold above the $L = 30$ value of $46$,
-reaching $\chi_{\max} = 136$ at $L = 90$ and $104$ at $L = 128$,
-as expected for a growing phase-separation susceptibility,
-while the density-separation maximum stays in the low-threshold
-band $n_\star \lesssim 4$, peaking at $s_{\rm sep} = 1.94$ ($L =
-90$) and $1.82$ ($L = 128$) with the $n_\star \ge 5$ rectangle
-still suppressed near $s_{\rm sep} \simeq 1.2$. The cohesion
+its peak climbs several-fold above the $L = 30$ value of $46$
+(to $\chi_{\max} \simeq 100$--$140$), as expected for a growing
+phase-separation susceptibility, while the density-separation
+maximum stays in the low-threshold band $n_\star \lesssim 4$,
+peaking near $s_{\rm sep} \simeq 1.8$--$1.9$ with the
+$n_\star \ge 5$ rectangle still suppressed near $s_{\rm sep}
+\simeq 1.2$. The cohesion
 gain and its decoupling from the susceptibility peak are
 therefore not finite-size artefacts of the small survey boxes.
 
@@ -619,14 +611,14 @@ five seeds each, with a four-point $\eta$ sub-grid
     \label{fig:Lfine_gap}
 \end{figure}
 
-The gap is small at $L = 38, 50$ ($\le |0.01|$) and turns
-positive at $L = 60, 75, 105$ ($+0.10, +0.07, +0.08$); the
-closure at the two smaller fine-grid sizes follows the
+The gap is small at the two smaller fine-grid sizes ($\le
+|0.01|$ at $L = 38, 50$) and turns positive in $[+0.07, +0.10]$
+across $L = 60$ to $105$, the closure at small $L$ following the
 mode-dependent location of the $s_{\rm sep}$ peak in $\eta$. A
-ten-seed paired gap at the full-mode $\chi$-peak $\eta$ for $L
-\in \{50, 64, 80\}$ (Table~\ref{tab:gap_se}) gives $+0.020 \pm
-0.032$, $+0.165 \pm 0.031$ and $+0.024 \pm 0.031$: only $L = 64$
-is robustly positive.
+ten-seed paired gap at the full-mode $\chi$-peak $\eta$
+(Table~\ref{tab:gap_se}) holds the same: $+0.165 \pm 0.031$ at
+$L = 64$, but within noise of zero at $L = 50, 80$, so only
+$L = 64$ is robustly positive.
 
 \begin{table}[h]
 \centering
@@ -736,32 +728,31 @@ Ten seeds at $L = 30$ separate the four modes
 \end{figure}
 
 The Cauchy and noise-shape modes give only marginal density
-fluctuations ($2.5 \pm 0.4$ and $2.9 \pm 0.5$ clusters per seed,
-max size near the threshold floor). Motility-only fragments the
-dense phase into $187.9 \pm 12.3$ clusters, max size $55.0 \pm
-7.5$, mean $9.7 \pm 1.3$; the full mode gives $162.0 \pm 14.5$
-clusters, max size $176.6 \pm 42.3$, mean $22.6 \pm 6.5$. Taking
-the seed as the unit of replication, and because the
-dense-phase estimators are heavy-tailed, we report each
-full-minus-motility gap with its $95\%$ seed-bootstrap CI ($B =
-10\,000$) and a Wilcoxon signed-rank test rather than a Gaussian
-$z$. The two motility-active modes differ on cluster count by
-$-25.9$ ($[-62.9, +19.5]$, $p = 0.19$; not significant) and on
-max size by $+121.6$ ($[+40.5, +206.6]$, $p = 0.02$): the
-rectification fuses dense patches into a few large clusters at
-conserved total dense area (Fig.~\ref{fig:cluster_map}). Max
-size is the meaningful diagnostic; the count carries no clean
-signal.
+fluctuations (a few clusters per seed, max size near the
+threshold floor). Both motility-active modes fragment the box
+into $\sim 160$--$190$ dense clusters, but the full mode pushes
+the largest one far higher (max size $176.6 \pm 42.3$ against
+$55.0 \pm 7.5$ for motility-only). Taking the seed as the unit
+of replication, and because the dense-phase estimators are
+heavy-tailed, we report each full-minus-motility gap with its
+$95\%$ seed-bootstrap CI ($B = 10\,000$) and a Wilcoxon
+signed-rank test rather than a Gaussian $z$. The two modes
+differ on cluster count by $-25.9$ ($[-62.9, +19.5]$, $p =
+0.19$; not significant) and on max size by $+121.6$ ($[+40.5,
++206.6]$, $p = 0.02$): the rectification fuses dense patches
+into a few large clusters at conserved total dense area
+(Fig.~\ref{fig:cluster_map}). Max size is the meaningful
+diagnostic; the count carries no clean signal.
 
 The dense-phase distribution $P(s)$ sharpens the same reading
 (same $1.5\times$-median dense-bin definition; ten seeds, $L =
 30$; $\eta \in \{0.02, 0.05, 0.10, 0.20\}$,
 Fig.~\ref{fig:cluster_summary}e). The two fixed-speed references
-never grow a dense-phase tail --- their giant-cluster fraction
-stays at the binning floor ($\langle s_{\max}/N\rangle \simeq
-0.001$--$0.002$), the Vicsek band instability at $\rho_0 = 2.22$
-too weak to nucleate a dense phase with the motility channel off
---- while both motility-active modes carry one. At their
+never grow a dense-phase tail (their giant-cluster fraction
+stays at the binning floor, $\langle s_{\max}/N\rangle \simeq
+0.001$--$0.002$, the Vicsek band instability at $\rho_0 = 2.22$
+too weak to nucleate a dense phase with the motility channel
+off), while both motility-active modes carry one. At their
 near-critical operating points the double-adaptive tail is the
 steeper ($\tau = 2.01$ against $1.74$) with a $2.6$-fold larger
 giant-cluster fraction ($0.018$ versus $0.007$), the binodal
@@ -783,8 +774,8 @@ the Toner--Tu value $\zeta \simeq 0.8$. The two fixed-noise-shape
 references stay Poissonian ($\zeta = 0.57$ Cauchy, $0.58$
 noise-shape), while the two motility-active modes fluctuate
 anomalously, $\zeta = 0.79$ (motility-only) and $0.82$
-(double-adaptive), both straddling the polar-flock prediction
---- the same split read straight off the density fluctuations.
+(double-adaptive), both straddling the polar-flock prediction:
+the same split read straight off the density fluctuations.
 
 \subsubsection{\texorpdfstring{Heading correlation $g(r)$ in dense and dilute regions}{Heading correlation in dense and dilute regions}}
 \label{sec:gr}
@@ -813,9 +804,9 @@ the local-density field $\rho_i = \#\{j : |\mathbf x_j -
     dilute quartile for the four modes, with seed-level error bands;
     (c) dense-quartile gap $\Delta g(r)$ between double-adaptive and
     motility-only over $r \in [0.5, 6]$ at $L \in \{30, 64, 90,
-    128\}$. The dense correlation is the sharpest fingerprint ---
-    positive for the motility-active modes, negative for the
-    references --- and the gap survives all four sizes.}
+    128\}$. The dense correlation is the sharpest fingerprint
+    (positive for the motility-active modes, negative for the
+    references), and the gap survives all four sizes.}
     \label{fig:gr}
 \end{figure}
 
@@ -832,20 +823,17 @@ microscopic expression of the rectification, acting where the
 shared sigmoid sends it and nowhere else.
 
 The signature survives the FSS range. A ten-seed persistence
-test gives $\Delta g(r \!\simeq\! 0.6) = +0.150$ ($[+0.131,
-+0.167]$) at $L = 64$, $+0.127$ ($[+0.098, +0.157]$) at $L =
-90$, and $+0.106$ ($[+0.082, +0.133]$) at $L = 128$ (each $95\%$
-seed-bootstrap CI excluding zero, Wilcoxon $p = 0.002$); with
-$L = 30$ the dense-quartile gap plateaus at $\Delta g \in
-[+0.11, +0.15]$, narrowing mildly from $+0.15$ at $L \le 64$ to
-$+0.11$ at $L = 128$. Over the full $r \in [0.5, 6]$ profile
-(Fig.~\ref{fig:gr}c) it does not decay with $r$: the inner-range
-mean $r \in (0.5, 1.5)$ sits at $+0.150, +0.152, +0.131, +0.113$
-for $L = 30, 64, 90, 128$, while the outer-range mean $r > 3$
-climbs to $+0.181, +0.184, +0.157, +0.137$ --- if anything
-larger beyond the alignment cutoff $R_a = 0.7$ than inside it.
-The rectification imposes a coherence on the dense phase that
-outlasts the metric interaction range.
+test holds the dense-quartile gap in $\Delta g(r \!\simeq\! 0.6)
+\in [+0.11, +0.15]$ across $L = 64$ to $128$ (each $95\%$
+seed-bootstrap CI excluding zero, Wilcoxon $p = 0.002$),
+narrowing mildly from $+0.15$ at $L \le 64$ to $+0.11$ at
+$L = 128$. Over the full $r \in [0.5, 6]$ profile
+(Fig.~\ref{fig:gr}c) it does not decay with $r$: the outer-range
+mean ($r > 3$, $+0.14$ to $+0.18$ across sizes) sits if anything
+above the inner-range mean ($r \in (0.5, 1.5)$, $+0.11$ to
+$+0.15$), larger beyond the alignment cutoff $R_a = 0.7$ than
+inside it. The rectification imposes a coherence on the dense
+phase that outlasts the metric interaction range.
 
 \subsubsection{\texorpdfstring{Single-particle dynamics: $C(\tau)$, turning angles and diffusion}{Single-particle dynamics: C(tau), turning angles and diffusion}}
 \label{sec:autocorr}
@@ -872,15 +860,13 @@ noise-shape drop fastest, motility-only sits above, and the
 full model sits above motility-only by a nearly constant
 offset. The gap $\Delta C(\tau) = C_{\rm full}(\tau) -
 C_{\rm motility}(\tau)$ stays in the band $+0.13$ to $+0.24$
-over $\tau \in [1, 2\,000]$ in the dense quartile, with
-bootstrap $95\%$ CIs (ten seeds, $B = 10\,000$ resamples)
-excluding zero throughout; at $\tau = 5\,000$ it drops to
-$+0.18$, CI $[+0.08, +0.27]$, still excluding zero. The
-within-seed estimator averages over $\sim 4 \times 10^7$ sample
-pairs per mode, so the between-seed SE is $\sim 10^{-3}$ and the
-$t$-statistic at nine d.o.f.\ saturates beyond a few sigmas;
-hence the bootstrap CIs. The dilute gap is a few percent and its
-CI brackets zero past $\tau \simeq 100$.
+over $\tau \in [1, 5\,000]$ in the dense quartile, its bootstrap
+$95\%$ CIs (ten seeds, $B = 10\,000$ resamples) excluding zero
+throughout. The within-seed estimator averages over $\sim 4
+\times 10^7$ sample pairs per mode, so we quote bootstrap CIs
+rather than a between-seed $z$, which saturates beyond a few
+sigmas. The dilute gap is a few percent and its CI brackets zero
+past $\tau \simeq 100$.
 
 \begin{figure}[htbp]
     \centering
@@ -891,7 +877,7 @@ CI brackets zero past $\tau \simeq 100$.
     $\Delta C(\tau) = C_{\rm full} - C_{\rm motility}$ in the dense
     and dilute quartiles, with $z$-scores. Bottom row, per-particle
     increments (six seeds; hue keys the mode, line style the density
-    class --- solid dense, dashed dilute): (c) turning-angle pdf
+    class, solid dense, dashed dilute): (c) turning-angle pdf
     $p(\Delta\theta)$; (d) density-conditioned MSD
     $\langle\Delta r^2\rangle(\tau)$ with fitted
     $\gamma_{\rm dense}/\gamma_{\rm dilute}$. The dense $C(\tau)$
@@ -929,7 +915,7 @@ onto a Gaussian-like core (tail weight $0.14$, circular variance
 $0.34$), whereas motility-only stays heavy (tail weight $0.22$,
 circular variance $0.50$) with $\alpha$ pinned at $1$. The gate
 cuts the dense tail weight by $2.4$ for the double-adaptive
-model against $1.9$ for motility-only --- the $C(\tau)$ plateau,
+model against $1.9$ for motility-only: the $C(\tau)$ plateau,
 read at the level of increments, is a switch from heavy-tailed
 to Gaussian turning inside the dense phase. The two fixed-speed
 references keep a heavy dense-quartile tail, so the Gaussian
@@ -940,7 +926,7 @@ The stratified mean squared displacement
 $\langle\Delta r^2\rangle(\tau)$, conditioned on the density
 class at the time origin and unwrapped across the periodic box,
 turns this into transport (Fig.~\ref{fig:dynamics}d). The dense
-phase is ballistic --- a coherent, comoving ordered droplet ---
+phase is ballistic (a coherent, comoving ordered droplet),
 with exponent $\gamma_{\rm dense} = 2.01 \pm 0.01$ for the
 double-adaptive model and $1.93$ for motility-only, while the
 dilute gas is super-diffusive but sub-ballistic,
@@ -953,9 +939,9 @@ feedback raises the exponent in both phases and lifts the
 dense-phase displacement at $\tau = 2\,000$ steps by $66\%$
 ($235.7$ against $142.2$ in box units): the Gaussian gate makes
 the dense droplets advance as cleaner ballistic units. The
-noise channel sets the turning statistics --- Gaussian and
-directed inside the dense flock, heavy-tailed in the dilute gas
---- the speed channel sets the magnitude, and together they keep
+noise channel sets the turning statistics (Gaussian and
+directed inside the dense flock, heavy-tailed in the dilute
+gas), the speed channel sets the magnitude, and together they keep
 the double-adaptive droplets denser, more cohesive and more
 persistent than the motility-only ablation.
 
@@ -1003,15 +989,14 @@ $s^v = s^\alpha = 2$, ten seeds per cell at $L = 30$, $\eta =
 
 The map splits the quadrant into two horizontal bands,
 separated not by the diagonal but by a critical motility
-threshold $n_\star^v \simeq 4$ --- just above the typical
+threshold $n_\star^v \simeq 4$, just above the typical
 alignment-zone occupancy $\rho_0\pi(R_a^2 - R_r^2) \simeq
 1.7$. Averaging each $n_\star^v$ band over $n_\star^\alpha$, the
-mean gap steps monotonically with the motility threshold ---
+mean gap steps monotonically with the motility threshold, from
 $+0.32$ ($95\%$ seed-bootstrap CI $[+0.31, +0.33]$) at
-$n_\star^v = 1$, $+0.30$ ($[+0.29, +0.31]$) at $2$, $+0.19$
-($[+0.17, +0.20]$) at $3$, $-0.35$ ($[-0.35, -0.34]$) at $5$
-and $-0.58$ ($[-0.59, -0.57]$) at $8$ --- the adjacent bands
-non-overlapping and the sign flipping at $n_\star^v \simeq 4$.
+$n_\star^v = 1$ down to $-0.58$ ($[-0.59, -0.57]$) at $8$, the
+adjacent bands non-overlapping and the sign flipping at
+$n_\star^v \simeq 4$.
 The matching $n_\star^\alpha$ bands stay near zero ($+0.03$
 for $n_\star^\alpha \le 3$, down to $-0.16$ at
 $n_\star^\alpha = 8$), so the noise-shape threshold is
@@ -1029,7 +1014,7 @@ the rest saturate at $v_{\max}$. Push $n_\star^v$ to $5$ or $8$
 and the motility channel almost never fires: the decoupled model
 collapses onto the noise-shape-only ablation, which has
 $g(r\!\simeq\!0.6) = -0.17$ at $L = 30$ (Sec.~\ref{sec:gr}), and
-its gap with motility-only is large and negative --- the lower
+its gap with motility-only is large and negative, the lower
 band. Drop $n_\star^v$ below $3$ and the motility channel
 engages aggressively; dense patches grow and the noise-shape
 rectification adds coherence on top whether it triggers early or
@@ -1074,8 +1059,8 @@ indistinguishable, no threshold buys a coherence gain. The
 naive alternative fails a falsification check: if
 $n_\star^{v,{\rm crit}}$ tracked the dense-phase neighbour count
 $\langle n_i\rangle_{\rm dense}$ the two would be equal, but
-$\langle n_i\rangle_{\rm dense} = 2.57, 4.05, 4.85, 5.26$ at
-$\rho_0 = 1.0, 1.5, 2.22, 3.0$ \emph{increases} with $\rho_0$,
+$\langle n_i\rangle_{\rm dense}$ \emph{increases} with $\rho_0$
+(from $2.6$ at $\rho_0 = 1.0$ to $5.3$ at $\rho_0 = 3.0$),
 opposite to $n_\star^{v,{\rm crit}}$.
 
 
@@ -1087,22 +1072,20 @@ particle aligns with its $k$ nearest non-repulsion neighbours
 while the sigmoid input stays the metric annulus count.
 Re-running the $25$-cell map at $L = 30$, $\rho_0 = 2.22$ with
 $k = 4$ (Fig.~\ref{fig:decoupled_2d}c), the two-band structure
-softens. The linear fit on $n_\star^v$ alone now captures $R^2 =
-0.68$ (was $0.88$), while the $n_\star^\alpha$ fit climbs to
-$R^2 = 0.43$ (was $0.04$); the bivariate fit $\Delta g \simeq
--0.081\,n_\star^v - 0.069\,n_\star^\alpha + 0.73$ splits the
-weight nearly evenly between the two thresholds, against the
-$-0.144/-0.029$ split under metric alignment. The sign-flip
-region retreats too: $(5,1)$ and $(8,1)$, which gave $-0.27$ and
-$-0.63$ under metric, now give $+0.31$ and $+0.21$, only the
-high-high corner staying negative.
+softens. The linear fit on $n_\star^v$ alone drops from $R^2 =
+0.88$ to $0.68$ while the $n_\star^\alpha$ fit climbs from
+$0.04$ to $0.43$, the bivariate fit now splitting its weight
+nearly evenly between the two thresholds. The sign-flip region
+retreats too: cells that were strongly negative under metric
+alignment turn positive, only the high-high corner staying
+negative.
 
 So motility-threshold dominance is a property of the metric
 kernel, not of the two-feedback dynamics. Under metric alignment
 $n_{\rm ali}$ both feeds the sigmoid and selects the alignment
 partners, so pushing the threshold above typical occupancy
 switches off the slowdown and the neighbour-driven alignment at
-once. Topological alignment breaks that tie --- the $k = 4$ nearest
+once. Topological alignment breaks that tie: the $k = 4$ nearest
 neighbours hand each particle a baseline alignment the
 rectification can sharpen even when the motility channel is
 nearly silent. The model thus speaks sharpest to short-metric
@@ -1147,7 +1130,7 @@ fluctuation rectifier \emph{inside} the slow region the motility
 channel carves out. The two adaptations cooperate where it
 matters and never fight locally. The finite-size susceptibility
 carries a positive but partly saturating super-additive excess;
-the robust faces are microscopic --- the dense $g(r)$, its
+the robust faces are microscopic: the dense $g(r)$, its
 dynamic counterpart $C(\tau)$, and the cluster geometry, all
 significant at $L = 30$ and all flat in the dilute quartile. The
 decoupled-sigmoid tests of Sec.~\ref{sec:decoupled} sharpen the
@@ -1197,9 +1180,9 @@ reorientations in foragers, T-cells and swarming bacteria. Our
 noise-shape ablation tempers the heavy-tail-as-driver picture:
 the Cauchy and noise-shape modes carry slopes statistically
 indistinguishable from zero, so heavy-tailed reorientations on
-their own grow no size-dependent $\chi_{\max}(L)$ at our density
---- the alignment averaging in the dense phase washes the bursts
-out. The motility channel is necessary, heavy tails alone are
+their own grow no size-dependent $\chi_{\max}(L)$ at our
+density: the alignment averaging in the dense phase washes the
+bursts out. The motility channel is necessary, heavy tails alone are
 not sufficient, and what the noise-shape adaptation buys is the
 cooperative $\Delta_n > 0$ on top of the motility-driven
 scaling. Where \citet{Couzin2002} treats the zonal parameters as
@@ -1208,7 +1191,7 @@ the same kernel. \citet{Bechinger2016} and \citet{Marchetti2013}
 review and embed such feedbacks hydrodynamically, but neither
 identifies the dense-phase Gaussian conversion, because neither
 couples the noise distribution to the local density. The two
-ingredients are documented separately --- a density-dependent
+ingredients are documented separately: a density-dependent
 speed across active colloids, traffic and jamming
 \citep{CatesTailleur2015, Greenshields, Bi2016}, and
 environment-dependent reorientation statistics in swimming
@@ -1217,77 +1200,63 @@ bacteria, where crowding both slows the cells and reshapes their
 tumble statistics, are the closest concrete instance of the two
 responses coexisting, though they need not share a single
 sensor. The shared sigmoid is in that sense a parsimony
-assumption, not a documented mechanism; its sharpest prediction
---- a dense-phase narrowing of the turning-angle distribution
-together with a positive heading-correlation gap --- is what an
+assumption, not a documented mechanism; its sharpest prediction,
+a dense-phase narrowing of the turning-angle distribution
+together with a positive heading-correlation gap, is what an
 experiment on a crowding-responsive collective could test.
 
 The weakest part of the case is the lever. The seven-size FSS is
-short: the $\Delta_n$ excess is positive at every budget and
-excludes zero from $n = 5$ onward ($\Delta_7 = +0.63$, $[+0.40,
-+0.83]$), but the $\chi_{\max}$ peaks already flatten at the
-largest sizes, so we read it as a finite-size boost rather than
-an asymptotic exponent. Controlled runs at $L = 180$ or $256$,
-with an explicit data collapse, would test whether the excess
-slope holds asymptotically and whether $P(\langle\varphi\rangle)$
-narrows. Beyond that, mapping $g(r)$ at intermediate distances
-$r = 2$ to $5$ would tell whether the rectification carries a
-characteristic decay length, in the spirit of
-\citet{Eliazar2003}; a two-knob sweep over $v_{\min}/v_{\max}$
-and $\alpha_{\min}/\alpha_{\max}$ at fixed $(n_\star, s)$ would
-isolate each channel's marginal contribution and bridge to the
-Vicsek limit; and the absence of a traveling band leaves room
-for a different cohesive structure, perhaps a slowly-rotating
-dense droplet, that a real-space analysis at $L > 30$ should
-reveal. On the theory side, a Toner--Tu closure with
-$v_{\rm eff}(\rho)$ and a fractional $D_{\rm rot}(\rho) \propto
-\eta^{\alpha(\rho)}$ recovering both the linear $\Delta
-g(n_\star^v)$ and the negative slope $n_\star^{v,{\rm
-crit}}(\rho_0) = -0.73\,\rho_0 + 5.81$ would close the
-mechanistic argument; we plan to fit $\alpha_{\rm eff}(\rho)$ and
-$v_{\rm eff}(\rho)$ directly and benchmark the effective
-$\gamma/\nu$ against the metric Vicsek prediction.
+short: the excess is positive at every budget and excludes zero
+from $n = 5$ onward ($\Delta_7 = +0.63$, $[+0.40, +0.83]$), but
+the $\chi_{\max}$ peaks already flatten at the largest sizes, so
+we read it as a finite-size boost rather than an asymptotic
+exponent. Controlled runs at $L = 180$ or $256$ with an explicit
+data collapse would test whether the excess slope holds
+asymptotically and whether $P(\langle\varphi\rangle)$ narrows.
+Mapping $g(r)$ at intermediate distances $r = 2$ to $5$ would
+tell whether the rectification carries a characteristic decay
+length, in the spirit of \citet{Eliazar2003}, and the absence of
+a traveling band leaves room for a different cohesive structure,
+perhaps a slowly-rotating dense droplet, that a real-space
+analysis at $L > 30$ should reveal. On the theory side, a
+Toner--Tu closure with $v_{\rm eff}(\rho)$ and a fractional
+$D_{\rm rot}(\rho) \propto \eta^{\alpha(\rho)}$ recovering both
+the linear $\Delta g(n_\star^v)$ and the negative slope
+$n_\star^{v,{\rm crit}}(\rho_0) = -0.73\,\rho_0 + 5.81$ would
+close the mechanistic argument.
 
 \appendix
 
 \section{Hydrodynamic description and the asymmetry of decoupled sigmoids}
 \label{sec:hydro}
 
-The microscopic model of Sec.~2 admits a coarse-grained
-description in terms of $\rho(\mathbf x, t)$ and
+The model coarse-grains to fields $\rho(\mathbf x, t)$ and
 $\mathbf p(\mathbf x, t) = \rho^{-1}\langle\vec e_i\rangle_x$.
-The treatment is heuristic --- the aim is to make the
-rectification analytically transparent, not to derive it.
+The treatment is heuristic: it makes the rectification
+analytically transparent, not derived.
 
 \subsection{Continuum fields and conservation}
 \label{sec:hydro_fields}
 
-The instantaneous neighbour count in the continuum limit is
-\begin{equation}
-n_i \approx A\,\rho(\mathbf x_i),
-\qquad A \equiv \pi(R_a^2 - R_r^2),
-\label{eq:n_continuum}
-\end{equation}
-with $A \simeq 0.75$ for $R_a = 0.7$ and $R_r = 0.5$.
-Substituting into Eqs.~\eqref{eq:sigmoid}--\eqref{eq:alpha_adapt}
-turns the per-particle adaptations into density fields
+With the continuum neighbour count $n_i \approx A\,\rho$,
+$A \equiv \pi(R_a^2 - R_r^2) \simeq 0.75$,
+Eqs.~\eqref{eq:sigmoid}--\eqref{eq:alpha_adapt} become density
+fields,
 \begin{align}
 \sigma(\rho) & = \frac{1}{1 + \exp\!\bigl[-s\,(A\rho - n_\star)\bigr]},
 \label{eq:sigma_rho} \\
 v(\rho) & = v_{\max} - \Delta v\,\sigma(\rho),
 \quad \Delta v \equiv v_{\max} - v_{\min},
-\label{eq:v_rho} \\
-\alpha(\rho) & = \alpha_{\min} + \Delta\alpha\,\sigma(\rho),
-\quad \Delta\alpha \equiv \alpha_{\max} - \alpha_{\min}.
-\label{eq:alpha_rho}
+\label{eq:v_rho}
 \end{align}
-Density conservation gives
+and $\alpha(\rho)$ likewise interpolating from $\alpha_{\min}$
+to $\alpha_{\max}$. Density conservation and the polarisation
+dynamics read
 \begin{equation}
 \partial_t \rho + \nabla\!\cdot\!\bigl[\rho\,v(\rho)\,
 \mathbf p\bigr] = 0,
 \label{eq:rho_eq}
 \end{equation}
-and to leading order in gradients and $|\mathbf p|$
 \begin{equation}
 \partial_t \mathbf p = -\Gamma(\rho, \eta)\,\mathbf p
    + \nu\,\nabla^2\mathbf p
@@ -1296,31 +1265,24 @@ and to leading order in gradients and $|\mathbf p|$
 \label{eq:p_eq}
 \end{equation}
 with $\nu, \lambda$ the standard Toner--Tu coefficients
-\citep{TonerTu1995, TonerTu2012}. The non-trivial input is
-that $\Gamma$ depends on $\rho$ through $\alpha(\rho)$.
+\citep{TonerTu1995, TonerTu2012}. The non-trivial input is that
+the decorrelation rate $\Gamma$ depends on $\rho$ through
+$\alpha(\rho)$.
 
 \subsection{Effective rotational decorrelation}
 
-A symmetric $\alpha$-stable kick $\xi \sim S_\alpha(c\!=\!\eta)$
-has characteristic function $\exp(-\eta^\alpha |k|^\alpha)$, so
-$\langle\cos\xi\rangle = \exp(-\eta^\alpha)$ and, for small
-$\eta$,
+A symmetric $\alpha$-stable kick gives $\langle\cos\xi\rangle =
+\exp(-\eta^\alpha)$, so for small $\eta$
 \begin{equation}
 \Gamma(\rho, \eta) = 1 - \langle\cos\xi\rangle
    \;\simeq\; \eta^{\alpha(\rho)}.
 \label{eq:gamma_eta}
 \end{equation}
-The decorrelation rate is $\eta$ in the dilute (Cauchy) limit
-and $\eta^2$ in the dense (Gaussian) one, so for $\eta < 1$
-\begin{equation}
-\frac{\Gamma_{\rm dense}}{\Gamma_{\rm dilute}}
-   = \eta^{\,\alpha_{\max} - \alpha_{\min}} = \eta
-\label{eq:rectif_ratio}
-\end{equation}
-is the analytic counterpart of the rectification: the
-noise-shape feedback turns the $\eta$-linear Cauchy
-decorrelation into the much weaker $\eta^2$ Gaussian one
-inside the dense phase.
+This is $\eta$ in the dilute (Cauchy) limit and $\eta^2$ in the
+dense (Gaussian) one: the noise-shape feedback turns the
+$\eta$-linear Cauchy decorrelation into the much weaker $\eta^2$
+Gaussian one inside the dense phase, the analytic counterpart of
+the rectification.
 
 \subsection{MIPS instability and its rectification correction}
 
@@ -1332,33 +1294,23 @@ density perturbation by the Cates--Tailleur mechanism
    < -1,
 \label{eq:CT_criterion}
 \end{equation}
-which the sigmoidal $v(\rho)$ of Eq.~\eqref{eq:v_rho} meets in
-a window of width $1/s$ centred on $A\rho_0 \simeq n_\star$.
-Because $v(\rho)$ and $\alpha(\rho)$ share that sigmoid, the
-instability window coincides with the density at which the
-rectification fires: the nucleating dense phase is born
-already rectified.
+which the sigmoidal $v(\rho)$ meets in a window of width $1/s$
+centred on $A\rho_0 \simeq n_\star$. Since $v$ and $\alpha$
+share the sigmoid, that window coincides with the density at
+which the rectification fires, so the nucleating dense phase is
+born already rectified.
 
-Decoupling the sigmoid replaces Eq.~\eqref{eq:sigma_rho} by two
-independent profiles with thresholds $n_\star^v$ and
-$n_\star^\alpha$, and a sequential timing argument
-(motility-first $\succ$ shared $\succ$ alpha-first) captures only
-the diagonal ordering. It misses the empirical map
-(Fig.~\ref{fig:decoupled_2d}), which runs along horizontal lines
-of constant $n_\star^v$ ($R^2 = 0.88$ against $R^2 = 0.28$ for
-the timing-offset fit), with $(5,8)$ staying negative though
-motility-first. The limit is real: the linear-stability sketch
-reproduces neither the horizontal-band structure of the
-$(n_\star^v, n_\star^\alpha)$ map nor the scaling
-$n_\star^{v,{\rm crit}}(\rho_0) = -0.73\,\rho_0 + 5.81$, which
-runs opposite to the mean-density prediction. In Toner--Tu
-language the model maps onto $v_{\rm eff}(\rho)$ with a
-fractional rotational diffusion $D_{\rm rot}(\rho) \propto
-\eta^{\alpha(\rho)}$; recovering the $n_\star^v$-dominance and
-the negative $\rho_0$-slope from Eqs.~\eqref{eq:rho_eq} and
-\eqref{eq:p_eq} would need the dense-phase local density tied to
-the MIPS contrast rather than to the mean, which we leave to a
-quantitative theory.
+The sketch has a real limit, which we concede. A sequential
+timing argument predicts only the diagonal ordering of the
+decoupled map, whereas the data run along horizontal lines of
+constant $n_\star^v$ (Fig.~\ref{fig:decoupled_2d}, $R^2 = 0.88$
+against $0.28$ for the timing-offset fit). Neither the
+horizontal-band structure nor the negative slope
+$n_\star^{v,{\rm crit}}(\rho_0) = -0.73\,\rho_0 + 5.81$ follows
+from the linear-stability picture; recovering both from
+Eqs.~\eqref{eq:rho_eq} and \eqref{eq:p_eq} would need the
+dense-phase density tied to the MIPS contrast rather than to the
+mean, which we leave to a quantitative theory.
 
 \section*{Code and data availability}
 The simulation code, all run drivers, the
