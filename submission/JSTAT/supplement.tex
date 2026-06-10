@@ -32,8 +32,7 @@
 
 \title{Supplementary Material\\[0.4em]
 \large A two-feedback Vicsek--Couzin flock: density-stratified heading
-correlations as the scale-invariant fingerprint of motility--noise
-coupling}
+correlations as the robust fingerprint of motility--noise coupling}
 
 \author{Yaya Youssouf Yaya}
 
@@ -47,7 +46,7 @@ The Binder dip is ambiguous on its own: a weakly first-order
 transition deepens $U_4$ through a bimodal
 $P(\langle\varphi\rangle)$, while a continuous transition with
 large $\gamma/\nu$ deepens it without bimodality. Only the
-full distribution separates the two cases. We histogram
+full distribution separates the two. We histogram
 $\langle\varphi\rangle$ on long trajectories at $L = 30$,
 $N = 2000$, three seeds, $6000$ measurement steps each, for
 the motility-only ablation at $\eta = 0.10$ and the
@@ -57,14 +56,14 @@ double-adaptive model at $\eta = 0.15$
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\linewidth]{fig_double_transition.pdf}
-    \caption{Order of the transition. Panels (a)--(d):
+    \caption{Order of the transition. (a)--(d)
     order-parameter distribution $P(\langle\varphi\rangle)$ with
     motility-only and double-adaptive overlaid, one panel per size
     (a) $L = 30$, (b) $L = 64$, (c) $L = 90$, (d) $L = 128$ (motility
     at $\eta = 0.10$, double-adaptive at $\eta = 0.15$), each
     normalised to its own peak and sharing the vertical scale; dashed
     lines mark the per-mode means and each panel reports the mean gap
-    $\Delta$ and the full-mode Binder cumulant $U_4$. Panel (e):
+    $\Delta$ and the full-mode Binder cumulant $U_4$. (e)
     quasi-static $\eta$ ramp up (filled circles, solid) and down
     (open squares, dashed) at $L = 64$, five seeds, all four modes
     (hue), with the loop areas. $P(\langle\varphi\rangle)$ stays
@@ -84,15 +83,14 @@ $U_4 = 0.65$ (motility) and $0.66$ (full) sit just below the
 bimodal limit $U_4 \to 2/3$ and well above the Gaussian
 $U_4 = 0$: the trajectories are locked in a single ordered
 state with bounded fluctuations, not switching between two
-phases. The transition is at most weakly first-order at this
-size.
+phases. The transition is at most weakly first-order here.
 
 Rerunning the histograms at $L = 64, 90$ (five seeds,
 $6\,000$ steps) and at $L = 128$ (five seeds, $60\,000$
 steps) in panels (b)--(d), the double-adaptive distribution
 sits to the right of motility-only at every size:
 $\Delta\langle\varphi\rangle = +0.145, +0.048, +0.121$ at
-$L = 64, 90, 128$ (the $L = 90$ row is a seed-budget outlier
+$L = 64, 90, 128$ (the $L = 90$ row a seed-budget outlier
 already seen in $s_{\rm sep}$). The full-mode $U_4$ stays in
 $[0.57, 0.62]$ and the distributions broaden into mildly
 platykurtic shapes at $L = 128$ ($\kappa = -0.27$ for
@@ -104,13 +102,13 @@ all four sizes.
 \label{sec:hysteresis}
 
 The unimodal $P(\langle\varphi\rangle)$ and the ambiguous
-$U_4$ dip leave the order of the transition unsettled. A
+$U_4$ dip leave the order of the transition unsettled; a
 hysteresis test settles it. We ramp $\eta$ quasi-statically
-up and then back down at $L = 64$, five seeds, carrying the
+up and back down at $L = 64$, five seeds, carrying the
 configuration over from one step to the next (no
 re-randomisation), for the two motility-active modes
 (Fig.~\ref{fig:transition}e). The up- and down-ramp
-$\varphi(\eta)$ branches overlap within error bars, and the
+$\varphi(\eta)$ branches overlap within error bars and the
 loop area is negligible --- $0.006$ for motility-only,
 $0.000$ for the double-adaptive model. A first-order
 transition would open a finite loop; its absence, with the
@@ -122,7 +120,7 @@ the continuous (or at most very weakly first-order) class.
 The dense phase still has to be characterised geometrically:
 does it travel as a metric-Vicsek soliton or sit as an
 isotropic patch comoving with the flow? The band-soliton
-index $b$ of Eq.~\eqref{eq:b} discriminates between the two
+index $b$ of Eq.~\eqref{eq:b} discriminates
 ($b \gtrsim 1.5$ for a band, $b \simeq 1$ for a patch). We
 measure $b$ for all four heavy-tailed modes at their
 near-critical $\eta$, $L = 30$, three seeds, $4000$
@@ -133,10 +131,10 @@ measurement steps (Fig.~\ref{fig:profile}).
     \includegraphics[width=0.95\linewidth]{fig_double_profile.pdf}
     \caption{Time-averaged profiles along the instantaneous
     polar-flow axis $x_\parallel$ at $L = 30$, three seeds,
-    $4000$ measurement steps, with the four modes overlaid at
-    their respective near-critical $\eta$. Panel (a): density
+    $4000$ measurement steps, the four modes overlaid at
+    their respective near-critical $\eta$. (a) density
     normalised to its peak, with the band-soliton index $b$ per
-    mode in the legend. Panel (b): local speed normalised to its
+    mode in the legend. (b) local speed normalised to its
     peak. Every profile is flat ($b \simeq 1$), so the
     motility-built dense phase is an isotropic comoving patch, not a
     travelling Vicsek band.}
@@ -145,8 +143,8 @@ measurement steps (Fig.~\ref{fig:profile}).
 
 All four profiles are flat to within $7\,\%$ ($b = 1.01,
 1.02, 1.04, 1.06$ in the order Cauchy, noise-shape, motility,
-full). None supports a metric-Vicsek band: the dense phase
-generated by the motility channel either reorganises faster
+full). None supports a metric-Vicsek band: the motility-built
+dense phase either reorganises faster
 than its polar axis or is isotropic in the comoving frame.
 The full mode is marginally the most cohesive, consistent
 with the Gaussian rectification tightening the patch from
