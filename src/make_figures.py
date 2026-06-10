@@ -1149,13 +1149,15 @@ def fig_double_gr(npz_path: Path, npz_decay: Path | None = None):
         i_m = labels.index("v3_limit")
         i_f = labels.index("full")
         delta = gr_dense[i_f, 0] - gr_dense[i_m, 0]
-        diff = gd[i_f, :, 0] - gd[i_m, :, 0]
-        ok = np.isfinite(diff)
-        z_score = diff[ok].mean() / (
-            diff[ok].std(ddof=1) / np.sqrt(ok.sum()))
+        ok = np.isfinite(gd[i_f, :, 0]) & np.isfinite(gd[i_m, :, 0])
+        from scipy.stats import wilcoxon
+        try:
+            p_w = wilcoxon(gd[i_f, ok, 0], gd[i_m, ok, 0]).pvalue
+        except ValueError:
+            p_w = float("nan")
         axes[0].annotate(
             fr"$\Delta g = {delta:+.3f}$" "\n"
-            fr"$z = {z_score:+.1f}$",
+            fr"Wilcoxon $p = {p_w:.3f}$",
             xy=(r_centers[0], gr_dense[i_f, 0]),
             xytext=(0.45 * r_centers[-1], 0.28),
             fontsize=7, color=PALETTE["full"],
@@ -2083,7 +2085,8 @@ def fig_double_dynamics(npz_autocorr: Path, npz_traj: Path):
     autocorrelation and trajectory statistics). Top row: (a)
     dense-quartile heading autocorrelation $C(\tau)$ per mode with
     seed-SE bands; (b) the gap $\Delta C(\tau) = C_{\rm full} -
-    C_{\rm motility}$ in the dense and dilute quartiles with z-scores.
+    C_{\rm motility}$ in the dense and dilute quartiles (dense gap
+    $95\%$ bootstrap CI $>0$ at all $\tau$).
     Bottom row, per-particle increments for all four modes (hue), dense
     (solid) vs dilute (dashed): (c) turning-angle pdf $p(\Delta\theta)$;
     (d) density-class MSD $\langle\Delta r^2\rangle(\tau)$ with the
@@ -2141,12 +2144,10 @@ def fig_double_dynamics(npz_autocorr: Path, npz_traj: Path):
     ax.set_ylabel(r"$\Delta C(\tau) = C_{\rm full} - C_{\rm motility}$")
     ax.set_title(r"(b) full $-$ motility gap", fontsize=9, loc="left")
     ax.legend(fontsize=6, frameon=False, loc="upper right")
-    for j_tau in (2, 6, 9):
-        z_val = g_dense_mean[j_tau] / max(g_dense_se[j_tau], 1e-9)
-        ax.annotate(fr"$z\!=\!{z_val:.0f}$",
-                    xy=(taus[j_tau], g_dense_mean[j_tau]),
-                    xytext=(0, -10), textcoords="offset points",
-                    fontsize=6, ha="center", va="top", color=c_full)
+    ax.text(0.97, 0.04,
+            r"dense gap: $95\%$ bootstrap CI $>0$ at all $\tau$",
+            transform=ax.transAxes, fontsize=5.5, ha="right",
+            va="bottom", color=c_full)
 
     # ---- bottom row: per-particle increments ----
     zt = np.load(npz_traj, allow_pickle=True)

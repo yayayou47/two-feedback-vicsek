@@ -25,7 +25,7 @@
 
 \begin{document}
 
-\title{A two-feedback Vicsek-Couzin flock: density-stratified heading correlations as the scale-invariant fingerprint of motility--noise coupling}
+\title{A two-feedback Vicsek-Couzin flock: density-stratified heading correlations as the robust fingerprint of motility--noise coupling}
 
 \author{Yaya Youssouf Yaya \\[0.5em]
         \small D\'epartement de Math\'ematiques, \'Ecole Normale Sup\'erieure de
@@ -55,22 +55,22 @@ slow and Gaussian-like while an isolated one is fast and
 Cauchy-like. A controlled seven-size finite-size scan
 against the original Vicsek model and three single-channel
 ablations separates two regimes: heavy-tailed reorientations
-on their own do not drive a critical susceptibility scaling
---- their rare bursts are averaged away inside a dense patch
---- whereas the motility channel does, and the otherwise-silent
-noise-shape adaptation lends it a super-additive boost that a
-homogeneous ten-seed scan resolves as a significant excess in
-the finite-size exponent. The coupling leaves a robust
-fingerprint at both scales: macroscopically, the
-double-adaptive susceptibility grows more steeply with system
-size than the motility-only ablation; microscopically, the
-density-stratified heading correlation inside the dense phase,
-its dynamic counterpart $C(\tau)$, and the per-particle turning
-statistics all read out the same mechanism --- the noise-shape
-feedback rectifies Cauchy bursts into Gaussian-like kicks
-inside the motility-driven dense phase, switching dense-phase
-reorientation from heavy-tailed to Gaussian and the droplets to
-ballistic transport. A decoupled-sigmoid sweep then shows that the motility
+on their own do not grow a size-dependent susceptibility ---
+their rare bursts are averaged away inside a dense patch ---
+whereas the motility channel does, building a phase-separated
+dense phase whose finite-size susceptibility grows in a
+motility-induced-phase-separation manner rather than through a
+sharp critical divergence, and on top of which the
+otherwise-silent noise-shape adaptation adds a finite-size
+super-additive excess. The robust, scale-spanning fingerprint
+of the coupling is microscopic: the density-stratified heading
+correlation inside the dense phase, its dynamic counterpart
+$C(\tau)$, and the per-particle turning statistics all read out
+the same mechanism --- the noise-shape feedback rectifies
+Cauchy bursts into Gaussian-like kicks inside the
+motility-driven dense phase, switching dense-phase reorientation
+from heavy-tailed to Gaussian and the droplets to ballistic
+transport. A decoupled-sigmoid sweep then shows that the motility
 threshold alone sets the sign and amplitude of the
 rectification, while the noise-shape threshold is essentially
 passive.
@@ -82,22 +82,20 @@ passive.
         heavy-tailed L\'evy reorientations --- studied so far
         in isolation are activated together in the same
         Vicsek--Couzin flock through a shared sigmoid.
-  \item Heavy-tailed reorientations on their own do not drive
-        a critical $\chi_{\max}(L)$ scaling; only the motility
-        channel does, and the otherwise-silent noise-shape
-        adaptation adds super-additively on top of it by a
-        margin a homogeneous ten-seed finite-size scan resolves
-        as statistically significant ($\Delta_7 > 0$, CI
-        excluding zero).
-  \item The coupling is robust at both scales: macroscopically a
-        steeper finite-size susceptibility exponent for the
-        double-adaptive model, and microscopically a
-        dense-quartile heading-correlation and $C(\tau)$ gap,
-        null in the dilute phase, between the double-adaptive
-        model and the motility-only ablation. At the
-        single-particle level the noise gate turns dense-phase
-        reorientation from heavy-tailed to Gaussian, so the dense
-        droplets advance ballistically.
+  \item Heavy-tailed reorientations on their own do not grow a
+        size-dependent $\chi_{\max}(L)$; only the motility
+        channel does, building a phase-separated dense phase
+        whose finite-size susceptibility grows in a MIPS-like
+        manner, and on top of which the otherwise-silent
+        noise-shape adaptation adds a finite-size super-additive
+        excess.
+  \item The robust, scale-spanning signature of the coupling is
+        microscopic: a dense-quartile heading-correlation and
+        $C(\tau)$ gap, null in the dilute phase, between the
+        double-adaptive model and the motility-only ablation. At
+        the single-particle level the noise gate turns
+        dense-phase reorientation from heavy-tailed to Gaussian,
+        so the dense droplets advance ballistically.
   \item A decoupled-sigmoid sweep pins the motility threshold
         as the sole control variable, the noise-shape threshold
         staying passive. The density-triggered slowdown is a
@@ -130,8 +128,9 @@ density-dependent speed drives motility-induced phase
 separation (MIPS) with no alignment interaction at all, and
 density-dependent motility is now a standard route to
 clustering in active matter. Heavy-tailed angular noise has
-been pursued on a separate track, where broadening the
-reorientation tails is known to reshape the order--disorder
+been pursued on a separate, L\'evy-driven track
+\citep{Eliazar2003, Ariel2015}, where broadening the
+reorientation tails can reshape the order--disorder
 transition of metric Vicsek dynamics. What happens when the
 two adaptations are switched on together, and gated by the
 same local cue, has to our knowledge not been resolved. The
@@ -164,8 +163,9 @@ growing finite-size susceptibility; heavy-tailed noise on its
 own leaves the transition essentially Vicsek-like, its rare
 bursts averaged away by the many neighbours of a dense patch.
 Where the two feedbacks act together they do not merely add:
-the noise-shape adaptation, critically silent on its own,
-lends the motility-driven scaling a super-additive boost.
+the noise-shape adaptation, silent on its own, lends the
+motility-driven, MIPS-like scaling a finite-size
+super-additive boost.
 
 The mechanism is local and direct. Inside the dense phase the
 shared sigmoid pushes the noise toward Gaussian, so the Cauchy
@@ -323,7 +323,8 @@ heading,
 \end{equation}
 the susceptibility its scaled variance $\chi = N\,
 \mathrm{Var}(\varphi)$, and the Binder cumulant $U_4 = 1
-- \langle\varphi^4\rangle / (3 \langle\varphi^2\rangle^2)$.
+- \langle\varphi^4\rangle / (3 \langle\varphi^2\rangle^2)$
+\citep{Binder1984}.
 For spatial phase separation we use
 \begin{equation}
 s_{\rm sep} \equiv \max_{\rm bins}\frac{n_{\rm bin}}
@@ -448,13 +449,19 @@ fixed-noise-shape modes (Vicsek--Gaussian, Cauchy, noise-shape
 only) carry slopes indistinguishable from zero ($-0.04$,
 $-0.05$, $-0.01$), every $95\%$ interval straddling the origin
 ($[-0.08, +0.01]$, $[-0.12, +0.01]$ and $[-0.08, +0.03]$):
-none develops a critical scaling on the seven-point lever, the
-Cauchy-reference $\chi_{\max}$ staying flat near unity across
-the whole size range. The two motility-active modes scale
-strongly: $a_{\rm motility} = +1.29$ ($[+1.25, +1.46]$) and
-$a_{\rm full} = +1.95$ ($[+1.86, +2.17]$), the full mode
-robustly steeper and the two intervals disjoint. The synergy
-diagnostic
+none grows a size-dependent susceptibility on the seven-point
+lever, the Cauchy-reference $\chi_{\max}$ staying flat near
+unity across the whole size range. The two motility-active
+modes do grow one, and strongly: $a_{\rm motility} = +1.29$
+($[+1.25, +1.46]$) and $a_{\rm full} = +1.95$ ($[+1.86,
++2.17]$), the full mode steeper and the two intervals disjoint.
+We read these slopes as the growth rate of a phase-separation
+susceptibility rather than as critical exponents: $a_{\rm full}
+\simeq 2$ corresponds to $\chi_{\max} \sim N$, the magnitude
+set by a single phase-separated domain and bounded by the
+$d = 2$ ceiling, and we find neither a data collapse nor a
+$U_4$ crossing that a genuine critical point would require. The
+synergy diagnostic
 \begin{equation}
 \Delta \equiv (a_{\rm full} - a_{\rm Cauchy})
    - (a_{\rm noise} - a_{\rm Cauchy})
@@ -463,12 +470,18 @@ diagnostic
 \end{equation}
 vanishes for two linearly-combining channels above the Cauchy
 backdrop. With the Cauchy and noise-shape slopes both
-essentially zero, $\Delta$ reduces to $a_{\rm full} -
-a_{\rm motility}$ and the seven-size fit returns $\Delta_7 =
-+0.63$ with a $95\%$ seed-bootstrap interval $[+0.40, +0.83]$
-that excludes zero: the noise-shape rectification, which
-carries no critical exponent on its own, adds an excess slope
-of $\simeq +0.6$ on top of the motility-driven scaling.
+essentially zero, $\Delta_n$ (the diagnostic evaluated on the
+first $n$ sizes) reduces to $a_{\rm full} - a_{\rm motility}$,
+and the full seven-size fit returns $\Delta_7 = +0.63$ with a
+$95\%$ seed-bootstrap interval $[+0.40, +0.83]$ that excludes
+zero. This interval reflects seed scatter only, not the short
+fitting lever, and the $\chi_{\max}$ peaks already flatten over
+the largest sizes (motility $37.8 \to 47.7 \to 49.8$ at $L =
+64, 90, 128$), so the $\simeq +0.6$ excess is best read as a
+finite-size super-additive boost --- suggestive of cooperation
+between the channels rather than a proven asymptotic exponent.
+The load-bearing evidence for the coupling is the microscopic
+signature reported below.
 
 \begin{table}[h]
 \centering
@@ -505,9 +518,11 @@ lever. The four smallest sizes give $\Delta_4 = +1.04$
 ($[+0.40, +0.83]$). The interval excludes zero from five sizes
 onward and narrows as the size range lengthens; a per-seed
 paired test of $\Delta_7$ returns $t = +5.9$ at nine degrees
-of freedom. On the homogeneous ten-seed series the synergy is
-therefore resolved across the entire size range, not only at
-the smallest boxes.
+of freedom. On the homogeneous ten-seed series the positive
+super-additive excess is therefore consistent across the size
+range, not confined to the smallest boxes; on this short and
+partly saturating lever, however, we read it as a finite-size
+effect rather than an asymptotic one.
 
 With ten seeds at every size the $\chi_{\max}(L)$ series is
 monotone for both motility-active modes, so the non-monotonic
@@ -610,7 +625,7 @@ $L \in \{30, 90, 128\}$ (Fig.~\ref{fig:plane}).
     as continuous. The threshold $n_\star$ axis is labelled on the
     left column and the slope $s$ axis on the bottom row only;
     panels are tagged (a)--(f). Cohesion (high $s_{\rm sep}$) and
-    criticality (high $\chi_{\max}$) peak on different cells of the
+    the susceptibility maximum (high $\chi_{\max}$) peak on different cells of the
     plane, and both features persist from $L = 30$ to $L = 128$.}
     \label{fig:plane}
 \end{figure}
@@ -644,7 +659,8 @@ shows that both features survive at larger scales. The
 susceptibility ridge stays pinned to the $n_\star = 1$ row and
 its peak climbs several-fold above the $L = 30$ value
 ($\chi_{\max} = 46$), reaching $\chi_{\max} = 136$ at $L = 90$
-and $104$ at $L = 128$ as expected for a critical response,
+and $104$ at $L = 128$ as expected for a growing
+phase-separation susceptibility,
 while the density-separation maximum stays in the
 low-threshold band $n_\star \lesssim 4$, peaking at
 $s_{\rm sep} = 1.94$ ($L = 90$) and $1.82$ ($L = 128$) with the
@@ -812,12 +828,17 @@ seed, max size near the threshold floor). Motility-only
 fragments the dense phase into $187.9 \pm 12.3$ clusters, max
 size $55.0 \pm 7.5$, mean $9.7 \pm 1.3$. The full mode gives
 $162.0 \pm 14.5$ clusters, max size $176.6 \pm 42.3$, mean
-$22.6 \pm 6.5$. The two motility-active modes differ on
-cluster count by $-25.9 \pm 22.6$ ($z = -1.15$, not
-significant) and on max size by $+121.6 \pm 45.2$
-($z = +2.7$): the rectification fuses dense patches into a
-few large clusters at conserved total dense area
-(Fig.~\ref{fig:cluster_map}). Max size is the meaningful
+$22.6 \pm 6.5$. We take the seed as the unit of replication
+and, because the dense-phase estimators are heavy-tailed,
+report each full-minus-motility gap with its $95\%$
+seed-bootstrap CI ($B = 10\,000$) and a Wilcoxon
+signed-rank test rather than a Gaussian $z$. The two
+motility-active modes differ on cluster count by $-25.9$
+($[-62.9, +19.5]$, $p = 0.19$; not significant) and on max
+size by $+121.6$ ($[+40.5, +206.6]$, $p = 0.02$): the
+rectification fuses dense patches into a few large clusters at
+conserved total dense area (Fig.~\ref{fig:cluster_map}). Max
+size is the meaningful
 diagnostic here; the cluster count carries no clean signal.
 
 The dense-phase cluster-size distribution $P(s)$ sharpens the
@@ -914,19 +935,22 @@ The Cauchy and noise-shape modes reach $g(r \!\simeq\! 0.6) =
 quartile, both negative: heavy-tailed bursts actively
 anti-align particles inside the dense patches. Motility-only
 reaches $0.542 \pm 0.007$, the full mode $0.695 \pm 0.008$, a
-paired $\Delta g = +0.153 \pm 0.011$ ($z = +14$). The
+paired $\Delta g = +0.153$ ($95\%$ seed-bootstrap CI
+$[+0.133, +0.175]$, Wilcoxon $p = 0.002$). The
 dilute-phase correlations are essentially insensitive to the
 noise-shape adaptation: the asymmetry is the direct
 microscopic expression of the rectification, which acts where
 the shared sigmoid sends it and nowhere else.
 
 The signature survives the FSS range. A ten-seed persistence
-test gives $\Delta g(r \!\simeq\! 0.6) = +0.150 \pm 0.010$
-($z = +15.7$) at $L = 64$, $+0.127 \pm 0.016$ ($z = +7.85$)
-at $L = 90$, and $+0.106 \pm 0.014$ ($z = +7.80$) at
-$L = 128$. Combined with $L = 30$, the dense-quartile gap
-plateaus at $\Delta g \in [+0.11, +0.15]$ across the four
-sizes, $z \ge 7$ throughout, with a mild narrowing from
+test gives $\Delta g(r \!\simeq\! 0.6) = +0.150$
+($[+0.131, +0.167]$) at $L = 64$, $+0.127$
+($[+0.098, +0.157]$) at $L = 90$, and $+0.106$
+($[+0.082, +0.133]$) at
+$L = 128$ (each $95\%$ seed-bootstrap CI excluding zero,
+Wilcoxon $p = 0.002$). Combined with $L = 30$, the
+dense-quartile gap plateaus at $\Delta g \in [+0.11, +0.15]$
+across the four sizes, with a mild narrowing from
 $+0.15$ at $L \le 64$ to $+0.11$ at $L = 128$. The dense
 $g(r)$ is the diagnostic whose two-feedback signature
 survives all four sizes.
@@ -1251,9 +1275,10 @@ the centroids of the connected dense components over $200$
 snapshots spaced $50$ steps, matching them across snapshots
 by periodic-centroid distance (cutoff $4.0$) and
 particle-count ratio (cutoff $2.0$), ten seeds. The mean
-patch lifetime is $1.60 \pm 0.02$ snapshots in motility-only
-against $1.57 \pm 0.02$ in the full mode, a paired
-$-0.037 \pm 0.029$ ($z = -1.30$); survival distributions
+patch lifetime is $1.60$ snapshots in motility-only against
+$1.57$ in the full mode, a difference of $-0.034$
+($95\%$ bootstrap CI $[-0.10, +0.03]$, Mann-Whitney
+$p = 0.08$; not significant); survival distributions
 overlap below $\tau = 10$. The geometric consolidation does
 not buy temporal persistence: the noise-shape rectification
 reshapes which grid cells the dense particles occupy
@@ -1288,11 +1313,14 @@ out. The two adaptations cooperate where it matters and have
 no operating point at which they fight each other locally.
 
 Four diagnostics read out the same mechanism on complementary
-axes. The FSS synergy on $\chi$ stays positive across the
-seven-size series, with the full mode scaling $\Delta a
-\simeq +0.6$ steeper than motility-only. The
+axes. The finite-size susceptibility on $\chi$ carries a
+positive super-additive excess across the seven-size series
+($\Delta a \simeq +0.6$, the full mode steeper than
+motility-only), though on a short and partly saturating lever;
+the three microscopic faces below are the robust ones. The
 density-stratified dense $g(r)$ provides the static
-microscopic face ($\Delta g = +0.153$, $z = +14$ at $L = 30$,
+microscopic face ($\Delta g = +0.153$, $95\%$ CI
+$[+0.13, +0.18]$ at $L = 30$,
 plateau $+0.11$ to $+0.15$ across $\{30, 64, 90, 128\}$); the
 dilute-quartile correlation is flat between the two modes,
 so the asymmetry is the direct fingerprint of the shared
@@ -1301,14 +1329,14 @@ dense $C(\tau)$ extends the signature dynamically, holding
 $+0.13$ to $+0.24$ over four decades in lag. The cluster
 geometry adds the visual face: the maximum cluster size grows
 from $55$ particles in motility-only to $177$ in the full
-mode ($z = +2.7$). All four diagnostics are significant at
-$L = 30$.
+mode (Wilcoxon $p = 0.02$). The static, dynamic and
+cluster-size faces are all significant at $L = 30$.
 
 The decoupled-sigmoid tests of Sec.~\ref{sec:decoupled}
 constrain the rectification further. It is a
 spatial-consolidation mechanism, not a temporal
 stabilisation (the patch-lifetime test returns
-$z = -1.3$); it requires the metric kernel (the
+Mann-Whitney $p = 0.08$); it requires the metric kernel (the
 $n_\star^v$ dominance weakens from $R^2 = 0.88$ to $0.68$
 under topological alignment); it is controlled by the
 motility threshold alone under metric alignment; and it
@@ -1363,7 +1391,7 @@ foragers, T-cells and swarming bacteria. Our noise-shape
 ablation tempers the heavy-tail-as-driver picture: the
 Cauchy and noise-shape modes carry slopes statistically
 indistinguishable from zero, so heavy-tailed reorientations
-on their own do not drive a critical $\chi_{\max}(L)$ scaling
+on their own do not grow a size-dependent $\chi_{\max}(L)$
 at our density --- the alignment averaging in the dense phase
 washes the bursts out. The motility channel is necessary;
 heavy tails alone are not sufficient. What the noise-shape
@@ -1384,17 +1412,20 @@ convenient.
 \subsection{Limits and future work}
 \label{sec:disc-future}
 
-The seven-size FSS places strong bounds. On the homogeneous
+The seven-size FSS is a short lever. On the homogeneous
 ten-seed series the $\Delta_n$ trajectory is positive at every
 budget and its $95\%$ bootstrap interval excludes zero from
-$n = 5$ onward, tightening to $\Delta_7 = +0.63$
-($[+0.40, +0.83]$) with a per-seed paired $t = +5.9$ at nine
-degrees of freedom; the $\chi_{\max}(L)$ series is monotone for
-both motility-active modes, so the non-monotonic $L = 90$ node
-of the earlier three-seed survey was a seed-budget artefact.
-Controlled runs at $L = 180$ or $L = 256$ would test whether the
-excess slope $\simeq +0.6$ holds asymptotically, whether the
-dense $g(r)$ signal plateaus near $+0.15$, and whether
+$n = 5$ onward ($\Delta_7 = +0.63$, $[+0.40, +0.83]$, per-seed
+paired $t = +5.9$ at nine degrees of freedom); but the
+$\chi_{\max}$ peaks already flatten at the largest sizes, so we
+read this excess as a finite-size super-additive boost rather
+than an asymptotic exponent. The $\chi_{\max}(L)$ series is now
+monotone for both motility-active modes, so the non-monotonic
+$L = 90$ node of the earlier three-seed survey was a
+seed-budget artefact. Controlled runs at $L = 180$ or
+$L = 256$, with an explicit data collapse, would test whether
+the excess slope $\simeq +0.6$ holds asymptotically, whether
+the dense $g(r)$ signal plateaus near $+0.15$, and whether
 $P(\langle\varphi\rangle)$ eventually narrows.
 
 Mapping $g(r)$ at intermediate distances $r = 2$ to $r = 5$
@@ -1574,8 +1605,11 @@ quantitative theory.
 
 \section*{Code and data availability}
 The simulation code, all run drivers, the
-figure-generation scripts and the data are released as
-supplementary material. All runs reported here used
+figure-generation scripts and the precompiled data accompany
+this paper and will be deposited, on acceptance, in a public
+repository archived at Zenodo (DOI to follow) under a
+permissive open-source (\textsc{mit}) license. All runs
+reported here used
 Python~3.12.3, NumPy~2.4.4, SciPy~1.17.1, Numba~0.65.1
 (LLVM~0.47.0) and Matplotlib~3.10.9 on Linux x86\_64. The
 interaction loop is JIT-compiled with Numba's parallel
