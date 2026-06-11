@@ -488,7 +488,7 @@ def fig_double_pilot(npz_path: Path):
             ax.plot(L_grid, np.exp(b) * L_grid ** a, "-",
                     color=PALETTE[m], lw=1.0, alpha=0.85, zorder=2)
             ax.text(0.03, 0.97 - 0.07 * im,
-                    fr"$a={a:+.2f}\pm{a_err:.2f}$",
+                    fr"$a={a:+.2f}\,[{a_lo:+.2f},{a_hi:+.2f}]$",
                     transform=ax.transAxes, fontsize=7,
                     color=PALETTE[m], ha="left", va="top")
     else:
@@ -505,13 +505,13 @@ def fig_double_pilot(npz_path: Path):
                     boot.append(ai)
                 except (np.linalg.LinAlgError, ValueError):
                     continue
-            a_lo, a_hi = np.percentile(boot, [16, 84])
+            a_lo, a_hi = np.percentile(boot, [2.5, 97.5])
             a_err = 0.5 * (a_hi - a_lo)
             L_grid = np.linspace(Ls.min(), Ls.max(), 50)
             ax.plot(L_grid, np.exp(b) * L_grid ** a, "-",
                      color=PALETTE[m], lw=1.0, alpha=0.85, zorder=2)
             ax.text(0.03, 0.97 - 0.07 * im,
-                    fr"$a={a:+.2f}\pm{a_err:.2f}$",
+                    fr"$a={a:+.2f}\,[{a_lo:+.2f},{a_hi:+.2f}]$",
                     transform=ax.transAxes,
                     fontsize=7, color=PALETTE[m],
                     ha="left", va="top")

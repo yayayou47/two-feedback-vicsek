@@ -181,6 +181,10 @@ heading $\theta_i^\star$ follows the Couzin priority rule
 $\mathbf r_{ij} = \mathbf x_j - \mathbf x_i$, and the
 alignment set $\mathcal A_i = \{j \neq i : R_r \le
 |\mathbf r_{ij}| < R_a\}$, both sensed omnidirectionally.
+There is no attraction zone: spatial cohesion in this model
+comes entirely from the density-dependent motility (the MIPS
+route), not from a Couzin cohesion term, and ``Couzin'' here
+labels only the zonal repulsion-over-alignment priority rule.
 Repulsion takes priority over alignment, alignment over
 inertia:
 \begin{equation}
@@ -280,7 +284,10 @@ heading,
 the susceptibility its scaled variance $\chi = N\,
 \mathrm{Var}(\varphi)$, and the Binder cumulant $U_4 = 1
 - \langle\varphi^4\rangle / (3 \langle\varphi^2\rangle^2)$
-\citep{Binder1984}. For spatial phase separation we use
+\citep{Binder1984}; we read $U_4$ with caution, as every mode
+(the Cauchy reference included) drives it to the same
+$0.28$--$0.31$ dip, so on its own it does not diagnose the
+transition here. For spatial phase separation we use
 \begin{equation}
 s_{\rm sep} \equiv \max_{\rm bins}\frac{n_{\rm bin}}
    {\mathrm{med}(n_{\rm bin})},
@@ -488,15 +495,16 @@ converge on the plateau. So $s_{\rm sep}$ reads the same split
 as the susceptibility slope, with a noise-shape surplus largest
 at intermediate sizes before the plateau closes it.
 
-The snapshots (Fig.~\ref{fig:snapshot}) make the contrast
-concrete. At $\eta = 0.020$ the two modes are almost
-indistinguishable, $\langle\varphi\rangle = 0.78$ and $0.83$; at
-near-critical $\eta = 0.10$ the double-adaptive model already
-holds more order ($\langle\varphi\rangle = 0.47 \to 0.63$); and
-at $\eta = 0.30$ the motility ablation collapses to
-$\langle\varphi\rangle = 0.04$ while the double-adaptive model
-still holds $0.25$, its dense slow patches staying coherently
-aligned where the motility-only patches scramble. Inside the
+The snapshots (Fig.~\ref{fig:snapshot}, top row, $L = 30$) make
+the contrast concrete. At $\eta = 0.020$ the two modes are
+almost indistinguishable, $\langle\varphi\rangle = 0.74$
+(motility-only) and $0.79$ (full); at near-critical
+$\eta = 0.10$ the double-adaptive model already holds more order
+($0.52$ against $0.66$); and at $\eta = 0.30$ the motility
+ablation collapses to $\langle\varphi\rangle = 0.06$ while the
+double-adaptive model still holds $0.39$, its dense slow patches
+staying coherently aligned where the motility-only patches
+scramble. Inside the
 dense phase $\langle\alpha_i\rangle$ reaches $1.5$--$1.6$ for
 the full mode and damps the L\'evy bursts that would otherwise
 reshuffle the slow particles, whereas the motility-only ablation
@@ -1195,7 +1203,7 @@ close the mechanistic argument.
 
 \appendix
 
-\section{Hydrodynamic description and the asymmetry of decoupled sigmoids}
+\section{A heuristic hydrodynamic sketch and the decoupled-sigmoid asymmetry}
 \label{sec:hydro}
 
 The model coarse-grains to fields $\rho(\mathbf x, t)$ and
