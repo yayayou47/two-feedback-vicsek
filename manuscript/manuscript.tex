@@ -429,8 +429,15 @@ scatter, not the short lever; and since the $\chi_{\max}$ peaks
 already flatten over the largest sizes (motility $37.8 \to 47.7
 \to 49.8$ at $L = 64, 90, 128$), we read the $\simeq +0.6$
 excess as a finite-size super-additive boost: cooperation
-between the channels, not a proven asymptotic exponent. The
-load-bearing evidence is the microscopic signature below.
+between the channels, not a proven asymptotic exponent.
+Figure~\ref{fig:collapse} makes both points directly: the local
+slope $a_{\rm eff} = d\ln\chi_{\max}/d\ln L$ overshoots its
+global fit at intermediate sizes and falls back to
+$a_{\rm eff} \simeq 0$ in the largest interval, and the
+susceptibility peak $\eta^\ast(L)$ migrates toward the
+small-$\eta$ boundary rather than locking to a fixed $\eta_c$,
+so a $(\eta - \eta_c)L^{1/\nu}$ collapse cannot be defined.
+The load-bearing evidence is the microscopic signature below.
 
 \begin{table}[h]
 \centering
@@ -1264,6 +1271,26 @@ dense (Gaussian) one: the noise-shape feedback turns the
 $\eta$-linear Cauchy decorrelation into the much weaker $\eta^2$
 Gaussian one inside the dense phase, the analytic counterpart of
 the rectification.
+
+Because the kick enters the heading only modulo $2\pi$
+(the update is $\theta \mapsto (\theta_{\rm align} + \xi)
+\bmod 2\pi$), the form $\langle\cos\xi\rangle = \exp(-\eta^\alpha)$
+is exact rather than small-$\eta$: it already integrates the
+wrapped law, and $\Gamma \to 1$ as $\eta^\alpha$ grows, the
+wrapped kick saturating to the uniform circle so that no noise can
+decorrelate a heading by more than full randomisation. The heavy
+tail acts through the fraction of kicks that overshoot a half-turn
+and wrap, $P(|\xi| > \pi) = 1 - (2/\pi)\arctan(\pi/\eta) \simeq
+(2/\pi^2)\,\eta \approx 0.20\,\eta$ in the Cauchy limit
+($1.0\%, 2.0\%, 4.0\%, 6.1\%$ at $\eta = 0.05, 0.1, 0.2, 0.3$),
+against $< 10^{-11}$ for the Gaussian one at the same $\eta$: a few
+per cent of every Cauchy step is a near-uniform reorientation that
+the Gaussian channel never produces. Driving $\alpha$ from $1$ to
+$2$ inside the motility-built dense phase removes precisely this
+wrapped-uniform fraction, the microscopic content of the
+rectification and the reason the dense-phase turning tail
+(Fig.~\ref{fig:dynamics}c) collapses onto a Gaussian core while the
+dilute gas keeps its L\'evy reorientations.
 
 \subsection{MIPS instability and its rectification correction}
 

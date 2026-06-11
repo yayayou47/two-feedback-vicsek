@@ -574,6 +574,117 @@ def fig_double_pilot(npz_path: Path):
     _save(fig, "fig_double_pilot.pdf")
 
 
+def fig_double_collapse():
+    """Finite-size-scaling diagnostic backing the ``crossover excess,
+    not exponent'' reading of chi_max(L). Two panels on the homogeneous
+    ten-seed series (double_fss_homog10_nocone.npz):
+
+    (a) the LOCAL effective slope a_eff = d ln chi_max / d ln L between
+        consecutive sizes. A genuine power law would sit on a flat line;
+        instead the two motility-active modes overshoot the global fit
+        at intermediate L and fall back toward zero in the largest
+        interval, while the two fixed-motility references hug a_eff ~ 0.
+    (b) the susceptibility-peak position eta*(L). A standard collapse
+        chi/L^a vs (eta-eta_c) L^{1/nu} needs a size-independent eta_c;
+        here eta*(L) migrates to the small-eta boundary instead of
+        converging, so the collapse variable is ill-defined and the
+        growth is a finite-size (MIPS-like) crossover rather than
+        critical scaling.
+    """
+    homog = DATA / "double_fss_homog10_nocone.npz"
+    if not homog.exists():
+        print("  skip fig_double_collapse: homog10 file absent")
+        return
+    z = np.load(homog, allow_pickle=True)
+    modes = [str(s) if isinstance(s, str) else s.decode()
+             for s in z["modes"]]
+    L = z["Ls"].astype(float)
+    etas = z["etas"]
+    chi = z["chi"]                         # (mode, L, eta, seed)
+    nseed = chi.shape[3]
+    lnL = np.log(L)
+    Lmid = np.sqrt(L[:-1] * L[1:])         # geometric-mean abscissa
+
+    # Modes to draw: the two scaling modes on top, the two fixed-motility
+    # references underneath for contrast.
+    scaling = ["full", "v3_limit"]
+    refs = ["baseline", "v2_limit"]
+
+    def chi_max_of(seed_idx):
+        # chi_max(L) for a given seed sub-sample.
+        out = {}
+        for m in modes:
+            im = modes.index(m)
+            cm = np.nanmax(np.nanmean(chi[im][:, :, seed_idx], axis=2),
+                           axis=1)
+            out[m] = cm
+        return out
+
+    rng = np.random.default_rng(0)
+    cm_full = chi_max_of(np.arange(nseed))
+    # Bootstrap the local slopes over seeds.
+    boot_aeff = {m: [] for m in scaling + refs}
+    for _ in range(4000):
+        idx = rng.integers(0, nseed, nseed)
+        cm = chi_max_of(idx)
+        for m in scaling + refs:
+            with np.errstate(invalid="ignore"):
+                boot_aeff[m].append(np.diff(np.log(cm[m])) / np.diff(lnL))
+
+    fig, axes = plt.subplots(
+        1, 2, figsize=(style.DOUBLE_COL[0], 2.7),
+        gridspec_kw=dict(wspace=0.30))
+    for _ax in axes:
+        _ax.tick_params(which="both", labelsize=7)
+        _ax.tick_params(which="minor", length=2)
+
+    # (a) local effective slope
+    ax = axes[0]
+    ax.axhline(0.0, color="#999999", lw=0.6, ls="-", zorder=0)
+    for m in scaling:
+        c = PALETTE[m]
+        a_glob = np.polyfit(lnL, np.log(cm_full[m]), 1)[0]
+        aeff = np.diff(np.log(cm_full[m])) / np.diff(lnL)
+        bb = np.array(boot_aeff[m])
+        lo, hi = np.nanpercentile(bb, [2.5, 97.5], axis=0)
+        ax.fill_between(Lmid, lo, hi, color=c, alpha=0.18, lw=0)
+        ax.plot(Lmid, aeff, "o-", color=c, lw=1.3, ms=4,
+                label=_disp(m), zorder=3)
+        ax.axhline(a_glob, color=c, ls="--", lw=0.9, alpha=0.8)
+    for m in refs:
+        c = PALETTE[m]
+        aeff = np.diff(np.log(cm_full[m])) / np.diff(lnL)
+        ax.plot(Lmid, aeff, "s:", color=c, lw=0.9, ms=3,
+                label=_disp(m), alpha=0.7, zorder=2)
+    ax.set_xscale("log")
+    ax.set_xlabel(r"$\sqrt{L_iL_{i+1}}$")
+    ax.set_ylabel(r"$a_{\rm eff}=d\ln\chi_{\max}/d\ln L$")
+    ax.set_title(r"(a) local FSS slope drifts", fontsize=9, loc="left")
+    ax.legend(fontsize=6, loc="upper right", frameon=True,
+              framealpha=0.9, handlelength=1.5, borderpad=0.3,
+              labelspacing=0.25)
+
+    # (b) susceptibility-peak migration
+    ax = axes[1]
+    for m in scaling:
+        c = PALETTE[m]
+        im = modes.index(m)
+        cm = np.nanmean(chi[im], axis=2)         # (L, eta)
+        eta_star = etas[np.nanargmax(cm, axis=1)]
+        ax.plot(L, eta_star, "o-", color=c, lw=1.3, ms=4,
+                label=_disp(m), zorder=3)
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_xlabel(r"$L$")
+    ax.set_ylabel(r"$\eta^\ast(L)$  (peak of $\chi$)")
+    ax.set_title(r"(b) no fixed $\eta_c$", fontsize=9, loc="left")
+    ax.set_ylim(etas.min() * 0.6, etas.max() * 1.6)
+    ax.legend(fontsize=6, loc="lower left", frameon=True,
+              framealpha=0.9, handlelength=1.5, borderpad=0.3)
+
+    _save(fig, "fig_double_collapse.pdf")
+
+
 def fig_double_snapshot(npz_path: Path):
     """Real-space snapshot grid on a white background, arrows coloured
     by local speed v_i. When the multi-size file
@@ -2249,6 +2360,7 @@ def main():
     # setup + alpha-stable pdfs + shared sigmoid + worked rules), not
     # by the legacy two-panel fig_double_schematic() below.
     fig_double_pilot(_pick("double_pilot"))
+    fig_double_collapse()
     fig_double_snapshot(_pick("double_snapshot"))
     # fig_double_3regimes was promoted out: the two-mode snapshot now
     # serves as the early real-space figure.

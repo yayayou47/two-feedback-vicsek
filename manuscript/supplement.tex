@@ -151,4 +151,58 @@ with the Gaussian rectification tightening the patch from
 within, but the increment is well below the soliton
 threshold.
 
+\subsection*{Why $\chi_{\max}(L)$ is a crossover, not an exponent}
+
+The log--log slopes $a_{\rm motility} = +1.29$ and
+$a_{\rm full} = +1.95$ of Table~\ref{tab:slopes} are steep enough
+to invite a critical reading, so we test that reading directly
+on the homogeneous ten-seed series
+(Fig.~\ref{fig:collapse}). A genuine power law would hold a
+\emph{constant} local slope $a_{\rm eff} = d\ln\chi_{\max}/
+d\ln L$ across the range; instead, for both motility-active
+modes $a_{\rm eff}$ overshoots its own global fit at
+intermediate sizes and then falls back toward zero in the
+largest interval ($L = 90 \to 128$ gives $a_{\rm eff} = +0.07$
+for the full mode and $+0.13$ for motility-only), while the two
+fixed-motility references stay pinned at $a_{\rm eff} \simeq 0$
+(panel a). The growth is therefore a finite-size transient that
+is already saturating at the top of our window, not a clean
+asymptotic scaling.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{fig_double_collapse.pdf}
+    \caption{Finite-size-scaling diagnostic on the homogeneous
+    ten-seed series. (a) local effective slope
+    $a_{\rm eff} = d\ln\chi_{\max}/d\ln L$ between consecutive
+    sizes, plotted at the geometric-mean size; dashed lines mark
+    each mode's global log--log fit. The two motility-active
+    modes overshoot their global slope at intermediate $L$ and
+    collapse toward zero in the largest interval, whereas the
+    Cauchy and noise-shape references hug $a_{\rm eff}\simeq0$
+    throughout; bands are $95\%$ seed bootstraps ($B=4000$). (b)
+    position $\eta^\ast(L)$ of the susceptibility peak: instead of
+    converging to a size-independent $\eta_c$, it migrates toward
+    the small-$\eta$ boundary, so the scaling variable
+    $(\eta-\eta_c)L^{1/\nu}$ of a standard collapse cannot be
+    defined here.}
+    \label{fig:collapse}
+\end{figure}
+
+A standard collapse $\chi/L^{a}$ against
+$(\eta-\eta_c)L^{1/\nu}$ needs a size-independent critical point
+$\eta_c$. Panel (b) shows there is none: the susceptibility peak
+$\eta^\ast(L)$ does not settle but drifts toward the smallest
+accessible noise as $L$ grows, the signature of an
+order-from-density (MIPS-like) growth in which $\chi$ keeps
+rising as $\eta \to 0$ rather than diverging at a finite
+$\eta_c$. With the slope still drifting and the peak still
+migrating at $L = 128$, we report $a_{\rm full}$ and
+$a_{\rm motility}$ as the growth rate of a finite-size
+phase-separation susceptibility, and read $\Delta_7 = +0.63$ as
+a super-additive crossover excess rather than a difference of
+asymptotic exponents. Controlled runs at $L = 180$ and $256$
+would test whether the excess survives once the transient has
+fully saturated.
+
 \end{document}
