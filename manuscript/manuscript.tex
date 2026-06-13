@@ -197,7 +197,8 @@ periodic boundaries; particle $i$ carries a position $\mathbf
 x_i \in [0, L)^2$ and a heading $\theta_i \in (-\pi, \pi]$,
 advanced synchronously through
 \begin{equation}
-\theta_i(t+1) = \theta_i^\star(t+1) + \xi_i(t),
+\theta_i(t+1) = \bigl[\theta_i^\star(t+1) + \xi_i(t)\bigr]
+   \bmod 2\pi,
 \qquad
 \mathbf x_i(t+1) = \mathbf x_i(t) + v_i(t+1)\,\vec e_i(t+1)
    \pmod L,
@@ -307,8 +308,9 @@ channel with $\alpha_i$ frozen at the Cauchy value.
 
 \subsection{Order parameters and observables}
 
-The polar order parameter is the magnitude of the average
-heading,
+The instantaneous polar order parameter is $\varphi =
+\frac{1}{N}\big|\sum_i e^{i\theta_i}\big|$, and the polar order
+parameter we report is its average,
 \begin{equation}
 \langle\varphi\rangle = \Big\langle \frac{1}{N}
    \big|\textstyle\sum_i e^{i\theta_i}\big|\Big\rangle,
