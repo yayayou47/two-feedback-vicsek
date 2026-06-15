@@ -919,6 +919,23 @@ $+0.15$), larger beyond the alignment cutoff $R_a = 0.7$ than
 inside it. The rectification imposes a coherence on the dense
 phase that outlasts the metric interaction range.
 
+This gap is the rectification of the dense noise made visible,
+not a coherence the full mode would hold beyond it. With the
+effective decorrelation $\Gamma(\eta, \alpha) = 1 -
+e^{-\eta^\alpha}$ of the appendix, the full mode's dense kick
+($\alpha \to 2$, $\eta = 0.15$) decorrelates at $\Gamma = 0.022$,
+four times slower than the motility-only dense kick ($\alpha =
+1$, $\eta = 0.10$, $\Gamma = 0.095$). Retuning motility-only to
+$\eta = 0.0225$, where its $\alpha = 1$ kick matches the full
+mode's dense $\Gamma$, erases and reverses the gap:
+$\Delta g(r \!\simeq\! 0.6) = -0.07$ ($95\%$ seed-bootstrap CI
+$[-0.07, -0.06]$, Wilcoxon $p = 0.002$), the retuned
+motility phase now marginally the sharper of the two. The dense
+correlation gap therefore measures the lower effective noise the
+noise-shape feedback installs inside the dense phase, the
+mechanism itself, rather than an alignment the full mode would
+keep at equal noise.
+
 \subsubsection{\texorpdfstring{Single-particle dynamics: $C(\tau)$, turning angles and diffusion}{Single-particle dynamics: C(tau), turning angles and diffusion}}
 \label{sec:autocorr}
 
@@ -950,7 +967,14 @@ throughout. The within-seed estimator averages over $\sim 4
 \times 10^7$ sample pairs per mode, so we quote bootstrap CIs
 rather than a between-seed $z$, which saturates beyond a few
 sigmas. The dilute gap is a few percent and its CI brackets zero
-past $\tau \simeq 100$.
+past $\tau \simeq 100$. The matched-$\Gamma$ control of the
+previous section carries over to the dynamics: retuning
+motility-only to $\eta = 0.0225$ reverses the dense gap at every
+lag, from $\Delta C = -0.08$ at $\tau = 1$ to $-0.42$ at
+$\tau = 5\,000$ as the globally quieter retuned mode decorrelates
+ever more slowly, so the dynamic dense-coherence advantage, like
+the static one, is the visible signature of the rectified dense
+noise and not coherence beyond it.
 
 \begin{figure}[htbp]
     \centering
@@ -1214,10 +1238,17 @@ local alignment, so the noise-shape channel acts as a
 fluctuation rectifier \emph{inside} the slow region the motility
 channel carves out. The two adaptations cooperate where it
 matters and never fight locally. The finite-size susceptibility
-carries a positive but partly saturating super-additive excess;
-the robust faces are microscopic: the dense $g(r)$, its
-dynamic counterpart $C(\tau)$, and the cluster geometry, all
-significant at $L = 30$ and all flat in the dilute quartile. The
+carries a positive, density-tunable super-additive excess that
+survives to nine sizes (Table~\ref{tab:density}). Its microscopic
+face is one rectification mechanism made visible: the dense
+$g(r)$, its dynamic counterpart $C(\tau)$ and the cluster
+geometry all express the lower effective noise the noise-shape
+feedback installs in the dense phase, flat in the dilute
+quartile, and a matched-$\Gamma$ control reverses the $g(r)$ and
+$C(\tau)$ gaps, so these are not independent coherences but the
+same noise rectification seen statically and dynamically. The
+susceptibility excess is a separate, growth-rate effect we have
+not retested at matched $\Gamma$. The
 decoupled-sigmoid tests of Sec.~\ref{sec:decoupled} sharpen the
 picture: the rectification is a spatial consolidation, not a
 temporal stabilisation ($p = 0.08$); it needs the metric kernel
