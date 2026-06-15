@@ -51,7 +51,7 @@ fire together has not been settled. We gate the speed and the
 stability index of an $\alpha$-stable angular kick through one
 shared sigmoid in the local neighbour count, so a crowded
 particle is at once slow and Gaussian-like while an isolated
-one is fast and Cauchy-like. A seven-size finite-size scan
+one is fast and Cauchy-like. A nine-size finite-size scan
 against the original Vicsek model, a heavy-tailed reference and
 two single-channel ablations splits the problem in two. Heavy-tailed
 reorientations on their own grow no size-dependent
@@ -144,15 +144,15 @@ Vicsek baseline on the same footing.
 
 The two channels separate cleanly. Only the modes carrying the
 density-dependent speed phase separate in space and grow a
-finite-size susceptibility ($\chi_{\max} \sim L^{1.29}$ for
-motility-only); heavy-tailed noise on its own leaves the
+finite-size susceptibility ($\chi_{\max} \sim L^{1.04}$ for
+motility-only, over nine sizes up to $L = 256$); heavy-tailed noise on its own leaves the
 transition essentially Vicsek-like, its rare bursts washed out
 by the many neighbours of a dense patch. Together the two
 feedbacks do more than add. The noise-shape adaptation, silent
 on its own, lends the motility-driven, MIPS-like scaling a
-super-additive boost ($\chi_{\max} \sim L^{1.95}$ for the full
-mode, an excess $\Delta_7 = +0.63$, $95\%$ seed-bootstrap
-interval $[+0.40, +0.83]$ excluding zero, over the accessible
+super-additive boost ($\chi_{\max} \sim L^{1.49}$ for the full
+mode, an excess $\Delta_9 = +0.44$, $95\%$ seed-bootstrap
+interval $[+0.31, +0.60]$ excluding zero, over the nine accessible
 sizes);
 this growth saturates toward the $d = 2$ ceiling
 ($\chi_{\max} \sim N$ for a single dense domain) rather than
@@ -347,16 +347,21 @@ $b \gtrsim 1.5$; an isotropic patch gives $b \simeq 1$.
 
 \subsection{Numerical protocol}
 
-The seven sizes $L \in \{15, 22, 30, 45, 64, 90, 128\}$ run at
-fixed density $\rho_0 = N/L^2 = 2.22$, with $1500$ warm-up and
-$1000$ measurement steps from $\theta_i \equiv 0$. The
-load-bearing finite-size slopes (Table~\ref{tab:slopes} and the
+The finite-size scan spans nine sizes
+$L \in \{15, 22, 30, 45, 64, 90, 128, 180, 256\}$ at fixed
+density $\rho_0 = N/L^2 = 2.22$ (up to $N \simeq 1.5\times10^5$
+particles), with $1500$ warm-up and $1000$ measurement steps
+from $\theta_i \equiv 0$. The
+load-bearing slopes (Table~\ref{tab:slopes} and the
 $\chi_{\max}(L)$ panel of Fig.~\ref{fig:pilot}) come from a
 homogeneous protocol with ten seeds at \emph{every} size, so the
-bootstrap slope intervals rest on a uniform replication budget;
+bootstrap intervals rest on a uniform replication budget;
 the $\eta$-resolved diagnostic curves (the remaining panels of
 Fig.~\ref{fig:pilot}) use three seeds per
-$(\mathrm{mode}, L, \eta)$ cell. The noise grid is
+$(\mathrm{mode}, L, \eta)$ cell. To separate a robust
+phase-separation split from a parameter-window effect we repeat
+the scan at two further densities $\rho_0 \in \{1.0, 3.0\}$
+(sizes $22$ to $128$). The noise grid is
 $\eta \in \{0.005, 0.010, 0.020, 0.035, 0.050, 0.075, 0.100,
 0.150, 0.200, 0.300\}$, and the fixed parameters are $R_r =
 0.5$, $R_a = 0.7$, $n_\star = 3$, $s = 2$, $v_{\min} = 0.005$,
@@ -409,7 +414,7 @@ motility-only neighbours at every size.
 \subsubsection{Finite-size scaling of the susceptibility}
 
 To see whether the two adaptations leave a thermodynamic trace
-we run all four heavy-tailed modes on the seven-size grid of
+we run all four heavy-tailed modes on the nine-size grid of
 Sec.~II~E and read the susceptibility peak $\chi_{\max}(L)$. Its
 slope $a$ in $\chi_{\max} \sim L^a$ separates the four modes
 (Fig.~\ref{fig:pilot}, Table~\ref{tab:slopes}).
@@ -417,15 +422,15 @@ slope $a$ in $\chi_{\max} \sim L^a$ separates the four modes
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\linewidth]{fig_double_pilot.pdf}
-    \caption{Seven-size scan, $L \in \{15, 22, 30, 45, 64, 90, 128\}$,
-    four modes: Cauchy reference (blue), noise-shape
-    only (green), motility only (red), double-adaptive (purple).
-    The $\eta$-resolved panels (three seeds) show, versus $\eta$ at
-    the largest $L$: (a) polar order
+    \caption{FSS diagnostics, four modes: Cauchy reference (blue),
+    noise-shape only (green), motility only (red), double-adaptive
+    (purple). The $\eta$-resolved panels (three seeds) show, versus
+    $\eta$ at the largest pilot size $L = 128$: (a) polar order
     $\langle\varphi\rangle$, (b) susceptibility $\chi$, (c)
     $s_{\rm sep}$, (d) Binder cumulant $U_4$; (e) log--log
-    $\chi_{\max}$ versus $L$ with fitted slopes, on the ten-seed
-    homogeneous series of Table~\ref{tab:slopes}; (f) mean speed
+    $\chi_{\max}$ versus $L$ with fitted slopes, over the nine
+    homogeneous sizes ($L = 15$ to $256$, ten seeds) of
+    Table~\ref{tab:slopes}; (f) mean speed
     $\langle v_i\rangle$ (solid) and mean stability
     $\langle\alpha_i\rangle$ (dotted). Only the two motility-active
     modes grow a size-dependent $\chi_{\max}$, the double-adaptive
@@ -435,21 +440,23 @@ slope $a$ in $\chi_{\max} \sim L^a$ separates the four modes
 
 The slopes split cleanly into two regimes. The three
 fixed-noise-shape modes (Vicsek--Gaussian, Cauchy, noise-shape
-only) carry slopes indistinguishable from zero ($-0.04$,
-$-0.05$, $-0.01$), every $95\%$ interval straddling the origin
-($[-0.08, +0.01]$, $[-0.12, +0.01]$ and $[-0.08, +0.03]$): none
-grows a size-dependent susceptibility on the seven-point lever,
+only) carry slopes indistinguishable from zero ($-0.03$,
+$-0.03$, $-0.02$), every $95\%$ interval straddling the origin
+($[-0.05, +0.01]$, $[-0.07, +0.01]$ and $[-0.05, +0.01]$): none
+grows a size-dependent susceptibility on the nine-point lever,
 the Cauchy-reference $\chi_{\max}$ staying flat near unity. The
-two motility-active modes do grow one, and strongly:
-$a_{\rm motility} = +1.29$ ($[+1.25, +1.46]$) and $a_{\rm full}
-= +1.95$ ($[+1.86, +2.17]$), the full mode steeper and the
+two motility-active modes do grow one:
+$a_{\rm motility} = +1.04$ ($[+0.97, +1.22]$) and $a_{\rm full}
+= +1.49$ ($[+1.43, +1.68]$), the full mode steeper and the
 intervals disjoint. We read these as the growth rate of a
 phase-separation susceptibility, not as critical exponents:
-$a_{\rm full} \simeq 2$ means $\chi_{\max} \sim N$, set by a
-single phase-separated domain and bounded by the $d = 2$
-ceiling, and we find neither a data collapse nor the $U_4$
-crossing a genuine critical point would require. The synergy
-diagnostic
+extending the lever from seven to nine sizes lowers both slopes
+($a_{\rm motility}: +1.29 \to +1.04$, $a_{\rm full}: +1.95 \to
++1.49$), so the apparent exponent is not stable, and a
+single phase-separated domain would in any case saturate at the
+$d = 2$ ceiling $\chi_{\max} \sim N$; we find neither a data
+collapse nor the $U_4$ crossing a genuine critical point would
+require. The synergy diagnostic
 \begin{equation}
 \Delta \equiv (a_{\rm full} - a_{\rm Cauchy})
    - (a_{\rm noise} - a_{\rm Cauchy})
@@ -459,59 +466,102 @@ diagnostic
 vanishes for two linearly-combining channels above the Cauchy
 backdrop. With the Cauchy and noise-shape slopes both
 essentially zero, $\Delta_n$ (on the first $n$ sizes) reduces to
-$a_{\rm full} - a_{\rm motility}$, and the full seven-size fit
-returns $\Delta_7 = +0.63$, $95\%$ seed-bootstrap interval
-$[+0.40, +0.83]$, excluding zero. The interval reflects seed
-scatter, not the short lever; and since the $\chi_{\max}$ peaks
-already flatten over the largest sizes (motility $37.8 \to 47.7
-\to 49.8$ at $L = 64, 90, 128$), we read the $\simeq +0.6$
-excess as a finite-size super-additive boost: cooperation
-between the channels, not a proven asymptotic exponent.
-Figure~\ref{fig:collapse} makes both points directly: the local
-slope $a_{\rm eff} = d\ln\chi_{\max}/d\ln L$ overshoots its
-global fit at intermediate sizes and falls back to
-$a_{\rm eff} \simeq 0$ in the largest interval, and the
-susceptibility peak $\eta^\ast(L)$ migrates toward the
-small-$\eta$ boundary rather than locking to a fixed $\eta_c$,
-so a $(\eta - \eta_c)L^{1/\nu}$ collapse cannot be defined.
+$a_{\rm full} - a_{\rm motility}$, and the full nine-size fit
+returns $\Delta_9 = +0.44$, $95\%$ seed-bootstrap interval
+$[+0.31, +0.60]$, excluding zero. Extending the lever shrinks
+the excess (the seven-size fit gave $\Delta_7 = +0.63$) but does
+not close it: the super-additive cooperation between the
+channels survives the larger boxes even as the individual slopes
+drift down, which is the signature of a finite-size boost rather
+than a stable asymptotic exponent.
+Figure~\ref{fig:collapse} makes the point directly: the local
+slope $a_{\rm eff} = d\ln\chi_{\max}/d\ln L$ drifts rather than
+locking to a constant, and the susceptibility peak
+$\eta^\ast(L)$ migrates toward the small-$\eta$ boundary rather
+than locking to a fixed $\eta_c$, so a $(\eta - \eta_c)L^{1/\nu}$
+collapse cannot be defined.
 The load-bearing evidence is the microscopic signature below.
 
 \begin{table}[h]
 \centering
 \caption{Susceptibility peaks $\chi_{\max}(L)$ on the
-seven-size grid and log--log FSS slopes $a$ for the
-Vicsek--Gaussian reference and the four heavy-tailed modes,
-ten seeds per size (homogeneous protocol). The $95\%$ slope CI
-is bootstrapped over the ten seeds ($B = 10\,000$
+nine-size grid ($L = 15$ to $256$) and log--log FSS slopes $a$
+for the Vicsek--Gaussian reference and the four heavy-tailed
+modes, ten seeds per size (homogeneous protocol). The $95\%$
+slope CI is bootstrapped over the ten seeds ($B = 10\,000$
 resamples). The three fixed-noise-shape modes stay flat within
 $\pm 0.2$ across the full size range; only the two
 motility-active modes grow a size-dependent $\chi_{\max}$, the
-double-adaptive slope the steeper.}
+double-adaptive slope the steeper, and adding $L = 180, 256$
+lowers both motility-active slopes (the apparent exponent is not
+stable).}
 \label{tab:slopes}
-\small
-\begin{tabular}{l c c c c c c c c c}
+\setlength{\tabcolsep}{4pt}
+\footnotesize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l c c c c c c c c c c c}
 \toprule
-Mode & $L=15$ & $L=22$ & $L=30$ & $L=45$ & $L=64$ & $L=90$ & $L=128$ & slope $a$ & $95\%$ CI \\
+Mode & $L=15$ & $L=22$ & $L=30$ & $L=45$ & $L=64$ & $L=90$ & $L=128$ & $L=180$ & $L=256$ & slope $a$ & $95\%$ CI \\
 \midrule
-Vicsek (Gaussian)  & $1.13$ & $1.18$ & $1.07$ & $1.06$ & $1.10$ & $1.08$ & $1.02$ & $-0.04$ & $[-0.08,+0.01]$ \\
-Cauchy reference   & $1.05$ & $1.09$ & $1.24$ & $1.06$ & $1.09$ & $0.94$ & $1.04$ & $-0.05$ & $[-0.12,+0.01]$ \\
-noise-shape adaptive & $1.19$ & $1.07$ & $1.18$ & $1.11$ & $1.07$ & $1.13$ & $1.15$ & $-0.01$ & $[-0.08,+0.03]$ \\
-motility adaptive  & $4.60$ & $5.26$ & $10.07$ & $12.18$ & $37.77$ & $47.66$ & $49.81$ & $+1.29$ & $[+1.25,+1.46]$ \\
-double-adaptive    & $3.01$ & $2.31$ & $7.05$ & $21.52$ & $45.27$ & $91.40$ & $93.58$ & $+1.95$ & $[+1.86,+2.17]$ \\
+Vicsek (Gaussian)  & $1.13$ & $1.18$ & $1.07$ & $1.06$ & $1.10$ & $1.08$ & $1.02$ & $1.06$ & $1.06$ & $-0.03$ & $[-0.05,+0.01]$ \\
+Cauchy reference   & $1.05$ & $1.09$ & $1.24$ & $1.06$ & $1.09$ & $0.94$ & $1.04$ & $1.13$ & $1.00$ & $-0.03$ & $[-0.07,+0.01]$ \\
+noise-shape adaptive & $1.19$ & $1.07$ & $1.18$ & $1.11$ & $1.07$ & $1.13$ & $1.15$ & $1.13$ & $1.07$ & $-0.02$ & $[-0.05,+0.01]$ \\
+motility adaptive  & $4.60$ & $5.26$ & $10.07$ & $12.18$ & $37.77$ & $47.66$ & $49.81$ & $54.36$ & $64.35$ & $+1.04$ & $[+0.97,+1.22]$ \\
+double-adaptive    & $3.01$ & $2.31$ & $7.05$ & $21.52$ & $45.27$ & $91.40$ & $93.58$ & $77.91$ & $111.96$ & $+1.49$ & $[+1.43,+1.68]$ \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 \noindent
 The cumulative budget is positive at every truncation and
-excludes zero from $n = 5$ onward (per-seed paired $t = +5.9$
-at nine d.o.f.). With ten seeds the $\chi_{\max}(L)$ series is
-monotone for both motility-active modes, the non-monotonic
-$L = 90$ node of the earlier three-seed survey a seed-budget
-artefact. The pooled estimator stays seed-sensitive at large
-$L$ under heavy tails, which is why the microscopic $g(r)$,
-$C(\tau)$, GNF and $P(s)$ diagnostics below carry the
+excludes zero from $n = 5$ onward. The motility-only
+$\chi_{\max}(L)$ rises monotonically across all nine sizes; the
+full-mode series is monotone through $L = 128$ but scatters at
+the two largest sizes ($93.6 \to 77.9 \to 112.0$ at
+$L = 128, 180, 256$), the pooled estimator staying seed-sensitive
+at large $L$ under heavy tails, which is why the microscopic
+$g(r)$, $C(\tau)$, GNF and $P(s)$ diagnostics below carry the
 load-bearing evidence.
+
+The split is not special to $\rho_0 = 2.22$. Repeating the scan
+over sizes $22$ to $128$ at $\rho_0 = 1.0$ and $3.0$
+(Table~\ref{tab:density}) keeps the three fixed-noise modes flat
+($|a| \le 0.09$) while both motility-active modes grow at every
+density, so the motility-driven phase separation, not a tuned
+parameter window, sets the split. The noise-shape excess tracks
+density: the full and motility-only slopes coincide at
+$\rho_0 = 1.0$ ($+0.63$ versus $+0.64$), separate by
+$\simeq +0.8$ at $\rho_0 = 2.22$, and by $+1.0$ at
+$\rho_0 = 3.0$ ($+3.00$ versus $+2.00$), exactly as expected if
+the rectification acts inside the dense phase the motility
+builds and that phase grows with density. The $\rho_0 = 3.0$
+full slope $+3.00$ exceeds the $d = 2$ ceiling
+$\chi_{\max} \le N$, a direct reminder that these are finite-size
+crossover rates, not asymptotic exponents.
+
+\begin{table}[h]
+\centering
+\caption{FSS slopes $a$ ($\chi_{\max} \sim L^a$, common sizes
+$22$ to $128$, ten seeds, $95\%$ bootstrap CI) at three global
+densities. The motility-active modes grow at every density while
+the fixed-noise modes stay flat, and the noise-shape excess
+$a_{\rm full} - a_{\rm motility}$ widens with $\rho_0$.}
+\label{tab:density}
+\small
+\begin{tabular}{l c c c}
+\toprule
+Mode & $\rho_0 = 1.0$ & $\rho_0 = 2.22$ & $\rho_0 = 3.0$ \\
+\midrule
+fixed-noise ($\max|a|$) & $0.06$ & $0.09$ & $0.03$ \\
+motility adaptive & $+0.64$ & $+1.37$ & $+2.00$ \\
+                  & {\scriptsize $[+0.35,+0.84]$} & {\scriptsize $[+1.14,+2.02]$} & {\scriptsize $[+1.87,+2.22]$} \\
+double-adaptive   & $+0.63$ & $+2.17$ & $+3.00$ \\
+                  & {\scriptsize $[+0.32,+0.94]$} & {\scriptsize $[+1.88,+2.70]$} & {\scriptsize $[+2.74,+3.38]$} \\
+\midrule
+excess $a_{\rm full}-a_{\rm motility}$ & $-0.01$ & $+0.80$ & $+1.00$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 The reading is mechanistic. Inside a dense patch the alignment
 sum over many annulus neighbours is dominated by typical kicks,
@@ -521,7 +571,7 @@ channel sidesteps that averaging (the dense phase it carves
 out has a susceptibility set by density--density fluctuations),
 and the noise-shape rectification adds on top because
 $\alpha_i \to 2$ damps the residual heading fluctuations in the
-same patch, giving the $\Delta a \simeq +0.6$ excess. The $U_4$
+same patch, giving the $\Delta a \simeq +0.4$ excess. The $U_4$
 panel of Fig.~\ref{fig:pilot}d carries a caveat: all four modes,
 the Cauchy reference included, reach the same $U_4 \to
 0.28$--$0.31$ dip at $L = 64$. Cauchy fluctuations of the global
@@ -696,11 +746,11 @@ The four heavy-tailed modes share a Cauchy backdrop and compare
 directly; the canonical Vicsek--Gaussian baseline sits outside.
 We recover it from Eqs.~\eqref{eq:update}--\eqref{eq:alpha_adapt}
 with $v_{\min} = v_{\max} = 0.05$ and $\alpha_{\min} =
-\alpha_{\max} = 2$ on the same seven-size grid as the
+\alpha_{\max} = 2$ on the same nine-size grid as the
 heavy-tailed modes (its row in Table~\ref{tab:slopes}).
 It develops no critical $\chi_{\max}(L)$ scaling at our density:
-the peak stays in $1.0$--$1.2$ across the seven sizes, slope
-$a_{\rm Vicsek} = -0.04$ ($[-0.08, +0.01]$), the metric-Vicsek
+the peak stays in $1.0$--$1.2$ across the nine sizes, slope
+$a_{\rm Vicsek} = -0.03$ ($[-0.05, +0.01]$), the metric-Vicsek
 susceptibility damped below the resolution of our lever. The
 spatial diagnostic separates more sharply: $s_{\rm sep} = 1.24$
 for Vicsek at $L = 64$, nearly identical to Cauchy and
@@ -1212,7 +1262,7 @@ The Toner--Tu programme \citep{TonerTu1995, TonerTu1998,
 TonerTu2012} predicts the same continuous polar order but does
 not anticipate the dense-quartile gap of Fig.~\ref{fig:gr},
 treating the noise as Gaussian with density-independent
-variance. The $\Delta a \simeq +0.6$ gap between the full and
+variance. The $\Delta a \simeq +0.4$ gap between the full and
 motility-only slopes is a quantitative target for a
 density-dependent Toner--Tu closure.
 
@@ -1247,19 +1297,18 @@ a dense-phase narrowing of the turning-angle distribution
 together with a positive heading-correlation gap, is what an
 experiment on a crowding-responsive collective could test.
 
-The weakest part of the case is the lever. The seven-size FSS is
-short: the excess is positive at every budget and excludes zero
-from $n = 5$ onward ($\Delta_7 = +0.63$, $[+0.40, +0.83]$), but
-the $\chi_{\max}$ peaks already flatten at the largest sizes, so
-we read it as a finite-size boost rather than an asymptotic
-exponent. The core thermodynamic and microscopic evidence is
-also taken at a single global density ($\rho_0 = 2.22$); only the
-decoupled-sigmoid map probes the density axis, so whether the
-dense-quartile gap and the FSS excess survive a sweep in
-$\rho_0$ is open. Controlled runs at $L = 180$ or $256$ with an explicit
-data collapse would test whether the excess slope holds
-asymptotically and whether $P(\langle\varphi\rangle)$ narrows.
-Mapping $g(r)$ at intermediate distances $r = 2$ to $5$ would
+The weakest part of the case remains the lever. Extending the
+scan to $L = 180$ and $256$ lowers both motility-active slopes
+($a_{\rm full}: +1.95 \to +1.49$, $a_{\rm motility}: +1.29 \to
++1.04$) and shrinks the synergy excess ($\Delta_7 = +0.63$ to
+$\Delta_9 = +0.44$, $[+0.31, +0.60]$, still excluding zero): the
+cooperation survives the larger boxes but does not stabilise
+into an exponent, which is exactly the finite-size reading we
+adopt. The split is moreover not a parameter-window effect, the
+motility-active growth and the noise-shape excess both
+reproducing away from $\rho_0 = 2.22$ (Table~\ref{tab:density}).
+An explicit data collapse still eludes us, and mapping $g(r)$ at
+intermediate distances $r = 2$ to $5$ would
 tell whether the rectification carries a characteristic decay
 length, in the spirit of \citet{Eliazar2003}, and the absence of
 a traveling band leaves room for a different cohesive structure,

@@ -452,12 +452,12 @@ def fig_double_pilot(npz_path: Path):
     ax.set_title(r"(d) $U_4(\eta)$", fontsize=9, loc="left")
 
     # (e) chi_max FSS. Prefer the homogeneous ten-seed series
-    # (double_fss_homog10_nocone.npz, seven sizes x ten seeds), which
+    # (double_fss_homog10_9size_nocone.npz, nine sizes x ten seeds), which
     # is the referee-grade FSS: the slope CI is bootstrapped over the
     # ten seeds. Fall back to the merged three-seed data otherwise.
     ax = axes[1, 1]
     rng = np.random.default_rng(0)
-    homog = DATA / "double_fss_homog10_nocone.npz"
+    homog = DATA / "double_fss_homog10_9size_nocone.npz"
     if homog.exists():
         zh = np.load(homog, allow_pickle=True)
         h_modes = [str(s) if isinstance(s, str) else s.decode()
@@ -577,7 +577,7 @@ def fig_double_pilot(npz_path: Path):
 def fig_double_collapse():
     """Finite-size-scaling diagnostic backing the ``crossover excess,
     not exponent'' reading of chi_max(L). Two panels on the homogeneous
-    ten-seed series (double_fss_homog10_nocone.npz):
+    ten-seed series (double_fss_homog10_9size_nocone.npz):
 
     (a) the LOCAL effective slope a_eff = d ln chi_max / d ln L between
         consecutive sizes. A genuine power law would sit on a flat line;
@@ -591,7 +591,7 @@ def fig_double_collapse():
         growth is a finite-size (MIPS-like) crossover rather than
         critical scaling.
     """
-    homog = DATA / "double_fss_homog10_nocone.npz"
+    homog = DATA / "double_fss_homog10_9size_nocone.npz"
     if not homog.exists():
         print("  skip fig_double_collapse: homog10 file absent")
         return
