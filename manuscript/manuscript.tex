@@ -66,7 +66,7 @@ dissolves it: once the motility-only mode is retuned so its
 heavy-tailed kick decorrelates as fast as the full mode's
 rectified one, the dense heading correlation, its dynamic
 counterpart $C(\tau)$ and the susceptibility growth all converge,
-the channels becoming additive. The two feedbacks therefore do
+and the channels become additive. The two feedbacks therefore do
 not cooperate beyond what their noise levels dictate; instead the
 noise-shape channel acts through a single route, lowering the
 effective angular noise inside the motility-built dense phase.
@@ -382,7 +382,8 @@ at $L = 45$, which we report with its updated value.
 \section{Results}
 \label{sec:results}
 
-We begin with a visual reference. We show motility-only and
+A visual reference fixes intuition before the diagnostics. We
+show motility-only and
 double-adaptive configurations at $\rho_0 = 2.22$, single seed,
 after $3000$ warm-up steps, for three sizes $L \in \{30, 90,
 128\}$ (one row each) and three noise levels spanning the
@@ -489,10 +490,10 @@ $\alpha = 2$ kick, raises its slope from $a_{\rm motility} =
 +1.29$ to $+1.90$ ($[+1.74, +2.26]$), level with
 $a_{\rm full} = +1.95$, and collapses the excess to $\Delta =
 +0.05$. The faster $\chi_{\max}$ growth of the full mode is thus
-the lower dense effective noise of its rectified kick made
-visible, the same mechanism the dense $g(r)$ and $C(\tau)$ gaps
-below express; at matched effective noise the two channels are
-additive. (The retuned mode is also globally quieter, so this
+nothing more than the lower dense effective noise of its
+rectified kick made visible, the same mechanism the dense $g(r)$
+and $C(\tau)$ gaps below express; at matched effective noise the
+two channels are additive. (The retuned mode is also globally quieter, so this
 bounds the excess as a noise effect rather than isolating the
 dense phase alone.)
 Figure~\ref{fig:collapse} makes the point directly: the local
@@ -546,9 +547,9 @@ report seed scatter, not this across-size instability: a
 size-jackknife moves $a_{\rm full}$ to $+1.67$ (dropping
 $L = 256$) or $+1.57$ (dropping $L = 180$) and $a_{\rm motility}$
 to $+1.15$ or $+1.07$, so the excess $\Delta = a_{\rm full} -
-a_{\rm motility}$ stays in $[+0.45, +0.52]$ under either deletion,
-so this each-own-$\eta$ excess does not hinge on the non-monotone
-tail (its noise-level origin is established above). The
+a_{\rm motility}$ stays in $[+0.45, +0.52]$ under either deletion.
+This each-own-$\eta$ excess therefore does not hinge on the
+non-monotone tail (its noise-level origin is established above). The
 microscopic $g(r)$, $C(\tau)$, GNF and $P(s)$ diagnostics below
 carry the load-bearing evidence.
 
@@ -567,12 +568,12 @@ builds and that phase grows with density. These common-range
 ($L = 22$ to $128$) slopes run steeper than the nine-size values
 of Table~\ref{tab:slopes} (where $a_{\rm full} = +1.49$ at
 $\rho_0 = 2.22$) because they omit the two saturating sizes
-$L = 180, 256$; both that gap and the $\rho_0 = 3.0$ value
+$L = 180, 256$. That gap, together with the $\rho_0 = 3.0$ value
 $+3.00$, which exceeds the $d = 2$ ceiling $\chi_{\max} \le N$
-that any true exponent must respect, confirm that these are
-finite-size crossover rates rather than asymptotic exponents, so
-we read the density trend qualitatively, the excess growing with
-$\rho_0$, rather than as a series of exponents.
+that any true exponent must respect, confirms that these are
+finite-size crossover rates rather than asymptotic exponents. We
+therefore read the density trend qualitatively, as an excess that
+grows with $\rho_0$, not as a series of exponents.
 
 \begin{table}[h]
 \centering
@@ -612,8 +613,8 @@ the Cauchy reference included, reach the same $U_4 \to
 0.28$--$0.31$ dip at $L = 64$. Cauchy fluctuations of the global
 order in the dilute phase push $U_4$ down on their own, with no
 two-phase coexistence, so the dip is not a reliable first-order
-signature here, so we turn instead to $s_{\rm sep}$ for the
-spatial reading.
+signature here; for the spatial reading we turn instead to
+$s_{\rm sep}$.
 
 \subsubsection{Density separation and real-space contrast}
 
@@ -1342,11 +1343,11 @@ the Cauchy and noise-shape modes carry slopes statistically
 indistinguishable from zero, so heavy-tailed reorientations on
 their own grow no size-dependent $\chi_{\max}(L)$ at our
 density: the alignment averaging in the dense phase washes the
-bursts out. The motility channel is necessary, heavy tails alone are
-not sufficient, and what the noise-shape adaptation buys is not a
+bursts out. The motility channel is necessary and heavy tails alone are
+not sufficient. What the noise-shape adaptation buys is not a
 cooperative excess on top of the motility-driven scaling but a
 lower effective noise inside the dense phase, which raises
-coherence and susceptibility together by the one route a
+coherence and susceptibility together through the one route a
 matched-noise control isolates. Where \citet{Couzin2002} treats the zonal parameters as
 global constants, we make the stability index a local field on
 the same kernel. \citet{Bechinger2016} and \citet{Marchetti2013}
