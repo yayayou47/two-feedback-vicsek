@@ -60,26 +60,25 @@ neighbours of a dense patch) whereas the motility channel
 does, building a phase-separated dense phase whose finite-size
 susceptibility grows in a motility-induced-phase-separation
 manner rather than through a sharp critical divergence. The
-otherwise-silent noise-shape adaptation appears at first to add
-a super-additive boost on top, but a matched-noise control
-dissolves it: once the motility-only mode is retuned so its
-heavy-tailed kick decorrelates as fast as the full mode's
-rectified one, the dense heading correlation, its dynamic
-counterpart $C(\tau)$ and the susceptibility growth all converge,
-and the channels become additive. The two feedbacks therefore do
-not cooperate beyond what their noise levels dictate; instead the
-noise-shape channel acts through a single route, lowering the
-effective angular noise inside the motility-built dense phase.
-This dense-phase rectification, switching reorientation from
-heavy-tailed to Gaussian and the droplets to ballistic transport,
-is one mechanism read out statically, dynamically and
-thermodynamically at once. A decoupled-sigmoid sweep pins the
-motility threshold as the sole control of the sign and
-amplitude of the rectification, with the noise-shape threshold
-staying passive, and the dominance is a property of the metric
-kernel. The coupling thus leaves its mark
-not as an emergent thermodynamic synergy but as a density-gated
-noise rectification, a signature that should be accessible in
+noise-shape channel then acts on the dense phase the motility
+builds: inside it the gate rectifies the heavy-tailed Cauchy
+kicks into Gaussian ones, switching dense reorientation from
+heavy-tailed to Gaussian, sharpening the local heading
+correlation and turning the droplets to ballistic transport.
+This single dense-phase rectification is the whole of the
+coupling, one mechanism read out statically (the heading
+correlation), dynamically ($C(\tau)$) and thermodynamically (the
+susceptibility growth). A matched-noise control confirms it:
+retuning the motility-only mode so its kick decorrelates as fast
+as the full mode's rectified one makes all three observables
+converge and the two channels become additive, so they share one
+local route rather than cooperating beyond their noise levels. A
+decoupled-sigmoid sweep pins the motility threshold as the sole
+control of the sign and amplitude of the rectification, with the
+noise-shape threshold staying passive, and the dominance is a
+property of the metric kernel. The coupling thus leaves its mark
+as a density-gated noise rectification rather than an emergent
+thermodynamic synergy, a signature that should be accessible in
 crowding-responsive metric collectives.
 \end{abstract}
 
@@ -123,7 +122,13 @@ We couple the two adaptations in the most economical way
 available: a single sigmoid in the local neighbour count gates
 both the self-propulsion speed and the stability index of the
 angular noise, so a crowded particle is at once slow and
-Gaussian and an isolated one fast and Cauchy. This single shared
+Gaussian and an isolated one fast and Cauchy. In plain terms the
+stability index sets how heavy-tailed the turning is: the Cauchy
+limit ($\alpha = 1$) sprinkles in occasional near-reversals,
+while the Gaussian limit ($\alpha = 2$) keeps every turn small,
+and motility-induced phase separation (MIPS) is simply clustering
+that arises because particles pile up where crowding slows them,
+with no attraction needed. This single shared
 sensor is a deliberate minimal-coupling assumption rather than a
 documented mechanism: a speed--density anti-correlation and
 density-dependent reorientation statistics are each well attested
@@ -155,7 +160,7 @@ by the many neighbours of a dense patch. Compared at each mode's
 own near-critical noise, the noise-shape adaptation seems to lend
 the motility-driven, MIPS-like scaling a super-additive boost
 ($\chi_{\max} \sim L^{1.49}$ for the full mode against
-$L^{1.04}$ for motility-only, an excess $\Delta_9 = +0.44$,
+$L^{1.04}$ for motility-only, an excess $\Delta_9 = +0.45$,
 $95\%$ seed-bootstrap interval $[+0.31, +0.60]$); the slopes are
 finite-size crossover rates, not exponents, dropping when the
 lever is extended and bounded by the $d = 2$ ceiling
@@ -163,7 +168,7 @@ lever is extended and bounded by the $d = 2$ ceiling
 excess is not, however, a cooperation beyond noise: a
 matched-noise control, retuning the motility-only mode so its
 heavy-tailed kick decorrelates as fast as the full mode's
-rectified one, drives the excess to $\Delta = +0.05$, additive
+rectified one, drives the excess to $\Delta_9 = +0.02$, additive
 within error, mirroring the same collapse in the dense
 correlation gaps below. The two channels therefore act through a
 single local route rather than cooperating thermodynamically.
@@ -407,7 +412,9 @@ motility-only neighbours at every size.
     left to right: (a) $\eta = 0.020$ (ordered), (b) $\eta =
     0.10$ (near-critical), (c) $\eta = 0.30$ (disordered); each
     placing motility-only left of its double-adaptive counterpart.
-    Arrows are coloured by local speed $v_i$ (shared colorbar), with
+    Arrows are coloured by local speed $v_i$ (shared colorbar), a
+    deliberate departure from a geometry-only snapshot here because
+    the speed field is the control variable, with
     a $5 \times 5$ zoom inset and the polar order
     $\langle\varphi\rangle$ per panel. Across sizes the
     double-adaptive flock keeps a denser, better-aligned core at
@@ -474,9 +481,9 @@ require. The synergy diagnostic
 vanishes for two linearly-combining channels above the Cauchy
 backdrop. With the Cauchy and noise-shape slopes both
 essentially zero, $\Delta_n$ (on the first $n$ sizes) reduces to
-$a_{\rm full} - a_{\rm motility}$, and the full nine-size fit
-returns $\Delta_9 = +0.44$, $95\%$ seed-bootstrap interval
-$[+0.31, +0.60]$, when each mode is taken at its own
+$a_{\rm full} - a_{\rm motility} = +1.49 - (+1.04)$, and the full
+nine-size fit returns $\Delta_9 = +0.45$, $95\%$ seed-bootstrap
+interval $[+0.31, +0.60]$, when each mode is taken at its own
 near-critical noise (and robust to a size-jackknife, below).
 
 This apparent excess is, however, a noise-level effect, not a
@@ -486,16 +493,44 @@ mode's heavy-tailed kick ($\alpha = 1$) at the same $\eta$, with
 $\Gamma(\eta, \alpha) = 1 - e^{-\eta^\alpha}$ (Sec.~\ref{sec:hydro}).
 Retuning motility-only over a matched grid $\eta \to \eta^2$, so
 its $\alpha = 1$ kick decorrelates as fast as the full mode's
-$\alpha = 2$ kick, raises its slope from $a_{\rm motility} =
-+1.29$ to $+1.90$ ($[+1.74, +2.26]$), level with
-$a_{\rm full} = +1.95$, and collapses the excess to $\Delta =
-+0.05$. The faster $\chi_{\max}$ growth of the full mode is thus
-nothing more than the lower dense effective noise of its
-rectified kick made visible, the same mechanism the dense $g(r)$
-and $C(\tau)$ gaps below express; at matched effective noise the
-two channels are additive. (The retuned mode is also globally quieter, so this
-bounds the excess as a noise effect rather than isolating the
-dense phase alone.)
+$\alpha = 2$ kick, collapses the excess on the same nine sizes:
+$a_{\rm motility}$ rises from $+1.04$ to $+1.47$
+($[+1.41, +1.74]$), level with $a_{\rm full} = +1.49$, so
+$\Delta_9 \to +0.02$, additive within error. The same control
+runs through the microscopic diagnostics below
+(Table~\ref{tab:matched}), where the dense $g(r)$ and $C(\tau)$
+gaps do not merely vanish but reverse sign, because the global
+$\eta \to \eta^2$ retune also quiets the dilute phase. All three
+observables thus lose the full-mode advantage once the dense
+decorrelation is equalised: the faster $\chi_{\max}$ growth, the
+sharper dense $g(r)$ and the slower dense $C(\tau)$ are one
+effect, the lower dense effective noise of the rectified kick
+made visible, not a cooperation beyond noise. The retune bounds
+this as a noise effect rather than isolating the dense phase
+alone, since it lowers noise everywhere.
+
+\begin{table}[h]
+\centering
+\caption{Full-mode advantage at each mode's own near-critical
+noise (left) and under the matched-$\Gamma$ retune of
+motility-only (right), for the three load-bearing observables.
+Equalising the dense decorrelation removes the susceptibility
+excess (additive within error) and reverses the static and
+dynamic gaps, the global retune over-quieting the dilute phase,
+so all three are one dense-noise effect rather than a
+cooperation.}
+\label{tab:matched}
+\small
+\begin{tabular}{l c c}
+\toprule
+Full $-$ motility & each-own-$\eta$ & matched $\Gamma$ \\
+\midrule
+$\chi_{\max}$ slope $\Delta_9$ & $+0.45$ & $+0.02$ \\
+dense $g(r \!\simeq\! 0.6)$ gap & $+0.153$ & $-0.07$ \\
+dense $C(\tau)$ gap & $+0.13$ to $+0.24$ & $-0.08$ to $-0.42$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 Figure~\ref{fig:collapse} makes the point directly: the local
 slope $a_{\rm eff} = d\ln\chi_{\max}/d\ln L$ drifts rather than
 locking to a constant, and the susceptibility peak
@@ -541,7 +576,8 @@ $\chi_{\max}(L)$ rises monotonically across all nine sizes; the
 full-mode series is monotone through $L = 128$ but scatters at
 the two largest sizes ($93.6 \to 77.9 \to 112.0$ at
 $L = 128, 180, 256$), the pooled estimator staying seed-sensitive
-at large $L$ under heavy tails. The slope CIs in
+at large $L$ under heavy tails (ten seeds being the budget we
+could afford at $N \simeq 1.5\times10^5$). The slope CIs in
 Table~\ref{tab:slopes} bootstrap over seeds at fixed $L$ and so
 report seed scatter, not this across-size instability: a
 size-jackknife moves $a_{\rm full}$ to $+1.67$ (dropping
@@ -581,7 +617,10 @@ grows with $\rho_0$, not as a series of exponents.
 $22$ to $128$, ten seeds, $95\%$ bootstrap CI) at three global
 densities. The motility-active modes grow at every density while
 the fixed-noise modes stay flat, and the noise-shape excess
-$a_{\rm full} - a_{\rm motility}$ widens with $\rho_0$.}
+$a_{\rm full} - a_{\rm motility}$ widens with $\rho_0$. The
+$\rho_0 = 3.0$ value $+3.00$ exceeds the $d = 2$ ceiling
+$\chi_{\max} \le N$, marking these as finite-size crossover rates,
+not asymptotic exponents.}
 \label{tab:density}
 \small
 \begin{tabular}{l c c c}
@@ -1247,7 +1286,9 @@ periodic-centroid distance (cutoff $4.0$) and particle-count
 ratio (cutoff $2.0$), ten seeds. The mean patch lifetime is
 $1.60$ snapshots in motility-only against $1.57$ in the full
 mode, a difference of $-0.034$ ($95\%$ bootstrap CI $[-0.10,
-+0.03]$, Mann-Whitney $p = 0.08$; not significant). The
++0.03]$, Mann-Whitney $p = 0.08$; not significant); with mean
+lifetimes barely above the one-snapshot matching resolution, this
+null bounds any persistence difference rather than resolving sub-snapshot dynamics. The
 geometric consolidation buys no temporal persistence: the
 rectification reshapes which cells the dense particles occupy at
 each instant while leaving cell turnover to the motility
@@ -1281,10 +1322,11 @@ is that single effect read out in a different observable. The
 dense $g(r)$, its dynamic counterpart $C(\tau)$, the
 $s_{\rm sep}$ surplus and the finite-size susceptibility excess
 all express it, flat in the dilute quartile, and a matched-noise
-control collapses all of them together: equalising the dense
-decorrelation $\Gamma$ reverses the $g(r)$ and $C(\tau)$ gaps and
-drives the susceptibility excess $\Delta$ from $+0.67$ to $+0.05$,
-additive within error. The two adaptations therefore do not
+control removes the full-mode advantage from all of them at once
+(Table~\ref{tab:matched}): equalising the dense decorrelation
+$\Gamma$ drives the susceptibility excess $\Delta_9$ from $+0.45$
+to $+0.02$, additive within error, and reverses the $g(r)$ and
+$C(\tau)$ gaps, the global retune over-quieting the dilute phase. The two adaptations therefore do not
 cooperate beyond their noise levels; they share one local route,
 and at matched noise they simply add. The
 decoupled-sigmoid tests of Sec.~\ref{sec:decoupled} sharpen the
@@ -1372,10 +1414,10 @@ The weakest part of the case remains the lever. Extending the
 scan to $L = 180$ and $256$ lowers both motility-active slopes
 ($a_{\rm full}: +1.95 \to +1.49$, $a_{\rm motility}: +1.29 \to
 +1.04$) and shrinks the each-own-$\eta$ excess ($\Delta_7 = +0.63$
-to $\Delta_9 = +0.44$), confirming a finite-size crossover rather
+to $\Delta_9 = +0.45$), confirming a finite-size crossover rather
 than an exponent; and the matched-noise control then shows that
-even this residual excess is a noise-level effect ($\Delta \to
-+0.05$), not a thermodynamic cooperation. What remains robust is
+even this residual excess is a noise-level effect ($\Delta_9 \to
++0.02$ on the same nine sizes), not a thermodynamic cooperation. What remains robust is
 the qualitative split, which is moreover not a parameter-window
 effect, the motility-active growth reproducing away from
 $\rho_0 = 2.22$ (Table~\ref{tab:density}).
