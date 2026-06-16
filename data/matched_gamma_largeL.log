@@ -1,0 +1,7 @@
+matched-Gamma motility FSS: 200/200 cells, workers=7
+  40/200  46.3 min  ETA 185 min
+  80/200  91.2 min  ETA 137 min
+  120/200  163.5 min  ETA 109 min
+  160/200  260.5 min  ETA 65 min
+  200/200  362.1 min  ETA 0 min
+runtime 362.1 min -> double_fss_matched_gamma_largeL_nocone.npz

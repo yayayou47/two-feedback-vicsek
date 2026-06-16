@@ -39,7 +39,7 @@ ETAS_REF = np.array([0.005, 0.010, 0.020, 0.035, 0.050,
                      0.075, 0.100, 0.150, 0.200, 0.300])
 ETAS_MATCHED = ETAS_REF ** 2          # Gamma(alpha=1) matches Gamma(alpha=2) at eta_ref
 SEEDS = list(range(11, 11 + 30, 3))   # 10 seeds
-LS = [15.0, 22.0, 30.0, 45.0, 64.0, 90.0, 128.0]
+LS_DEFAULT = [15.0, 22.0, 30.0, 45.0, 64.0, 90.0, 128.0]
 SIGMA = 2.22
 N_WARM, N_MEAS = 1500, 1000
 # motility-only (v3_limit): adaptive speed, fixed Cauchy alpha=1.
@@ -65,8 +65,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--workers", type=int, default=7)
     ap.add_argument("--flush", type=int, default=40)
+    ap.add_argument("--sizes", type=str, default=None,
+                    help="comma-separated sizes; default is 15..128")
+    ap.add_argument("--out", type=str,
+                    default="double_fss_matched_gamma_nocone.npz")
     args = ap.parse_args()
-    out = DATA / "double_fss_matched_gamma_nocone.npz"
+    LS = ([float(s) for s in args.sizes.split(",")] if args.sizes
+          else LS_DEFAULT)
+    out = DATA / args.out
     nL, ne, ns = len(LS), len(ETAS_MATCHED), len(SEEDS)
     chi = np.full((nL, ne, ns), np.nan)
     phi = np.full((nL, ne, ns), np.nan)
