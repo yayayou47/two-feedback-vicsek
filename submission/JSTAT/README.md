@@ -6,6 +6,12 @@ Target: **Journal of Statistical Mechanics: Theory and Experiment**
 Self-contained snapshot of the submission (frozen copy; the live
 source lives in `version4/manuscript/`).
 
+**Status (2026-06-17):** refreshed from the revised manuscript after the
+three referee rounds (nine-size FSS, multi-density control, matched-noise
+reframing: the noise-shape channel acts through a single dense-noise
+rectification route, additive at matched noise) and condensed ~10%
+(8383 to 7580 words; 21 pp main + 3 pp SI).
+
 ## Contents
 
 | File | Role |
@@ -15,7 +21,7 @@ source lives in `version4/manuscript/`).
 | `manuscript_iopart.tex`  | Main article in the **IOP `iopart` class** (JSTAT house style) — see note below |
 | `supplement.{tex,pdf}`   | Supplementary material (figures S1–S2) |
 | `refs.bib`               | Bibliography |
-| `figures/`               | The 17 figure PDFs included by the `.tex` files |
+| `figures/`               | The 18 figure PDFs included by the `.tex` files |
 
 ### `manuscript_iopart.tex` — IOP house style
 
