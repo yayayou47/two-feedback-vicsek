@@ -1,0 +1,50 @@
+To the Editorial Board
+Physical Review Research
+
+Dear Editors,
+
+Please consider the enclosed manuscript, "A two-feedback Vicsek-Couzin
+flock: dense-phase noise rectification as the unifying action of
+density-gated motility-noise coupling," for publication in Physical Review
+Research as an original research article. The Vicsek model fixes the
+self-propulsion speed and the angular-noise distribution as global
+constants; a density-dependent speed (which drives motility-induced phase
+separation) and heavy-tailed Levy reorientations have each been relaxed
+separately. We ask what happens when both are gated together by one
+density-dependent sigmoid in the local neighbour count, isolating each
+channel with a four-way ablation on a single code path.
+
+Heavy-tailed noise alone grows no size-dependent susceptibility; only the
+motility channel builds a phase-separated dense phase, inside which the
+noise-shape channel rectifies its Cauchy kicks into Gaussian ones. What at
+first looks like a super-additive cooperation is, we show with a
+matched-noise control, a single effect: equalising the effective dense
+decorrelation collapses the susceptibility excess (Delta_9 from +0.45 to
++0.02) and reverses the static g(r) and dynamic C(tau) gaps, so the two
+channels are additive and the noise-shape feedback simply lowers the dense
+effective noise. The robust results are a two-regime split that reproduces
+across three densities, a density-gated Levy-to-Gaussian conversion of
+dense-phase turning, and a decoupled-sigmoid dissection pinning the
+motility threshold as the sole, metric-kernel control.
+
+The work suits Physical Review Research and its broad, open-access remit:
+it is a careful, well-controlled active-matter study whose central result
+is clarifying and whose null results (a passive noise-shape threshold,
+negligible hysteresis, no extended patch lifetime, a topological-kernel
+breakdown, a falsified mean-density prediction) are reported rather than
+buried, with the finite-size slopes framed as crossover rates, not
+asymptotic exponents. All code and data are openly available at
+https://github.com/yayayou47/two-feedback-vicsek for bit-for-bit
+reproduction of every figure. The manuscript is original, is not under
+consideration elsewhere, and its two authors declare no competing
+interests; one supplementary-material PDF accompanies it.
+
+Thank you for considering our submission.
+
+Sincerely,
+
+Yaya Youssouf Yaya
+Corresponding author, on behalf of both authors
+Departement de Mathematiques, Ecole Normale Superieure de N'Djamena, Tchad
+yy.y@zig.univ.sn
+ORCID: 0000-0003-0781-4923
