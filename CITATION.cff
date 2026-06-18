@@ -9,7 +9,7 @@ authors:
   - family-names: Sy
     given-names: Mamadou
     email: mamadou.sy@ugb.edu.sn
-    affiliation: "Departement de Mathematiques et Informatique, Universite Gaston-Berger de Saint-Louis, Senegal; Laboratoire d'Analyse Numerique et Informatique, Universite Gaston-Berger de Saint-Louis, Senegal"
+    affiliation: "Departement de Mathematiques et Informatique and Laboratoire d'Analyse Numerique et Informatique, Universite Gaston-Berger de Saint-Louis, Senegal"
 license: MIT
 repository-code: "https://github.com/yayayou47/two-feedback-vicsek"
 type: software
