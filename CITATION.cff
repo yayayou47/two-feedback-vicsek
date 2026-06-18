@@ -1,11 +1,15 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite the manuscript and this code archive."
-title: "A two-feedback Vicsek-Couzin flock: density-stratified heading correlations as the scale-invariant fingerprint of motility-noise coupling"
+title: "A two-feedback Vicsek-Couzin flock: dense-phase noise rectification as the unifying action of density-gated motility-noise coupling"
 authors:
   - family-names: Yaya
     given-names: Yaya Youssouf
     orcid: https://orcid.org/0000-0003-0781-4923
-    affiliation: "Departement de Mathematiques, Ecole Normale Superieure de N'Djamena, Tchad; Cherheur Associe, LMA, Universite Assane Seck de Ziguinchor, Senegal"
+    affiliation: "Departement de Mathematiques, Ecole Normale Superieure de N'Djamena, Tchad; Chercheur Associe, LMA, Universite Assane Seck de Ziguinchor, Senegal"
+  - family-names: Sy
+    given-names: Mamadou
+    email: mamadou.sy@ugb.edu.sn
+    affiliation: "Departement de Mathematiques et Informatique, Universite Gaston-Berger de Saint-Louis, Senegal; Laboratoire d'Analyse Numerique et Informatique, Universite Gaston-Berger de Saint-Louis, Senegal"
 license: MIT
 repository-code: "https://github.com/yayayou47/two-feedback-vicsek"
 type: software

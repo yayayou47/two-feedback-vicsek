@@ -3,11 +3,12 @@
 Simulation code, analysis pipeline, figure generation, manuscript
 source, and movies for the paper
 
-> **A two-feedback Vicsek–Couzin flock: density-stratified
-> heading correlations as the scale-invariant fingerprint of
+> **A two-feedback Vicsek–Couzin flock: dense-phase noise
+> rectification as the unifying action of density-gated
 > motility–noise coupling.**
-> Yaya Youssouf Yaya. ORCID
-> [0000-0003-0781-4923](https://orcid.org/0000-0003-0781-4923).
+> Yaya Youssouf Yaya (ORCID
+> [0000-0003-0781-4923](https://orcid.org/0000-0003-0781-4923))
+> and Mamadou Sy.
 
 The model couples two density-dependent feedbacks of a
 Vicsek–Couzin flock — the self-propulsion speed $v_i$ and the
@@ -16,11 +17,14 @@ through one shared sigmoid in the local neighbour count $n_i$.
 A crowded particle is simultaneously slow and Gaussian-like;
 an isolated particle is simultaneously fast and Cauchy-like.
 The paper benchmarks the resulting dynamics against the
-original Vicsek model on a controlled finite-size scaling at
-$L \in \{15, 22, 30, 45, 64, 90, 128\}$ and identifies the
-density-stratified heading correlation $g(r)$ inside the dense
-phase as the unique scale-invariant fingerprint of the
-two-feedback rectification.
+original Vicsek model on a controlled nine-size finite-size
+scaling ($L$ up to $256$) across three densities, and shows that
+the noise-shape channel acts through a single route: it lowers
+the effective angular noise inside the motility-built dense
+phase. A matched-noise control makes the static $g(r)$, dynamic
+$C(\tau)$ and finite-size susceptibility signatures collapse
+together, so the two feedbacks are additive rather than an
+emergent thermodynamic synergy.
 
 ## Repository layout
 
@@ -134,21 +138,27 @@ compiled from `manuscript/` with `latexmk -pdf manuscript.tex`.
 
 ## Key results
 
-The paper's two robust findings are:
+The paper's robust findings are:
 
-1. **The original Vicsek model produces no spatial phase
-   separation at our parameters** (`s_sep ≈ 1.31`), while the
-   two-feedback model reaches `s_sep ≈ 1.73` at large `L`.
-2. **The dense-quartile heading correlation `g(r)` is the only
-   scale-invariant fingerprint of the two-feedback
-   rectification**, with a gap `Δg(r) ≈ +0.13` and z-scores
-   in the range 13 – 21 across `L ∈ {30, 64, 90, 128}`. All
-   other diagnostics (susceptibility scaling, density-separation
-   index, cluster-size distribution) collapse or even flip
-   sign at large `L`.
+1. **A clean two-regime split.** Heavy-tailed noise on its own
+   grows no size-dependent susceptibility, whereas the motility
+   channel builds a phase-separated dense phase (`s_sep` rising
+   from ≈ 1.2 for the fixed-noise references to ≈ 1.7). The split
+   reproduces across three densities.
+2. **The two channels are additive, not synergistic.** Inside the
+   dense phase the noise-shape channel rectifies Cauchy kicks into
+   Gaussian ones, lowering the effective angular noise. A
+   matched-noise control makes the static `g(r)`, dynamic `C(τ)`
+   and finite-size susceptibility signatures collapse together
+   (the susceptibility excess `Δ₉` from `+0.45` to `+0.02`, the
+   `g(r)` and `C(τ)` gaps reversing sign), so the apparent
+   super-additive synergy is one dense-noise effect rather than an
+   emergent thermodynamic cooperation.
 
-Section 3 of the manuscript reports each diagnostic with its
-seed-level standard error and z-score.
+Claims rest on nine-size, ten-seed finite-size scans with
+seed-bootstrap confidence intervals and non-parametric (Wilcoxon
+signed-rank, Mann–Whitney) tests; the finite-size slopes are
+reported as finite-size crossover rates, not asymptotic exponents.
 
 ## Citing
 
