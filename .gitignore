@@ -50,3 +50,13 @@ submission/*/*.blg
 submission/*/*.fdb_latexmk
 submission/*/*.fls
 submission/*/*.synctex.gz
+
+# Dossier de compilation JSTAT : produits de build et archive generee
+submission/JSTAT/manuscript/*.aux
+submission/JSTAT/manuscript/*.log
+submission/JSTAT/manuscript/*.out
+submission/JSTAT/manuscript/*.blg
+submission/JSTAT/manuscript/*.fls
+submission/JSTAT/manuscript/*.fdb_latexmk
+submission/JSTAT/manuscript/*.pdf
+submission/JSTAT/manuscript/jstat_upload.tar.gz
