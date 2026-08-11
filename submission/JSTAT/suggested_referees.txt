@@ -1,8 +1,12 @@
-Suggested referees
+Cette liste est remplacée par submission_form/04_suggested_referees.txt,
+qui donne les mêmes six noms AVEC leurs courriels, la source de chacun,
+et un point de vigilance sur les conflits d'intérêts.
 
-1. Hugues Chate     -- CEA Saclay, France
-2. John Toner       -- University of Oregon, USA
-3. Julien Tailleur  -- Massachusetts Institute of Technology, USA
+Conservé ici pour ne pas casser une référence éventuelle.
+
+1. Hugues Chate      -- CEA Saclay, France
+2. John Toner        -- University of Oregon, USA
+3. Julien Tailleur   -- Massachusetts Institute of Technology, USA
 4. Francesco Ginelli -- Universita degli Studi dell'Insubria, Como, Italy
-5. Gil Ariel        -- Bar-Ilan University, Ramat Gan, Israel
-6. Sriram Ramaswamy -- Indian Institute of Science, Bangalore, India
+5. Gil Ariel         -- Bar-Ilan University, Ramat Gan, Israel
+6. Sriram Ramaswamy  -- Indian Institute of Science, Bangalore, India

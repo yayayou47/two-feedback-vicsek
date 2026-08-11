@@ -41,3 +41,12 @@ PLAN.md
 videos/*.mp4
 videos/batch.log
 .coverage
+
+# Artefacts LaTeX — le .bbl est conservé, il accompagne la soumission
+submission/*/*.aux
+submission/*/*.log
+submission/*/*.out
+submission/*/*.blg
+submission/*/*.fdb_latexmk
+submission/*/*.fls
+submission/*/*.synctex.gz
