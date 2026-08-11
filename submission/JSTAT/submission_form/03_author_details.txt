@@ -1,0 +1,30 @@
+=== AUTEURS, AFFILIATIONS, ORCID ===
+
+AUTEUR 1 — CORRESPONDING AUTHOR
+  Nom          : Yaya Youssouf Yaya
+  Courriel     : yy.y@zig.univ.sn
+  ORCID        : 0000-0003-0781-4923
+  Affiliation 1: Département de Mathématiques, École Normale Supérieure
+                 de N'Djaména, BP 206, N'Djaména, Chad
+  Affiliation 2: Chercheur associé, LMA, U.F.R. Sciences et
+                 Technologies, Université Assane Seck de Ziguinchor,
+                 BP 523, Diabir, Ziguinchor, Senegal
+
+AUTEUR 2
+  Nom          : Mamadou Sy
+  Courriel     : mamadou.sy@ugb.edu.sn
+  ORCID        : ABSENT — voir ci-dessous
+  Affiliation  : Département de Mathématiques et Informatique, et
+                 Laboratoire d'Analyse Numérique et Informatique,
+                 Université Gaston-Berger de Saint-Louis, Senegal
+
+--- POINT À TRAITER ---
+Mamadou Sy n'a pas d'ORCID dans le manuscrit. IOP le demande pour tous
+les auteurs et l'affiche sur l'article publié. S'il en a un, l'ajouter
+au manuscrit et au formulaire ; s'il n'en a pas, en créer un prend deux
+minutes sur orcid.org et c'est un gain durable pour lui.
+
+--- NOTE ---
+Les pays sont donnés en anglais (Chad, Senegal), la soumission étant
+anglophone. Le manuscrit LaTeX porte les noms français ; c'est correct
+dans le corps de l'article mais le formulaire attend l'anglais.

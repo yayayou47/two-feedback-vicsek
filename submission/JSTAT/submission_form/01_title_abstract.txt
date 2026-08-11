@@ -1,0 +1,16 @@
+=== TITRE ET ABSTRACT ===
+
+--- TITRE (champ « Title ») ---
+Density-gated noise rectification in a Vicsek–Couzin flock: one dense-phase mechanism, additive at matched decorrelation
+
+--- ABSTRACT (champ « Abstract ») ---
+262 mots.
+
+Règle JSTAT : « The abstract should briefly summarize the content of the
+contribution and must fit in the first page. Please avoid formulae and
+references in the title and abstract. »  Le titre est conforme. L'abstract
+contient une occurrence de $\alpha$ ; un symbole isolé passe en pratique,
+mais si vous voulez être strictement conforme, écrivez « the stability
+index alpha » en toutes lettres.
+
+Flocking models hold the self-propulsion speed and the angular-noise distribution fixed as global constants. Active matter has relaxed each of them on its own: a density-dependent speed drives motility-induced phase separation, and heavy-tailed L'evy reorientations are reported in bacteria, in foragers and in migrating cells. What has not been tested is whether the two reinforce each other when one cue drives both, and the question is as much methodological as physical, since apparent cooperation between adaptive channels is easy to manufacture and hard to rule out. We therefore gate the speed and the stability index of a wrapped alpha-stable kick through a single sigmoid in the local neighbour count, so that a crowded particle is at once slow and Gaussian-like and an isolated one fast and Cauchy-like: the arrangement most favourable to a synergy. None survives. Heavy-tailed reorientations alone grow no size-dependent susceptibility; only the motility channel builds a phase-separated dense phase, and the noise-shape channel acts solely inside it, rectifying wrapped Cauchy kicks into Gaussian ones. The apparent super-additivity comes from comparing modes at matched nominal noise amplitude instead of matched effective decorrelation: equalise the effective rate and the susceptibility excess is gone, while the dense static and dynamic correlation gaps reverse sign, leaving two channels that simply add. The coupling thus reduces to a density-gated lowering of the dense-phase effective noise, set by the motility threshold alone and contingent on a metric kernel. The lesson travels beyond this model: heavy-tailed and Gaussian dynamics have to be compared at matched decorrelation, not matched amplitude, or additivity will be read as synergy.

@@ -1,0 +1,103 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2.0cm]{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue!50!black,
+            urlcolor=blue!50!black}
+\pagestyle{empty}
+\setlength{\parskip}{0.32em}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\hfill\today
+
+\medskip
+
+To the Editorial Board\\
+\emph{Journal of Statistical Mechanics: Theory and Experiment}
+
+\medskip
+
+Dear Editors,
+
+Please consider the enclosed manuscript, ``Density-gated noise
+rectification in a Vicsek--Couzin flock: one dense-phase
+mechanism, additive at matched decorrelation,'' for
+publication in JSTAT as an original research article. We suggest
+the section \emph{Classical statistical mechanics, equilibrium and
+non-equilibrium}; the work also touches \emph{Interdisciplinary
+statistical mechanics} through its motivation from collective
+motion in living systems.
+
+The paper makes a methodological point, and makes it by way of a
+concrete model. Flocking studies routinely compare noise
+distributions of different shape at matched nominal amplitude
+$\eta$, but that comparison is not neutral: a wrapped
+$\alpha$-stable kick of scale $\eta$ decorrelates a heading at the
+rate $\Gamma = 1 - \exp(-\eta^{\alpha})$, which depends on the
+tail index as strongly as on the amplitude. Varying the shape at
+fixed $\eta$ therefore varies the effective noise as well, and we
+show that this confound is large enough to manufacture an apparent
+cooperative effect that survives several independent consistency
+checks before a matched-decorrelation control dissolves it.
+
+The vehicle is a Vicsek--Couzin flock in which one sigmoid in the
+local neighbour count gates both the self-propulsion speed and the
+stability index of the angular noise, making a crowded particle at
+once slow and Gaussian-like and an isolated one fast and
+Cauchy-like. That is deliberately the arrangement most favourable
+to a synergy, which is what makes a negative answer informative. A
+four-way ablation on a single code path, over nine sizes up to
+$L = 256$ at ten seeds, separates the channels: heavy-tailed
+reorientations alone grow no size-dependent susceptibility, only
+the motility channel builds a phase-separated dense phase, and the
+noise-shape channel acts exclusively inside it. Compared at each
+mode's own near-critical noise the full model appears to gain a
+super-additive boost, $\Delta_9 = +0.45$; under the
+matched-decorrelation control it falls to $+0.02$, additive within
+error, while the dense static and dynamic correlation gaps reverse
+sign. The coupling reduces to a density-gated lowering of the
+dense-phase effective noise, governed by the motility threshold
+alone and contingent on a metric kernel.
+
+The components being individually well studied, we have positioned
+the contribution narrowly. Density-dependent motility with
+alignment is established, and a density-dependent noise
+\emph{amplitude} is not new either; what has not been done is to
+make the \emph{shape} of the turning law a function of local
+density and couple it to a density-dependent speed, a cell the
+framework of Clusella and Pastor-Satorras admits and then sets
+aside as beyond its scope. In the same spirit we report the
+finite-size slopes as effective growth rates rather than
+asymptotic exponents, noting that our full-mode value $+1.49$ is
+indistinguishable from the $\gamma/\nu = 1.45(2)$ established for
+the standard Vicsek model while the single-channel ablation
+excludes it, and that the susceptibility peak still migrates on
+our window. The internal falsifications are reported rather than
+buried.
+
+All code and data are openly available at
+\url{https://github.com/yayayou47/two-feedback-vicsek} under the
+MIT licence, and every figure reproduces bit-for-bit from a single
+seeded generator. The manuscript is original, is not under
+consideration elsewhere, and its two authors declare no competing
+interests; one supplementary-material PDF accompanies it.
+
+Thank you for considering our submission.
+
+\medskip
+
+Sincerely,\\[0.2em]
+\includegraphics[scale=0.12]{yaya_signature.png}\\[2pt]
+Yaya Youssouf Yaya\\
+\emph{Corresponding author, on behalf of both authors}\\
+D\'epartement de Math\'ematiques, \'Ecole Normale Sup\'erieure de
+N'Djam\'ena, Tchad\\
+\texttt{yy.y@zig.univ.sn} \;\; ORCID:
+\href{https://orcid.org/0000-0003-0781-4923}{0000-0003-0781-4923}
+
+\end{document}

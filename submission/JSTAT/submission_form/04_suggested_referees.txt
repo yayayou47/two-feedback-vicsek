@@ -1,0 +1,69 @@
+=== RAPPORTEURS SUGGÉRÉS ===
+
+Les courriels ont été relevés un par un sur des pages institutionnelles
+ou personnelles, la source indiquée pour chacun. Aucun n'est déduit d'un
+format d'adresse : une adresse fausse fait rebondir la soumission, ou
+envoie une invitation à un homonyme.
+
+1. John Toner
+   Department of Physics, University of Oregon, Eugene, OR, USA
+   jjt@uoregon.edu
+   [source : annuaire du College of Arts and Sciences, cas.uoregon.edu]
+   Co-auteur de la théorie hydrodynamique Toner-Tu, socle du cadre
+   théorique du manuscrit.
+
+2. Julien Tailleur
+   Department of Physics, Massachusetts Institute of Technology,
+   Cambridge, MA, USA
+   jgt@mit.edu
+   [source : sa page personnelle au MIT, mit.edu/~jgt — adresse affichée
+    sous la forme « jgt (at) mit.edu »]
+   Séparation de phase induite par la motilité, transitions hors
+   équilibre dans les particules actives.
+
+3. Francesco Ginelli
+   Dipartimento di Scienza e Alta Tecnologia, Università degli Studi
+   dell'Insubria, Como, Italy
+   francesco.ginelli@uninsubria.it
+   [source : annuaire de l'université, uninsubria.it]
+   Modèles de Vicsek, alignement topologique, corrélations dans les
+   flocks.
+
+4. Sriram Ramaswamy
+   Department of Physics, Indian Institute of Science, Bangalore, India
+   sriram@iisc.ac.in
+   [source : page du département de physique, physics.iisc.ac.in]
+   Hydrodynamique de la matière active, fluctuations géantes de nombre.
+
+5. Gil Ariel
+   Department of Mathematics, Bar-Ilan University, Ramat Gan, Israel
+   arielg@math.biu.ac.il
+   [source : page du département de mathématiques, math.biu.ac.il]
+   Statistique des marches bactériennes, comportement collectif.
+
+6. Hugues Chaté
+   Service de Physique de l'État Condensé, CEA, CNRS Université
+   Paris-Saclay, CEA-Saclay, 91191 Gif-sur-Yvette, France
+   COURRIEL À RELEVER — voir ci-dessous
+
+   Référence majeure sur la transition de Vicsek et les bandes.
+
+   Je n'ai pas pu le vérifier : ses articles récents sur arXiv ne
+   publient pas d'adresse et l'annuaire du CEA n'est pas consultable
+   automatiquement. Le relever dans un de ses articles où il est auteur
+   correspondant, ou via l'annuaire IRAMIS/SPEC du CEA.
+
+   POINT DE VIGILANCE : Hugues Chaté est lead editor de Physical Review
+   Letters. Cela ne crée pas de conflit avec JSTAT, mais vérifiez qu'il
+   n'a pas co-signé récemment avec l'un de vous — la règle habituelle
+   est trois à cinq ans sans collaboration commune.
+
+=== RAPPORTEURS À EXCLURE ===
+Aucun, sauf si vous avez une raison précise. Une exclusion non motivée
+attire l'attention de l'éditeur.
+
+=== AVERTISSEMENT SUR LA LISTE ===
+Cette liste est reprise du paquet préparé pour un autre journal. Elle
+est solide sur le fond — ce sont les six noms qui comptent sur ce sujet
+— mais vérifiez avant envoi qu'aucun n'a co-publié avec vous dans la
+fenêtre de conflit d'intérêts appliquée par JSTAT.

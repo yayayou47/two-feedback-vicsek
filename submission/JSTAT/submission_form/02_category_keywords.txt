@@ -1,0 +1,38 @@
+=== CATÉGORIE ET MOTS-CLÉS ===
+
+JSTAT demande de choisir 1 à 4 mots-clés, pris dans les listes des cinq
+grandes catégories. Les listes ne sont accessibles que depuis le portail
+de soumission ; elles ne sont pas publiées sur le site public.
+
+--- CATÉGORIE PRINCIPALE ---
+  Classical statistical mechanics, equilibrium and non-equilibrium
+  (directeurs scientifiques : David Mukamel, Matteo Marsili,
+   Giuseppe Mussardo)
+
+C'est le bon rattachement : le papier est une étude de mécanique
+statistique hors équilibre d'un modèle de particules autopropulsées, et
+son apport transférable est un protocole de contrôle plus un mécanisme.
+
+--- CATÉGORIE SECONDAIRE, SI LE PORTAIL EN ADMET UNE ---
+  Interdisciplinary statistical mechanics
+
+Ne PAS choisir « Biological modelling and information » : le manuscrit ne
+modélise aucun système biologique particulier et un rapporteur de cette
+section attendrait une confrontation à des données du vivant.
+
+--- MOTS-CLÉS À CHERCHER DANS LA LISTE DU PORTAIL ---
+Par ordre de préférence, retenir ceux qui existent dans leur
+nomenclature :
+  active matter / active particles
+  collective behaviour / collective motion
+  self-propelled particles
+  pattern formation
+  stochastic processes
+  phase transitions / critical phenomena in non-equilibrium systems
+
+Les cinq catégories JSTAT, pour mémoire :
+  1. Quantum statistical physics, condensed matter, integrable systems
+  2. Classical statistical mechanics, equilibrium and non-equilibrium
+  3. Disordered systems, classical and quantum
+  4. Interdisciplinary statistical mechanics
+  5. Biological modelling and information

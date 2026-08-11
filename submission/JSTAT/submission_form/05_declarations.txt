@@ -1,0 +1,55 @@
+=== DÉCLARATIONS ===
+
+JSTAT n'impose pas les mêmes déclarations qu'AIP. Vérifié dans le guide
+auteur (jstat.sissa.it, help for authors) : ni « author contributions »
+ni « conflict of interest » ni « funding » ne sont exigés. Deux le sont.
+
+----------------------------------------------------------------------
+1. DATA / SOFTWARE / CODE AVAILABILITY — exigée
+----------------------------------------------------------------------
+« Data/Software/Code Availability Statements should be included at the
+end of articles submitted to JSTAT to improve their discoverability. »
+
+Elle est en place à la fin du manuscrit, section « Code and data
+availability ». Texte actuel :
+
+  The simulation code, all run drivers, the figure-generation scripts
+  and the precompiled data are openly available at
+  https://github.com/yayayou47/two-feedback-vicsek under the MIT
+  license. The commit corresponding to this manuscript carries the tag
+  jstat-submission, so the exact version underlying every figure can be
+  retrieved unambiguously. All runs used Python 3.12.3, NumPy 2.4.4,
+  SciPy 1.17.1, Numba 0.65.1 (LLVM 0.47.0) and Matplotlib 3.10.9 on
+  Linux x86_64. [...]
+
+MODIFIÉ : la mention « will be archived on Zenodo with a permanent DOI
+on acceptance » a été retirée, remplacée par le tag git. Le tag
+jstat-submission RESTE À POSER — voir 07_checklist.txt.
+
+----------------------------------------------------------------------
+2. USAGE D'IA — exigée, ET ACTUELLEMENT ABSENTE
+----------------------------------------------------------------------
+Le guide auteur de JSTAT est explicite :
+
+  « Authors are required to declare and properly reference in detail the
+    use of AI assisted technology in the preparation of the manuscript,
+    either in the methods or acknowledgments section. »
+
+Le manuscrit ne contient aucune déclaration de ce type. C'est le
+manquement le plus sérieux du paquet : c'est une exigence formelle, pas
+une recommandation, et l'omettre est un manquement à l'éthique de
+publication d'IOP si de l'assistance a effectivement été utilisée.
+
+Trois formulations sont préparées, en commentaire à la fin de
+manuscript.tex, juste après la section « Code and data availability ».
+Décommentez celle qui correspond à la réalité et supprimez les autres :
+
+  (a) aucune assistance
+  (b) assistance rédactionnelle seulement (langue, style)
+  (c) assistance à l'analyse ou au code, en plus de la rédaction
+
+Je ne peux pas choisir à votre place : c'est un énoncé factuel sur votre
+processus de travail. À titre indicatif, l'historique du dépôt version4
+montre 1 commit sur 113 portant une trace d'assistance, ce qui suggère
+un travail très majoritairement manuel — mais l'historique des commits
+ne dit rien de la rédaction du texte lui-même.

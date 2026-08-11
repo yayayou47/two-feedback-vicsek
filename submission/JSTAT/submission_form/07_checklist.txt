@@ -1,0 +1,64 @@
+=== CHECKLIST AVANT ENVOI — JSTAT ===
+Établie d'après le guide auteur de JSTAT (jstat.sissa.it, « help for
+authors ») et la politique éditoriale, consultés le 2026-08-11.
+
+CONFORME — vérifié
+  [x] Abstract tient sur la première page ......... 262 mots
+  [x] Pas de références dans le titre ni l'abstract
+  [x] Pas de formule dans le titre
+  [x] .bbl fourni (exigé si BibTeX) .............. manuscript.bbl
+  [x] Toutes les clés citées existent ............ 73/73, garde-fou OK
+  [x] Data/Code availability en fin d'article
+  [x] Classe article générique (iopart requis seulement à l'acceptation)
+  [x] Figures en PDF ............................. 18
+  [x] Lettre d'accompagnement .................... 1 page, sans tic
+  [x] Références croisées manuscrit/supplément ... via xr-hyper
+
+BLOQUANT — à faire avant d'envoyer
+  [ ] DÉCLARATION D'USAGE D'IA. JSTAT l'exige explicitement et elle est
+      ABSENTE. Trois formulations sont prêtes en commentaire à la fin de
+      manuscript.tex ; décommenter celle qui correspond à la réalité.
+      C'est une exigence formelle, pas une recommandation.
+
+  [ ] TAG GIT jstat-submission. Le manuscrit annonce désormais que le
+      commit correspondant porte ce tag. Il n'existe pas encore :
+        cd version4 && git tag -a jstat-submission -m "Version submitted to JSTAT"
+        git push origin jstat-submission
+
+  [ ] DÉPÔT À JOUR. github.com/yayayou47/two-feedback-vicsek est public,
+      mais son dernier push date du 2026-06-23 et sa DESCRIPTION porte
+      encore l'ancien titre (« ...density-stratified heading correlations
+      as the scale-invariant fingerprint of motility-noise coupling »),
+      alors que le manuscrit a été retitré en juillet. Un rapporteur qui
+      suit le lien lit une description qui contredit l'article.
+      Corriger la description et pousser l'état courant.
+
+  [ ] ORCID DE MAMADOU SY. Absent du manuscrit. IOP le demande pour tous
+      les auteurs.
+
+  [ ] CONFLIT D'INTÉRÊTS DES RAPPORTEURS. Vérifier qu'aucun des six
+      suggérés n'a co-publié avec vous dans la fenêtre appliquée par
+      JSTAT (usuellement 3 à 5 ans).
+
+  [ ] COURRIEL DE HUGUES CHATÉ. Les cinq autres sont vérifiés et sourcés
+      dans 04_suggested_referees.txt.
+
+POINTS DE PROCÉDURE PROPRES À JSTAT
+  - Deux voies de soumission : par numéro arXiv (LaTeX seulement) ou par
+    téléversement web d'une archive .zip / .tar.gz. Si vous déposez sur
+    arXiv d'abord, la première voie évite tout problème de compilation.
+  - Le portail compile votre source et produit un rapport. LE LIRE avant
+    de valider : c'est ce PDF que voient l'éditeur et les rapporteurs.
+  - « Please DO NOT double-click: push the upload button just once and
+    wait. » — l'avertissement figure dans leur propre guide.
+  - Une lettre d'accompagnement n'est obligatoire qu'aux révisions, mais
+    la joindre dès la première soumission est un avantage ici : elle
+    explique le repositionnement du papier.
+  - JSTAT est hybride. La publication en modèle abonnement est GRATUITE.
+    L'accès ouvert CC BY est payant et optionnel — ne cochez l'option
+    que si un financeur vous l'impose.
+
+CE QUI N'EST PAS EXIGÉ PAR JSTAT, contrairement à AIP
+  Pas de déclaration obligatoire de contributions d'auteurs (CRediT), ni
+  de conflit d'intérêts, ni de financement. Vérifié dans le guide. Les
+  ajouter reste possible mais n'est pas requis.
