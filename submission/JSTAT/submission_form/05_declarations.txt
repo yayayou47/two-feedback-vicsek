@@ -27,7 +27,7 @@ on acceptance » a été retirée, remplacée par le tag git. Le tag
 jstat-submission RESTE À POSER — voir 07_checklist.txt.
 
 ----------------------------------------------------------------------
-2. USAGE D'IA — exigée, ET ACTUELLEMENT ABSENTE
+2. USAGE D'IA — exigée, ET DÉSORMAIS EN PLACE
 ----------------------------------------------------------------------
 Le guide auteur de JSTAT est explicite :
 
@@ -35,21 +35,24 @@ Le guide auteur de JSTAT est explicite :
     use of AI assisted technology in the preparation of the manuscript,
     either in the methods or acknowledgments section. »
 
-Le manuscrit ne contient aucune déclaration de ce type. C'est le
-manquement le plus sérieux du paquet : c'est une exigence formelle, pas
-une recommandation, et l'omettre est un manquement à l'éthique de
-publication d'IOP si de l'assistance a effectivement été utilisée.
+Elle manquait au paquet. Elle est maintenant une section à part entière
+du manuscrit, « Use of AI-assisted technology », placée juste après la
+déclaration de disponibilité du code et des données. Texte imprimé :
 
-Trois formulations sont préparées, en commentaire à la fin de
-manuscript.tex, juste après la section « Code and data availability ».
-Décommentez celle qui correspond à la réalité et supprimez les autres :
+  DeepL (DeepL SE) and ChatGPT (OpenAI) were used for language editing,
+  to improve the wording and readability of the manuscript. The authors
+  reviewed and edited all output and take full responsibility for the
+  content of the published article. No text was generated without author
+  verification, and neither tool was used to design the study, to write
+  or modify the simulation and analysis code, or to produce, analyse or
+  interpret any data.
 
-  (a) aucune assistance
-  (b) assistance rédactionnelle seulement (langue, style)
-  (c) assistance à l'analyse ou au code, en plus de la rédaction
+La portée déclarée est celle que vous avez indiquée : langue et
+lisibilité seulement. La seconde phrase borne explicitement ce qui n'a
+PAS été fait par ces outils — conception de l'étude, code, données. Cette
+borne est ce qui protège l'article : elle dit au lecteur exactement où
+s'arrête l'assistance.
 
-Je ne peux pas choisir à votre place : c'est un énoncé factuel sur votre
-processus de travail. À titre indicatif, l'historique du dépôt version4
-montre 1 commit sur 113 portant une trace d'assistance, ce qui suggère
-un travail très majoritairement manuel — mais l'historique des commits
-ne dit rien de la rédaction du texte lui-même.
+FACULTATIF : si vous connaissez la version exacte du modèle ChatGPT
+utilisé, l'ajouter renforce le « in detail » demandé par IOP. La
+déclaration est soumissible sans elle.

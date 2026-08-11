@@ -31,13 +31,20 @@
         Math\'ematiques et Informatique and Laboratoire d'Analyse
         Num\'erique et Informatique, Universit\'e Gaston-Berger de
         Saint-Louis, S\'en\'egal. \texttt{mamadou.sy@ugb.edu.sn}} \\[0.5em]
-        \small D\'epartement de Math\'ematiques, \'Ecole Normale Sup\'erieure de
-               N'Djam\'ena, BP~206, N'Djam\'ena, Tchad \\
-        \small Chercheur Associ\'e, LMA, U.F.R.~Sciences et Technologies,
-               Universit\'e Assane Seck de Ziguinchor, BP~523, Diabir,
-               Ziguinchor, S\'en\'egal \\
-        \small \texttt{yy.y@zig.univ.sn} \;\;
-               ORCID: \href{https://orcid.org/0000-0003-0781-4923}{0000-0003-0781-4923}}
+        % Les affiliations sont dans un bloc de largeur contrainte : la
+        % classe article centre le contenu de \author sans jamais le
+        % couper, si bien qu'une adresse longue sort de la marge en
+        % silence (c'etait le cas ici, 138 pt de debordement). Le
+        % minipage force le retour a la ligne automatique.
+        \begin{minipage}{0.88\textwidth}\centering\small
+        D\'epartement de Math\'ematiques, \'Ecole Normale Sup\'erieure de
+        N'Djam\'ena, BP~206, N'Djam\'ena, Tchad \\
+        Chercheur Associ\'e, LMA, U.F.R.~Sciences et Technologies,
+        Universit\'e Assane Seck de Ziguinchor, BP~523, Diabir,
+        Ziguinchor, S\'en\'egal \\
+        \texttt{yy.y@zig.univ.sn} \;\;
+        ORCID: \href{https://orcid.org/0000-0003-0781-4923}{0000-0003-0781-4923}
+        \end{minipage}}
 
 \date{\today}
 
@@ -1462,43 +1469,27 @@ single NumPy \texttt{Generator} with a per-run seed, so
 each \texttt{(seed, mode, $L$)} tuple is reproducible
 bit-for-bit.
 
+\section*{Use of AI-assisted technology}
 % =====================================================================
-%  DÉCLARATION D'USAGE D'IA — EXIGÉE PAR JSTAT.
+%  Exigée par JSTAT : « Authors are required to declare and properly
+%  reference in detail the use of AI assisted technology in the
+%  preparation of the manuscript, either in the methods or
+%  acknowledgments section. »
 %
-%  Le guide auteur de JSTAT est explicite : « Authors are required to
-%  declare and properly reference in detail the use of AI assisted
-%  technology in the preparation of the manuscript, either in the
-%  methods or acknowledgments section. »  Elle était absente du paquet.
+%  Outils déclarés : DeepL (DeepL SE) et ChatGPT (OpenAI), pour la
+%  langue et la lisibilité uniquement.
 %
-%  Je ne peux PAS la rédiger à votre place : c'est un énoncé factuel
-%  sur votre processus de travail, et seul vous savez ce qui a été
-%  utilisé.  Choisissez la formulation exacte ci-dessous, décommentez-la,
-%  et supprimez les autres.  Ne rien déclarer alors que de l'assistance
-%  a été utilisée est un manquement à l'éthique de publication d'IOP.
-%
-%  (a) Aucune assistance :
-%  \section*{Use of AI-assisted technology}
-%  No generative artificial-intelligence tool was used in the
-%  preparation of this manuscript.
-%
-%  (b) Assistance rédactionnelle seulement (langue, style) :
-%  \section*{Use of AI-assisted technology}
-%  A large language model (NAME, VERSION, VENDOR) was used to improve
-%  the wording and readability of the manuscript. The authors reviewed
-%  and edited all output and take full responsibility for the content
-%  of the published article. No text was generated without author
-%  verification, and the tool was not used to produce, analyse or
-%  interpret any data.
-%
-%  (c) Assistance à l'analyse ou au code, en plus de la rédaction :
-%  \section*{Use of AI-assisted technology}
-%  A large language model (NAME, VERSION, VENDOR) was used to assist
-%  with the wording of the manuscript and with the drafting and review
-%  of analysis scripts. All scientific results, figures and numerical
-%  values were produced by the code deposited with this article and
-%  were verified by the authors, who take full responsibility for the
-%  content of the published article.
+%  FACULTATIF : si vous connaissez la version exacte du modèle ChatGPT
+%  utilisé (GPT-4o, GPT-5, …), l'ajouter renforce le « in detail »
+%  demandé par IOP. La déclaration est déjà soumissible sans elle.
 % =====================================================================
+DeepL (DeepL SE) and ChatGPT (OpenAI) were used for language editing,
+to improve the wording and readability of the manuscript. The authors
+reviewed and edited all output and take full responsibility for the
+content of the published article. No text was generated without author
+verification, and neither tool was used to design the study, to write
+or modify the simulation and analysis code, or to produce, analyse or
+interpret any data.
 
 \bibliographystyle{plainnat}
 \bibliography{refs}
