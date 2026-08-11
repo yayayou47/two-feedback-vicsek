@@ -3,9 +3,13 @@
 Target: **Journal of Statistical Mechanics: Theory and Experiment**
 (SISSA / IOP Publishing), original research article.
 
-Suggested section: **Classical statistical mechanics, equilibrium and
-non-equilibrium**. Secondary fit: *Interdisciplinary statistical
-mechanics*.
+Suggested sections: **Classical statistical mechanics, equilibrium and
+non-equilibrium** (primary) and **Biological modelling and information**
+(secondary — it is the only category carrying the keyword *Self-propelled
+particles*). Not *Interdisciplinary statistical mechanics*: its actual
+keyword list is socio-economic systems, networks and machine learning,
+so its referee pool is the wrong one. See
+`submission_form/02_category_keywords.txt`.
 
 Submission portal: <https://jstat.sissa.it/>
 

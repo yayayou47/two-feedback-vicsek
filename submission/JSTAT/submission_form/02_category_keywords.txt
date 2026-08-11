@@ -1,38 +1,69 @@
-=== CATÉGORIE ET MOTS-CLÉS ===
+=== SECTIONS ET MOTS-CLÉS ===
+Établi sur les listes RÉELLES du portail JSTAT, pas sur les seuls noms
+de catégories. Les listes ne sont pas publiées sur le site public.
 
-JSTAT demande de choisir 1 à 4 mots-clés, pris dans les listes des cinq
-grandes catégories. Les listes ne sont accessibles que depuis le portail
-de soumission ; elles ne sont pas publiées sur le site public.
+ATTENTION À LA LECTURE DU FORMULAIRE : les blocs de mots-clés sont
+décalés d'un cran par rapport aux titres. Sous « 2. Classical » on
+trouve d'abord la liste de la catégorie 1 (AdS/CFT, Bethe Ansatz, spin
+chains) ; la vraie liste « Classical » est le SECOND bloc, celui qui
+commence par « Absorbing states, Active matter ». Même décalage sous
+« 4. Interdisciplinary ».
 
---- CATÉGORIE PRINCIPALE ---
-  Classical statistical mechanics, equilibrium and non-equilibrium
-  (directeurs scientifiques : David Mukamel, Matteo Marsili,
-   Giuseppe Mussardo)
+----------------------------------------------------------------------
+SECTIONS À COCHER
+----------------------------------------------------------------------
+[x] Classical statistical mechanics, equilibrium and non-equilibrium
+    PRINCIPALE. Sa liste porte Active matter, Classical phase
+    transitions, Finite-size scaling, Stochastic particle dynamics.
 
-C'est le bon rattachement : le papier est une étude de mécanique
-statistique hors équilibre d'un modèle de particules autopropulsées, et
-son apport transférable est un protocole de contrôle plus un mécanisme.
+[x] Biological modelling and information
+    SECONDAIRE. Seule catégorie qui porte « Self-propelled particles »,
+    et elle porte aussi Active matter et Pattern formation. JSTAT y
+    route donc bien le flocking.
 
---- CATÉGORIE SECONDAIRE, SI LE PORTAIL EN ADMET UNE ---
-  Interdisciplinary statistical mechanics
+[ ] Interdisciplinary statistical mechanics
+    NE PAS COCHER. Sa liste réelle est agent-based models, game theory,
+    financial networks, machine learning, socio-economic systems : le
+    centre de gravité est l'économie et les réseaux d'information. Un
+    rapporteur tiré de ce vivier serait mal apparié. (Le README du
+    paquet la recommandait ; cette recommandation était fondée sur le
+    seul nom de la section et elle est erronée.)
 
-Ne PAS choisir « Biological modelling and information » : le manuscrit ne
-modélise aucun système biologique particulier et un rapporteur de cette
-section attendrait une confrontation à des données du vivant.
+[ ] Quantum statistical physics — sans objet
+[ ] Disordered systems — sans objet
 
---- MOTS-CLÉS À CHERCHER DANS LA LISTE DU PORTAIL ---
-Par ordre de préférence, retenir ceux qui existent dans leur
-nomenclature :
-  active matter / active particles
-  collective behaviour / collective motion
-  self-propelled particles
-  pattern formation
-  stochastic processes
-  phase transitions / critical phenomena in non-equilibrium systems
+----------------------------------------------------------------------
+LES QUATRE MOTS-CLÉS
+----------------------------------------------------------------------
+1. Active matter               (catégories 2 et 5)
+2. Self-propelled particles    (catégorie 5)
+3. Classical phase transitions (catégorie 2)
+4. Finite-size scaling         (catégorie 2)
 
-Les cinq catégories JSTAT, pour mémoire :
-  1. Quantum statistical physics, condensed matter, integrable systems
-  2. Classical statistical mechanics, equilibrium and non-equilibrium
-  3. Disordered systems, classical and quantum
-  4. Interdisciplinary statistical mechanics
-  5. Biological modelling and information
+Les deux premiers identifient l'objet, les deux suivants la méthode.
+Finite-size scaling mérite d'y être : neuf tailles jusqu'à L = 256,
+c'est le coeur méthodologique du papier.
+
+VARIANTE si vous préférez rester dans la seule catégorie 2 :
+remplacer « Self-propelled particles » par « Stochastic particle
+dynamics ».
+
+----------------------------------------------------------------------
+UN MOT-CLÉ À ÉVITER
+----------------------------------------------------------------------
+« Critical exponents and amplitudes » figure dans la liste et paraît
+naturel. NE PAS LE COCHER.
+
+La lettre d'accompagnement dit explicitement que les pentes sont
+rapportées comme « effective growth rates rather than asymptotic
+exponents ». Ce mot-clé annoncerait le contraire et attirerait un
+rapporteur qui vous tiendra au standard des exposants asymptotiques.
+C'est exactement le décalage entre ce qui est promis et ce qui est
+livré qui a fait rejeter version1 chez PRE.
+
+Autres mots-clés présents et écartés, avec le motif :
+  Numerical simulations ....... exact mais générique, aucun pouvoir
+                                discriminant pour l'appariement
+  Coarsening processes ........ le papier ne mesure pas de coarsening
+  Fluctuation phenomena ....... trop large
+  Correlation functions ....... vrai mais secondaire dans l'argument
