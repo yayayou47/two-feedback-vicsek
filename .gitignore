@@ -53,6 +53,10 @@ submission/*/*.synctex.gz
 
 # Dossier de compilation JSTAT : produits de build et archive generee
 submission/JSTAT/manuscript/*.aux
+# Exception : supplement.aux n'est pas un produit jetable ici. C'est la
+# piece que l'archive doit embarquer pour que les renvois croises
+# resolvent sur le serveur JSTAT, qui ne compile que le fichier maitre.
+!submission/JSTAT/manuscript/supplement.aux
 submission/JSTAT/manuscript/*.log
 submission/JSTAT/manuscript/*.out
 submission/JSTAT/manuscript/*.blg
