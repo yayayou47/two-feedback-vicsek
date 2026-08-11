@@ -5,13 +5,12 @@
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Aldana et~al.(2007)Aldana, Dossetti, Huepe, Kenkre, and
-  Larralde]{Aldana2007}
-M.~Aldana, V.~Dossetti, C.~Huepe, V.~M. Kenkre, and H.~Larralde.
-\newblock Phase transitions in systems of self-propelled agents and related
-  network models.
-\newblock \emph{Phys. Rev. Lett.}, 98:\penalty0 095702, 2007.
-\newblock \doi{10.1103/PhysRevLett.98.095702}.
+\bibitem[Vicsek et~al.(1995)Vicsek, Czir{\'o}k, Ben-Jacob, Cohen, and
+  Shochet]{Vicsek1995}
+T.~Vicsek, A.~Czir{\'o}k, E.~Ben-Jacob, I.~Cohen, and O.~Shochet.
+\newblock Novel type of phase transition in a system of self-driven particles.
+\newblock \emph{Phys. Rev. Lett.}, 75:\penalty0 1226--1229, 1995.
+\newblock \doi{10.1103/PhysRevLett.75.1226}.
 
 \bibitem[Angelini et~al.(2011)Angelini, Hannezo, Trepat, Marquez, Fredberg, and
   Weitz]{Angelini2011}
@@ -21,66 +20,29 @@ Thomas~E. Angelini, Edouard Hannezo, Xavier Trepat, Manuel Marquez, Jeffrey~J.
 \newblock \emph{Proc. Natl. Acad. Sci. USA}, 108:\penalty0 4714--4719, 2011.
 \newblock \doi{10.1073/pnas.1010059108}.
 
-\bibitem[Ariel et~al.(2015)Ariel, Rabani, Benisty, Partridge, Harshey, and
-  Be'er]{Ariel2015}
-G.~Ariel, A.~Rabani, S.~Benisty, J.~D. Partridge, R.~M. Harshey, and A.~Be'er.
-\newblock Swarming bacteria migrate by l{\'e}vy walk.
-\newblock \emph{Nature Communications}, 6:\penalty0 8396, 2015.
-\newblock \doi{10.1038/ncomms9396}.
+\bibitem[Bi et~al.(2016)Bi, Yang, Marchetti, and Manning]{Bi2016}
+D.~Bi, X.~Yang, M.~C. Marchetti, and M.~L. Manning.
+\newblock Motility-driven glass and jamming transitions in biological tissues.
+\newblock \emph{Phys. Rev. X}, 6:\penalty0 021011, 2016.
+\newblock \doi{10.1103/PhysRevX.6.021011}.
 
-\bibitem[Baglietto and Albano(2008)]{Baglietto2008}
-Gabriel Baglietto and Ezequiel~V. Albano.
-\newblock Finite-size scaling analysis and dynamic study of the critical
-  behavior of a model for the collective displacement of self-driven
-  individuals.
-\newblock \emph{Phys. Rev. E}, 78:\penalty0 021125, 2008.
-\newblock \doi{10.1103/PhysRevE.78.021125}.
+\bibitem[Greenshields(1935)]{Greenshields}
+B.~D. Greenshields.
+\newblock A study of traffic capacity.
+\newblock \emph{Highway Research Board Proc.}, 14:\penalty0 448--477, 1935.
 
-\bibitem[Baglietto and Albano(2009)]{Baglietto2009}
-Gabriel Baglietto and Ezequiel~V. Albano.
-\newblock Nature of the order--disorder transition in the {V}icsek model for
-  the collective motion of self-propelled particles.
-\newblock \emph{Phys. Rev. E}, 80:\penalty0 050103, 2009.
-\newblock \doi{10.1103/PhysRevE.80.050103}.
+\bibitem[Lighthill and Whitham(1955)]{LWR}
+M.~J. Lighthill and G.~B. Whitham.
+\newblock On kinematic waves ii: A theory of traffic flow on long crowded
+  roads.
+\newblock \emph{Proc. R. Soc. Lond. A}, 229:\penalty0 317--345, 1955.
+\newblock \doi{10.1098/rspa.1955.0089}.
 
-\bibitem[Baglietto et~al.(2012)Baglietto, Albano, and Candia]{Baglietto2012}
-Gabriel Baglietto, Ezequiel~V. Albano, and Juli{\'a}n Candia.
-\newblock Criticality and the onset of ordering in the standard {V}icsek model.
-\newblock \emph{Interface Focus}, 2:\penalty0 708--714, 2012.
-\newblock \doi{10.1098/rsfs.2012.0021}.
-
-\bibitem[Ballerini et~al.(2008)Ballerini, Cabibbo, Candelier, Cavagna, Cisbani,
-  Giardina, Lecomte, Orlandi, Parisi, Procaccini, Viale, and
-  Zdravkovic]{Ballerini2008}
-M.~Ballerini, N.~Cabibbo, R.~Candelier, A.~Cavagna, E.~Cisbani, I.~Giardina,
-  V.~Lecomte, A.~Orlandi, G.~Parisi, A.~Procaccini, M.~Viale, and
-  V.~Zdravkovic.
-\newblock Interaction ruling animal collective behavior depends on topological
-  rather than metric distance: Evidence from a field study.
-\newblock \emph{Proc. Natl. Acad. Sci. USA}, 105:\penalty0 1232--1237, 2008.
-\newblock \doi{10.1073/pnas.0711437105}.
-
-\bibitem[Bazazi et~al.(2008)Bazazi, Buhl, Hale, Anstey, Sword, Simpson, and
-  Couzin]{Bazazi2008}
-S.~Bazazi, J.~Buhl, J.~J. Hale, M.~L. Anstey, G.~A. Sword, S.~J. Simpson, and
-  I.~D. Couzin.
-\newblock Collective motion and cannibalism in locust migratory bands.
-\newblock \emph{Current Biology}, 18:\penalty0 735--739, 2008.
-\newblock \doi{10.1016/j.cub.2008.04.035}.
-
-\bibitem[Bechinger et~al.(2016)Bechinger, Di~Leonardo, L{\"o}wen, Reichhardt,
-  Volpe, and Volpe]{Bechinger2016}
-C.~Bechinger, R.~Di~Leonardo, H.~L{\"o}wen, C.~Reichhardt, G.~Volpe, and
-  G.~Volpe.
-\newblock Active particles in complex and crowded environments.
-\newblock \emph{Rev. Mod. Phys.}, 88:\penalty0 045006, 2016.
-\newblock \doi{10.1103/RevModPhys.88.045006}.
-
-\bibitem[Be'er and Ariel(2019)]{Beer2019}
-Avraham Be'er and Gil Ariel.
-\newblock A statistical physics view of swarming bacteria.
-\newblock \emph{Movement Ecology}, 7:\penalty0 9, 2019.
-\newblock \doi{10.1186/s40462-019-0153-9}.
+\bibitem[Colin et~al.(2019)Colin, Drescher, and Sourjik]{Colin2019}
+R{\'e}my Colin, Knut Drescher, and Victor Sourjik.
+\newblock Chemotactic behaviour of {E}scherichia coli at high cell density.
+\newblock \emph{Nature Communications}, 10:\penalty0 5329, 2019.
+\newblock \doi{10.1038/s41467-019-13179-1}.
 
 \bibitem[Be'er et~al.(2020)Be'er, Ilkanaiv, Gross, Kearns, Heidenreich,
   B{\"a}r, and Ariel]{Beer2020}
@@ -90,38 +52,79 @@ Avraham Be'er, Bella Ilkanaiv, Renan Gross, Daniel~B. Kearns, Sebastian
 \newblock \emph{Communications Physics}, 3:\penalty0 66, 2020.
 \newblock \doi{10.1038/s42005-020-0327-1}.
 
-\bibitem[Berg and Brown(1972)]{Berg1972}
-Howard~C. Berg and Douglas~A. Brown.
-\newblock Chemotaxis in {E}scherichia coli analysed by three-dimensional
-  tracking.
-\newblock \emph{Nature}, 239:\penalty0 500--504, 1972.
-\newblock \doi{10.1038/239500a0}.
+\bibitem[Garcia et~al.(2015)Garcia, Hannezo, Elgeti, Joanny, Silberzan, and
+  Gov]{Garcia2015}
+Simon Garcia, Edouard Hannezo, Jens Elgeti, Jean-Fran{\c c}ois Joanny, Pascal
+  Silberzan, and Nir~S. Gov.
+\newblock Physics of active jamming during collective cellular motion in a
+  monolayer.
+\newblock \emph{Proc. Natl. Acad. Sci. USA}, 112:\penalty0 15314--15319, 2015.
+\newblock \doi{10.1073/pnas.1510973112}.
 
-\bibitem[Bi et~al.(2016)Bi, Yang, Marchetti, and Manning]{Bi2016}
-D.~Bi, X.~Yang, M.~C. Marchetti, and M.~L. Manning.
-\newblock Motility-driven glass and jamming transitions in biological tissues.
-\newblock \emph{Phys. Rev. X}, 6:\penalty0 021011, 2016.
-\newblock \doi{10.1103/PhysRevX.6.021011}.
+\bibitem[Reynolds(2018)]{Reynolds2018}
+A.~M. Reynolds.
+\newblock Current status and future directions of {L}\'evy walk research.
+\newblock \emph{Biology Open}, 7:\penalty0 bio030106, 2018.
+\newblock \doi{10.1242/bio.030106}.
 
-\bibitem[Binder and Landau(1984)]{Binder1984}
-K.~Binder and D.~P. Landau.
-\newblock Finite-size scaling at first-order phase transitions.
-\newblock \emph{Phys. Rev. B}, 30:\penalty0 1477--1485, 1984.
-\newblock \doi{10.1103/PhysRevB.30.1477}.
+\bibitem[Harris et~al.(2012)Harris, Banigan, Christian, Konradt, Wojno, Norose,
+  Wilson, John, Weninger, Luster, Liu, and Hunter]{Harris2012}
+T.~H. Harris, E.~J. Banigan, D.~A. Christian, C.~Konradt, E.~D.~T. Wojno,
+  K.~Norose, E.~H. Wilson, B.~John, W.~Weninger, A.~D. Luster, A.~J. Liu, and
+  C.~A. Hunter.
+\newblock Generalized {L}\'evy walks and the role of chemokines in migration of
+  effector {CD}8$^+$ {T} cells.
+\newblock \emph{Nature}, 486:\penalty0 545--548, 2012.
+\newblock \doi{10.1038/nature11098}.
 
-\bibitem[Buhl et~al.(2006)Buhl, Sumpter, Couzin, Hale, Despland, Miller, and
-  Simpson]{Buhl2006}
-J.~Buhl, D.~J.~T. Sumpter, I.~D. Couzin, J.~J. Hale, E.~Despland, E.~R. Miller,
-  and S.~J. Simpson.
-\newblock From disorder to order in marching locusts.
-\newblock \emph{Science}, 312:\penalty0 1402--1406, 2006.
-\newblock \doi{10.1126/science.1125142}.
+\bibitem[Ariel et~al.(2015)Ariel, Rabani, Benisty, Partridge, Harshey, and
+  Be'er]{Ariel2015}
+G.~Ariel, A.~Rabani, S.~Benisty, J.~D. Partridge, R.~M. Harshey, and A.~Be'er.
+\newblock Swarming bacteria migrate by l{\'e}vy walk.
+\newblock \emph{Nature Communications}, 6:\penalty0 8396, 2015.
+\newblock \doi{10.1038/ncomms9396}.
 
-\bibitem[Cambui et~al.(2016)Cambui, de~Arruda, and Godoy]{Cambui2016}
-Dorilson~S. Cambui, Alberto~S. de~Arruda, and Maur{\'i}cio Godoy.
-\newblock Critical exponents of a self-propelled particles system.
-\newblock \emph{Physica A}, 444:\penalty0 582--588, 2016.
-\newblock \doi{10.1016/j.physa.2015.10.075}.
+\bibitem[Zaburdaev et~al.(2015)Zaburdaev, Denisov, and Klafter]{Zaburdaev2015}
+V.~Zaburdaev, S.~Denisov, and J.~Klafter.
+\newblock L{\'e}vy walks.
+\newblock \emph{Rev. Mod. Phys.}, 87:\penalty0 483--530, 2015.
+\newblock \doi{10.1103/RevModPhys.87.483}.
+
+\bibitem[Shi et~al.(1996)Shi, Ngok, and Zusman]{Shi1996}
+W.~Shi, F.~K. Ngok, and D.~R. Zusman.
+\newblock Cell density regulates cellular reversal frequency in {M}yxococcus
+  xanthus.
+\newblock \emph{Proc. Natl. Acad. Sci. USA}, 93:\penalty0 4142--4146, 1996.
+\newblock \doi{10.1073/pnas.93.9.4142}.
+
+\bibitem[de~Jager et~al.(2014)de~Jager, Bartumeus, K{\"o}lzsch, Weissing,
+  Hengeveld, Nolet, Herman, and van~de Koppel]{deJager2014}
+Monique de~Jager, Frederic Bartumeus, Andrea K{\"o}lzsch, Franz~J. Weissing,
+  Geerten~M. Hengeveld, Bart~A. Nolet, Peter M.~J. Herman, and Johan van~de
+  Koppel.
+\newblock How superdiffusion gets arrested: ecological encounters explain shift
+  from {L}\'evy to {B}rownian movement.
+\newblock \emph{Proc. R. Soc. B}, 281:\penalty0 20132605, 2014.
+\newblock \doi{10.1098/rspb.2013.2605}.
+
+\bibitem[Tailleur and Cates(2008)]{TailleurCates2008}
+J.~Tailleur and M.~E. Cates.
+\newblock Statistical mechanics of interacting run-and-tumble bacteria.
+\newblock \emph{Phys. Rev. Lett.}, 100:\penalty0 218103, 2008.
+\newblock \doi{10.1103/PhysRevLett.100.218103}.
+
+\bibitem[Fily and Marchetti(2012)]{Fily2012}
+Yaouen Fily and M.~Cristina Marchetti.
+\newblock Athermal phase separation of self-propelled particles with no
+  alignment.
+\newblock \emph{Phys. Rev. Lett.}, 108:\penalty0 235702, 2012.
+\newblock \doi{10.1103/PhysRevLett.108.235702}.
+
+\bibitem[Redner et~al.(2013)Redner, Hagan, and Baskaran]{Redner2013}
+Gabriel~S. Redner, Michael~F. Hagan, and Aparna Baskaran.
+\newblock Structure and dynamics of a phase-separating active colloidal fluid.
+\newblock \emph{Phys. Rev. Lett.}, 110:\penalty0 055701, 2013.
+\newblock \doi{10.1103/PhysRevLett.110.055701}.
 
 \bibitem[Cates and Tailleur(2013)]{CatesTailleur2013}
 M.~E. Cates and J.~Tailleur.
@@ -130,46 +133,66 @@ M.~E. Cates and J.~Tailleur.
 \newblock \emph{EPL}, 101:\penalty0 20010, 2013.
 \newblock \doi{10.1209/0295-5075/101/20010}.
 
+\bibitem[Stenhammar et~al.(2014)Stenhammar, Marenduzzo, Allen, and
+  Cates]{Stenhammar2014}
+Joakim Stenhammar, Davide Marenduzzo, Rosalind~J. Allen, and Michael~E. Cates.
+\newblock Phase behaviour of active {B}rownian particles: the role of
+  dimensionality.
+\newblock \emph{Soft Matter}, 10:\penalty0 1489--1499, 2014.
+\newblock \doi{10.1039/C3SM52813H}.
+
 \bibitem[Cates and Tailleur(2015)]{CatesTailleur2015}
 M.~E. Cates and J.~Tailleur.
 \newblock Motility-induced phase separation.
 \newblock \emph{Annu. Rev. Condens. Matter Phys.}, 6:\penalty0 219--244, 2015.
 \newblock \doi{10.1146/annurev-conmatphys-031214-014710}.
 
-\bibitem[Cavagna et~al.(2010)Cavagna, Cimarelli, Giardina, Parisi, Santagati,
-  Stefanini, and Viale]{Cavagna2010}
-Andrea Cavagna, Alessio Cimarelli, Irene Giardina, Giorgio Parisi, Raffaele
-  Santagati, Fabio Stefanini, and Massimiliano Viale.
-\newblock Scale-free correlations in starling flocks.
-\newblock \emph{Proc. Natl. Acad. Sci. USA}, 107:\penalty0 11865--11870, 2010.
-\newblock \doi{10.1073/pnas.1005766107}.
+\bibitem[Farrell et~al.(2012)Farrell, Marchetti, Marenduzzo, and
+  Tailleur]{Farrell2012}
+F.~D.~C. Farrell, M.~C. Marchetti, D.~Marenduzzo, and J.~Tailleur.
+\newblock Pattern formation in self-propelled particles with density-dependent
+  motility.
+\newblock \emph{Phys. Rev. Lett.}, 108:\penalty0 248101, 2012.
+\newblock \doi{10.1103/PhysRevLett.108.248101}.
 
-\bibitem[Chambers et~al.(1976)Chambers, Mallows, and Stuck]{Chambers1976}
-J.~M. Chambers, C.~L. Mallows, and B.~W. Stuck.
-\newblock A method for simulating stable random variables.
-\newblock \emph{J. Amer. Statist. Assoc.}, 71:\penalty0 340--344, 1976.
-\newblock \doi{10.1080/01621459.1976.10480344}.
+\bibitem[Solon et~al.(2015{\natexlab{a}})Solon, Chat{\'e}, and
+  Tailleur]{Solon2015PRL}
+Alexandre~P. Solon, Hugues Chat{\'e}, and Julien Tailleur.
+\newblock From phase to microphase separation in flocking models: The essential
+  role of nonequilibrium fluctuations.
+\newblock \emph{Phys. Rev. Lett.}, 114:\penalty0 068101, 2015{\natexlab{a}}.
+\newblock \doi{10.1103/PhysRevLett.114.068101}.
+
+\bibitem[Solon et~al.(2015{\natexlab{b}})Solon, Caussin, Bartolo, Chat{\'e},
+  and Tailleur]{Solon2015PRE}
+Alexandre~P. Solon, Jean-Baptiste Caussin, Denis Bartolo, Hugues Chat{\'e}, and
+  Julien Tailleur.
+\newblock Pattern formation in flocking models: A hydrodynamic description.
+\newblock \emph{Phys. Rev. E}, 92:\penalty0 062111, 2015{\natexlab{b}}.
+\newblock \doi{10.1103/PhysRevE.92.062111}.
 
 \bibitem[Chat{\'e} et~al.(2008{\natexlab{a}})Chat{\'e}, Ginelli, Gr{\'e}goire,
-  Peruani, and Raynaud]{Chate2008EPJB}
-H.~Chat{\'e}, F.~Ginelli, G.~Gr{\'e}goire, F.~Peruani, and F.~Raynaud.
-\newblock Modeling collective motion: variations on the {V}icsek model.
-\newblock \emph{Eur. Phys. J. B}, 64:\penalty0 451--456, 2008{\natexlab{a}}.
-\newblock \doi{10.1140/epjb/e2008-00275-9}.
-
-\bibitem[Chat{\'e} et~al.(2008{\natexlab{b}})Chat{\'e}, Ginelli, Gr{\'e}goire,
   and Raynaud]{Chate2008}
 H.~Chat{\'e}, F.~Ginelli, G.~Gr{\'e}goire, and F.~Raynaud.
 \newblock Collective motion of self-propelled particles interacting without
   cohesion.
-\newblock \emph{Phys. Rev. E}, 77:\penalty0 046113, 2008{\natexlab{b}}.
+\newblock \emph{Phys. Rev. E}, 77:\penalty0 046113, 2008{\natexlab{a}}.
 \newblock \doi{10.1103/PhysRevE.77.046113}.
 
-\bibitem[Chat{\'e}(2020)]{Chate2020}
-Hugues Chat{\'e}.
-\newblock Dry aligning dilute active matter.
-\newblock \emph{Annu. Rev. Condens. Matter Phys.}, 11:\penalty0 189--212, 2020.
-\newblock \doi{10.1146/annurev-conmatphys-031119-050752}.
+\bibitem[Chat{\'e} et~al.(2008{\natexlab{b}})Chat{\'e}, Ginelli, Gr{\'e}goire,
+  Peruani, and Raynaud]{Chate2008EPJB}
+H.~Chat{\'e}, F.~Ginelli, G.~Gr{\'e}goire, F.~Peruani, and F.~Raynaud.
+\newblock Modeling collective motion: variations on the {V}icsek model.
+\newblock \emph{Eur. Phys. J. B}, 64:\penalty0 451--456, 2008{\natexlab{b}}.
+\newblock \doi{10.1140/epjb/e2008-00275-9}.
+
+\bibitem[Aldana et~al.(2007)Aldana, Dossetti, Huepe, Kenkre, and
+  Larralde]{Aldana2007}
+M.~Aldana, V.~Dossetti, C.~Huepe, V.~M. Kenkre, and H.~Larralde.
+\newblock Phase transitions in systems of self-propelled agents and related
+  network models.
+\newblock \emph{Phys. Rev. Lett.}, 98:\penalty0 095702, 2007.
+\newblock \doi{10.1103/PhysRevLett.98.095702}.
 
 \bibitem[Chat{\'e} et~al.(2007)Chat{\'e}, Ginelli, and
   Gr{\'e}goire]{ChateComment2007}
@@ -178,6 +201,130 @@ Hugues Chat{\'e}, Francesco Ginelli, and Guillaume Gr{\'e}goire.
   and related network models''.
 \newblock \emph{Phys. Rev. Lett.}, 99:\penalty0 229601, 2007.
 \newblock \doi{10.1103/PhysRevLett.99.229601}.
+
+\bibitem[Nagy et~al.(2007)Nagy, Daruka, and Vicsek]{Nagy2007}
+M{\'a}t{\'e} Nagy, Istv{\'a}n Daruka, and Tam{\'a}s Vicsek.
+\newblock New aspects of the continuous phase transition in the scalar noise
+  model ({SNM}) of collective motion.
+\newblock \emph{Physica A}, 373:\penalty0 445--454, 2007.
+\newblock \doi{10.1016/j.physa.2006.05.035}.
+
+\bibitem[Baglietto and Albano(2009)]{Baglietto2009}
+Gabriel Baglietto and Ezequiel~V. Albano.
+\newblock Nature of the order--disorder transition in the {V}icsek model for
+  the collective motion of self-propelled particles.
+\newblock \emph{Phys. Rev. E}, 80:\penalty0 050103, 2009.
+\newblock \doi{10.1103/PhysRevE.80.050103}.
+
+\bibitem[Cambui et~al.(2016)Cambui, de~Arruda, and Godoy]{Cambui2016}
+Dorilson~S. Cambui, Alberto~S. de~Arruda, and Maur{\'i}cio Godoy.
+\newblock Critical exponents of a self-propelled particles system.
+\newblock \emph{Physica A}, 444:\penalty0 582--588, 2016.
+\newblock \doi{10.1016/j.physa.2015.10.075}.
+
+\bibitem[Baglietto and Albano(2008)]{Baglietto2008}
+Gabriel Baglietto and Ezequiel~V. Albano.
+\newblock Finite-size scaling analysis and dynamic study of the critical
+  behavior of a model for the collective displacement of self-driven
+  individuals.
+\newblock \emph{Phys. Rev. E}, 78:\penalty0 021125, 2008.
+\newblock \doi{10.1103/PhysRevE.78.021125}.
+
+\bibitem[Baglietto et~al.(2012)Baglietto, Albano, and Candia]{Baglietto2012}
+Gabriel Baglietto, Ezequiel~V. Albano, and Juli{\'a}n Candia.
+\newblock Criticality and the onset of ordering in the standard {V}icsek model.
+\newblock \emph{Interface Focus}, 2:\penalty0 708--714, 2012.
+\newblock \doi{10.1098/rsfs.2012.0021}.
+
+\bibitem[Holubec et~al.(2021)Holubec, Geiss, Loos, Kroy, and
+  Cichos]{Holubec2021}
+Viktor Holubec, Daniel Geiss, Sarah A.~M. Loos, Klaus Kroy, and Frank Cichos.
+\newblock Finite-size scaling at the edge of disorder in a time-delay {V}icsek
+  model.
+\newblock \emph{Phys. Rev. Lett.}, 127:\penalty0 258001, 2021.
+\newblock \doi{10.1103/PhysRevLett.127.258001}.
+
+\bibitem[Gro{\ss}mann et~al.(2012)Gro{\ss}mann, Schimansky-Geier, and
+  Romanczuk]{Grossmann2012}
+R.~Gro{\ss}mann, L.~Schimansky-Geier, and P.~Romanczuk.
+\newblock Active {B}rownian particles with velocity-alignment and active
+  fluctuations.
+\newblock \emph{New J. Phys.}, 14:\penalty0 073033, 2012.
+\newblock \doi{10.1088/1367-2630/14/7/073033}.
+
+\bibitem[Mart{\'i}n-G{\'o}mez et~al.(2018)Mart{\'i}n-G{\'o}mez, Levis,
+  D{\'i}az-Guilera, and Pagonabarraga]{MartinGomez2018}
+Aitor Mart{\'i}n-G{\'o}mez, Demian Levis, Albert D{\'i}az-Guilera, and Ignacio
+  Pagonabarraga.
+\newblock Collective motion of active {B}rownian particles with polar
+  alignment.
+\newblock \emph{Soft Matter}, 14:\penalty0 2610--2618, 2018.
+\newblock \doi{10.1039/C8SM00020D}.
+
+\bibitem[Solon and Tailleur(2013)]{Solon2013}
+A.~P. Solon and J.~Tailleur.
+\newblock Revisiting the flocking transition using active spins.
+\newblock \emph{Phys. Rev. Lett.}, 111:\penalty0 078101, 2013.
+\newblock \doi{10.1103/PhysRevLett.111.078101}.
+
+\bibitem[Eliazar and Klafter(2003)]{Eliazar2003}
+I.~Eliazar and J.~Klafter.
+\newblock L{\'e}vy-driven langevin systems: Targeted stochasticity.
+\newblock \emph{J. Stat. Phys.}, 111:\penalty0 739--768, 2003.
+\newblock \doi{10.1023/A:1022894030773}.
+
+\bibitem[Be'er and Ariel(2019)]{Beer2019}
+Avraham Be'er and Gil Ariel.
+\newblock A statistical physics view of swarming bacteria.
+\newblock \emph{Movement Ecology}, 7:\penalty0 9, 2019.
+\newblock \doi{10.1186/s40462-019-0153-9}.
+
+\bibitem[Chat{\'e}(2020)]{Chate2020}
+Hugues Chat{\'e}.
+\newblock Dry aligning dilute active matter.
+\newblock \emph{Annu. Rev. Condens. Matter Phys.}, 11:\penalty0 189--212, 2020.
+\newblock \doi{10.1146/annurev-conmatphys-031119-050752}.
+
+\bibitem[Vicsek and Zafeiris(2012)]{Vicsek2012}
+Tam{\'a}s Vicsek and Anna Zafeiris.
+\newblock Collective motion.
+\newblock \emph{Phys. Rep.}, 517:\penalty0 71--140, 2012.
+\newblock \doi{10.1016/j.physrep.2012.03.004}.
+
+\bibitem[Marchetti et~al.(2013)Marchetti, Joanny, Ramaswamy, Liverpool, Prost,
+  Rao, and Simha]{Marchetti2013}
+M.~C. Marchetti, J.-F. Joanny, S.~Ramaswamy, T.~B. Liverpool, J.~Prost, M.~Rao,
+  and R.~A. Simha.
+\newblock Hydrodynamics of soft active matter.
+\newblock \emph{Rev. Mod. Phys.}, 85:\penalty0 1143--1189, 2013.
+\newblock \doi{10.1103/RevModPhys.85.1143}.
+
+\bibitem[Bechinger et~al.(2016)Bechinger, Di~Leonardo, L{\"o}wen, Reichhardt,
+  Volpe, and Volpe]{Bechinger2016}
+C.~Bechinger, R.~Di~Leonardo, H.~L{\"o}wen, C.~Reichhardt, G.~Volpe, and
+  G.~Volpe.
+\newblock Active particles in complex and crowded environments.
+\newblock \emph{Rev. Mod. Phys.}, 88:\penalty0 045006, 2016.
+\newblock \doi{10.1103/RevModPhys.88.045006}.
+
+\bibitem[Gr{\'e}goire and Chat{\'e}(2004)]{Gregoire2004}
+G.~Gr{\'e}goire and H.~Chat{\'e}.
+\newblock Onset of collective and cohesive motion.
+\newblock \emph{Phys. Rev. Lett.}, 92:\penalty0 025702, 2004.
+\newblock \doi{10.1103/PhysRevLett.92.025702}.
+
+\bibitem[Frouvelle(2012)]{Frouvelle2012}
+Amic Frouvelle.
+\newblock A continuum model for alignment of self-propelled particles with
+  anisotropy and density-dependent parameters.
+\newblock \emph{Math. Models Methods Appl. Sci.}, 22:\penalty0 1250011, 2012.
+\newblock \doi{10.1142/S021820251250011X}.
+
+\bibitem[Haghsheno and Mehrafarin(2024)]{Haghsheno2024}
+Fatemeh Haghsheno and Mohammad Mehrafarin.
+\newblock Self-propelled collective motion with multiplicative scalar noise.
+\newblock \emph{Mod. Phys. Lett. B}, 38:\penalty0 2450318, 2024.
+\newblock \doi{10.1142/S0217984924503184}.
 
 \bibitem[Chen and Ma(2016)]{ChenMa2016}
 Qiu-shi Chen and Yu-qiang Ma.
@@ -193,11 +340,40 @@ Pau Clusella and Romualdo Pastor-Satorras.
 \newblock \emph{Chaos}, 31:\penalty0 043116, 2021.
 \newblock \doi{10.1063/5.0046926}.
 
-\bibitem[Colin et~al.(2019)Colin, Drescher, and Sourjik]{Colin2019}
-R{\'e}my Colin, Knut Drescher, and Victor Sourjik.
-\newblock Chemotactic behaviour of {E}scherichia coli at high cell density.
-\newblock \emph{Nature Communications}, 10:\penalty0 5329, 2019.
-\newblock \doi{10.1038/s41467-019-13179-1}.
+\bibitem[Gatto and Jammalamadaka(2003)]{Gatto2003}
+Riccardo Gatto and S.~Rao Jammalamadaka.
+\newblock Inference for wrapped symmetric $\alpha$-stable circular models.
+\newblock \emph{Sankhy\={a}}, 65:\penalty0 333--355, 2003.
+
+\bibitem[Pewsey(2008)]{Pewsey2008}
+Arthur Pewsey.
+\newblock The wrapped stable family of distributions as a flexible model for
+  circular data.
+\newblock \emph{Comput. Statist. Data Anal.}, 52:\penalty0 1516--1523, 2008.
+\newblock \doi{10.1016/j.csda.2007.04.017}.
+
+\bibitem[Mardia and Jupp(2000)]{Mardia2000}
+Kanti~V. Mardia and Peter~E. Jupp.
+\newblock \emph{Directional Statistics}.
+\newblock Wiley, Chichester, 2000.
+\newblock \doi{10.1002/9780470316979}.
+
+\bibitem[Ballerini et~al.(2008)Ballerini, Cabibbo, Candelier, Cavagna, Cisbani,
+  Giardina, Lecomte, Orlandi, Parisi, Procaccini, Viale, and
+  Zdravkovic]{Ballerini2008}
+M.~Ballerini, N.~Cabibbo, R.~Candelier, A.~Cavagna, E.~Cisbani, I.~Giardina,
+  V.~Lecomte, A.~Orlandi, G.~Parisi, A.~Procaccini, M.~Viale, and
+  V.~Zdravkovic.
+\newblock Interaction ruling animal collective behavior depends on topological
+  rather than metric distance: Evidence from a field study.
+\newblock \emph{Proc. Natl. Acad. Sci. USA}, 105:\penalty0 1232--1237, 2008.
+\newblock \doi{10.1073/pnas.0711437105}.
+
+\bibitem[Ginelli and Chat{\'e}(2010)]{Ginelli2010}
+F.~Ginelli and H.~Chat{\'e}.
+\newblock Relevance of metric-free interactions in flocking phenomena.
+\newblock \emph{Phys. Rev. Lett.}, 105:\penalty0 168103, 2010.
+\newblock \doi{10.1103/PhysRevLett.105.168103}.
 
 \bibitem[Couzin et~al.(2002)Couzin, Krause, James, Ruxton, and
   Franks]{Couzin2002}
@@ -206,189 +382,56 @@ I.~D. Couzin, J.~Krause, R.~James, G.~D. Ruxton, and N.~R. Franks.
 \newblock \emph{J. Theor. Biol.}, 218:\penalty0 1--11, 2002.
 \newblock \doi{10.1006/jtbi.2002.3065}.
 
-\bibitem[de~Jager et~al.(2014)de~Jager, Bartumeus, K{\"o}lzsch, Weissing,
-  Hengeveld, Nolet, Herman, and van~de Koppel]{deJager2014}
-Monique de~Jager, Frederic Bartumeus, Andrea K{\"o}lzsch, Franz~J. Weissing,
-  Geerten~M. Hengeveld, Bart~A. Nolet, Peter M.~J. Herman, and Johan van~de
-  Koppel.
-\newblock How superdiffusion gets arrested: ecological encounters explain shift
-  from {L}\'evy to {B}rownian movement.
-\newblock \emph{Proc. R. Soc. B}, 281:\penalty0 20132605, 2014.
-\newblock \doi{10.1098/rspb.2013.2605}.
+\bibitem[Chambers et~al.(1976)Chambers, Mallows, and Stuck]{Chambers1976}
+J.~M. Chambers, C.~L. Mallows, and B.~W. Stuck.
+\newblock A method for simulating stable random variables.
+\newblock \emph{J. Amer. Statist. Assoc.}, 71:\penalty0 340--344, 1976.
+\newblock \doi{10.1080/01621459.1976.10480344}.
 
-\bibitem[Dieterich et~al.(2008)Dieterich, Klages, Preuss, and
-  Schwab]{Dieterich2008}
-P.~Dieterich, R.~Klages, R.~Preuss, and A.~Schwab.
-\newblock Anomalous dynamics of cell migration.
-\newblock \emph{Proc. Natl. Acad. Sci. USA}, 105:\penalty0 459--463, 2008.
-\newblock \doi{10.1073/pnas.0707603105}.
-
-\bibitem[Efron and Tibshirani(1993)]{Efron1993}
-Bradley Efron and Robert~J. Tibshirani.
-\newblock \emph{An Introduction to the Bootstrap}.
-\newblock Chapman \& Hall, New York, 1993.
-
-\bibitem[Eliazar and Klafter(2003)]{Eliazar2003}
-I.~Eliazar and J.~Klafter.
-\newblock L{\'e}vy-driven langevin systems: Targeted stochasticity.
-\newblock \emph{J. Stat. Phys.}, 111:\penalty0 739--768, 2003.
-\newblock \doi{10.1023/A:1022894030773}.
-
-\bibitem[Farrell et~al.(2012)Farrell, Marchetti, Marenduzzo, and
-  Tailleur]{Farrell2012}
-F.~D.~C. Farrell, M.~C. Marchetti, D.~Marenduzzo, and J.~Tailleur.
-\newblock Pattern formation in self-propelled particles with density-dependent
-  motility.
-\newblock \emph{Phys. Rev. Lett.}, 108:\penalty0 248101, 2012.
-\newblock \doi{10.1103/PhysRevLett.108.248101}.
-
-\bibitem[Fily and Marchetti(2012)]{Fily2012}
-Yaouen Fily and M.~Cristina Marchetti.
-\newblock Athermal phase separation of self-propelled particles with no
-  alignment.
-\newblock \emph{Phys. Rev. Lett.}, 108:\penalty0 235702, 2012.
-\newblock \doi{10.1103/PhysRevLett.108.235702}.
-
-\bibitem[Frouvelle(2012)]{Frouvelle2012}
-Amic Frouvelle.
-\newblock A continuum model for alignment of self-propelled particles with
-  anisotropy and density-dependent parameters.
-\newblock \emph{Math. Models Methods Appl. Sci.}, 22:\penalty0 1250011, 2012.
-\newblock \doi{10.1142/S021820251250011X}.
-
-\bibitem[Garcia et~al.(2015)Garcia, Hannezo, Elgeti, Joanny, Silberzan, and
-  Gov]{Garcia2015}
-Simon Garcia, Edouard Hannezo, Jens Elgeti, Jean-Fran{\c c}ois Joanny, Pascal
-  Silberzan, and Nir~S. Gov.
-\newblock Physics of active jamming during collective cellular motion in a
-  monolayer.
-\newblock \emph{Proc. Natl. Acad. Sci. USA}, 112:\penalty0 15314--15319, 2015.
-\newblock \doi{10.1073/pnas.1510973112}.
-
-\bibitem[Gatto and Jammalamadaka(2003)]{Gatto2003}
-Riccardo Gatto and S.~Rao Jammalamadaka.
-\newblock Inference for wrapped symmetric $\alpha$-stable circular models.
-\newblock \emph{Sankhy\={a}}, 65:\penalty0 333--355, 2003.
-
-\bibitem[Ginelli and Chat{\'e}(2010)]{Ginelli2010}
-F.~Ginelli and H.~Chat{\'e}.
-\newblock Relevance of metric-free interactions in flocking phenomena.
-\newblock \emph{Phys. Rev. Lett.}, 105:\penalty0 168103, 2010.
-\newblock \doi{10.1103/PhysRevLett.105.168103}.
-
-\bibitem[Greenshields(1935)]{Greenshields}
-B.~D. Greenshields.
-\newblock A study of traffic capacity.
-\newblock \emph{Highway Research Board Proc.}, 14:\penalty0 448--477, 1935.
-
-\bibitem[Gr{\'e}goire and Chat{\'e}(2004)]{Gregoire2004}
-G.~Gr{\'e}goire and H.~Chat{\'e}.
-\newblock Onset of collective and cohesive motion.
-\newblock \emph{Phys. Rev. Lett.}, 92:\penalty0 025702, 2004.
-\newblock \doi{10.1103/PhysRevLett.92.025702}.
-
-\bibitem[Gro{\ss}mann et~al.(2012)Gro{\ss}mann, Schimansky-Geier, and
-  Romanczuk]{Grossmann2012}
-R.~Gro{\ss}mann, L.~Schimansky-Geier, and P.~Romanczuk.
-\newblock Active {B}rownian particles with velocity-alignment and active
-  fluctuations.
-\newblock \emph{New J. Phys.}, 14:\penalty0 073033, 2012.
-\newblock \doi{10.1088/1367-2630/14/7/073033}.
-
-\bibitem[Haghsheno and Mehrafarin(2024)]{Haghsheno2024}
-Fatemeh Haghsheno and Mohammad Mehrafarin.
-\newblock Self-propelled collective motion with multiplicative scalar noise.
-\newblock \emph{Mod. Phys. Lett. B}, 38:\penalty0 2450318, 2024.
-\newblock \doi{10.1142/S0217984924503184}.
-
-\bibitem[Harris et~al.(2012)Harris, Banigan, Christian, Konradt, Wojno, Norose,
-  Wilson, John, Weninger, Luster, Liu, and Hunter]{Harris2012}
-T.~H. Harris, E.~J. Banigan, D.~A. Christian, C.~Konradt, E.~D.~T. Wojno,
-  K.~Norose, E.~H. Wilson, B.~John, W.~Weninger, A.~D. Luster, A.~J. Liu, and
-  C.~A. Hunter.
-\newblock Generalized {L}\'evy walks and the role of chemokines in migration of
-  effector {CD}8$^+$ {T} cells.
-\newblock \emph{Nature}, 486:\penalty0 545--548, 2012.
-\newblock \doi{10.1038/nature11098}.
-
-\bibitem[Holubec et~al.(2021)Holubec, Geiss, Loos, Kroy, and
-  Cichos]{Holubec2021}
-Viktor Holubec, Daniel Geiss, Sarah A.~M. Loos, Klaus Kroy, and Frank Cichos.
-\newblock Finite-size scaling at the edge of disorder in a time-delay {V}icsek
-  model.
-\newblock \emph{Phys. Rev. Lett.}, 127:\penalty0 258001, 2021.
-\newblock \doi{10.1103/PhysRevLett.127.258001}.
-
-\bibitem[Ilkanaiv et~al.(2017)Ilkanaiv, Kearns, Ariel, and Be'er]{Ilkanaiv2017}
-Bella Ilkanaiv, Daniel~B. Kearns, Gil Ariel, and Avraham Be'er.
-\newblock Effect of cell aspect ratio on swarming bacteria.
-\newblock \emph{Phys. Rev. Lett.}, 118:\penalty0 158002, 2017.
-\newblock \doi{10.1103/PhysRevLett.118.158002}.
-
-\bibitem[Korobkova et~al.(2004)Korobkova, Emonet, Vilar, Shimizu, and
-  Cluzel]{Korobkova2004}
-E.~Korobkova, T.~Emonet, J.~M.~G. Vilar, T.~S. Shimizu, and P.~Cluzel.
-\newblock From molecular noise to behavioural variability in a single
-  bacterium.
-\newblock \emph{Nature}, 428:\penalty0 574--578, 2004.
-\newblock \doi{10.1038/nature02404}.
-
-\bibitem[Lighthill and Whitham(1955)]{LWR}
-M.~J. Lighthill and G.~B. Whitham.
-\newblock On kinematic waves ii: A theory of traffic flow on long crowded
-  roads.
-\newblock \emph{Proc. R. Soc. Lond. A}, 229:\penalty0 317--345, 1955.
-\newblock \doi{10.1098/rspa.1955.0089}.
-
-\bibitem[Mahault et~al.(2019)Mahault, Ginelli, and Chat{\'e}]{Mahault2019}
-Beno{\^i}t Mahault, Francesco Ginelli, and Hugues Chat{\'e}.
-\newblock Quantitative assessment of the {T}oner and {T}u theory of polar
-  flocks.
-\newblock \emph{Phys. Rev. Lett.}, 123:\penalty0 218001, 2019.
-\newblock \doi{10.1103/PhysRevLett.123.218001}.
-
-\bibitem[Marchetti et~al.(2013)Marchetti, Joanny, Ramaswamy, Liverpool, Prost,
-  Rao, and Simha]{Marchetti2013}
-M.~C. Marchetti, J.-F. Joanny, S.~Ramaswamy, T.~B. Liverpool, J.~Prost, M.~Rao,
-  and R.~A. Simha.
-\newblock Hydrodynamics of soft active matter.
-\newblock \emph{Rev. Mod. Phys.}, 85:\penalty0 1143--1189, 2013.
-\newblock \doi{10.1103/RevModPhys.85.1143}.
-
-\bibitem[Mardia and Jupp(2000)]{Mardia2000}
-Kanti~V. Mardia and Peter~E. Jupp.
-\newblock \emph{Directional Statistics}.
-\newblock Wiley, Chichester, 2000.
-\newblock \doi{10.1002/9780470316979}.
-
-\bibitem[Mart{\'i}n-G{\'o}mez et~al.(2018)Mart{\'i}n-G{\'o}mez, Levis,
-  D{\'i}az-Guilera, and Pagonabarraga]{MartinGomez2018}
-Aitor Mart{\'i}n-G{\'o}mez, Demian Levis, Albert D{\'i}az-Guilera, and Ignacio
-  Pagonabarraga.
-\newblock Collective motion of active {B}rownian particles with polar
-  alignment.
-\newblock \emph{Soft Matter}, 14:\penalty0 2610--2618, 2018.
-\newblock \doi{10.1039/C8SM00020D}.
-
-\bibitem[Metzler and Klafter(2000)]{Metzler2000}
-Ralf Metzler and Joseph Klafter.
-\newblock The random walk's guide to anomalous diffusion: a fractional dynamics
-  approach.
-\newblock \emph{Phys. Rep.}, 339:\penalty0 1--77, 2000.
-\newblock \doi{10.1016/S0370-1573(00)00070-3}.
-
-\bibitem[Nagy et~al.(2007)Nagy, Daruka, and Vicsek]{Nagy2007}
-M{\'a}t{\'e} Nagy, Istv{\'a}n Daruka, and Tam{\'a}s Vicsek.
-\newblock New aspects of the continuous phase transition in the scalar noise
-  model ({SNM}) of collective motion.
-\newblock \emph{Physica A}, 373:\penalty0 445--454, 2007.
-\newblock \doi{10.1016/j.physa.2006.05.035}.
+\bibitem[Samorodnitsky and Taqqu(1994)]{Samorodnitsky1994}
+Gennady Samorodnitsky and Murad~S. Taqqu.
+\newblock \emph{Stable Non-Gaussian Random Processes: Stochastic Models with
+  Infinite Variance}.
+\newblock Chapman \& Hall, New York, 1994.
 
 \bibitem[Nolan(2020)]{Nolan2020}
 John~P. Nolan.
 \newblock \emph{Univariate Stable Distributions: Models for Heavy Tailed Data}.
 \newblock Springer, Cham, 2020.
 \newblock \doi{10.1007/978-3-030-52915-4}.
+
+\bibitem[Binder and Landau(1984)]{Binder1984}
+K.~Binder and D.~P. Landau.
+\newblock Finite-size scaling at first-order phase transitions.
+\newblock \emph{Phys. Rev. B}, 30:\penalty0 1477--1485, 1984.
+\newblock \doi{10.1103/PhysRevB.30.1477}.
+
+\bibitem[Efron and Tibshirani(1993)]{Efron1993}
+Bradley Efron and Robert~J. Tibshirani.
+\newblock \emph{An Introduction to the Bootstrap}.
+\newblock Chapman \& Hall, New York, 1993.
+
+\bibitem[Buhl et~al.(2006)Buhl, Sumpter, Couzin, Hale, Despland, Miller, and
+  Simpson]{Buhl2006}
+J.~Buhl, D.~J.~T. Sumpter, I.~D. Couzin, J.~J. Hale, E.~Despland, E.~R. Miller,
+  and S.~J. Simpson.
+\newblock From disorder to order in marching locusts.
+\newblock \emph{Science}, 312:\penalty0 1402--1406, 2006.
+\newblock \doi{10.1126/science.1125142}.
+
+\bibitem[Bazazi et~al.(2008)Bazazi, Buhl, Hale, Anstey, Sword, Simpson, and
+  Couzin]{Bazazi2008}
+S.~Bazazi, J.~Buhl, J.~J. Hale, M.~L. Anstey, G.~A. Sword, S.~J. Simpson, and
+  I.~D. Couzin.
+\newblock Collective motion and cannibalism in locust migratory bands.
+\newblock \emph{Current Biology}, 18:\penalty0 735--739, 2008.
+\newblock \doi{10.1016/j.cub.2008.04.035}.
+
+\bibitem[Zhang et~al.(2010)Zhang, Be'er, Florin, and Swinney]{Zhang2010}
+H.~P. Zhang, A.~Be'er, E.-L. Florin, and H.~L. Swinney.
+\newblock Collective motion and density fluctuations in bacterial colonies.
+\newblock \emph{Proc. Natl. Acad. Sci. USA}, 107:\penalty0 13626--13630, 2010.
+\newblock \doi{10.1073/pnas.1001651107}.
 
 \bibitem[Peruani et~al.(2012)Peruani, Starru{\ss}, Jakovljevic,
   S{\o}gaard-Andersen, Deutsch, and B{\"a}r]{Peruani2012}
@@ -399,79 +442,13 @@ Fernando Peruani, J{\"o}rn Starru{\ss}, Vladimir Jakovljevic, Lotte
 \newblock \emph{Phys. Rev. Lett.}, 108:\penalty0 098102, 2012.
 \newblock \doi{10.1103/PhysRevLett.108.098102}.
 
-\bibitem[Pewsey(2008)]{Pewsey2008}
-Arthur Pewsey.
-\newblock The wrapped stable family of distributions as a flexible model for
-  circular data.
-\newblock \emph{Comput. Statist. Data Anal.}, 52:\penalty0 1516--1523, 2008.
-\newblock \doi{10.1016/j.csda.2007.04.017}.
-
-\bibitem[Redner et~al.(2013)Redner, Hagan, and Baskaran]{Redner2013}
-Gabriel~S. Redner, Michael~F. Hagan, and Aparna Baskaran.
-\newblock Structure and dynamics of a phase-separating active colloidal fluid.
-\newblock \emph{Phys. Rev. Lett.}, 110:\penalty0 055701, 2013.
-\newblock \doi{10.1103/PhysRevLett.110.055701}.
-
-\bibitem[Reynolds(2018)]{Reynolds2018}
-A.~M. Reynolds.
-\newblock Current status and future directions of {L}\'evy walk research.
-\newblock \emph{Biology Open}, 7:\penalty0 bio030106, 2018.
-\newblock \doi{10.1242/bio.030106}.
-
-\bibitem[Samorodnitsky and Taqqu(1994)]{Samorodnitsky1994}
-Gennady Samorodnitsky and Murad~S. Taqqu.
-\newblock \emph{Stable Non-Gaussian Random Processes: Stochastic Models with
-  Infinite Variance}.
-\newblock Chapman \& Hall, New York, 1994.
-
-\bibitem[Shi et~al.(1996)Shi, Ngok, and Zusman]{Shi1996}
-W.~Shi, F.~K. Ngok, and D.~R. Zusman.
-\newblock Cell density regulates cellular reversal frequency in {M}yxococcus
-  xanthus.
-\newblock \emph{Proc. Natl. Acad. Sci. USA}, 93:\penalty0 4142--4146, 1996.
-\newblock \doi{10.1073/pnas.93.9.4142}.
-
-\bibitem[Solon and Tailleur(2013)]{Solon2013}
-A.~P. Solon and J.~Tailleur.
-\newblock Revisiting the flocking transition using active spins.
-\newblock \emph{Phys. Rev. Lett.}, 111:\penalty0 078101, 2013.
-\newblock \doi{10.1103/PhysRevLett.111.078101}.
-
-\bibitem[Solon et~al.(2015{\natexlab{a}})Solon, Caussin, Bartolo, Chat{\'e},
-  and Tailleur]{Solon2015PRE}
-Alexandre~P. Solon, Jean-Baptiste Caussin, Denis Bartolo, Hugues Chat{\'e}, and
-  Julien Tailleur.
-\newblock Pattern formation in flocking models: A hydrodynamic description.
-\newblock \emph{Phys. Rev. E}, 92:\penalty0 062111, 2015{\natexlab{a}}.
-\newblock \doi{10.1103/PhysRevE.92.062111}.
-
-\bibitem[Solon et~al.(2015{\natexlab{b}})Solon, Chat{\'e}, and
-  Tailleur]{Solon2015PRL}
-Alexandre~P. Solon, Hugues Chat{\'e}, and Julien Tailleur.
-\newblock From phase to microphase separation in flocking models: The essential
-  role of nonequilibrium fluctuations.
-\newblock \emph{Phys. Rev. Lett.}, 114:\penalty0 068101, 2015{\natexlab{b}}.
-\newblock \doi{10.1103/PhysRevLett.114.068101}.
-
-\bibitem[Stenhammar et~al.(2014)Stenhammar, Marenduzzo, Allen, and
-  Cates]{Stenhammar2014}
-Joakim Stenhammar, Davide Marenduzzo, Rosalind~J. Allen, and Michael~E. Cates.
-\newblock Phase behaviour of active {B}rownian particles: the role of
-  dimensionality.
-\newblock \emph{Soft Matter}, 10:\penalty0 1489--1499, 2014.
-\newblock \doi{10.1039/C3SM52813H}.
-
-\bibitem[Tailleur and Cates(2008)]{TailleurCates2008}
-J.~Tailleur and M.~E. Cates.
-\newblock Statistical mechanics of interacting run-and-tumble bacteria.
-\newblock \emph{Phys. Rev. Lett.}, 100:\penalty0 218103, 2008.
-\newblock \doi{10.1103/PhysRevLett.100.218103}.
-
-\bibitem[Toner(2012)]{TonerTu2012}
-J.~Toner.
-\newblock Reanalysis of the hydrodynamic theory of fluid, polar-ordered flocks.
-\newblock \emph{Phys. Rev. E}, 86:\penalty0 031918, 2012.
-\newblock \doi{10.1103/PhysRevE.86.031918}.
+\bibitem[Cavagna et~al.(2010)Cavagna, Cimarelli, Giardina, Parisi, Santagati,
+  Stefanini, and Viale]{Cavagna2010}
+Andrea Cavagna, Alessio Cimarelli, Irene Giardina, Giorgio Parisi, Raffaele
+  Santagati, Fabio Stefanini, and Massimiliano Viale.
+\newblock Scale-free correlations in starling flocks.
+\newblock \emph{Proc. Natl. Acad. Sci. USA}, 107:\penalty0 11865--11870, 2010.
+\newblock \doi{10.1073/pnas.1005766107}.
 
 \bibitem[Toner and Tu(1995)]{TonerTu1995}
 J.~Toner and Y.~Tu.
@@ -486,18 +463,18 @@ J.~Toner and Y.~Tu.
 \newblock \emph{Phys. Rev. E}, 58:\penalty0 4828, 1998.
 \newblock \doi{10.1103/PhysRevE.58.4828}.
 
-\bibitem[Vicsek et~al.(1995)Vicsek, Czir{\'o}k, Ben-Jacob, Cohen, and
-  Shochet]{Vicsek1995}
-T.~Vicsek, A.~Czir{\'o}k, E.~Ben-Jacob, I.~Cohen, and O.~Shochet.
-\newblock Novel type of phase transition in a system of self-driven particles.
-\newblock \emph{Phys. Rev. Lett.}, 75:\penalty0 1226--1229, 1995.
-\newblock \doi{10.1103/PhysRevLett.75.1226}.
+\bibitem[Toner(2012)]{TonerTu2012}
+J.~Toner.
+\newblock Reanalysis of the hydrodynamic theory of fluid, polar-ordered flocks.
+\newblock \emph{Phys. Rev. E}, 86:\penalty0 031918, 2012.
+\newblock \doi{10.1103/PhysRevE.86.031918}.
 
-\bibitem[Vicsek and Zafeiris(2012)]{Vicsek2012}
-Tam{\'a}s Vicsek and Anna Zafeiris.
-\newblock Collective motion.
-\newblock \emph{Phys. Rep.}, 517:\penalty0 71--140, 2012.
-\newblock \doi{10.1016/j.physrep.2012.03.004}.
+\bibitem[Mahault et~al.(2019)Mahault, Ginelli, and Chat{\'e}]{Mahault2019}
+Beno{\^i}t Mahault, Francesco Ginelli, and Hugues Chat{\'e}.
+\newblock Quantitative assessment of the {T}oner and {T}u theory of polar
+  flocks.
+\newblock \emph{Phys. Rev. Lett.}, 123:\penalty0 218001, 2019.
+\newblock \doi{10.1103/PhysRevLett.123.218001}.
 
 \bibitem[Viswanathan et~al.(1999)Viswanathan, Buldyrev, Havlin, da~Luz, Raposo,
   and Stanley]{Viswanathan1999}
@@ -507,16 +484,39 @@ G.~M. Viswanathan, S.~V. Buldyrev, S.~Havlin, M.~G.~E. da~Luz, E.~P. Raposo,
 \newblock \emph{Nature}, 401:\penalty0 911--914, 1999.
 \newblock \doi{10.1038/44831}.
 
-\bibitem[Zaburdaev et~al.(2015)Zaburdaev, Denisov, and Klafter]{Zaburdaev2015}
-V.~Zaburdaev, S.~Denisov, and J.~Klafter.
-\newblock L{\'e}vy walks.
-\newblock \emph{Rev. Mod. Phys.}, 87:\penalty0 483--530, 2015.
-\newblock \doi{10.1103/RevModPhys.87.483}.
+\bibitem[Metzler and Klafter(2000)]{Metzler2000}
+Ralf Metzler and Joseph Klafter.
+\newblock The random walk's guide to anomalous diffusion: a fractional dynamics
+  approach.
+\newblock \emph{Phys. Rep.}, 339:\penalty0 1--77, 2000.
+\newblock \doi{10.1016/S0370-1573(00)00070-3}.
 
-\bibitem[Zhang et~al.(2010)Zhang, Be'er, Florin, and Swinney]{Zhang2010}
-H.~P. Zhang, A.~Be'er, E.-L. Florin, and H.~L. Swinney.
-\newblock Collective motion and density fluctuations in bacterial colonies.
-\newblock \emph{Proc. Natl. Acad. Sci. USA}, 107:\penalty0 13626--13630, 2010.
-\newblock \doi{10.1073/pnas.1001651107}.
+\bibitem[Korobkova et~al.(2004)Korobkova, Emonet, Vilar, Shimizu, and
+  Cluzel]{Korobkova2004}
+E.~Korobkova, T.~Emonet, J.~M.~G. Vilar, T.~S. Shimizu, and P.~Cluzel.
+\newblock From molecular noise to behavioural variability in a single
+  bacterium.
+\newblock \emph{Nature}, 428:\penalty0 574--578, 2004.
+\newblock \doi{10.1038/nature02404}.
+
+\bibitem[Dieterich et~al.(2008)Dieterich, Klages, Preuss, and
+  Schwab]{Dieterich2008}
+P.~Dieterich, R.~Klages, R.~Preuss, and A.~Schwab.
+\newblock Anomalous dynamics of cell migration.
+\newblock \emph{Proc. Natl. Acad. Sci. USA}, 105:\penalty0 459--463, 2008.
+\newblock \doi{10.1073/pnas.0707603105}.
+
+\bibitem[Berg and Brown(1972)]{Berg1972}
+Howard~C. Berg and Douglas~A. Brown.
+\newblock Chemotaxis in {E}scherichia coli analysed by three-dimensional
+  tracking.
+\newblock \emph{Nature}, 239:\penalty0 500--504, 1972.
+\newblock \doi{10.1038/239500a0}.
+
+\bibitem[Ilkanaiv et~al.(2017)Ilkanaiv, Kearns, Ariel, and Be'er]{Ilkanaiv2017}
+Bella Ilkanaiv, Daniel~B. Kearns, Gil Ariel, and Avraham Be'er.
+\newblock Effect of cell aspect ratio on swarming bacteria.
+\newblock \emph{Phys. Rev. Lett.}, 118:\penalty0 158002, 2017.
+\newblock \doi{10.1103/PhysRevLett.118.158002}.
 
 \end{thebibliography}

@@ -10,7 +10,10 @@
 \usepackage{xcolor}
 \usepackage{siunitx}
 \usepackage{booktabs}
-\usepackage{natbib}
+% JSTAT : « sequential numerical system […] the reference list
+% lists the references in numerical order, not alphabetically ».
+% [numbers] rend \citep en [1] ; unsrtnat ordonne par apparition.
+\usepackage[numbers,sort&compress]{natbib}
 \usepackage{caption}
 % Cross-reference the main manuscript (e.g. Eq.~(b)); needs
 % manuscript.aux, so compile the main file first (the Makefile does).
@@ -475,7 +478,7 @@ and lifts the dense-phase displacement at $\tau = 2\,000$ steps by
 $66\%$ ($235.7$ against $142.2$ in box units), so the Gaussian
 gate makes the dense droplets advance as cleaner ballistic units.
 
-\bibliographystyle{plainnat}
+\bibliographystyle{unsrtnat}
 \bibliography{refs}
 
 \end{document}

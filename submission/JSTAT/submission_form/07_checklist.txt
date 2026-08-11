@@ -13,6 +13,14 @@ CONFORME — vérifié
   [x] Figures en PDF ............................. 18
   [x] Lettre d'accompagnement .................... 1 page, sans tic
   [x] Références croisées manuscrit/supplément ... via xr-hyper
+  [x] Références en système numérique séquentiel . natbib [numbers] +
+      unsrtnat, ordre de citation et non alphabétique (exigé par JSTAT ;
+      le paquet était en plainnat, auteur-année, alphabétique)
+  [x] Mots-clés après l'abstract ................. exigé par JSTAT,
+      ils étaient absents
+  [x] Archive prête à téléverser ................. manuscript/ puis
+      `make archive` -> jstat_upload.tar.gz, testée en compilant le
+      seul fichier maître dans un répertoire vierge
   [x] Déclaration d'usage d'IA ................... section dédiée,
       DeepL et ChatGPT nommés, portée bornée à la langue
   [x] Toutes références vérifiées ................ check_refs.py :
@@ -42,6 +50,14 @@ BLOQUANT — à faire avant d'envoyer
   [ ] COURRIEL DE HUGUES CHATÉ. Les cinq autres sont vérifiés et sourcés
       dans 04_suggested_referees.txt.
 
+LE PIÈGE DE CE PAQUET, À NE PAS OUBLIER
+  Le serveur ne compile QUE le fichier maître. Le manuscrit lisant
+  supplement.aux pour ses renvois vers le supplément, ce .aux doit être
+  DANS l'archive : sans lui, onze renvois sortent en « ?? » dans le PDF
+  sans provoquer la moindre erreur. La soumission « réussit » et le PDF
+  lu par l'éditeur est cassé. `make archive` s'en charge ; si vous
+  modifiez le supplément, relancez `make` avant `make archive`.
+
 POINTS DE PROCÉDURE PROPRES À JSTAT
   - Deux voies de soumission : par numéro arXiv (LaTeX seulement) ou par
     téléversement web d'une archive .zip / .tar.gz. Si vous déposez sur
@@ -50,9 +66,20 @@ POINTS DE PROCÉDURE PROPRES À JSTAT
     de valider : c'est ce PDF que voient l'éditeur et les rapporteurs.
   - « Please DO NOT double-click: push the upload button just once and
     wait. » — l'avertissement figure dans leur propre guide.
-  - Une lettre d'accompagnement n'est obligatoire qu'aux révisions, mais
-    la joindre dès la première soumission est un avantage ici : elle
-    explique le repositionnement du papier.
+  - « The archive should contain only the files necessary for the
+    compilation […] (no cover letters, reports, etc.) ». La lettre ne va
+    PAS dans l'archive.
+  - Aux révisions, la lettre de réponse est obligatoire et se saisit
+    dans une ZONE DE TEXTE du formulaire, pas dans l'archive.
+    Sauvegardez-la dans un fichier avant de la coller : une coupure
+    réseau la perdrait.
+  - Le supplément se téléverse séparément, en PDF, par « upload
+    attachment » APRÈS la soumission principale. Il ne sera ni composé
+    ni transformé.
+  - JSTAT recommande le jeu ASCII pour titre, auteurs et affiliations.
+    Les nôtres portent des accents (École, Djaména, Sénégal). C'est une
+    recommandation et non une règle, mais si le portail les déforme,
+    c'est la cause.
   - JSTAT est hybride. La publication en modèle abonnement est GRATUITE.
     L'accès ouvert CC BY est payant et optionnel — ne cochez l'option
     que si un financeur vous l'impose.

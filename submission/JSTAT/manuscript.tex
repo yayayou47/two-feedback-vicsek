@@ -10,7 +10,10 @@
 \usepackage{xcolor}
 \usepackage{siunitx}
 \usepackage{booktabs}
-\usepackage{natbib}
+% JSTAT : « sequential numerical system […] the reference list
+% lists the references in numerical order, not alphabetically ».
+% [numbers] rend \citep en [1] ; unsrtnat ordonne par apparition.
+\usepackage[numbers,sort&compress]{natbib}
 \usepackage{caption}
 % Resolve references to the separate supplement (Figs.~S1, S2); needs
 % supplement.aux, so the Makefile compiles both files (twice).
@@ -81,6 +84,16 @@ model: heavy-tailed and Gaussian dynamics have to be compared at
 matched decorrelation, not matched amplitude, or additivity will
 be read as synergy.
 \end{abstract}
+
+% JSTAT : « At the time of submission you must characterise your work
+% with a number of keywords selected from the JSTAT keyword list.
+% Please indicate these keywords after the abstract. »
+% Les quatre retenus, et leur categorie, sont justifies dans
+% submission_form/02_category_keywords.txt.
+\medskip
+\noindent\textbf{Keywords:} active matter, self-propelled particles,
+classical phase transitions, finite-size scaling
+
 
 \section{Introduction}
 
@@ -1491,7 +1504,7 @@ verification, and neither tool was used to design the study, to write
 or modify the simulation and analysis code, or to produce, analyse or
 interpret any data.
 
-\bibliographystyle{plainnat}
+\bibliographystyle{unsrtnat}
 \bibliography{refs}
 
 
